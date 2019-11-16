@@ -14,7 +14,12 @@
             $data['title'] = 'Dashboard';
             $this->load->view('admin/index', $data);
         }
-    
+// ========================================================================= 
+        public function inputWarga(){
+            $data['content'] = 'admin/inputWarga';
+            $data['title'] = 'Input Data Warga';
+            $this->load->view('admin/index', $data);
+        }
     }
     
     /* End of file Controllername.php */
