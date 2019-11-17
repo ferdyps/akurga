@@ -13,6 +13,14 @@
             <div class="row px-3 my-3">
                 <div class="col">
                     <div class="form-group">
+                        <label for="jenisWarga">Pendidikan</label>
+                        <select name="jenis_warga" id="jenisWarga" class="form-control">
+                            <option selected disabled>-- Pilih Jenis Warga --</option>
+                            <option value="Sementara">Sementara</option>
+                            <option value="Tetap">Tetap</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
                         <label for="NomorKTP">NIK</label>
                         <input type="text" name="nik" id="NomorKTP" class="form-control <?php if(form_error('nik')) { echo 'is-invalid'; } ?>" placeholder="Nomor Induk Kependudukan" value="<?= set_value('nik'); ?>">
                         <div class="invalid-feedback">
@@ -27,8 +35,8 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="NomorTelepon">Nomor Telepon/HP</label>
-                        <input type="text" name="telp" id="NomorTelepon" class="form-control <?php if(form_error('telp')) {echo 'is-invalid'; }?>" placeholder="Nomor Telepon/HP" value="<?= set_value('telp');?>">
+                        <label for="NomorTelepon">Nomor HP</label>
+                        <input type="text" name="telp" id="NomorTelepon" class="form-control <?php if(form_error('telp')) {echo 'is-invalid'; }?>" placeholder="Nomor HP" value="<?= set_value('telp');?>">
                         <div class="invalid-feedback">
                             <?= form_error('telp');?>
                         </div>
@@ -49,9 +57,22 @@
                             </div>
                         </div>
                     </div>
-                    
+                    <div class="form-group">
+                        <label for="Pendidikan">Pendidikan</label>
+                        <select name="pendidikan" id="Pendidikan" class="form-control">
+                            <option value="TIDAK/BELUM_SEKOLAH">TIDAK/BELUM_SEKOLAH</option>
+                            <option value="SLTA/SEDERAJAT">SLTA/SEDERAJAT</option>
+                        </select>
+                    </div>
                 </div>
                 <div class="col">
+                    <div class="form-group form-kk">
+                        <label for="NomorKK">Nomor KK</label>
+                        <input type="text" name="nokk" id="NomorKK" class="form-control <?php if(form_error('nokk')) {echo 'is-invalid'; }?>" placeholder="Nomor KK" value="<?= set_value('nokk');?>">
+                        <div class="invalid-feedback">
+                            <?= form_error('nokk');?>
+                        </div>
+                    </div>
                     <div class="form-group">
                         <label for="Agama">Agama</label>
                         <select name="agama" id="Agama" class="form-control">
@@ -101,3 +122,18 @@
 
 </div>
 <!-- End of Main Content -->
+<script>
+    $(document).ready(function() {
+        $('#jenisWarga').change(function() {
+            var tipe = $(this).children('option:selected').val();
+
+            if (tipe == "Sementara") {
+                $('.form-kk').fadeOut();
+                $('#NomorKK').val("");
+                // $('.form-kk').addClass('d-none');
+            } else {
+                $('.form-kk').fadeIn();
+            }
+        });
+    });
+</script>
