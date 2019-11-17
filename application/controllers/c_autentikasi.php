@@ -58,7 +58,7 @@
 //===============================================================================================
         private function cek_session(){
             if($this->session->has_userdata('status')){
-                if ($this->session->userdata('akses') == "admin") {
+                if ($this->session->userdata('role') == "adminMaster") {
                     redirect('c_halaman_admin/','refresh');
                 }
             }

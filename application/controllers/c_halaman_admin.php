@@ -6,7 +6,13 @@
  
         public function __construct(){
             parent::__construct();
-            //Do your magic here
+            if(!$this->session->has_userdata('status')){
+                redirect('c_autentikasi/','refresh');
+            } else {
+                if ($this->session->userdata('role') == 'warga') {
+                    redirect('c_halaman_warga/','refresh');
+                }
+            }
         }
 // =========================================================================    
         public function index(){
