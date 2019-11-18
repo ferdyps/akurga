@@ -17,10 +17,10 @@
         }
 //==============================================================================================
         public function login(){
-            $username = $this->input->post('username');
+            $username_email = $this->input->post('username_email');
             $password = $this->input->post('password');
             $auth_data = [
-                'username' => $username,
+                'username_email' => $username_email,
                 'password' => $password
             ];
             $user_auth = $this->m_user->cek_user($auth_data)->row();
@@ -62,6 +62,10 @@
                     redirect('c_halaman_admin/','refresh');
                 }
             }
+        }
+//===============================================================================================
+        public function register(){
+            $this->load->view('default/registrasi');
         }
     }
     

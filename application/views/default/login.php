@@ -10,7 +10,9 @@
       <div class="card-body p-0">
         <!-- Nested Row within Card Body -->
         <div class="row">
-          <div class="col-lg-6 d-none d-lg-block bg-image"></div>
+          <div class="col-lg-6 d-none d-lg-block">
+            <img src="<?= base_url('assets/foto/bandung.jpg');?>" class="col-lg-12 py-5">
+          </div>
           <div class="col-lg-6">
             <div class="p-5">
               <div class="text-center">
@@ -18,7 +20,7 @@
               </div>
               <?= form_open('c_autentikasi/login');?>
                 <div class="form-group">
-                  <input type="text" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Username" name="username">
+                  <input type="text" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Username/Email" name="username_email">
                 </div>
                 <div class="form-group">
                   <input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password" name="password">
@@ -38,8 +40,8 @@
                   <i class="fab fa-facebook-f fa-fw"></i> Login with Facebook
                 </a> -->
               <?= form_close();?>
-              <hr>
-              <!-- <div class="text-center">
+              <!-- <hr> 
+              <div class="text-center">
                 <a class="small" href="forgot-password.html">Forgot Password?</a>
               </div> -->
               <div class="px-3 pt-2 text-center">
@@ -47,7 +49,7 @@
                 <?= $this->session->userdata('status');?>
             </div>
               <div class="text-center">
-                <a class="small" href="register.html">Create an Account!</a>
+                <a class="small" href="<?= base_url('c_autentikasi/register');?>">Belum Punya Akun? Silahkan Registrasi!</a>
               </div>
             </div>
           </div>
