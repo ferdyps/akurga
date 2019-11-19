@@ -15,24 +15,29 @@
               <div class="text-center">
                 <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
               </div>
-              <?= form_open('c_autentikasi/insert_register');?>
-                <div class="form-group">
-                    <input type="text" class="form-control form-control-user" id="exampleInputNIK" placeholder="Nomor Induk Kependudukan" name="nik">
+              <?= form_open('c_autentikasi/insert_register', ['id' => 'default-form', 'log' => 'Registrasi']);?>
+                <div class="form-group form-input">
+                    <input type="text" class="form-control form-control-user" id="input-nik" placeholder="Nomor Induk Kependudukan" name="nik">
+                    <div class="invalid-feedback"></div>
                 </div>
                 <div class="form-group row">
-                  <div class="col-sm-6 mb-3 mb-sm-0">
-                    <input type="text" class="form-control form-control-user" id="exampleInputUsername" placeholder="Username" name="username">
+                  <div class="col-sm-6 mb-3 mb-sm-0 form-input">
+                    <input type="text" class="form-control form-control-user" id="input-username" placeholder="Username" name="username">
+                    <div class="invalid-feedback"></div>
                   </div>
-                  <div class="col-sm-6">
-                    <input type="email" class="form-control form-control-user" id="exampleInputEmail" placeholder="Email" name='email'>
+                  <div class="col-sm-6 form-input">
+                    <input type="email" class="form-control form-control-user" id="input-email" placeholder="Email" name='email'>
+                    <div class="invalid-feedback"></div>
                   </div>
                 </div>
                 <div class="form-group row">
-                  <div class="col-sm-6 mb-3 mb-sm-0">
-                    <input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password" name="password">
+                  <div class="col-sm-6 mb-3 mb-sm-0 form-input">
+                    <input type="password" class="form-control form-control-user" id="input-password" placeholder="Password" name="password">
+                    <div class="invalid-feedback"></div>
                   </div>
                   <div class="col-sm-6">
-                    <input type="password" class="form-control form-control-user" id="exampleKonfirmasiPassword" placeholder="Konfirmasi Password" name="konfirmasi_password">
+                    <input type="password" class="form-control form-control-user" id="input-konfirmasi_password" placeholder="Konfirmasi Password" name="konfirmasi_password">
+                    <div class="invalid-feedback"></div>
                   </div>
                 </div>
                 <input type="submit" class="btn btn-primary btn-user btn-block" value="Register Akun">

@@ -6,6 +6,9 @@
  
         public function __construct(){
             parent::__construct();
+            $this->load->model('m_admin');
+            $this->load->library('form_validation');
+
             if(!$this->session->has_userdata('status')){
                 redirect('c_autentikasi/','refresh');
             } else {
@@ -14,6 +17,7 @@
                 }
             }
         }
+// Untuk Front-end
 // =========================================================================    
         public function index(){
             $data['content'] = 'admin/dashboard';
@@ -25,6 +29,126 @@
             $data['content'] = 'admin/inputWarga';
             $data['title'] = 'Input Data Warga';
             $this->load->view('admin/index', $data);
+        }
+// ==========================================================================
+// Untuk Back-end
+// ==========================================================================
+        public function insertWarga(){
+            $this->form_validation->set_rules([
+                [
+                    'field' => 'nik',
+                    'label' => 'NIK',
+                    'rules' => 'trim|required|is_unique[warga.nik]|numeric'
+                ],
+                [
+                    'field' => 'nama',
+                    'label' => 'Nama Lengkap',
+                    'rules' => 'trim|required|regex_match[/^[a-zA-Z ]/]'
+                ],
+                [
+                    'field' => 'tempat_lahir',
+                    'label' => 'Tempat Lahir',
+                    'rules' => 'trim|required|regex_match[/^[a-zA-Z ]/]'
+                ],
+                [
+                    'field' => 'tanggal_lahir',
+                    'label' => 'Tanggal Lahir',
+                    'rules' => 'required'
+                ],
+                [
+                    'field' => 'no_rumah',
+                    'label' => 'No Rumah',
+                    'rules' => 'trim|numeric|required'
+                ]
+            ]);
+
+            $json = null;
+
+            if ($this->input->post()) {
+                $jenis_warga = $this->input->post('jenis_warga');
+                $nik = $this->input->post('nik');
+                $nama = $this->input->post('nama');
+                $tempat_lahir = $this->input->post('tempat_lahir');
+                $tanggal_lahir = $this->input->post('tanggal_lahir');
+                $pendidikan = $this->input->post('pendidikan');
+                $pekerjaan = $this->input->post('pekerjaan');
+                $agama = $this->input->post('agama');
+                $jk = $this->input->post('jk');
+                $status = $this->input->post('status');
+                $no_rumah = $this->input->post('no_rumah');
+                $gang = $this->input->post('gang');
+
+                $nokk = $this->input->post('nokk');
+                $hub_dlm_kel = $this->input->post('hub_dlm_kel');
+                $nohp = $this->input->post('nohp');
+
+                if ($jenis_warga == "Tetap") {
+                    $this->form_validation->set_rules([
+                        [
+                            'field' => 'nokk',
+                            'label' => 'Nomor KK',
+                            'rules' => 'trim|required|numeric'
+                        ]
+                    ]);   
+                } else {
+                    $this->form_validation->set_rules([
+                        [
+                            'field' => 'nohp',
+                            'label' => 'Nomor HP',
+                            'rules' => 'trim|required|numeric|is_unique[warga.nohp]'
+                        ]
+                    ]);
+                }
+                
+                if ($this->form_validation->run() == TRUE) {
+                    $data = [
+                        'jenis_warga' => $jenis_warga,
+                        'nik' => $nik,
+                        'nama' => $nama,
+                        'tempat_lahir' => $tempat_lahir,
+                        'tanggal_lahir' => $tanggal_lahir,
+                        'pendidikan' => $pendidikan,
+                        'pekerjaan' => $pekerjaan,
+                        'agama' => $agama,
+                        'jk' => $jk,
+                        'status' => $status,
+                        'no_rumah' => $no_rumah,
+                        'gang' => $gang
+                    ];
+
+                    if($jenis_warga == "Tetap") {
+                        $data['hub_dlm_kel'] = $hub_dlm_kel;
+                        $data['nokk'] = $nokk;
+                    } else {
+                        $data['nohp'] = $nohp;
+                    }
+
+                    $query = $this->m_admin->input_data('warga', $data);
+
+                    if ($query) {
+                        $url = base_url('c_halaman_admin/inputWarga');
+
+                        $json = [
+                            'message' => "Data Warga berhasil diinput..",
+                            'url' => $url
+                        ];
+                    }else {
+                        $json['errors'] = "Data Warga gagal diinput..!";
+                    }
+                } else {
+                    $no = 0;
+                    foreach ($this->input->post() as $key => $value) {
+                        if (form_error($key) != "") {
+                            $json['form_errors'][$no]['id'] = $key;
+                            $json['form_errors'][$no]['msg'] = form_error($key, null, null);
+                            $no++;
+                        }
+                    }
+                } 
+            echo json_encode($json);
+            } else {
+                redirect('c_halaman_admin/inputWarga','refresh');
+            }
         }
     }
     
