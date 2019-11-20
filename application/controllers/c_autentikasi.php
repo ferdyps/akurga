@@ -67,6 +67,41 @@
         public function register(){
             $this->load->view('default/registrasi');
         }
+// ============================================================================================
+        public function insert_register(){
+            $this->form_validation->set_rules([
+                [
+                    'field' => 'nik',
+                    'label' => 'NIK',
+                    'rules' => 'trim|required'
+                ],
+                [
+                    'field' => 'username',
+                    'label' => 'Username',
+                    'rules' => 'trim|required'
+                ],
+                [
+                    'field' => 'email',
+                    'label' => 'Email',
+                    'rules' => 'trim|valid_email|required|is_unique[user.email]'
+                ],
+                [
+                    'field' => 'passsword',
+                    'label' => 'Password',
+                    'rules' => 'trim|required|max_length[12]'
+                ],
+                [
+                    'field' => 'konfirmasi_password',
+                    'label' => 'Konfirmasi Password',
+                    'rules' => 'trim|required|matches[password]'
+                ]
+            ]);
+            if ($this->input->post()) {
+                $nik = $this->input->post('nik');
+                $username = $this->input->post('username');
+                $email = $this->input->post('email');
+            }
+        }
     }
     
     /* End of file Controllername.php */

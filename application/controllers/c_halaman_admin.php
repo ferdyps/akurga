@@ -18,6 +18,7 @@
             }
         }
 // Untuk Front-end
+// Ketua RT
 // =========================================================================    
         public function index(){
             $data['content'] = 'admin/dashboard';
@@ -31,6 +32,35 @@
             $this->load->view('admin/index', $data);
         }
 // ==========================================================================
+// ==========================================================================
+// Bendahara
+// ==========================================================================
+        public function tabelpengeluaran(){
+            // $where = array(
+            // 	'nip' => $this->session->userdata('nip')
+            // );
+            // $data['dataiuran'] = $this->petugas_model->view_data($where,'iuran_masuk')->result();
+            $data['content'] = "admin/tabelpengeluaran";
+            $this->load->view('admin/index',$data);
+        }
+
+        public function tabelpemasukan(){
+            // $where = array(
+            // 	'nip' => $this->session->userdata('nip')
+            // );
+            // $data['dataiuran'] = $this->petugas_model->view_data($where,'iuran_masuk')->result();
+            $data['content'] = "admin/tabelpemasukan";
+            $this->load->view('admin/index',$data);
+        }
+        public function formpengeluaran(){
+            // $where = array(
+            // 	'nip' => $this->session->userdata('nip')
+            // );
+            // $data['dataiuran'] = $this->petugas_model->view_data($where,'iuran_masuk')->result();
+            $data['content'] = "admin/formpengeluaran";
+            $this->load->view('admin/index',$data);
+        }
+
 // Untuk Back-end
 // ==========================================================================
         public function insertWarga(){
