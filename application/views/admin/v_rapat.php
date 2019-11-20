@@ -11,7 +11,7 @@
                <div class="col">
                    <div class="form-group">
                        <label for="NomorRapat">No Rapat</label>
-                       <input type="text" name="no_rpt" id="NomorRapat" class="form-control">
+                       <input type="text" name="no_rpt" id="NomorRapat" class="form-control" disabled>
                        <div class="invalid-feedback">
                            <?= form_error('no_rpt'); ?>
                        </div>
@@ -57,21 +57,18 @@
                            <?= form_error('tempat_rpt'); ?>
                      </div>
                    </div>
-                   <div class="form-group" id="tgl_buatrpt">
-                       <label for="TanggalBuat">Tanggal Pembuatan Surat</label>
-                       <input type="text" name="tgl_buat"  class="form-control" id="datepickerrpt" disabled>
-                       <div class="invalid-feedback">
-                           <?= form_error('tgl_buat'); ?>
-                     </div>
-                   </div>
+                   <input type="hidden" name="tgl_buat"  class="form-control" id="datepickerrpt" disabled>
+                   <div class="invalid-feedback">
+                       <?= form_error('tgl_buat'); ?>
+                 </div>
                </div>
                <!-- ====================Batas ke 2==================== -->
                <div class="col">
                    <div class="form-group">
                        <label for="IsiSurat">Isi Surat</label>
-                       <textarea style="width: 490px;
-                     min-width:490px;
-                     max-width:490px;
+                       <textarea style="width: 530px;
+                     min-width:530px;
+                     max-width:530px;
                      height:210px;
                      min-height:210px;
                      max-height:210px;"
@@ -101,11 +98,12 @@
                            <?= form_error('acara_rpt'); ?>
                      </div>
                    </div>
-                   <div class="row form-group text-center">
-                       <button type="submit" class="btn btn-success btn-circle">
-                           <i class="fas fa-check"></i>
-                       </button>
-                   </div>
+               </div>
+           </div>
+           <div class="col">
+               <div class="form-group text-center">
+                   <input type="submit" value="Submit" class="btn btn-primary">
+                   <input type="reset" value="Reset" class="btn btn-danger">
                </div>
            </div>
        <?php echo form_close();?>
