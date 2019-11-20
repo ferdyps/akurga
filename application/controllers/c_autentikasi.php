@@ -17,6 +17,13 @@
         }
 //==============================================================================================
         public function login(){
+            $this->form_validation->set_rules([
+                [
+                    'field' => 'username';
+                    
+                ]
+            ]);
+            
             $username_email = $this->input->post('username_email');
             $password = $this->input->post('password');
             $auth_data = [
@@ -78,7 +85,7 @@
                 [
                     'field' => 'username',
                     'label' => 'Username',
-                    'rules' => 'trim|required'
+                    'rules' => 'trim|required|is_unique[user.username]'
                 ],
                 [
                     'field' => 'email',
@@ -100,6 +107,16 @@
                 $nik = $this->input->post('nik');
                 $username = $this->input->post('username');
                 $email = $this->input->post('email');
+                $password = $this->input->post('password');
+                
+                if ($this->form_validation->run() == TRUE) {
+                    if (condition) {
+                        # code...
+                    }
+                } else {
+                    # code...
+                }
+                
             }
         }
     }
