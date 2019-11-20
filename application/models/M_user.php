@@ -8,6 +8,15 @@
             $sql = "SELECT * FROM user WHERE (username = ? OR email = ?) AND password = ?";
             return $this->db->query($sql,array($data['username_email'],$data['username_email'],$data['password']));
         }
+// ==================================================================================================================
+        public function input_data($table, $data){
+            return $this->db->insert($table, $data);
+        }
+// ================================================================================================================
+        public function multiple_select_data($table, $where) {
+            $this->db->where($where);
+            return $this->db->get($table);
+        }
     
     
     }

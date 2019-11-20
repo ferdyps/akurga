@@ -17,12 +17,12 @@
         }
 //==============================================================================================
         public function login(){
-            $this->form_validation->set_rules([
-                [
-                    'field' => 'username';
+            // $this->form_validation->set_rules([
+            //     [
+            //         'field' => 'username';
                     
-                ]
-            ]);
+            //     ]
+            // ]);
             
             $username_email = $this->input->post('username_email');
             $password = $this->input->post('password');
@@ -110,8 +110,16 @@
                 $password = $this->input->post('password');
                 
                 if ($this->form_validation->run() == TRUE) {
-                    if (condition) {
-                        # code...
+                    $cek = $this->m_user->multiple_select_data('warga', ['nik' => $nik, 'valid' => 1])->num_rows();
+                    if ($cek != 0) {
+                        $data = [
+                            'username' => $username,
+                            'email' => $email,
+                            'password' => md5('password'),
+                            'role' => 'Warga'
+                        ];
+                        $inputRegistrasi = $this->m_user->input_data('user',$data);
+
                     }
                 } else {
                     # code...
