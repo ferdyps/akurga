@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.2
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 20, 2019 at 03:24 PM
--- Server version: 10.1.34-MariaDB
--- PHP Version: 5.6.37
+-- Generation Time: Nov 21, 2019 at 08:08 AM
+-- Server version: 10.1.38-MariaDB
+-- PHP Version: 7.3.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -21,6 +21,27 @@ SET time_zone = "+00:00";
 --
 -- Database: `akurga`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `rapat`
+--
+
+CREATE TABLE `rapat` (
+  `no_rpt` varchar(30) NOT NULL,
+  `lampiran_rpt` varchar(80) NOT NULL,
+  `sifat_rpt` varchar(15) NOT NULL,
+  `perihal_rpt` varchar(80) NOT NULL,
+  `tujuan_surat` varchar(70) NOT NULL,
+  `tempat_rpt` varchar(70) NOT NULL,
+  `isi_surat` text NOT NULL,
+  `jam_rpt` time NOT NULL,
+  `acara_rpt` text NOT NULL,
+  `tgl_rpt` date NOT NULL,
+  `tgl_buat` date NOT NULL,
+  `tgl_acc` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -80,6 +101,12 @@ INSERT INTO `warga` (`nik`, `nama`, `nohp`, `tempat_lahir`, `tanggal_lahir`, `pe
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `rapat`
+--
+ALTER TABLE `rapat`
+  ADD PRIMARY KEY (`no_rpt`);
 
 --
 -- Indexes for table `user`
