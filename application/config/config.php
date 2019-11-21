@@ -24,6 +24,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 $config['base_url'] = 'http://localhost/akurga/';
+$config['web_title']	= "AKURGA - Aplikasi Rukun Warga";
+$config['web_footer']	= $config['web_title'] . " &copy; " . date('Y') . ". Version 1.0";
 
 /*
 |--------------------------------------------------------------------------

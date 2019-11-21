@@ -17,30 +17,25 @@
               </div>
               <?= form_open('c_autentikasi/insert_register', ['id' => 'default-form', 'log' => 'Input Registrasi']);?>
                 <div class="form-group form-input">
-                    <label for="input-nik">NIK</label>
                     <input type="text" class="form-control form-control-user" id="input-nik" placeholder="Nomor Induk Kependudukan" name="nik">
                     <div class="invalid-feedback"></div>
                 </div>
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0 form-input">
-                    <label for="input-username">Username</label>
                     <input type="text" class="form-control form-control-user" id="input-username" placeholder="Username" name="username">
                     <div class="invalid-feedback"></div>
                   </div>
                   <div class="col-sm-6 form-input">
-                    <label for="input-email">Email</label>
                     <input type="email" class="form-control form-control-user" id="input-email" placeholder="Email" name='email'>
                     <div class="invalid-feedback"></div>
                   </div>
                 </div>
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0 form-input">
-                    <label for="input-password">Password</label>
                     <input type="password" class="form-control form-control-user" id="input-password" placeholder="Password" name="password">
                     <div class="invalid-feedback"></div>
                   </div>
                   <div class="col-sm-6 form-input">
-                    <label for="input-konfirmasi_password">Konfirmasi Password</label>
                     <input type="password" class="form-control form-control-user" id="input-konfirmasi_password" placeholder="Konfirmasi Password" name="konfirmasi_password">
                     <div class="invalid-feedback"></div>
                   </div>

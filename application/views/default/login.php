@@ -18,12 +18,14 @@
               <div class="text-center">
                 <h1 class="h4 text-gray-900 mb-4">Selamat Datang!</h1>
               </div>
-              <?= form_open('c_autentikasi/login');?>
-                <div class="form-group">
-                  <input type="text" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Username/Email" name="username_email">
+              <?= form_open('c_autentikasi/login', ['id' => 'default-form', 'log' => 'Input Login']);?>
+                <div class="form-group form-input">
+                  <input type="text" class="form-control form-control-user" id="input-username_email" aria-describedby="emailHelp" placeholder="Username/Email" name="username_email">
+                  <div class="invalid-feedback"></div>
                 </div>
-                <div class="form-group">
-                  <input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password" name="password">
+                <div class="form-group form-input">
+                  <input type="password" class="form-control form-control-user" id="input-password" placeholder="Password" name="password">
+                  <div class="invalid-feedback"></div>
                 </div>
                 <!-- <div class="form-group">
                   <div class="custom-control custom-checkbox small">
@@ -44,10 +46,10 @@
               <div class="text-center">
                 <a class="small" href="forgot-password.html">Forgot Password?</a>
               </div> -->
-              <div class="px-3 pt-2 text-center">
+              <!-- <div class="px-3 pt-2 text-center">
                 <?= $this->session->flashdata('login_gagal') ?>
                 <?= $this->session->userdata('status');?>
-            </div>
+            </div> -->
               <div class="text-center">
                 <a class="small" href="<?= base_url('c_autentikasi/register');?>">Belum Punya Akun? Silahkan Registrasi!</a>
               </div>
@@ -62,3 +64,6 @@
 </div>
 
 </div>
+<script src="<?= base_url('assets/bootstrap4admin/vendor/jquery/jquery.min.js');?>"></script>
+<script src="<?= base_url('assets/sweetalert/sweetalert.min.js'); ?>"></script>
+<script src="<?= base_url('assets/js/main.js'); ?>"></script>

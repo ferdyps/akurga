@@ -17,36 +17,62 @@
         }
 //==============================================================================================
         public function login(){
-            // $this->form_validation->set_rules([
-            //     [
-            //         'field' => 'username';
-                    
-            //     ]
-            // ]);
-            
-            $username_email = $this->input->post('username_email');
-            $password = $this->input->post('password');
-            $auth_data = [
-                'username_email' => $username_email,
-                'password' => $password
-            ];
-            $user_auth = $this->m_user->cek_user($auth_data)->row();
-            if (!empty($user_auth)) {
-                $array_auth = [
-                    'id_user' => $user_auth->id_user,
-                    'username' => $user_auth->username,
-                    'role' => $user_auth->role,
-                    'status' => 'berhasil'
-                ];
+            $this->form_validation->set_rules([
+                [
+                    'field' => 'username_email',
+                    'label' => 'Username/Email',
+                    'rules' => 'trim|required'
+                ],
+                [
+                    'field' => 'password',
+                    'label' => 'Password',
+                    'rules' => 'trim|required'
+                ]
+            ]);
+            if ($this->input->post()) {
+                $username_email = $this->input->post('username_email');
+                $password = $this->input->post('password');
                 
-                $this->session->set_userdata($array_auth);
+                if ($this->form_validation->run() == TRUE) {
+                    $auth_data = [
+                        'username_email' => $username_email,
+                        'password' => $password
+                    ];
+                    $user_auth = $this->m_user->cek_user($auth_data)->row();
+                    if (!empty($user_auth)) {
+                        $array_auth = [
+                            'id_user' => $user_auth->id_user,
+                            'username' => $user_auth->username,
+                            'role' => $user_auth->role,
+                            'status' => 'berhasil'
+                        ];
+                        
+                        $this->session->set_userdata($array_auth);
 
-                if ($user_auth->role == 'adminMaster') {
-                    redirect('c_halaman_admin/','refresh');
+                        if ($user_auth->role == 'adminMaster') {
+                            $url = base_url('c_halaman_admin/index');
+
+                            $json = [
+                                'message' => "Registrasi Akun Berhasil",
+                                'url' => $url
+                            ];
+                        }
+                    } else {
+                        $json['errors'] = "Akun Tidak Ditemukan";
+                    }
+                } else {
+                    $no = 0;
+                    foreach ($this->input->post() as $key => $value) {
+                        if (form_error($key) != "") {
+                            $json['form_errors'][$no]['id'] = $key;
+                            $json['form_errors'][$no]['msg'] = form_error($key, null, null);
+                            $no++;
+                        }
+                    }
                 }
+                echo json_encode($json); 
             }else {
-                $this->session->set_flashdata('login_gagal', 'Username atau Password Salah');
-                $this->load->view('default/login');
+                redirect('c_autentikasi/login','refresh');
             }
             
         }
