@@ -1,9 +1,9 @@
-<?php 
-    
+<?php
+
     defined('BASEPATH') OR exit('No direct script access allowed');
-    
+
     class C_halaman_admin extends CI_Controller {
- 
+
         public function __construct(){
             parent::__construct();
             $this->load->model('m_admin');
@@ -19,13 +19,13 @@
         }
 // Untuk Front-end
 // Ketua RT
-// =========================================================================    
+// =========================================================================
         public function index(){
             $data['content'] = 'admin/dashboard';
             $data['title'] = 'Dashboard';
             $this->load->view('admin/index', $data);
         }
-// ========================================================================= 
+// =========================================================================
         public function inputWarga(){
             $data['content'] = 'admin/inputWarga';
             $data['title'] = 'Input Data Warga';
@@ -59,6 +59,15 @@
             // $data['dataiuran'] = $this->petugas_model->view_data($where,'iuran_masuk')->result();
             $data['content'] = "admin/formpengeluaran";
             $this->load->view('admin/index',$data);
+        }
+// ==========================================================================
+// ==========================================================================
+// Sekretaris
+// ==========================================================================
+        public function inputrapat(){
+            $data['content'] = 'admin/v_rapat';
+            $data['title'] = 'Input Rapat';
+            $this->load->view('admin/index', $data);
         }
 
 // Untuk Back-end
@@ -119,7 +128,7 @@
                             'label' => 'Nomor KK',
                             'rules' => 'trim|required|numeric'
                         ]
-                    ]);   
+                    ]);
                 } else {
                     $this->form_validation->set_rules([
                         [
@@ -129,7 +138,7 @@
                         ]
                     ]);
                 }
-                
+
                 if ($this->form_validation->run() == TRUE) {
                     $data = [
                         'jenis_warga' => $jenis_warga,
@@ -174,14 +183,14 @@
                             $no++;
                         }
                     }
-                } 
+                }
             echo json_encode($json);
             } else {
                 redirect('c_halaman_admin/inputWarga','refresh');
             }
         }
     }
-    
+
     /* End of file Controllername.php */
-    
+
 ?>
