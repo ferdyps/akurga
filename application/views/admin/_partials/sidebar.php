@@ -30,7 +30,7 @@
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseKetuaRT" aria-expanded="true" aria-controls="collapseKetuaRT">
-          <i class="fas fa-fw fa-cog"></i>
+          <i class="fas fa-fw fa-users"></i>
           <span>Data Warga</span>
         </a>
         <div id="collapseKetuaRT" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">

@@ -32,6 +32,11 @@
             $this->load->view('admin/index', $data);
         }
 // ==========================================================================
+        public function tabelDataWarga(){
+            $data['list_warga_semua'] = $this->m_admin->semuaDataWarga()->result_array();
+            $data['content'] = 'admin/tabelDataWarga' ;
+            $this->load->view('admin/index', $data);
+        }
 // ==========================================================================
 // Bendahara
 // ==========================================================================
