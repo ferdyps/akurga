@@ -8,6 +8,10 @@
             return $this->db->insert($table, $data);
         }
 // =========================================================================
+        public function multiple_select_data($table, $where) {
+            $this->db->where($where);
+            return $this->db->get($table);
+        }
     
     }
     

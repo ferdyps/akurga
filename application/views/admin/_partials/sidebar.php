@@ -36,7 +36,7 @@
         <div id="collapseKetuaRT" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <a class="collapse-item" href="<?php echo base_url("c_halaman_admin/inputWarga");?>">Input Data Warga</a>
-            <a class="collapse-item" href="cards.html">List Data Warga</a>
+            <a class="collapse-item" href="<?= base_url('c_halaman_admin/tabelDataWarga')?>">Tabel Data Warga</a>
           </div>
         </div>
       </li>

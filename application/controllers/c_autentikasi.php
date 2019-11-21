@@ -93,7 +93,7 @@
                     'rules' => 'trim|valid_email|required|is_unique[user.email]'
                 ],
                 [
-                    'field' => 'passsword',
+                    'field' => 'password',
                     'label' => 'Password',
                     'rules' => 'trim|required|max_length[12]'
                 ],
@@ -103,6 +103,12 @@
                     'rules' => 'trim|required|matches[password]'
                 ]
             ]);
+
+            $this->form_validation->set_message('is_unique','{field} Sudah Terdaftar');
+            
+
+            $json = null;
+
             if ($this->input->post()) {
                 $nik = $this->input->post('nik');
                 $username = $this->input->post('username');
@@ -115,16 +121,42 @@
                         $data = [
                             'username' => $username,
                             'email' => $email,
-                            'password' => md5('password'),
+                            'password' => md5($password),
                             'role' => 'Warga'
                         ];
                         $inputRegistrasi = $this->m_user->input_data('user',$data);
 
+                        $data_user = $this->m_user->multiple_select_data('user', ['username' => $data['username'], 'password' => $data['password']])->row();
+                        $id_user = $data_user->id_user;
+
+                        $query = $this->m_user->update_data('warga', 'nik', $nik, ['id_user' => $id_user]);
+
+                        if ($inputRegistrasi && $query) {
+                            $url = base_url('c_autentikasi/login');
+
+                            $json = [
+                                'message' => "Registrasi Akun Berhasil",
+                                'url' => $url
+                            ];
+                        }else {
+                            $json['errors'] = "Registrasi Akun Gagal"; 
+                        }
+                    }else {
+                        $json['errors'] = "NIK Belum Valid";
                     }
                 } else {
-                    # code...
+                    $no = 0;
+                    foreach ($this->input->post() as $key => $value) {
+                        if (form_error($key) != "") {
+                            $json['form_errors'][$no]['id'] = $key;
+                            $json['form_errors'][$no]['msg'] = form_error($key, null, null);
+                            $no++;
+                        }
+                    }
                 }
-                
+                echo json_encode($json);
+            } else {
+                redirect('c_autentikasi/registrasi','refresh');
             }
         }
     }

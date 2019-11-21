@@ -17,7 +17,11 @@
             $this->db->where($where);
             return $this->db->get($table);
         }
-    
+// ====================================================================================================================
+        public function update_data($table, $pk_field, $id, $data) {
+            $this->db->where($pk_field, $id);
+            return $this->db->update($table, $data);
+        }
     
     }
     

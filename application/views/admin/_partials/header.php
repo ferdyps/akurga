@@ -17,7 +17,9 @@
 
   <!-- Custom styles for this template-->
   <link href="<?php echo base_url('assets/bootstrap4admin/css/sb-admin-2.min.css');?>" rel="stylesheet">
+  <link href="<?= base_url('assetsvendor/datatables/dataTables.bootstrap4.min.css')?>" rel="stylesheet">
   <?php $this->load->view('admin/_partials/js_core');?>
+
 </head>
 
 <body id="page-top">
