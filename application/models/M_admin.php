@@ -12,9 +12,11 @@
             $this->db->where($where);
             return $this->db->get($table);
         }
-    
-    }
+// ==========================================================================
+        public function semuaDataWarga(){
+            return $this->db->get('warga'); 
+        }
     
     /* End of file M_admin.php */
-    
+    }
 ?>
