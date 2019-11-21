@@ -60,6 +60,79 @@
             $data['content'] = "admin/formpengeluaran";
             $this->load->view('admin/index',$data);
         }
+        public function formpemasukan(){
+            // $where = array(
+            // 	'nip' => $this->session->userdata('nip')
+            // );
+            // $data['dataiuran'] = $this->petugas_model->view_data($where,'iuran_masuk')->result();
+            $data['content'] = "admin/formpemasukan";
+            $this->load->view('admin/index',$data);
+        }
+        public function masukpengeluaran(){
+            if($this->input->post('submit')){
+                
+                $diberikan_kepada = $this->input->post('diberikan_kepada');
+                $nominal = $this->input->post('nominal');
+                $tanggal = $this->input->post('tanggal');
+                $digunakan_untuk = $this->input->post('digunakan_untuk');
+                $gambar = $this->input->post('gambar');
+                
+                
+                $config['max_size'] =0;
+                $config['max_width']=0;
+                $config['max_height']=0;
+                $config['allowed_types'] = "png|jpg|jpeg|gif";
+                $config['upload_path']='./upload/gambar';
+    
+                $this->load->library('upload',$config);
+    
+                if(!$this->upload->do_upload('gambar')){
+                    $error = array('error'=>$this->upload->display_errors());
+                    $this->load->view('admin/tabelpengeluaran',$error);
+                }else{
+                    $data = array(
+                        'upload_data'=>$this->upload->data()
+                    );
+                    $file = $this->upload->data();
+                    $gambar=$file['file_name'];
+    
+                    $datapengeluaran = array(
+                        'diberikan_kepada' => $diberikan_kepada,
+                        'nominal' => $nominal,
+                        'tanggal' => $tanggal,
+                        'digunakan_untuk'=> $digunakan_untuk,
+                        'gambar'  => $gambar,
+                        
+    
+                    );
+                    $query = $this->M_admin->isi_data_pengeluaran($datapengeluaran);
+                    if($query){
+                        ?>
+                        <script>
+                            alert("Berhasil isi data")
+                        </script>
+                        <?php
+    
+                        $data['content'] = "admin/tabelpengeluaran.php";
+                        $this->load->view('admin/index',$data);
+                    }else{
+                        ?>
+                        <script>
+                            alert("Gagal Isi Data");
+                            location = <?= base_url('pengeluaran');?>
+                        </script>
+                        <?php
+    
+                         $data['content'] = "admin/formpengeluaran.php";
+                         $this->load->view('admin/index',$data);
+                    }
+                }
+                }else{
+                    $data['content'] = "admin/formpengeluaran.php";
+                    $this->load->view('admin/index',$data);
+                }
+        }
+
 // ==========================================================================
 // ==========================================================================
 // Sekretaris

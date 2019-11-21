@@ -14,12 +14,12 @@
       <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
         <thead>
           <tr>
-            <th>Name</th>
-            <th>Position</th>
-            <th>Office</th>
-            <th>Age</th>
-            <th>Start date</th>
-            <th>Salary</th>
+            <th>NO</th>
+            <th>Diberikan Kepada</th>
+            <th>Nominal</th>
+            <th>Tanggal</th>
+            <th>Digunakan Untuk</th>
+            <th>Gambar</th>
           </tr>
         </thead>
       </table>

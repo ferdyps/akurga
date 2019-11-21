@@ -6,15 +6,35 @@
  <div class="container">
      <div class="row bg-white rounded shadow border-left-primary">
        <div class="col px-0">
-       <?=form_open_multipart("c_halaman_admin/masukpengeluaran");?>
+       <?php echo form_open();?>
            <div class="row px-3 my-3">
                <div class="col">
                    <div class="form-group">
-                       <label for="DiberikanKepada">Diberikan Kepada</label>
-                       <input type="text" name="diberikan_kepada" id="DiberikanKepada" class="form-control">
+                       <label for="NIK">NIK</label>
+                       <input type="text" name="nik" id="NIK" class="form-control">
                        <div class="invalid-feedback">
                        </div>
                    </div>
+
+                   <div class="form-group">
+                       <label for="PembayaranBulan">Pembayaran Bulan</label>
+                       <select id="PembayaranBulan" name="pembayaran_bulan" class="form-control">
+                 <option selected>Januari</option>
+                 <option>Februari</option>
+                 <option>Maret</option>
+                 <option>April</option>
+                 <option>Mei</option>
+                 <option>Juni</option>
+                 <option>Juli</option>
+                 <option>Agustus</option>
+                 <option>September</option>
+                 <option>Oktober</option>
+                 <option>November</option>
+                 <option>Desember</option>
+               </select>
+                   </div>
+
+
                    <div class="form-group">
                        <label for="Nominal">Nominal</label>
                        <input type="number" name="nominal" id="Nominal" class="form-control">
@@ -27,25 +47,12 @@
                        <div class="invalid-feedback">
                        </div>
                    </div>
-
-                   <div class="form-group">
-                       <label for="DigunakanUntuk">Digunakan Untuk</label>
-                       <input type="text" name="digunakan_untuk" id="DigunakanUntuk" class="form-control">
-                       <div class="invalid-feedback">
-                     </div>
-                   </div>
-                   <div class="form-group">
-                       <label for="Gambar">Gambar</label>
-                       <input type="file" name="gambar" id="Gambar" class="form-control">
-                       <div class="invalid-feedback">      
-                     </div>
-                   </div>
            <div class="col">
                <div class="form-group text-center">
-                   <input type="submit" name="submit" class="btn btn-primary">
+                   <input type="submit" value="Submit" class="btn btn-primary">
                    <input type="reset" value="Reset" class="btn btn-danger">
                </div>
            </div>
-       <?phpform_close();?>
+       <?php echo form_close();?>
        </div>
 </div>

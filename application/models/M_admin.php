@@ -12,8 +12,12 @@
             $this->db->where($where);
             return $this->db->get($table);
         }
+        public function isi_data_pengeluaran($datapengeluaran){
+            return $this->db->insert('pengeluaran',$datapengeluaran);
+        }
     
     }
+    
     
     /* End of file M_admin.php */
     
