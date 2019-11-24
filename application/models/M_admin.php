@@ -7,6 +7,9 @@
         public function input_data($table, $data){
             return $this->db->insert($table, $data);
         }
+        public function semuaDataWarga(){
+            return $this->db->get('warga');
+        }
 // =========================================================================
         public function multiple_select_data($table, $where) {
             $this->db->where($where);
