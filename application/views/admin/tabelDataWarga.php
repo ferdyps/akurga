@@ -13,26 +13,31 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
-                        <th>NIK</th>
-                        <th>Nama Lengkap</th>
-                        <th>Tempat Lahir</th>
-                        <th>Tanggal Lahir</th>
-                        <th>Pendidikan</th>
-                        <th>Pekerjaan</th>
-                        <th>Agama</th>
-                        <th>Jenis Kelamin</th>
-                        <th>Status</th>
-                        <th>Jenis Warga</th>
-                        <th>Nomor HP</th>
-                        <th>Nomor KK</th>
-                        <th>Hubungan Dalam Keluarga</th>
-                        <th>Nomor Rumah</th>
-                        <th>Gang</th>
+                      <th width="5%">No</th>
+                      <th>NIK</th>
+                      <th>Nama Lengkap</th>
+                      <th>Tempat Lahir</th>
+                      <th>Tanggal Lahir</th>
+                      <th>Pendidikan</th>
+                      <th>Pekerjaan</th>
+                      <th>Agama</th>
+                      <th>Jenis Kelamin</th>
+                      <th>Status</th>
+                      <th>Jenis Warga</th>
+                      <th>Nomor HP</th>
+                      <th>Nomor KK</th>
+                      <th>Hubungan Dalam Keluarga</th>
+                      <th>Nomor Rumah</th>
+                      <th>Gang</th>
                     </tr>
                   </thead>
-                  <?php foreach($list_warga_semua as $row){?>
+                  <?php
+                    $i=1; 
+                    foreach($list_warga_semua as $row)
+                  {?>
                   <tbody>
                       <tr>
+                        <td><?= $i++?></td>
                         <td><?= $row['nik']?></td>
                         <td><?= $row['nama']?></td>
                         <td><?= $row['tempat_lahir']?></td>
