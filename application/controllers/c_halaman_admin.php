@@ -18,6 +18,16 @@
             }
         }
 // Untuk Front-end
+// Ketua RW
+// =========================================================================
+        public function konfirmasiDataWarga(){
+            $data['list_warga_belum_valid'] = $this->m_admin->konfirmasiDataWarga()->result_array();
+            $data['content'] = 'admin/konfirmasiDataWarga';
+            $data['title'] = 'Konfirmasi Data Warga';
+            $this->load->view('admin/index', $data);
+        }
+// =========================================================================
+        
 // Ketua RT
 // =========================================================================
         public function index(){
@@ -34,7 +44,8 @@
 // ==========================================================================
         public function tabelDataWarga(){
             $data['list_warga_semua'] = $this->m_admin->semuaDataWarga()->result_array();
-            $data['content'] = 'admin/tabelDataWarga' ;
+            $data['content'] = 'admin/tabelDataWarga';
+            $data['title'] = 'Tabel Data Warga';
             $this->load->view('admin/index', $data);
         }
 // ==========================================================================
@@ -268,6 +279,16 @@
                 redirect('c_halaman_admin/inputWarga','refresh');
             }
         }
+
+        // public function klik_konfirmasi_data_warga(){
+        //     $data['valid'] = 1;
+
+        //     $query = $this->m_admin->edit_data('warga','nik',$id,$data);
+
+        //     if ($query) {
+                
+        //     }
+        // }
     }
 
     /* End of file Controllername.php */
