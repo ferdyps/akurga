@@ -10,6 +10,14 @@
         public function semuaDataWarga(){
             return $this->db->get('warga');
         }
+        public function konfirmasiDataWarga(){
+            $this->db->where('valid', 0);
+            return $this->db->get('warga');
+        }
+        public function edit_data($table, $pk_field, $id, $data) {
+            $this->db->where($pk_field, $id);
+            return $this->db->update($table, $data);
+        }
 // =========================================================================
         public function multiple_select_data($table, $where) {
             $this->db->where($where);

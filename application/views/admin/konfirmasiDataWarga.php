@@ -12,7 +12,7 @@
               <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
-                    <tr class="bg-dark text-white">
+                    <tr>
                       <th width="5%">No</th>
                       <th>NIK</th>
                       <th>Nama Lengkap</th>
@@ -33,14 +33,10 @@
                   </thead>
                   <?php
                     $i=1; 
-                    foreach($list_warga_semua as $row)
+                    foreach($list_warga_belum_valid as $row)
                   {?>
                   <tbody>
-                      <?php if ($row['valid'] == 1) {?>
-                        <tr>
-                      <?} else {?>
-                        <tr class="bg-info">
-                      <?php } ?>
+                      <tr>
                         <td><?= $i++?></td>
                         <td><?= $row['nik']?></td>
                         <td><?= $row['nama']?></td>
@@ -57,6 +53,7 @@
                         <td><?= $row['hub_dlm_kel']?></td>
                         <td><?= $row['no_rumah']?></td>
                         <td><?= $row['gang']?></td>
+                        <td><a href="<?= base_url('c_halaman_admin/klik_konfirmasi_warga').$row['nik']?>"><button></button></a></td>
                       </tr>
                   </tbody>
                   <?php } ?>
