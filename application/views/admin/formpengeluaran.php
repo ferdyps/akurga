@@ -9,34 +9,35 @@
        <?=form_open_multipart("c_halaman_admin/iurankeluar");?>
            <div class="row px-3 my-3">
                <div class="col">
-                   <div class="form-group">
-                       <label for="DiberikanKepada">Diberikan Kepada</label>
-                       <input type="text" name="diberikan_kepada" id="DiberikanKepada" class="form-control">
+                   <div class="form-group form-input">
+                       <label for="input-diberikan_kepada">Diberikan Kepada</label>
+                       <input type="text" name="diberikan_kepada" id="input-diberikan_kepada" class="form-control">
                        <div class="invalid-feedback">
                        </div>
                    </div>
-                   <div class="form-group">
-                       <label for="Nominal">Nominal</label>
-                       <input type="number" name="nominal" id="Nominal" class="form-control">
-                       <div class="invalid-feedback">
-                       </div>
-                   </div>
-                   <div class="form-group">
-                       <label for="Tanggal">Tanggal</label>
-                       <input type="date" name="tanggal" id="Tanggal" class="form-control">
+                   <div class="form-group form-input">
+                       <label for="input-tanggal">Tanggal</label>
+                       <input type="date" name="tanggal" id="input-tanggal" class="form-control">
                        <div class="invalid-feedback">
                        </div>
                    </div>
 
-                   <div class="form-group">
-                       <label for="DigunakanUntuk">Digunakan Untuk</label>
-                       <input type="text" name="digunakan_untuk" id="DigunakanUntuk" class="form-control">
+                   <div class="form-group form-input">
+                       <label for="input-nominal">Nominal</label>
+                       <input type="text" name="nominal" id="input-nominal" class="form-control">
+                       <div class="invalid-feedback">
+                       </div>
+                   </div>
+                   
+                   <div class="form-group form-input">
+                       <label for="input-digunakan_untuk">Digunakan Untuk</label>
+                       <input type="text" name="digunakan_untuk" id="input-digunakan_untuk" class="form-control">
                        <div class="invalid-feedback">
                      </div>
                    </div>
-                   <div class="form-group">
-                       <label for="Gambar">Gambar</label>
-                       <input type="file" name="gambar" id="Gambar" class="form-control">
+                   <div class="form-group form-input">
+                       <label for="input-gambar">Gambar</label>
+                       <input type="file" name="gambar" id="input-gambar" class="form-control">
                        <div class="invalid-feedback">      
                      </div>
                    </div>

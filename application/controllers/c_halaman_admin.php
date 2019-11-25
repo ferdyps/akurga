@@ -85,13 +85,25 @@
             $this->load->view('admin/index',$data);
         }
         public function iurankeluar(){
+            // $this->form_validation->set_rules([
+            //     [
+            //         'field' => 'diberikan_kepada',
+            //         'label' => 'Diberikan Kepada',
+            //         'rules' => 'trim|required'
+            //     ],
+            //     [
+            //         'field' => 'nominal',
+            //         'label' => 'Nominal',
+            //         'rules' => 'trim|numeric'
+            //     ],
+            // ]);
+            
             if($this->input->post('submit')){
                 // $id_iuran_keluar = $this->input->post('id_iuran_keluar');
                 $diberikan_kepada = $this->input->post('diberikan_kepada');
                 $tanggal = $this->input->post('tanggal');
                 $nominal = $this->input->post('nominal');
                 $digunakan_untuk = $this->input->post('digunakan_untuk');
-                $gambar = $this->input->post('gambar');
     
                 $config['max_size'] =0;
                 $config['max_width']=0;
@@ -101,53 +113,44 @@
     
                 $this->load->library('upload',$config);
     
-                if(!$this->upload->do_upload('gambar')){
-                    $error = array
-                    ('error'=>$this->upload->display_errors());
-                    $this->load->view('admin/tabelpengeluaran',$error);
-                }else{
-                    $data = array(
-                        'upload_data'=>$this->upload->data()
-                    );
-                    $file = $this->upload->data();
-                    $gambar=$file['file_name'];
+                // if(!$this->upload->do_upload('gambar')){
+                //     echo "gambar gak masook";
+                //     $error = array
+                //     ('error'=>$this->upload->display_errors());
+                //     $this->load->view('admin/tabelpengeluaran',$error);
+                // }else{
+                    // $data = array(
+                    //     'upload_data'=>$this->upload->data()
+                    // );
+                    // $file = $this->upload->data();
+                    // $gambar=$file['file_name'];
+                    $gambar="gambar.jpg";
     
     
                     $dataiurankeluar = array(
-                        // 'id_iuran_keluar' => $id_iuran_keluar,
                         'diberikan_kepada' => $diberikan_kepada,
                         'tanggal'=> $tanggal,
                         'nominal' => $nominal, 
                         'digunakan_untuk' => $digunakan_untuk,
                         'gambar' => $gambar,
-    
                     );
-                    $query = $this->M_admin->isi_data_iuran_keluar($dataiurankeluar);
+
+                    $query = $this->m_admin->isi_data_iuran_keluar($dataiurankeluar);
                     if($query){
-                        ?>
-                        <script>
-                            alert("Berhasil isi data")
-                        </script>
-                        <?php
-    
-                        $data['content'] = "admin/formpengeluaran.php";
+                        echo "Berhasyl";
+                        $data['content'] = "admin/tabelpengeluaran";
                         $this->load->view('admin/index',$data);
                     }else{
-                        ?>
-                        <script>
-                            alert("Gagal Isi Data");
-                            location = <?= base_url('pengeluaran');?>
-                        </script>
-                        <?php
-    
+                        echo "Gagal";
                         $data['content'] = "admin/formpengeluaran.php";
                         $this->load->view('admin/index',$data);
                     }
-                }
-                }else{
-                    $data['content'] = "admin/formpengeluaran.php";
-                    $this->load->view('admin/index',$data);
-                }
+                // }
+            }else{
+                echo "Hai";
+                $data['content'] = "admin/formpengeluaran.php";
+                $this->load->view('admin/index',$data);
+            }
         }
 
 // ==========================================================================
