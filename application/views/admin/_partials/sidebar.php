@@ -72,14 +72,19 @@
         </div>
       </li>
 
+      <hr class="sidebar-divider">
+      <div class="sidebar-heading">
+        Sekretaris
+      </div>
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSekretaris" aria-expanded="true" aria-controls="collapseSekretaris">
           <i class="fas fa-fw fa-cog"></i>
-          <span>Sekretaris</span>
+          <span>Surat undangan</span>
         </a>
         <div id="collapseSekretaris" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="<?php echo base_url("c_halaman_admin/inputrapat");?>">Input Rapat</a>
+            <a class="collapse-item" href="<?php echo base_url("c_halaman_admin/inputrapat");?>">Input Surat Rapat</a>
+            <a class="collapse-item" href="<?php echo base_url("c_halaman_admin/inputkegiatan");?>">Input Surat Kegiatan</a>
             <a class="collapse-item" href="cards.html">List Data Warga</a>
           </div>
         </div>
