@@ -6,7 +6,7 @@
  <div class="container">
      <div class="row bg-white rounded shadow border-left-primary">
        <div class="col px-0">
-       <?=form_open_multipart("c_halaman_admin/masukpengeluaran");?>
+       <?=form_open_multipart("c_halaman_admin/iurankeluar");?>
            <div class="row px-3 my-3">
                <div class="col">
                    <div class="form-group">
@@ -46,6 +46,6 @@
                    <input type="reset" value="Reset" class="btn btn-danger">
                </div>
            </div>
-       <?phpform_close();?>
+       <?php=form_close();?>
        </div>
 </div>
