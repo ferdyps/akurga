@@ -166,6 +166,12 @@
             $this->load->view('admin/index', $data);
         }
 
+        public function inputnotulensi(){
+            $data['content'] = 'admin/v_notulensi';
+            $data['title'] = 'Input Notulensi Rapat';
+            $this->load->view('admin/index', $data);
+        }
+
 // Untuk Back-end
 // ==========================================================================
         public function insertWarga(){

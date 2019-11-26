@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 21, 2019 at 08:08 AM
+-- Generation Time: Nov 26, 2019 at 05:13 PM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.2
 
@@ -25,20 +25,38 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `rapat`
+-- Table structure for table `notulensi_rpt`
 --
 
-CREATE TABLE `rapat` (
-  `no_rpt` varchar(30) NOT NULL,
-  `lampiran_rpt` varchar(80) NOT NULL,
-  `sifat_rpt` varchar(15) NOT NULL,
-  `perihal_rpt` varchar(80) NOT NULL,
+CREATE TABLE `notulensi_rpt` (
+  `no_notulen` varchar(30) NOT NULL,
+  `lampiran` varchar(80) NOT NULL,
+  `tembusan` varchar(100) NOT NULL,
+  `uraian_notulen` text NOT NULL,
+  `tgl_buat` date NOT NULL,
+  `tgl_acc` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `surat_undangan`
+--
+
+CREATE TABLE `surat_undangan` (
+  `no_udg` varchar(30) NOT NULL,
+  `lampiran_udg` varchar(80) NOT NULL,
+  `sifat_udg` varchar(15) NOT NULL,
+  `perihal_udg` varchar(80) NOT NULL,
   `tujuan_surat` varchar(70) NOT NULL,
-  `tempat_rpt` varchar(70) NOT NULL,
+  `tempat_udg` varchar(70) NOT NULL,
   `isi_surat` text NOT NULL,
-  `jam_rpt` time NOT NULL,
-  `acara_rpt` text NOT NULL,
-  `tgl_rpt` date NOT NULL,
+  `jam_udg` time NOT NULL,
+  `acara_udg` text NOT NULL,
+  `catatan` text NOT NULL,
+  `tembusan` varchar(100) NOT NULL,
+  `daftar_hadir` varchar(100) NOT NULL,
+  `tgl_udg` date NOT NULL,
   `tgl_buat` date NOT NULL,
   `tgl_acc` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -103,10 +121,16 @@ INSERT INTO `warga` (`nik`, `nama`, `nohp`, `tempat_lahir`, `tanggal_lahir`, `pe
 --
 
 --
--- Indexes for table `rapat`
+-- Indexes for table `notulensi_rpt`
 --
-ALTER TABLE `rapat`
-  ADD PRIMARY KEY (`no_rpt`);
+ALTER TABLE `notulensi_rpt`
+  ADD PRIMARY KEY (`no_notulen`);
+
+--
+-- Indexes for table `surat_undangan`
+--
+ALTER TABLE `surat_undangan`
+  ADD PRIMARY KEY (`no_udg`);
 
 --
 -- Indexes for table `user`

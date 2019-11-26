@@ -1,7 +1,7 @@
 <div class="container-fluid">
  <!-- Page Heading -->
  <div class="d-sm-flex align-items-center justify-content-between mb-4">
-     <h1 class="h3 mb-0 text-gray-800">Input Surat Rapat</h1>
+     <h1 class="h3 mb-0 text-gray-800">Input Surat Undangan Kegiatan</h1>
  </div>
  <div class="container">
      <div class="row bg-white rounded shadow border-left-primary">
@@ -10,10 +10,10 @@
            <div class="row px-3 my-3">
                <div class="col">
                    <div class="form-group">
-                       <label for="NomorRapat">No Rapat</label>
-                       <input type="text" name="no_rpt" id="NomorRapat" class="form-control" disabled>
+                       <label for="NomorKegiatan">No Surat Kegiatan</label>
+                       <input type="text" name="no_udg" id="NomorKegiatan" class="form-control" disabled>
                        <div class="invalid-feedback">
-                           <?= form_error('no_rpt'); ?>
+                           <?= form_error('no_udg'); ?>
                        </div>
                    </div>
                    <div class="form-group">
@@ -26,10 +26,10 @@
                    <div class="form-group">
                        <label for="Sifat">Sifat</label>
                        <select id="Sifat" name="sifat" class="form-control">
-                 <option selected>Biasa</option>
-                 <option>Penting</option>
-                 <option>Segera</option>
-               </select>
+                          <option selected>Biasa</option>
+                          <option>Penting</option>
+                          <option>Segera</option>
+                        </select>
                        <div class="invalid-feedback">
                            <?= form_error('lampiran'); ?>
                        </div>
@@ -39,7 +39,7 @@
                        <label for="Hal">Hal</label>
                        <input type="text" name="hal" id="Hal" class="form-control">
                        <div class="invalid-feedback">
-                           <?= form_error('perihal_rpt'); ?>
+                           <?= form_error('hal'); ?>
                        </div>
                    </div>
 
@@ -51,16 +51,19 @@
                      </div>
                    </div>
                    <div class="form-group">
-                       <label for="TempatRapat">Tempat Rapat</label>
-                       <input type="text" name="tempat_rpt" id="TempatRapat" class="form-control">
+                       <label for="TempatKegiatan">Tempat Kegiatan</label>
+                       <input type="text" name="tempat_udg" id="TempatKegiatan" class="form-control">
                        <div class="invalid-feedback">
-                           <?= form_error('tempat_rpt'); ?>
+                           <?= form_error('tempat_udg'); ?>
                      </div>
                    </div>
-                   <input type="hidden" name="tgl_buat"  class="form-control" id="datepickerrpt" disabled>
-                   <div class="invalid-feedback">
-                       <?= form_error('tgl_buat'); ?>
-                 </div>
+                   <div class="form-group">
+                       <label for="cttPenting">Catatan Penting</label>
+                       <input type="text" name="catatan" id="cttPenting" class="form-control">
+                       <div class="invalid-feedback">
+                           <?= form_error('catatan'); ?>
+                     </div>
+                   </div>
                </div>
                <!-- ====================Batas ke 2==================== -->
                <div class="col">
@@ -85,17 +88,31 @@
                      </div>
                    </div>
                    <div class="form-group">
-                       <label for="JamRapat">Jam Rapat</label>
-                       <input type="time" name="jam_rpt" id="JamRapat" class="form-control">
+                       <label for="JamKegiatan">Jam Kegiatan</label>
+                       <input type="time" name="jam_udg" id="JamKegiatan" class="form-control">
                        <div class="invalid-feedback">
-                           <?= form_error('jam_rpt'); ?>
+                           <?= form_error('jam_udg'); ?>
                      </div>
                    </div>
                    <div class="form-group">
-                       <label for="AcaraRapat">Acara Rapat</label>
-                       <input type="input" name="acara_rpt" id="AcaraRapat" class="form-control">
+                       <label for="AcaraKegiatan">Acara Kegiatan</label>
+                       <input type="input" name="acara_udg" id="AcaraKegiatan" class="form-control">
                        <div class="invalid-feedback">
-                           <?= form_error('acara_rpt'); ?>
+                           <?= form_error('acara_udg'); ?>
+                     </div>
+                   </div>
+
+                   <div class="form-group">
+                       <label for="Tembusan">Tembusan</label>
+                       <textarea style="width: 520px;
+                     min-width:520px;
+                     max-width:520px;
+                     height:150px;
+                     min-height:150px;
+                     max-height:150px;"
+                     class="form-control" name="tembusan" id="Tembusan"></textarea>
+                       <div class="invalid-feedback">
+                           <?= form_error('tembusan'); ?>
                      </div>
                    </div>
                </div>
