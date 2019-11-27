@@ -53,7 +53,7 @@
                         <td><?= $row['hub_dlm_kel']?></td>
                         <td><?= $row['no_rumah']?></td>
                         <td><?= $row['gang']?></td>
-                        <td><a href="<?= base_url('c_halaman_admin/klik_konfirmasi_warga').$row['nik']?>"><button></button></a></td>
+                        <td><a href="<?= base_url('c_halaman_admin/klik_konfirmasi_warga').$row['nik']?>"><button onclick="return confirm('Apakah anda yakin ingin mengkonfirmasi..?');><i></i></button></a></td>
                       </tr>
                   </tbody>
                   <?php } ?>
