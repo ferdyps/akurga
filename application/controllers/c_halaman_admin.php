@@ -137,7 +137,11 @@
 
                     $query = $this->m_admin->isi_data_iuran_keluar($dataiurankeluar);
                     if($query){
-                        echo "Berhasyl";
+                        ?>
+                        <script>
+                                alert("Berhasil Isi Data")
+                        </script>
+                        <?php
                         $data['content'] = "admin/tabelpengeluaran";
                         $this->load->view('admin/index',$data);
                     }else{
