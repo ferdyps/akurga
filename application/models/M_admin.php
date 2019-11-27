@@ -23,8 +23,8 @@
             $this->db->where($where);
             return $this->db->get($table);
         }
-        public function isi_data_pengeluaran($datapengeluaran){
-            return $this->db->insert('pengeluaran',$datapengeluaran);
+        public function isi_data_iuran_keluar($dataiurankeluar){
+            return $this->db->insert('pengeluaran',$dataiurankeluar);
         }
     
     }
