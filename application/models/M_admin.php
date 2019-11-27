@@ -26,6 +26,9 @@
         public function isi_data_iuran_keluar($dataiurankeluar){
             return $this->db->insert('pengeluaran',$dataiurankeluar);
         }
+        public function tampil_iuran_keluar(){
+            return $this->db->get('pengeluaran');
+        }
     
     }
     

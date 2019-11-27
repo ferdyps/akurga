@@ -84,6 +84,11 @@
             $data['content'] = "admin/formpemasukan";
             $this->load->view('admin/index',$data);
         }
+        public function tabeldataiurankeluar(){
+            $data['dataiurank'] = $this->m_admin->tampil_iuran_keluar()->result();
+            $data['content'] = "admin/tabelpengeluaran.php";
+             $this->load->view('admin/index',$data);
+        }
         public function iurankeluar(){
             // $this->form_validation->set_rules([
             //     [
@@ -145,7 +150,11 @@
                         $data['content'] = "admin/tabelpengeluaran";
                         $this->load->view('admin/index',$data);
                     }else{
-                        echo "Gagal";
+                        ?>
+                        <script>
+                                alert("Gagal Isi Data")
+                        </script>
+                        <?php
                         $data['content'] = "admin/formpengeluaran.php";
                         $this->load->view('admin/index',$data);
                     }
@@ -156,6 +165,7 @@
                 $this->load->view('admin/index',$data);
             }
         }
+        
 
 // ==========================================================================
 // ==========================================================================
