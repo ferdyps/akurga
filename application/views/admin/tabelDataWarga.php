@@ -29,6 +29,7 @@
                       <th>Hubungan Dalam Keluarga</th>
                       <th>Nomor Rumah</th>
                       <th>Gang</th>
+                      <th>Validasi</th>
                     </tr>
                   </thead>
                   <?php
@@ -36,11 +37,7 @@
                     foreach($list_warga_semua as $row)
                   {?>
                   <tbody>
-                      <?php if ($row['valid'] == 1) {?>
-                        <tr>
-                      <?} else {?>
-                        <tr class="bg-info">
-                      <?php } ?>
+                      <tr>
                         <td><?= $i++?></td>
                         <td><?= $row['nik']?></td>
                         <td><?= $row['nama']?></td>
@@ -57,6 +54,13 @@
                         <td><?= $row['hub_dlm_kel']?></td>
                         <td><?= $row['no_rumah']?></td>
                         <td><?= $row['gang']?></td>
+                        <td>
+                          <?php if ($row['valid'] == 1) {
+                            echo "Sudah Valid";
+                          }else {
+                            echo "Belum Valid";
+                          }?>
+                        </td>
                       </tr>
                   </tbody>
                   <?php } ?>

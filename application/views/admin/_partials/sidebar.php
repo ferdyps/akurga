@@ -4,9 +4,9 @@
       <!-- Sidebar - Brand -->
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
         <div class="sidebar-brand-icon rotate-n-15">
-          <i class="fas fa-laugh-wink"></i>
+          <!-- <i class="fas fa-laugh-wink"></i> -->
         </div>
-        <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+        <div class="sidebar-brand-text mx-10"><?= config_item('web_title')?></div>
       </a>
 
       <!-- Divider -->
@@ -23,6 +23,18 @@
       <hr class="sidebar-divider">
 
       <!-- Heading -->
+      <div class="sidebar-heading">
+        Ketua RW
+      </div>
+
+      <!-- Nav Item - Pages Collapse Menu -->
+      <li class="nav-item">
+        <a class="nav-link" href="<?= base_url('c_halaman_admin/konfirmasiDataWarga')?>">
+          <i class="fas fa-fw fa-chart-area"></i>
+          <span>Konfirmasi Data Warga</span></a>
+      </li>
+      <hr class="sidebar-divider">
+
       <div class="sidebar-heading">
         Ketua RT
       </div>
@@ -72,41 +84,51 @@
         </div>
       </li>
 
+      <!-- ================================ SEKRETARIS ========================================== -->
+      <hr class="sidebar-divider">
+      <div class="sidebar-heading">Sekretaris</div>
+
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSekretaris" aria-expanded="true" aria-controls="collapseSekretaris">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSekretarisUndangan" aria-expanded="true" aria-controls="collapseSekretarisUndangan">
           <i class="fas fa-fw fa-cog"></i>
-          <span>Sekretaris</span>
+          <span>Surat undangan</span>
         </a>
-        <div id="collapseSekretaris" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="collapseSekretarisUndangan" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="<?php echo base_url("c_halaman_admin/inputrapat");?>">Input Rapat</a>
+            <a class="collapse-item" href="<?php echo base_url("c_halaman_admin/inputrapat");?>">Input Surat Rapat</a>
+            <a class="collapse-item" href="<?php echo base_url("c_halaman_admin/inputkegiatan");?>">Input Surat Kegiatan</a>
+            <a class="collapse-item" href="cards.html">List Data Warga</a>
+          </div>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSekretarisNotulensi" aria-expanded="true" aria-controls="collapseSekretarisNotulensi">
+          <i class="fas fa-fw fa-cog"></i>
+          <span>Notulensi Rapat</span>
+        </a>
+        <div id="collapseSekretarisNotulensi" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="<?php echo base_url("c_halaman_admin/inputnotulensi");?>">Input Notulensi Rapat</a>
+            <a class="collapse-item" href="cards.html">List Data Warga</a>
+          </div>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSekretarisArsip" aria-expanded="true" aria-controls="collapseSekretarisArsip">
+          <i class="fas fa-fw fa-cog"></i>
+          <span>Arsip Surat</span>
+        </a>
+        <div id="collapseSekretarisArsip" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="<?php echo base_url("c_halaman_admin/inputrapat");?>">Input Surat Masuk</a>
+            <a class="collapse-item" href="<?php echo base_url("c_halaman_admin/inputrapat");?>">Input Surat Keluar</a>
             <a class="collapse-item" href="cards.html">List Data Warga</a>
           </div>
         </div>
       </li>
 
+      <!-- ================================ END OF SEKRETARIS ========================================== -->
 
-      <!-- Divider -->
-      <hr class="sidebar-divider">
-
-      <!-- Heading -->
-      <div class="sidebar-heading">
-        Addons
-      </div>
-
-      <!-- Nav Item - Charts -->
-      <li class="nav-item">
-        <a class="nav-link" href="charts.html">
-          <i class="fas fa-fw fa-chart-area"></i>
-          <span>Charts</span></a>
-      </li>
-
-      <!-- Nav Item - Tables -->
-      <li class="nav-item">
-        <a class="nav-link" href="tables.html">
-          <i class="fas fa-fw fa-table"></i>
-          <span>Tables</span></a>
-      </li>
 
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
