@@ -11,6 +11,7 @@
   <script src="<?= base_url("assets/bootstrap4admin/vendor/datatables/dataTables.bootstrap4.min.js"); ?>"></script> 
   <script src="<?= base_url('assets/bootstrap4admin/js/demo/datatables-demo.js')?>"></script>
   <script src="<?= base_url('assets/sweetalert/sweetalert.min.js'); ?>"></script>
+  <script src="<?= base_url('assets/sweetalert2-9.3.6/dist/sweetalert2.all.min.js'); ?>"></script>
   <script src="<?= base_url('assets/js/main.js'); ?>"></script>
 
 </body>

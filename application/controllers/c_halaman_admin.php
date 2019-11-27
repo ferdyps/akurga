@@ -27,7 +27,7 @@
             $this->load->view('admin/index', $data);
         }
 // =========================================================================
-
+        
 // Ketua RT
 // =========================================================================
         public function index(){
@@ -84,26 +84,26 @@
             $data['content'] = "admin/formpemasukan";
             $this->load->view('admin/index',$data);
         }
-        public function iurankeluar(){
+        public function masukpengeluaran(){
             if($this->input->post('submit')){
-                // $id_iuran_keluar = $this->input->post('id_iuran_keluar');
+                
                 $diberikan_kepada = $this->input->post('diberikan_kepada');
-                $tanggal = $this->input->post('tanggal');
                 $nominal = $this->input->post('nominal');
+                $tanggal = $this->input->post('tanggal');
                 $digunakan_untuk = $this->input->post('digunakan_untuk');
                 $gambar = $this->input->post('gambar');
-
+                
+                
                 $config['max_size'] =0;
                 $config['max_width']=0;
                 $config['max_height']=0;
                 $config['allowed_types'] = "png|jpg|jpeg|gif";
                 $config['upload_path']='./upload/gambar';
-
+    
                 $this->load->library('upload',$config);
-
+    
                 if(!$this->upload->do_upload('gambar')){
-                    $error = array
-                    ('error'=>$this->upload->display_errors());
+                    $error = array('error'=>$this->upload->display_errors());
                     $this->load->view('admin/tabelpengeluaran',$error);
                 }else{
                     $data = array(
@@ -111,26 +111,25 @@
                     );
                     $file = $this->upload->data();
                     $gambar=$file['file_name'];
-
-
-                    $dataiurankeluar = array(
-                        // 'id_iuran_keluar' => $id_iuran_keluar,
+    
+                    $datapengeluaran = array(
                         'diberikan_kepada' => $diberikan_kepada,
-                        'tanggal'=> $tanggal,
                         'nominal' => $nominal,
-                        'digunakan_untuk' => $digunakan_untuk,
-                        'gambar' => $gambar,
-
+                        'tanggal' => $tanggal,
+                        'digunakan_untuk'=> $digunakan_untuk,
+                        'gambar'  => $gambar,
+                        
+    
                     );
-                    $query = $this->M_admin->isi_data_iuran_keluar($dataiurankeluar);
+                    $query = $this->M_admin->isi_data_pengeluaran($datapengeluaran);
                     if($query){
                         ?>
                         <script>
                             alert("Berhasil isi data")
                         </script>
                         <?php
-
-                        $data['content'] = "admin/formpengeluaran.php";
+    
+                        $data['content'] = "admin/tabelpengeluaran.php";
                         $this->load->view('admin/index',$data);
                     }else{
                         ?>
@@ -139,9 +138,9 @@
                             location = <?= base_url('pengeluaran');?>
                         </script>
                         <?php
-
-                        $data['content'] = "admin/formpengeluaran.php";
-                        $this->load->view('admin/index',$data);
+    
+                         $data['content'] = "admin/formpengeluaran.php";
+                         $this->load->view('admin/index',$data);
                     }
                 }
                 }else{
@@ -156,19 +155,7 @@
 // ==========================================================================
         public function inputrapat(){
             $data['content'] = 'admin/v_rapat';
-            $data['title'] = 'Input Surat Rapat';
-            $this->load->view('admin/index', $data);
-        }
-
-        public function inputkegiatan(){
-            $data['content'] = 'admin/v_kegiatan';
-            $data['title'] = 'Input Surat Undangan Kegiatan';
-            $this->load->view('admin/index', $data);
-        }
-
-        public function inputnotulensi(){
-            $data['content'] = 'admin/v_notulensi';
-            $data['title'] = 'Input Notulensi Rapat';
+            $data['title'] = 'Input Rapat';
             $this->load->view('admin/index', $data);
         }
 
@@ -291,16 +278,19 @@
                 redirect('c_halaman_admin/inputWarga','refresh');
             }
         }
+// =====================================================================
+        public function klik_konfirmasi_data_warga($id){
+            $data['valid'] = 1;
 
-        // public function klik_konfirmasi_data_warga(){
-        //     $data['valid'] = 1;
+            $query = $this->m_admin->edit_data('warga','nik', $id, $data);
 
-        //     $query = $this->m_admin->edit_data('warga','nik',$id,$data);
-
-        //     if ($query) {
-
-        //     }
-        // }
+            if ($query) {
+                $json['message'] = 'Data Warga Berhasil Dikonfirmasi';
+            }else {
+                $json['errors'] = 'Data Warga Gagal Dikonfirmasi';
+            }
+            echo json_encode($json);
+        }
     }
 
     /* End of file Controllername.php */

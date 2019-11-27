@@ -1,3 +1,50 @@
+function konfirmasi_data(base_url, id) {
+    Swal.fire({
+        title: "Apakah anda yakin ?",
+        text: "Setelah di konfirmasi, data tidak bisa diubah lagi..!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: 'Konfirmasi',
+        cancelButtonText: 'Batal',
+        cancelButtonColor: '#d33',
+        confirmButtonColor: '#3085d6',
+        reverseButtons: true
+    })
+    .then((result) => {
+        if(result.value) { 
+            $.ajax({
+                url: base_url + id,
+                type: "get",
+                data: id,
+                dataType: "json",
+                success:function(data){
+                    if ($.isEmptyObject(data.errors)) {
+                        Swal.fire({
+                            title: "Berhasil",
+                            text: data.message, 
+                            icon: "success"
+                        }).then(function() {
+                            location.reload();
+                        });
+                    } else {
+                        Swal.fire({
+                            title: "Gagal",
+                            text: data.errors, 
+                            icon: "error"
+                        });
+                    }
+                },
+                error:function(){
+                    Swal.fire({
+                        title: "Data Proses",
+                        text: "Error di System..!", 
+                        icon: "error"
+                    });
+                }
+            });
+        }
+    });
+}
 // =============================================================
 $(document).ready(function () {
 // =============================================================

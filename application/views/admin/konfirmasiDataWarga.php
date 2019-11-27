@@ -6,13 +6,13 @@
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Data Warga</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Konfirmasi Data Warga</h6>
             </div>
             <div class="card-body">
               <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
-                    <tr>
+                    <tr class="bg-dark text-white">
                       <th width="5%">No</th>
                       <th>NIK</th>
                       <th>Nama Lengkap</th>
@@ -29,6 +29,7 @@
                       <th>Hubungan Dalam Keluarga</th>
                       <th>Nomor Rumah</th>
                       <th>Gang</th>
+                      <th>Action</th>
                     </tr>
                   </thead>
                   <?php
@@ -53,7 +54,7 @@
                         <td><?= $row['hub_dlm_kel']?></td>
                         <td><?= $row['no_rumah']?></td>
                         <td><?= $row['gang']?></td>
-                        <td><a href="<?= base_url('c_halaman_admin/klik_konfirmasi_warga').$row['nik']?>"><button onclick="return confirm('Apakah anda yakin ingin mengkonfirmasi..?');><i></i></button></a></td>
+                        <td><button class="btn btn-primary" onclick="konfirmasi_data('<?= base_url('c_halaman_admin/klik_konfirmasi_data_warga/')?>', <?= $row['nik']; ?>)">Konfirmasi</button></td>
                       </tr>
                   </tbody>
                   <?php } ?>
