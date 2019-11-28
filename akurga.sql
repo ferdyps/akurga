@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 4.8.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 26, 2019 at 05:13 PM
--- Server version: 10.1.38-MariaDB
--- PHP Version: 7.3.2
+-- Generation Time: Nov 28, 2019 at 10:02 AM
+-- Server version: 10.1.34-MariaDB
+-- PHP Version: 5.6.37
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -25,38 +25,20 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `notulensi_rpt`
+-- Table structure for table `rapat`
 --
 
-CREATE TABLE `notulensi_rpt` (
-  `no_notulen` varchar(30) NOT NULL,
-  `lampiran` varchar(80) NOT NULL,
-  `tembusan` varchar(100) NOT NULL,
-  `uraian_notulen` text NOT NULL,
-  `tgl_buat` date NOT NULL,
-  `tgl_acc` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `surat_undangan`
---
-
-CREATE TABLE `surat_undangan` (
-  `no_udg` varchar(30) NOT NULL,
-  `lampiran_udg` varchar(80) NOT NULL,
-  `sifat_udg` varchar(15) NOT NULL,
-  `perihal_udg` varchar(80) NOT NULL,
+CREATE TABLE `rapat` (
+  `no_rpt` varchar(30) NOT NULL,
+  `lampiran_rpt` varchar(80) NOT NULL,
+  `sifat_rpt` varchar(15) NOT NULL,
+  `perihal_rpt` varchar(80) NOT NULL,
   `tujuan_surat` varchar(70) NOT NULL,
-  `tempat_udg` varchar(70) NOT NULL,
+  `tempat_rpt` varchar(70) NOT NULL,
   `isi_surat` text NOT NULL,
-  `jam_udg` time NOT NULL,
-  `acara_udg` text NOT NULL,
-  `catatan` text NOT NULL,
-  `tembusan` varchar(100) NOT NULL,
-  `daftar_hadir` varchar(100) NOT NULL,
-  `tgl_udg` date NOT NULL,
+  `jam_rpt` time NOT NULL,
+  `acara_rpt` text NOT NULL,
+  `tgl_rpt` date NOT NULL,
   `tgl_buat` date NOT NULL,
   `tgl_acc` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -105,6 +87,7 @@ CREATE TABLE `warga` (
   `gang` varchar(10) NOT NULL,
   `jenis_warga` varchar(10) NOT NULL,
   `id_kepala_keluarga` varchar(20) DEFAULT NULL,
+  `id_user` int(11) NOT NULL,
   `valid` int(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -112,25 +95,13 @@ CREATE TABLE `warga` (
 -- Dumping data for table `warga`
 --
 
-INSERT INTO `warga` (`nik`, `nama`, `nohp`, `tempat_lahir`, `tanggal_lahir`, `pendidikan`, `pekerjaan`, `nokk`, `agama`, `jk`, `hub_dlm_kel`, `status`, `no_rumah`, `gang`, `jenis_warga`, `id_kepala_keluarga`, `valid`) VALUES
-('12', 'terserah', NULL, 'Dimanamana', '2019-12-31', 'TIDAK/BELUM SEKOLAH', 'PEGAWAI NEGERI SIPIL', '1212', 'islam', 'laki-laki', 'suami', 'menikah', '12', 'Bbk.Ciamis', 'Tetap', NULL, 0),
-('122', 'terserah', '12', 'Dimanamana', '2019-12-31', 'BELUM TAMAT SD/SEDERAJAT', 'PEGAWAI NEGERI SIPIL', NULL, 'islam', 'laki-laki', NULL, 'menikah', '12', 'Bbk.Ciamis', 'Sementara', NULL, 0);
+INSERT INTO `warga` (`nik`, `nama`, `nohp`, `tempat_lahir`, `tanggal_lahir`, `pendidikan`, `pekerjaan`, `nokk`, `agama`, `jk`, `hub_dlm_kel`, `status`, `no_rumah`, `gang`, `jenis_warga`, `id_kepala_keluarga`, `id_user`, `valid`) VALUES
+('12', 'terserah', NULL, 'Dimanamana', '2019-12-31', 'TIDAK/BELUM SEKOLAH', 'PEGAWAI NEGERI SIPIL', '1212', 'islam', 'laki-laki', 'suami', 'menikah', '12', 'Bbk.Ciamis', 'Tetap', NULL, 0, 1),
+('122', 'terserah', '12', 'Dimanamana', '2019-12-31', 'BELUM TAMAT SD/SEDERAJAT', 'PEGAWAI NEGERI SIPIL', NULL, 'islam', 'laki-laki', NULL, 'menikah', '12', 'Bbk.Ciamis', 'Sementara', NULL, 0, 1);
 
 --
 -- Indexes for dumped tables
 --
-
---
--- Indexes for table `notulensi_rpt`
---
-ALTER TABLE `notulensi_rpt`
-  ADD PRIMARY KEY (`no_notulen`);
-
---
--- Indexes for table `surat_undangan`
---
-ALTER TABLE `surat_undangan`
-  ADD PRIMARY KEY (`no_udg`);
 
 --
 -- Indexes for table `user`
@@ -143,7 +114,8 @@ ALTER TABLE `user`
 --
 ALTER TABLE `warga`
   ADD PRIMARY KEY (`nik`),
-  ADD KEY `id_kepala_keluarga` (`id_kepala_keluarga`);
+  ADD KEY `id_kepala_keluarga` (`id_kepala_keluarga`),
+  ADD KEY `id_user` (`id_user`);
 
 --
 -- AUTO_INCREMENT for dumped tables
