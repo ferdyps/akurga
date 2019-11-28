@@ -296,16 +296,19 @@
                 redirect('c_halaman_admin/inputWarga','refresh');
             }
         }
+// ======================================================================================
+        public function klik_konfirmasi_data_warga($id){
+            $data['valid'] = 1;
 
-        // public function klik_konfirmasi_data_warga(){
-        //     $data['valid'] = 1;
+            $query = $this->m_admin->edit_data('warga','nik',$id,$data);
 
-        //     $query = $this->m_admin->edit_data('warga','nik',$id,$data);
-
-        //     if ($query) {
-                
-        //     }
-        // }
+            if ($query) {
+                $json['message'] = 'Data Warga Berhasil Dikonfirmasi';
+            }else {
+                $json['errors'] = 'Data Warga Gagal Dikonfirmasi';
+            }
+            echo json_encode($json);
+        }
     }
 
     /* End of file Controllername.php */
