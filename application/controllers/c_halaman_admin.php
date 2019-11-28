@@ -49,6 +49,12 @@
             $this->load->view('admin/index', $data);
         }
 // ==========================================================================
+        public function inputHasilKomplain(){
+            $data['content'] = 'admin/inputHasilKomplain';
+            $data['title'] = 'Input Hasil Komplain';
+            $this->load->view('admin/index', $data);
+        }
+// ==========================================================================
 // Bendahara
 // ==========================================================================
         public function tabelpengeluaran(){

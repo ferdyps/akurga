@@ -63,6 +63,17 @@
           </div>
         </div>
       </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseKetuaRTkomplain" aria-expanded="true" aria-controls="collapseKetuaRTkomplain">
+          <i class="fas fa-fw fa-cog"></i>
+          <span>Komplain</span>
+        </a>
+        <div id="collapseKetuaRTkomplain" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="<?= base_url('c_halaman_admin/inputHasilKomplain');?>">Input Hasil Komplain</a>
+          </div>
+        </div>
+      </li>
       <hr class="sidebar-divider">
       <div class="sidebar-heading">
         Bendahara

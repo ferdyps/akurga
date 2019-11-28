@@ -56,6 +56,13 @@
                                 'message' => "Registrasi Akun Berhasil",
                                 'url' => $url
                             ];
+                        } elseif ($user_auth->role == 'Warga') {
+                            $url = base_url('user/index');
+
+                            $json = [
+                                'message' => "Registrasi Akun Berhasil",
+                                'url' => $url
+                            ];
                         }
                     } else {
                         $json['errors'] = "Akun Tidak Ditemukan";
@@ -131,7 +138,6 @@
             ]);
 
             $this->form_validation->set_message('is_unique','{field} Sudah Terdaftar');
-            
 
             $json = null;
 
