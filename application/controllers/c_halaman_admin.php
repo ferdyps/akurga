@@ -27,7 +27,7 @@
             $this->load->view('admin/index', $data);
         }
 // =========================================================================
-        
+
 // Ketua RT
 // =========================================================================
         public function index(){
@@ -108,22 +108,22 @@
             //         'rules' => 'trim|numeric'
             //     ],
             // ]);
-            
+
             if($this->input->post('submit')){
                 // $id_iuran_keluar = $this->input->post('id_iuran_keluar');
                 $diberikan_kepada = $this->input->post('diberikan_kepada');
                 $tanggal = $this->input->post('tanggal');
                 $nominal = $this->input->post('nominal');
                 $digunakan_untuk = $this->input->post('digunakan_untuk');
-    
+
                 $config['max_size'] =0;
                 $config['max_width']=0;
                 $config['max_height']=0;
                 $config['allowed_types'] = "png|jpg|jpeg|gif";
                 $config['upload_path']='./upload/gambar';
-    
+
                 $this->load->library('upload',$config);
-    
+
                 // if(!$this->upload->do_upload('gambar')){
                 //     echo "gambar gak masook";
                 //     $error = array
@@ -136,12 +136,12 @@
                     // $file = $this->upload->data();
                     // $gambar=$file['file_name'];
                     $gambar="gambar.jpg";
-    
-    
+
+
                     $dataiurankeluar = array(
                         'diberikan_kepada' => $diberikan_kepada,
                         'tanggal'=> $tanggal,
-                        'nominal' => $nominal, 
+                        'nominal' => $nominal,
                         'digunakan_untuk' => $digunakan_untuk,
                         'gambar' => $gambar,
                     );
@@ -171,7 +171,7 @@
                 $this->load->view('admin/index',$data);
             }
         }
-        
+
 
 // ==========================================================================
 // ==========================================================================
@@ -180,6 +180,18 @@
         public function inputrapat(){
             $data['content'] = 'admin/v_rapat';
             $data['title'] = 'Input Rapat';
+            $this->load->view('admin/index', $data);
+        }
+
+        public function inputkegiatan(){
+            $data['content'] = 'admin/v_kegiatan';
+            $data['title'] = 'Input Surat Undangan Kegiatan';
+            $this->load->view('admin/index', $data);
+        }
+
+        public function inputnotulensi(){
+            $data['content'] = 'admin/v_notulensi';
+            $data['title'] = 'Input Notulensi Rapat';
             $this->load->view('admin/index', $data);
         }
 
