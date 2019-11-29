@@ -88,7 +88,7 @@
         <div id="collapseBendahara" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <a class="collapse-item" href="<?php echo base_url("c_halaman_admin/formpengeluaran");?>">Form Pengeluaran</a>
-            <a class="collapse-item" href="<?php echo base_url("c_halaman_admin/tabelpengeluaran");?>">Tabel Pengeluaran</a>
+            <a class="collapse-item" href="<?php echo base_url("c_halaman_admin/tabeldataiurankeluar");?>">Tabel Pengeluaran</a>
             <a class="collapse-item" href="<?php echo base_url("c_halaman_admin/formpemasukan");?>">Form Pemasukan</a>
             <a class="collapse-item" href="<?php echo base_url("c_halaman_admin/tabelpemasukan");?>">Tabel Pemasukan</a>
           </div>
