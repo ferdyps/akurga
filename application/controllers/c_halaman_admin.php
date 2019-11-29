@@ -95,6 +95,14 @@
             $data['content'] = "admin/tabelpengeluaran.php";
              $this->load->view('admin/index',$data);
         }
+        public function hapus_iuran_keluar($no_pengeluaran){
+            $where = array(
+                'no_pengeluaran' => $no_pengeluaran
+            );
+            // $no_pengeluaran = $this->m_admin->view_data($where,'pengeluaran')->row()->no_pengeluaran;
+            $this->m_admin->delete_data_iuran_keluar($where,'pengeluaran');
+            redirect('c_halaman_admin/tabeldataiurankeluar');
+        }	
         public function iurankeluar(){
             
             // $this->form_validation->set_rules([

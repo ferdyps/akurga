@@ -32,15 +32,16 @@
         ?>
           <tr>
             <td><?php echo $no++; ?></td>
-            <!-- <td><?php echo $b->id_iuran_keluar; ?></td> -->
+            <!-- <td><?php echo $b['no_pengeluaran']; ?></td>  -->
             <td><?php echo $b['diberikan_kepada']; ?></td>
             <td><?php echo $b['nominal']; ?></td>
             <td><?php echo $b['tanggal']; ?></td>
             <td><?php echo $b['digunakan_untuk'] ?></td>
+            <td><?php echo $b['gambar'] ?></td>
             <td>
             <?php $sum=$sum+$b['nominal']?>
-              <!-- <?php echo anchor('bendahara/edit_iuran_keluar/'.$b->id_iuran_keluar,'Edit'); ?> | |  
-                 <?php echo anchor('bendahara/hapus_iuran_keluar/'.$b->id_iuran_keluar,'Hapus'); ?>   -->
+              <?php echo anchor('admin/edit_iuran_keluar/'.$b['no_pengeluaran'],'Edit'); ?> | |  
+                 <?php echo anchor('c_halaman_admin/hapus_iuran_keluar/'.$b['no_pengeluaran'],'Hapus'); ?>  
             </td>
           </tr>
         <?php } ?>
