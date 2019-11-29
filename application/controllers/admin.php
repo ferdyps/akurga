@@ -2,7 +2,7 @@
 
     defined('BASEPATH') OR exit('No direct script access allowed');
 
-    class C_halaman_admin extends CI_Controller {
+    class Admin extends CI_Controller {
 
         public function __construct(){
             parent::__construct();
@@ -10,10 +10,10 @@
             $this->load->library('form_validation');
 
             if(!$this->session->has_userdata('status')){
-                redirect('c_autentikasi/','refresh');
+                redirect('auth/','refresh');
             } else {
                 if ($this->session->userdata('role') == 'warga') {
-                    redirect('c_halaman_warga/','refresh');
+                    redirect('user/','refresh');
                 }
             }
         }
@@ -290,7 +290,7 @@
                     $query = $this->m_admin->input_data('warga', $data);
 
                     if ($query) {
-                        $url = base_url('c_halaman_admin/inputWarga');
+                        $url = base_url('admin/inputWarga');
 
                         $json = [
                             'message' => "Data Warga berhasil diinput..",
@@ -311,7 +311,7 @@
                 }
             echo json_encode($json);
             } else {
-                redirect('c_halaman_admin/inputWarga','refresh');
+                redirect('admin/inputWarga','refresh');
             }
         }
 // ======================================================================================

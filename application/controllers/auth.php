@@ -2,7 +2,7 @@
     
     defined('BASEPATH') OR exit('No direct script access allowed');
     
-    class C_autentikasi extends CI_Controller {
+    class Auth extends CI_Controller {
     
         
         public function __construct(){
@@ -13,7 +13,7 @@
 //==============================================================================================
         public function index(){
             $this->cek_session();
-            $this->load->view('default/login');
+            $this->load->view('auth/login');
         }
 //==============================================================================================
         public function login(){
@@ -50,7 +50,7 @@
                         $this->session->set_userdata($array_auth);
 
                         if ($user_auth->role == 'adminMaster') {
-                            $url = base_url('c_halaman_admin/index');
+                            $url = base_url('admin/index');
 
                             $json = [
                                 'message' => "Registrasi Akun Berhasil",
@@ -79,33 +79,33 @@
                 }
                 echo json_encode($json); 
             }else {
-                redirect('c_autentikasi/login','refresh');
+                redirect('auth/login','refresh');
             }
             
         }
 //===============================================================================================
         public function dashboard(){
             if(!$this->session->has_userdata('status')){
-                redirect('c_autentikasi/','refresh');
+                redirect('auth/','refresh');
             }
             $this->load->view('admin/dashboard');
         }
 //===============================================================================================
         public function logout(){
             $this->session->sess_destroy();
-            redirect('c_autentikasi/','refresh');
+            redirect('auth/','refresh');
         }
 //===============================================================================================
         private function cek_session(){
             if($this->session->has_userdata('status')){
                 if ($this->session->userdata('role') == "adminMaster") {
-                    redirect('c_halaman_admin/','refresh');
+                    redirect('admin/','refresh');
                 }
             }
         }
 //===============================================================================================
         public function register(){
-            $this->load->view('default/registrasi');
+            $this->load->view('auth/registrasi');
         }
 // ============================================================================================
         public function insert_register(){
@@ -164,7 +164,7 @@
                         $query = $this->m_user->update_data('warga', 'nik', $nik, ['id_user' => $id_user]);
 
                         if ($inputRegistrasi && $query) {
-                            $url = base_url('c_autentikasi/login');
+                            $url = base_url('auth/login');
 
                             $json = [
                                 'message' => "Registrasi Akun Berhasil",
@@ -188,7 +188,7 @@
                 }
                 echo json_encode($json);
             } else {
-                redirect('c_autentikasi/registrasi','refresh');
+                redirect('auth/registrasi','refresh');
             }
         }
     }
