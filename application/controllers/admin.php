@@ -91,11 +91,12 @@
             $this->load->view('admin/index',$data);
         }
         public function tabeldataiurankeluar(){
-            $data['dataiurank'] = $this->m_admin->tampil_iuran_keluar()->result();
+            $data['dataiurank'] = $this->m_admin->tampil_iuran_keluar()->result_array();
             $data['content'] = "admin/tabelpengeluaran.php";
              $this->load->view('admin/index',$data);
         }
         public function iurankeluar(){
+
             // $this->form_validation->set_rules([
             //     [
             //         'field' => 'diberikan_kepada',
@@ -153,7 +154,7 @@
                                 alert("Berhasil Isi Data")
                         </script>
                         <?php
-                        $data['content'] = "admin/tabelpengeluaran";
+                        $data['content'] = "admin/tabelpengeluaran.php";
                         $this->load->view('admin/index',$data);
                     }else{
                         ?>
@@ -191,6 +192,12 @@
 
         public function inputnotulensi(){
             $data['content'] = 'admin/v_notulensi';
+            $data['title'] = 'Input Notulensi Rapat';
+            $this->load->view('admin/index', $data);
+        }
+
+        public function input_arsipsurat(){
+            $data['content'] = 'admin/v_arsip_surat';
             $data['title'] = 'Input Notulensi Rapat';
             $this->load->view('admin/index', $data);
         }

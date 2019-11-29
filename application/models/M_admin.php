@@ -29,6 +29,7 @@
         public function tampil_iuran_keluar(){
             return $this->db->get('pengeluaran');
         }
+        
     
     }
     
