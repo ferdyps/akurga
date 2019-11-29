@@ -96,7 +96,7 @@
              $this->load->view('admin/index',$data);
         }
         public function iurankeluar(){
-            
+
             // $this->form_validation->set_rules([
             //     [
             //         'field' => 'diberikan_kepada',
@@ -192,6 +192,12 @@
 
         public function inputnotulensi(){
             $data['content'] = 'admin/v_notulensi';
+            $data['title'] = 'Input Notulensi Rapat';
+            $this->load->view('admin/index', $data);
+        }
+
+        public function input_arsipsurat(){
+            $data['content'] = 'admin/v_arsip_surat';
             $data['title'] = 'Input Notulensi Rapat';
             $this->load->view('admin/index', $data);
         }
