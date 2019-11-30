@@ -10,9 +10,9 @@
             </div>
             <div class="card-body">
               <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <table class="table table-striped table-hover" id="dataTable" width="100%" cellspacing="0">
                   <thead>
-                    <tr class="bg-dark text-white">
+                    <tr class="bg-primary text-white text-center">
                       <th width="5%">No</th>
                       <th>NIK</th>
                       <th>Nama Lengkap</th>

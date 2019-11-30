@@ -10,9 +10,9 @@
             </div>
             <div class="card-body">
               <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <table class="table table-striped table-hover" id="dataTable" width="100%" cellspacing="0">
                   <thead>
-                    <tr class="bg-dark text-white">
+                    <tr class="bg-primary text-white text-center">
                       <th width="5%">No</th>
                       <th>NIK</th>
                       <th>Nama Lengkap</th>
@@ -54,7 +54,7 @@
                         <td><?= $row['hub_dlm_kel']?></td>
                         <td><?= $row['no_rumah']?></td>
                         <td><?= $row['gang']?></td>
-                        <td><button class="btn btn-primary" onclick="konfirmasi_data('<?= base_url('c_halaman_admin/klik_konfirmasi_data_warga/')?>', <?= $row['nik']; ?>)">Konfirmasi</button></td>
+                        <td><button class="btn btn-primary" onclick="konfirmasi_data('<?= base_url('admin/klik_konfirmasi_data_warga/')?>', <?= $row['nik']; ?>)">Konfirmasi</button></td>
                       </tr>
                   </tbody>
                   <?php } ?>

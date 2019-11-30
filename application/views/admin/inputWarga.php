@@ -9,7 +9,7 @@
 <div class="container">
     <div class="row bg-white rounded shadow border-left-primary">
         <div class="col px-0">
-        <?= form_open('c_halaman_admin/insertWarga', ['id' => 'default-form', 'log' => 'Input Warga']);?>
+        <?= form_open('admin/insertWarga', ['id' => 'default-form', 'log' => 'Input Warga']);?>
             <div class="row px-3 my-3">
                 <div class="col">
                     <div class="form-group form-input">
@@ -42,7 +42,7 @@
                         </div>
                         <div class="col form-input">
                             <label for="input-tanggal_lahir">Tanggal Lahir</label>
-                            <input type="date" name="tanggal_lahir" id="input-tanggal_lahir" class="form-control"">
+                            <input type="date" name="tanggal_lahir" id="input-tanggal_lahir" class="form-control">
                             <div class="invalid-feedback"></div>
                         </div>
                     </div>

@@ -1,4 +1,4 @@
-<?php $this->load->view('default/_partials/header');?>
+<?php $this->load->view('auth/_partials/header');?>
 <div class="container">
 <!-- Outer Row -->
 <div class="container">
@@ -15,7 +15,7 @@
               <div class="text-center">
                 <h1 class="h4 text-gray-900 mb-4">Buat Akun!</h1>
               </div>
-              <?= form_open('c_autentikasi/insert_register', ['id' => 'default-form', 'log' => 'Input Registrasi']);?>
+              <?= form_open('auth/insert_register', ['id' => 'default-form', 'log' => 'Input Registrasi']);?>
                 <div class="form-group form-input">
                     <input type="text" class="form-control form-control-user" id="input-nik" placeholder="Nomor Induk Kependudukan" name="nik">
                     <div class="invalid-feedback"></div>
@@ -54,7 +54,7 @@
                 <a class="small" href="forgot-password.html">Forgot Password?</a>
               </div> -->
               <div class="text-center">
-                <a class="small" href="<?= base_url('c_autentikasi/');?>">Sudah Punya Akun? Silahkan Login!</a>
+                <a class="small" href="<?= base_url('auth/');?>">Sudah Punya Akun? Silahkan Login!</a>
               </div>
             </div>
           </div>

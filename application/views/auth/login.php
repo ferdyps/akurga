@@ -1,4 +1,4 @@
-<?php $this->load->view('default/_partials/header');?>
+<?php $this->load->view('auth/_partials/header');?>
 <div class="container">
 
 <!-- Outer Row -->
@@ -18,7 +18,7 @@
               <div class="text-center">
                 <h1 class="h4 text-gray-900 mb-4">Selamat Datang!</h1>
               </div>
-              <?= form_open('c_autentikasi/login', ['id' => 'default-form', 'log' => 'Input Login']);?>
+              <?= form_open('auth/login', ['id' => 'default-form', 'log' => 'Input Login']);?>
                 <div class="form-group form-input">
                   <input type="text" class="form-control form-control-user" id="input-username_email" aria-describedby="emailHelp" placeholder="Username/Email" name="username_email">
                   <div class="invalid-feedback"></div>
@@ -51,7 +51,7 @@
                 <?= $this->session->userdata('status');?>
             </div> -->
               <div class="text-center">
-                <a class="small" href="<?= base_url('c_autentikasi/register');?>">Belum Punya Akun? Silahkan Registrasi!</a>
+                <a class="small" href="<?= base_url('auth/register');?>">Belum Punya Akun? Silahkan Registrasi!</a>
               </div>
             </div>
           </div>
