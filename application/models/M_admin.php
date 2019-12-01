@@ -29,6 +29,20 @@
         public function tampil_iuran_keluar(){
             return $this->db->get('pengeluaran');
         }
+        public function view_data($where,$table){
+            return $this->db->get_where($table,$where);
+         }
+         public function delete_data_iuran_keluar($where,$table){
+            $this->db->where($where);
+            $this->db->delete($table);
+        }
+        public function edit_data_iuran_keluar($where,$table){
+            return $this->db->get_where($table,$where);
+        }
+        function update_data($where,$data,$table){
+            $this->db->where($where);
+            $this->db->update($table,$data); 
+        }
         
     
     }

@@ -95,6 +95,54 @@
             $data['content'] = "admin/tabelpengeluaran.php";
              $this->load->view('admin/index',$data);
         }
+        public function hapus_iuran_keluar($no_pengeluaran){
+            $where = array(
+                'no_pengeluaran' => $no_pengeluaran
+            );
+            // $no_pengeluaran = $this->m_admin->view_data($where,'pengeluaran')->row()->no_pengeluaran;
+            $this->m_admin->delete_data_iuran_keluar($where,'pengeluaran');
+            redirect('admin/tabeldataiurankeluar');
+        }	
+        public function edit_iuran_keluar($no_pengeluaran)
+        {
+            $where = array(
+                'no_pengeluaran' => $no_pengeluaran
+            );
+            $this->session->set_userdata($where);
+
+            $data['pengeluaran'] = $this->m_admin->edit_data_iuran_keluar($where,'pengeluaran')->result();
+            $data['content']="admin/editiurankeluar.php";
+            $this->load->view('admin/index',$data); 
+        }
+	function update_data_iuran_keluar(){
+		if($this->input->post('edit_keluar')){
+			$no_pengeluaran = $this->session->userdata('no_pengeluaran');
+			$diberikan_kepada = $this->input->post('diberikan_kepada');
+			$tanggal = $this->input->post('tanggal');
+			$nominal = $this->input->post('nominal');
+            $digunakan_untuk = $this->input->post('digunakan_untuk');
+            $gambar = $this->input->post('gambar');
+			
+			$dataiurankeluar = array(
+				'no_pengeluaran' => $no_pengeluaran,
+				'diberikan_kepada' => $diberikan_kepada,
+				'tanggal' => $tanggal,
+				'nominal' => $nominal,
+                'digunakan_untuk' => $digunakan_untuk,
+                'gambar' => $gambar
+				
+			);
+
+			$where = array(
+				'no_pengeluaran' => $no_pengeluaran
+			);
+
+			$this->m_admin->update_data($where,$dataiurankeluar,'pengeluaran');
+			redirect(base_url('admin/tabeldataiurankeluar'),'refresh');
+		} else {
+			redirect(base_url('admin/editiurankeluar'),'refresh');
+		}
+	}
         public function iurankeluar(){
 
             // $this->form_validation->set_rules([
@@ -154,6 +202,7 @@
                                 alert("Berhasil Isi Data")
                         </script>
                         <?php
+                        $data['dataiurank'] = $this->m_admin->tampil_iuran_keluar()->result_array();
                         $data['content'] = "admin/tabelpengeluaran.php";
                         $this->load->view('admin/index',$data);
                     }else{
