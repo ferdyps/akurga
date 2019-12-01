@@ -102,7 +102,7 @@
             // $no_pengeluaran = $this->m_admin->view_data($where,'pengeluaran')->row()->no_pengeluaran;
             $this->m_admin->delete_data_iuran_keluar($where,'pengeluaran');
             redirect('admin/tabeldataiurankeluar');
-        }	
+        }
         public function edit_iuran_keluar($no_pengeluaran)
         {
             $where = array(
@@ -112,7 +112,7 @@
 
             $data['pengeluaran'] = $this->m_admin->edit_data_iuran_keluar($where,'pengeluaran')->result();
             $data['content']="admin/editiurankeluar.php";
-            $this->load->view('admin/index',$data); 
+            $this->load->view('admin/index',$data);
         }
 	function update_data_iuran_keluar(){
 		if($this->input->post('edit_keluar')){
@@ -122,7 +122,7 @@
 			$nominal = $this->input->post('nominal');
             $digunakan_untuk = $this->input->post('digunakan_untuk');
             $gambar = $this->input->post('gambar');
-			
+
 			$dataiurankeluar = array(
 				'no_pengeluaran' => $no_pengeluaran,
 				'diberikan_kepada' => $diberikan_kepada,
@@ -130,7 +130,7 @@
 				'nominal' => $nominal,
                 'digunakan_untuk' => $digunakan_untuk,
                 'gambar' => $gambar
-				
+
 			);
 
 			$where = array(
@@ -228,6 +228,7 @@
 // Sekretaris
 // ==========================================================================
         public function inputrapat(){
+            $data['generate_id'] = $this->m_admin->get_idRapat($this->session->userdata('jabatan'));
             $data['content'] = 'admin/v_rapat';
             $data['title'] = 'Input Rapat';
             $this->load->view('admin/index', $data);
@@ -250,6 +251,30 @@
             $data['title'] = 'Input Notulensi Rapat';
             $this->load->view('admin/index', $data);
         }
+
+        public function riwayat_Undangan(){
+            $data['content'] = 'admin/tabel_undangan';
+            $data['title'] = 'Riwayat Surat Undangan';
+            $this->load->view('admin/index', $data);
+        }
+
+        public function riwayat_notulensi(){
+            $data['content'] = 'admin/tabel_notulensi';
+            $data['title'] = 'Riwayat Notulensi Rapat';
+            $this->load->view('admin/index', $data);
+        }
+
+        public function riwayat_arsip(){
+            $data['content'] = 'admin/tabel_arsip';
+            $data['title'] = 'Riwayat Arsip Surat';
+            $this->load->view('admin/index', $data);
+
+        }
+
+        // ==========================================================================
+        // ==========================================================================
+        // END OF SEKRETARIS
+        // ==========================================================================
 
 // Untuk Back-end
 // ==========================================================================
@@ -382,6 +407,42 @@
                 $json['errors'] = 'Data Warga Gagal Dikonfirmasi';
             }
             echo json_encode($json);
+        }
+
+        // ================================ Insert Sekretaris =====================================
+        public function insertUndangan(){
+          $this->form_validation->set_rules([
+              [
+                  'field' => 'nik',
+                  'label' => 'NIK',
+                  'rules' => 'trim|required|is_unique[warga.nik]|numeric'
+              ],
+              [
+                  'field' => 'nama',
+                  'label' => 'Nama Lengkap',
+                  'rules' => 'trim|required|regex_match[/^[a-zA-Z ]/]'
+              ],
+              [
+                  'field' => 'tempat_lahir',
+                  'label' => 'Tempat Lahir',
+                  'rules' => 'trim|required|regex_match[/^[a-zA-Z ]/]'
+              ],
+              [
+                  'field' => 'tanggal_lahir',
+                  'label' => 'Tanggal Lahir',
+                  'rules' => 'required'
+              ],
+              [
+                  'field' => 'no_rumah',
+                  'label' => 'No Rumah',
+                  'rules' => 'trim|numeric|required'
+              ]
+          ]);
+          $json = null;
+
+          if ($this->input->post('submit')) {
+            // code...
+          }
         }
     }
 

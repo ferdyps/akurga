@@ -1,9 +1,24 @@
 <?php
-    
+
     defined('BASEPATH') OR exit('No direct script access allowed');
-    
+
     class M_admin extends CI_Model {
-    
+
+      // ======================== GET ID otomatis ================================
+      public function get_idRapat($jabatan) {
+        $this->db->select("MAX(no_udg) as maxId");
+        $query = $this->db->get('surat_undangan')->row();
+        $Kode=$query->maxId;
+          // $rtnya = substr($jabatan, 11, 6);
+          $noUrut=(int)substr($Kode, 1, 4);
+          $noUrut++;
+          $Char = "-RPT-";
+          $newID = sprintf("%04s", $noUrut) . $Char; //. $rtnya
+          return $newID;
+
+      }
+      // ======================== END GET ID otomatis ================================
+
         public function input_data($table, $data){
             return $this->db->insert($table, $data);
         }
@@ -41,13 +56,13 @@
         }
         function update_data($where,$data,$table){
             $this->db->where($where);
-            $this->db->update($table,$data); 
+            $this->db->update($table,$data);
         }
-        
-    
+
+
     }
-    
-    
+
+
     /* End of file M_admin.php */
-    
+
 ?>
