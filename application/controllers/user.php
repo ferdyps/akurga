@@ -18,11 +18,11 @@
                 }
             }
         }
-        
-
-        public function index()
-        {
-            
+// ===============================================================================
+        public function index(){
+            $data['content'] = 'user/home';
+            $data['title'] = 'Home';
+            $this->load->view('user/index', $data);
         }
     
     }

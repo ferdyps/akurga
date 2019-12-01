@@ -80,7 +80,7 @@ $(document).ready(function () {
             },
             success:function(data){
                 if ($.isEmptyObject(data.errors) && $.isEmptyObject(data.form_errors)) {
-                    swal({
+                    Swal.fire({
                         title: "Berhasil",
                         text: data.message, 
                         icon: "success"
@@ -93,7 +93,7 @@ $(document).ready(function () {
                         $('#input-' + data.form_errors[form_data]['id']).parents('.form-input').find('.invalid-feedback').html(data.form_errors[form_data]['msg']);
                     }
                 } else {
-                    swal({
+                    Swal.fire({
                         title: "Gagal",
                         text: data.errors, 
                         icon: "error"
@@ -101,7 +101,7 @@ $(document).ready(function () {
                 }
             },
             error:function(){
-                swal({
+                Swal.fire({
                     title: "Error",
                     text: "Error pada System..!",
                     icon: "error"
