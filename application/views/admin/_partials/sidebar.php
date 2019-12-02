@@ -131,7 +131,7 @@
         </a>
         <div id="collapseSekretarisArsip" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="<?php echo base_url("admin/input_arsipsurat");?>">Input Surat Masuk/keluar</a>
+            <a class="collapse-item" href="<?php echo base_url("admin/input_arsipsurat");?>">Input Surat Masuk</a>
             <a class="collapse-item" href="<?php echo base_url("admin/riwayat_arsip");?>">Riwayat Arsip Surat</a>
           </div>
         </div>

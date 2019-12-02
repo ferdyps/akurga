@@ -11,7 +11,7 @@
                <div class="col">
                    <div class="form-group">
                        <label for="NomorNotulensi">No Notulensi Rapat</label>
-                       <input type="text" name="no_notulen" id="NomorNotulensi" class="form-control" disabled>
+                       <input type="text" name="no_notulen" value="<?= $generate_id  ?>" id="NomorNotulensi" class="form-control" disabled>
                        <div class="invalid-feedback">
                            <?= form_error('no_notulen'); ?>
                        </div>

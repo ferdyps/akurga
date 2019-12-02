@@ -228,25 +228,28 @@
 // Sekretaris
 // ==========================================================================
         public function inputrapat(){
-            $data['generate_id'] = $this->m_admin->get_idRapat($this->session->userdata('jabatan'));
+            $data['generate_id'] = $this->m_admin->get_id('rapat'); //$this->session->userdata('jabatan')
             $data['content'] = 'admin/v_rapat';
             $data['title'] = 'Input Rapat';
             $this->load->view('admin/index', $data);
         }
 
         public function inputkegiatan(){
+            $data['generate_id'] = $this->m_admin->get_id('kegiatan'); //$this->session->userdata('jabatan')
             $data['content'] = 'admin/v_kegiatan';
             $data['title'] = 'Input Surat Undangan Kegiatan';
             $this->load->view('admin/index', $data);
         }
 
         public function inputnotulensi(){
+            $data['generate_id'] = $this->m_admin->get_id('notulensi'); //$this->session->userdata('jabatan')
             $data['content'] = 'admin/v_notulensi';
             $data['title'] = 'Input Notulensi Rapat';
             $this->load->view('admin/index', $data);
         }
 
         public function input_arsipsurat(){
+            $data['generate_id'] = $this->m_admin->get_id('arsip'); //$this->session->userdata('jabatan')
             $data['content'] = 'admin/v_arsip_surat';
             $data['title'] = 'Input Notulensi Rapat';
             $this->load->view('admin/index', $data);
@@ -413,35 +416,90 @@
         public function insertUndangan(){
           $this->form_validation->set_rules([
               [
-                  'field' => 'nik',
-                  'label' => 'NIK',
-                  'rules' => 'trim|required|is_unique[warga.nik]|numeric'
+                  'field' => 'no_udg',
+                  'label' => 'Nomor Undangan',
+                  'rules' => 'trim|required'
               ],
               [
-                  'field' => 'nama',
-                  'label' => 'Nama Lengkap',
-                  'rules' => 'trim|required|regex_match[/^[a-zA-Z ]/]'
+                  'field' => 'lampiran',
+                  'label' => 'Lampiran',
+                  'rules' => 'trim|required'
               ],
               [
-                  'field' => 'tempat_lahir',
-                  'label' => 'Tempat Lahir',
-                  'rules' => 'trim|required|regex_match[/^[a-zA-Z ]/]'
+                  'field' => 'sifat',
+                  'label' => 'sifat',
+                  'rules' => 'trim|required|'
               ],
+
               [
-                  'field' => 'tanggal_lahir',
-                  'label' => 'Tanggal Lahir',
-                  'rules' => 'required'
+                  'field' => 'hal',
+                  'label' => 'hal',
+                  'rules' => 'trim|required|'
               ],
+
               [
-                  'field' => 'no_rumah',
-                  'label' => 'No Rumah',
-                  'rules' => 'trim|numeric|required'
+                  'field' => 'tujuan_surat',
+                  'label' => 'tujuan surat',
+                  'rules' => 'trim|required|'
+              ],
+
+              [
+                  'field' => 'tempat_udg',
+                  'label' => 'tempat Undangan',
+                  'rules' => 'trim|required|'
+              ],
+
+              [
+                  'field' => 'tembusan',
+                  'label' => 'Tembusan',
+                  'rules' => 'trim'
+              ],
+
+              [
+                  'field' => 'isi_surat',
+                  'label' => 'Isi Surat',
+                  'rules' => 'trim|required'
+              ],
+
+              [
+                  'field' => 'tgl_surat',
+                  'label' => 'Tanggal Surat ',
+                  'rules' => 'trim|required'
+              ],
+
+              [
+                  'field' => 'jam_udg',
+                  'label' => 'Jam Undangan ',
+                  'rules' => 'trim|required'
+              ],
+
+              [
+                  'field' => 'acara_udg',
+                  'label' => 'acara Undangan',
+                  'rules' => 'trim|required'
               ]
           ]);
           $json = null;
 
           if ($this->input->post('submit')) {
-            // code...
+            $no_udg     = $this->input->post('no_udg');
+            $lampiran   = $this->input->post('lampiran');
+            $sifat      = $this->input->post('sifat');
+            $hal        = $this->input->post('hal');
+            $tujuan_srt = $this->input->post('tujuan_surat');
+            $tempat_udg = $this->input->post('tempat_udg');
+            $tembusan   = $this->input->post('tembusan');
+            $isi_surat  = $this->input->post('isi_surat');
+            $tgl_srt    = $this->input->post('tgl_surat');
+            $jam_udg    = $this->input->post('jam_udg');
+            $acara_udg  = $this->input->post('acara_udg');
+
+            if ($this->form_validation->run() == TRUE) {
+              $data = [
+                'no_udg' => $no_udg,
+                'lampiran_udg' => $lampiran,
+              ];
+            }
           }
         }
     }

@@ -1,7 +1,7 @@
 <div class="container-fluid">
  <!-- Page Heading -->
  <div class="d-sm-flex align-items-center justify-content-between mb-4">
-     <h1 class="h3 mb-0 text-gray-800">Input Arsip Surat Masuk/Keluar</h1>
+     <h1 class="h3 mb-0 text-gray-800">Input Arsip Surat Masuk</h1>
  </div>
  <div class="container">
    <?php echo form_open();?>
@@ -11,7 +11,7 @@
                  <div class="col">
                      <div class="form-group">
                          <label for="kode_srt">Kode Surat</label>
-                         <input type="text" name="kd_surat" id="kode_srt" class="form-control" disabled>
+                         <input type="text" name="kd_surat" id="kode_srt" value="<?= $generate_id ?>" class="form-control" disabled>
                          <div class="invalid-feedback">
                              <?= form_error('kd_surat'); ?>
                          </div>

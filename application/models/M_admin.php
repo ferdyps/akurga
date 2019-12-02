@@ -5,18 +5,30 @@
     class M_admin extends CI_Model {
 
       // ======================== GET ID otomatis ================================
-      public function get_idRapat($jabatan) {
+      public function get_id($input) { //$jabatan
         $this->db->select("MAX(no_udg) as maxId");
         $query = $this->db->get('surat_undangan')->row();
         $Kode=$query->maxId;
           // $rtnya = substr($jabatan, 11, 6);
           $noUrut=(int)substr($Kode, 1, 4);
           $noUrut++;
-          $Char = "-RPT-";
+          if ($input == 'rapat') {
+            $Char = "/RPT/";
+          }elseif ($input == 'kegiatan') {
+            $Char = "/KGT/";
+          }elseif ($input == 'notulensi') {
+            $Char = "/NOT/";
+          }elseif ($input == 'arsip') {
+            $Char = "/ASM/";
+          }else {
+            echo "Erorr id";
+          }
+
           $newID = sprintf("%04s", $noUrut) . $Char; //. $rtnya
           return $newID;
 
       }
+
       // ======================== END GET ID otomatis ================================
 
         public function input_data($table, $data){
