@@ -3,11 +3,13 @@
     defined('BASEPATH') OR exit('No direct script access allowed');
 
     class Admin extends CI_Controller {
-
+      public $id_user;
         public function __construct(){
             parent::__construct();
             $this->load->model('m_admin');
             $this->load->library('form_validation');
+
+            $this->id_user = $this->session->userdata('id_user');
 
             if(!$this->session->has_userdata('status')){
                 redirect('auth/','refresh');
@@ -413,46 +415,30 @@
         }
 
         // ================================ Insert Sekretaris =====================================
-        public function insertUndangan(){
+        public function insertUndanganRapat(){
           $this->form_validation->set_rules([
               [
                   'field' => 'no_udg',
                   'label' => 'Nomor Undangan',
                   'rules' => 'trim|required'
               ],
-              [
-                  'field' => 'lampiran',
-                  'label' => 'Lampiran',
-                  'rules' => 'trim|required'
-              ],
-              [
-                  'field' => 'sifat',
-                  'label' => 'sifat',
-                  'rules' => 'trim|required|'
-              ],
 
               [
                   'field' => 'hal',
                   'label' => 'hal',
-                  'rules' => 'trim|required|'
+                  'rules' => 'trim|required'
               ],
 
               [
                   'field' => 'tujuan_surat',
                   'label' => 'tujuan surat',
-                  'rules' => 'trim|required|'
+                  'rules' => 'trim|required'
               ],
 
               [
                   'field' => 'tempat_udg',
                   'label' => 'tempat Undangan',
-                  'rules' => 'trim|required|'
-              ],
-
-              [
-                  'field' => 'tembusan',
-                  'label' => 'Tembusan',
-                  'rules' => 'trim'
+                  'rules' => 'trim|required'
               ],
 
               [
@@ -464,7 +450,7 @@
               [
                   'field' => 'tgl_surat',
                   'label' => 'Tanggal Surat ',
-                  'rules' => 'trim|required'
+                  'rules' => 'required'
               ],
 
               [
@@ -479,9 +465,8 @@
                   'rules' => 'trim|required'
               ]
           ]);
-          $json = null;
 
-          if ($this->input->post('submit')) {
+          if ($this->input->post()) {
             $no_udg     = $this->input->post('no_udg');
             $lampiran   = $this->input->post('lampiran');
             $sifat      = $this->input->post('sifat');
@@ -498,8 +483,44 @@
               $data = [
                 'no_udg' => $no_udg,
                 'lampiran_udg' => $lampiran,
+                'sifat_udg' => $sifat,
+                'perihal_udg' => $hal,
+                'tujuan_surat' => $tujuan_srt,
+                'tempat_udg' => $tempat_udg,
+                'tembusan' => $tembusan,
+                'isi_surat' => $isi_surat,
+                'tempat_udg' => $tgl_srt,
+                'jam_udg' => $jam_udg,
+                'acara_udg' => $acara_udg,
+                'id_user' => $this->id_user
               ];
+
+              $query = $this->m_admin->input_data('surat_undangan', $data);
+
+              if ($query) {
+                $url = base_url('admin/riwayat_Undangan');
+
+                $json = [
+                    'message' => "Data Rapat berhasil diinput..",
+                    'url' => $url
+                ];
+              } else {
+                $json['errors'] = "Data Rapat gagal diinput..!";
+              }
+            } else {
+              $no = 0;
+              foreach ($this->input->post() as $key => $value) {
+                  if (form_error($key) != "") {
+                      $json['form_errors'][$no]['id'] = $key;
+                      $json['form_errors'][$no]['msg'] = form_error($key, null, null);
+                      $no++;
+                  }
+              }
             }
+
+            echo json_encode($json);
+          } else {
+            redirect('admin/v_rapat','refresh');
           }
         }
     }

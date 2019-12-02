@@ -6,107 +6,89 @@
  <div class="container">
      <div class="row bg-white rounded shadow border-left-primary">
        <div class="col px-0">
-       <?php echo form_open();?>
+       <?php echo form_open('admin/insertUndanganRapat', ['id' => 'default-form', 'log' => 'Input Rapat']);?>
            <div class="row px-3 my-3">
                <div class="col">
-                   <div class="form-group">
-                       <label for="NomorRapat">No Surat Rapat</label>
-                       <input type="text" name="no_udg" id="NomorRapat" value="<?= $generate_id  ?>" class="form-control" disabled>
-                       <div class="invalid-feedback">
-                           <?= form_error('no_udg'); ?>
-                       </div>
+                   <div class="form-group form-input">
+                       <label for="input-no_udg">No Surat Rapat</label>
+                       <input type="text" name="no_udg" id="input-no_udg" value="<?= $generate_id; ?>" class="form-control" readonly>
+                       <div class="invalid-feedback"></div>
                    </div>
-                   <div class="form-group">
-                       <label for="Lampiran">Lampiran</label>
-                       <input type="text" name="lampiran" id="Lampiran" class="form-control">
-                       <div class="invalid-feedback">
-                           <?= form_error('lampiran'); ?>
-                       </div>
+                   <div class="form-group form-input">
+                       <label for="input-lampiran">Lampiran</label>
+                       <input type="text" name="lampiran" id="input-lampiran" class="form-control">
+                       <div class="invalid-feedback"></div>
                    </div>
-                   <div class="form-group">
+                   <div class="form-group form-input">
                        <label for="Sifat">Sifat</label>
                        <select id="Sifat" name="sifat" class="form-control">
                           <option selected>Biasa</option>
                           <option>Penting</option>
                           <option>Segera</option>
                         </select>
-                       <div class="invalid-feedback">
-                           <?= form_error('sifat'); ?>
-                       </div>
+                       <div class="invalid-feedback"></div>
                    </div>
 
-                   <div class="form-group">
-                       <label for="Hal">Hal</label>
-                       <input type="text" name="hal" id="Hal" class="form-control">
-                       <div class="invalid-feedback">
-                           <?= form_error('hal'); ?>
-                       </div>
+                   <div class="form-group form-input">
+                       <label for="input-hal">Hal</label>
+                       <input type="text" name="hal" id="input-hal" class="form-control">
+                       <div class="invalid-feedback"></div>
                    </div>
 
-                   <div class="form-group">
-                       <label for="TujuanSurat">Tujuan Surat</label>
-                       <input type="text" name="tujuan_surat" id="TujuanSurat" class="form-control">
-                       <div class="invalid-feedback">
-                           <?= form_error('tujuan_surat'); ?>
-                     </div>
+                   <div class="form-group form-input">
+                       <label for="input-tujuan_surat">Tujuan Surat</label>
+                       <input type="text" name="tujuan_surat" id="input-tujuan_surat" class="form-control">
+                       <div class="invalid-feedback"></div>
                    </div>
-                   <div class="form-group">
-                       <label for="TempatRapat">Tempat Rapat</label>
-                       <input type="text" name="tempat_udg" id="TempatRapat" class="form-control">
-                       <div class="invalid-feedback">
-                           <?= form_error('tempat_udg'); ?>
-                     </div>
+                   <div class="form-group form-input">
+                       <label for="input-tempat_udg">Tempat Rapat</label>
+                       <input type="text" name="tempat_udg" id="input-tempat_udg" class="form-control">
+                       <div class="invalid-feedback"></div>
                    </div>
 
-                   <div class="form-group">
-                       <label for="Tembusan">Tembusan</label>
+                   <div class="form-group form-input">
+                       <label for="input-tembusan">Tembusan</label>
                        <textarea style="width: 520px;
                      min-width:520px;
                      max-width:520px;
                      height:150px;
                      min-height:150px;
                      max-height:150px;"
-                     class="form-control" name="tembusan" id="Tembusan"></textarea>
-                       <div class="invalid-feedback">
-                           <?= form_error('tembusan'); ?>
-                     </div>
+                     class="form-control" name="tembusan" id="input-tembusan"></textarea>
+                       <div class="invalid-feedback"></div>
                    </div>
                </div>
                <!-- ====================Batas ke 2==================== -->
                <div class="col">
-                   <div class="form-group">
-                       <label for="IsiSurat">Isi Surat</label>
+                   <div class="form-group form-input">
+                       <label for="input-isi_surat">Isi Surat</label>
                        <textarea style="width: 530px;
                      min-width:530px;
                      max-width:530px;
                      height:210px;
                      min-height:210px;
                      max-height:210px;"
-                     class="form-control" name="isi_surat" id="IsiSurat"></textarea>
+                     class="form-control" name="isi_surat" id="input-isi_surat"></textarea>
                        <div class="invalid-feedback">
-                           <?= form_error('isi_surat'); ?>
                      </div>
                    </div>
-                   <div class="form-group">
-                       <label for="TanggalSurat">Tanggal Surat</label>
-                       <input type="date" name="tgl_surat" id="TanggalSurat" class="form-control">
-                       <div class="invalid-feedback">
-                           <?= form_error('tgl_surat'); ?>
-                     </div>
+
+                   <div class="form-group form-input">
+                       <label for="input-tgl_surat">Tanggal Surat</label>
+                       <input type="text" name="tgl_surat" id="input-tgl_surat" class="form-control datepicker">
+                       <div class="invalid-feedback"></div>
                    </div>
-                   <div class="form-group">
-                       <label for="JamRapat">Jam Rapat</label>
-                       <input type="time" name="jam_udg" id="JamRapat" class="form-control">
-                       <div class="invalid-feedback">
-                           <?= form_error('jam_udg'); ?>
-                     </div>
+
+                   <div class="form-group form-input">
+                       <label for="input-jam_udg">Jam Rapat</label>
+                       <input type="text" name="jam_udg" id="input-jam_udg" class="form-control timepicker">
+                       <div class="invalid-feedback"></div>
                    </div>
-                   <div class="form-group">
-                       <label for="AcaraRapat">Acara Rapat</label>
-                       <input type="input" name="acara_udg" id="AcaraRapat" class="form-control">
-                       <div class="invalid-feedback">
-                           <?= form_error('acara_udg'); ?>
-                     </div>
+
+                   <div class="form-group form-input">
+                       <label for="input-acara_udg">Acara Rapat</label>
+                       <input type="input" name="acara_udg" id="input-acara_udg" class="form-control">
+                       <div class="invalid-feedback"></div>
                    </div>
                </div>
            </div>
