@@ -1,0 +1,7 @@
+.picker__select--month, .picker__select--year {
+  height: 100%;
+}
+
+.picker__day {
+  font-weight: 400;
+}

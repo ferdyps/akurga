@@ -3,11 +3,13 @@
     defined('BASEPATH') OR exit('No direct script access allowed');
 
     class Admin extends CI_Controller {
-
+      public $id_user;
         public function __construct(){
             parent::__construct();
             $this->load->model('m_admin');
             $this->load->library('form_validation');
+
+            $this->id_user = $this->session->userdata('id_user');
 
             if(!$this->session->has_userdata('status')){
                 redirect('auth/','refresh');
@@ -102,7 +104,7 @@
             // $no_pengeluaran = $this->m_admin->view_data($where,'pengeluaran')->row()->no_pengeluaran;
             $this->m_admin->delete_data_iuran_keluar($where,'pengeluaran');
             redirect('admin/tabeldataiurankeluar');
-        }	
+        }
         public function edit_iuran_keluar($no_pengeluaran)
         {
             $where = array(
@@ -112,7 +114,7 @@
 
             $data['pengeluaran'] = $this->m_admin->edit_data_iuran_keluar($where,'pengeluaran')->result();
             $data['content']="admin/editiurankeluar.php";
-            $this->load->view('admin/index',$data); 
+            $this->load->view('admin/index',$data);
         }
 	function update_data_iuran_keluar(){
 		if($this->input->post('edit_keluar')){
@@ -122,7 +124,7 @@
 			$nominal = $this->input->post('nominal');
             $digunakan_untuk = $this->input->post('digunakan_untuk');
             $gambar = $this->input->post('gambar');
-			
+
 			$dataiurankeluar = array(
 				'no_pengeluaran' => $no_pengeluaran,
 				'diberikan_kepada' => $diberikan_kepada,
@@ -130,7 +132,7 @@
 				'nominal' => $nominal,
                 'digunakan_untuk' => $digunakan_untuk,
                 'gambar' => $gambar
-				
+
 			);
 
 			$where = array(
@@ -228,28 +230,56 @@
 // Sekretaris
 // ==========================================================================
         public function inputrapat(){
+            $data['generate_id'] = $this->m_admin->get_id('rapat'); //$this->session->userdata('jabatan')
             $data['content'] = 'admin/v_rapat';
             $data['title'] = 'Input Rapat';
             $this->load->view('admin/index', $data);
         }
 
         public function inputkegiatan(){
+            $data['generate_id'] = $this->m_admin->get_id('kegiatan'); //$this->session->userdata('jabatan')
             $data['content'] = 'admin/v_kegiatan';
             $data['title'] = 'Input Surat Undangan Kegiatan';
             $this->load->view('admin/index', $data);
         }
 
         public function inputnotulensi(){
+            $data['generate_id'] = $this->m_admin->get_id('notulensi'); //$this->session->userdata('jabatan')
             $data['content'] = 'admin/v_notulensi';
             $data['title'] = 'Input Notulensi Rapat';
             $this->load->view('admin/index', $data);
         }
 
         public function input_arsipsurat(){
+            $data['generate_id'] = $this->m_admin->get_id('arsip'); //$this->session->userdata('jabatan')
             $data['content'] = 'admin/v_arsip_surat';
             $data['title'] = 'Input Notulensi Rapat';
             $this->load->view('admin/index', $data);
         }
+
+        public function riwayat_Undangan(){
+            $data['content'] = 'admin/tabel_undangan';
+            $data['title'] = 'Riwayat Surat Undangan';
+            $this->load->view('admin/index', $data);
+        }
+
+        public function riwayat_notulensi(){
+            $data['content'] = 'admin/tabel_notulensi';
+            $data['title'] = 'Riwayat Notulensi Rapat';
+            $this->load->view('admin/index', $data);
+        }
+
+        public function riwayat_arsip(){
+            $data['content'] = 'admin/tabel_arsip';
+            $data['title'] = 'Riwayat Arsip Surat';
+            $this->load->view('admin/index', $data);
+
+        }
+
+        // ==========================================================================
+        // ==========================================================================
+        // END OF SEKRETARIS
+        // ==========================================================================
 
 // Untuk Back-end
 // ==========================================================================
@@ -383,10 +413,119 @@
         }
         public function detailWarga($id){
             $data = $this->m_admin->detailWargaById($id)->row();
-
             echo json_encode($data);
         }
 
+
+        // ================================ Insert Sekretaris =====================================
+        public function insertUndanganRapat(){
+          $this->form_validation->set_rules([
+              [
+                  'field' => 'no_udg',
+                  'label' => 'Nomor Undangan',
+                  'rules' => 'trim|required'
+              ],
+
+              [
+                  'field' => 'hal',
+                  'label' => 'hal',
+                  'rules' => 'trim|required'
+              ],
+
+              [
+                  'field' => 'tujuan_surat',
+                  'label' => 'tujuan surat',
+                  'rules' => 'trim|required'
+              ],
+
+              [
+                  'field' => 'tempat_udg',
+                  'label' => 'tempat Undangan',
+                  'rules' => 'trim|required'
+              ],
+
+              [
+                  'field' => 'isi_surat',
+                  'label' => 'Isi Surat',
+                  'rules' => 'trim|required'
+              ],
+
+              [
+                  'field' => 'tgl_surat',
+                  'label' => 'Tanggal Surat ',
+                  'rules' => 'required'
+              ],
+
+              [
+                  'field' => 'jam_udg',
+                  'label' => 'Jam Undangan ',
+                  'rules' => 'trim|required'
+              ],
+
+              [
+                  'field' => 'acara_udg',
+                  'label' => 'acara Undangan',
+                  'rules' => 'trim|required'
+              ]
+          ]);
+
+          if ($this->input->post()) {
+            $no_udg     = $this->input->post('no_udg');
+            $lampiran   = $this->input->post('lampiran');
+            $sifat      = $this->input->post('sifat');
+            $hal        = $this->input->post('hal');
+            $tujuan_srt = $this->input->post('tujuan_surat');
+            $tempat_udg = $this->input->post('tempat_udg');
+            $tembusan   = $this->input->post('tembusan');
+            $isi_surat  = $this->input->post('isi_surat');
+            $tgl_srt    = $this->input->post('tgl_surat');
+            $jam_udg    = $this->input->post('jam_udg');
+            $acara_udg  = $this->input->post('acara_udg');
+
+            if ($this->form_validation->run() == TRUE) {
+              $data = [
+                'no_udg' => $no_udg,
+                'lampiran_udg' => $lampiran,
+                'sifat_udg' => $sifat,
+                'perihal_udg' => $hal,
+                'tujuan_surat' => $tujuan_srt,
+                'tempat_udg' => $tempat_udg,
+                'tembusan' => $tembusan,
+                'isi_surat' => $isi_surat,
+                'tempat_udg' => $tgl_srt,
+                'jam_udg' => $jam_udg,
+                'acara_udg' => $acara_udg,
+                'id_user' => $this->id_user
+              ];
+
+              $query = $this->m_admin->input_data('surat_undangan', $data);
+
+              if ($query) {
+                $url = base_url('admin/riwayat_Undangan');
+
+                $json = [
+                    'message' => "Data Rapat berhasil diinput..",
+                    'url' => $url
+                ];
+              } else {
+                $json['errors'] = "Data Rapat gagal diinput..!";
+              }
+            } else {
+              $no = 0;
+              foreach ($this->input->post() as $key => $value) {
+                  if (form_error($key) != "") {
+                      $json['form_errors'][$no]['id'] = $key;
+                      $json['form_errors'][$no]['msg'] = form_error($key, null, null);
+                      $no++;
+                  }
+              }
+            }
+
+            echo json_encode($json);
+          } else {
+            redirect('admin/v_rapat','refresh');
+          }
+        }
     }
 
     /* End of file Controllername.php */

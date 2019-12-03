@@ -1,10 +1,10 @@
 <?php
-    
+
     defined('BASEPATH') OR exit('No direct script access allowed');
-    
+
     class Auth extends CI_Controller {
-    
-        
+
+
         public function __construct(){
             parent::__construct();
             $this->load->library('form_validation');
@@ -32,7 +32,7 @@
             if ($this->input->post()) {
                 $username_email = $this->input->post('username_email');
                 $password = $this->input->post('password');
-                
+
                 if ($this->form_validation->run() == TRUE) {
                     $auth_data = [
                         'username_email' => $username_email,
@@ -44,9 +44,10 @@
                             'id_user' => $user_auth->id_user,
                             'username' => $user_auth->username,
                             'role' => $user_auth->role,
+                            // 'jabatan' => $user_auth->jabatan, //Opsi
                             'status' => 'berhasil'
                         ];
-                        
+
                         $this->session->set_userdata($array_auth);
 
                         if ($user_auth->role == 'adminMaster') {
@@ -77,11 +78,11 @@
                         }
                     }
                 }
-                echo json_encode($json); 
+                echo json_encode($json);
             }else {
                 redirect('auth/login','refresh');
             }
-            
+
         }
 //===============================================================================================
         public function dashboard(){
@@ -148,7 +149,7 @@
                 $username = $this->input->post('username');
                 $email = $this->input->post('email');
                 $password = $this->input->post('password');
-                
+
                 if ($this->form_validation->run() == TRUE) {
                     $cek = $this->m_user->multiple_select_data('warga', ['nik' => $nik, 'valid' => 1])->num_rows();
                     if ($cek != 0) {
@@ -173,7 +174,7 @@
                                 'url' => $url
                             ];
                         }else {
-                            $json['errors'] = "Registrasi Akun Gagal"; 
+                            $json['errors'] = "Registrasi Akun Gagal";
                         }
                     }else {
                         $json['errors'] = "NIK Belum Valid";
@@ -194,6 +195,6 @@
             }
         }
     }
-    
+
     /* End of file Controllername.php */
 ?>

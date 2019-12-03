@@ -108,7 +108,7 @@
           <div class="bg-white py-2 collapse-inner rounded">
             <a class="collapse-item" href="<?php echo base_url("admin/inputrapat");?>">Input Surat Rapat</a>
             <a class="collapse-item" href="<?php echo base_url("admin/inputkegiatan");?>">Input Surat Kegiatan</a>
-            <a class="collapse-item" href="cards.html">List Data Warga</a>
+            <a class="collapse-item" href="<?php echo base_url("admin/riwayat_Undangan");?>">Riwayat Surat Undangan</a>
           </div>
         </div>
       </li>
@@ -120,7 +120,7 @@
         <div id="collapseSekretarisNotulensi" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <a class="collapse-item" href="<?php echo base_url("admin/inputnotulensi");?>">Input Notulensi Rapat</a>
-            <a class="collapse-item" href="cards.html">List Data Warga</a>
+            <a class="collapse-item" href="<?php echo base_url("admin/riwayat_notulensi");?>">Riwayat Notulensi Rapat</a>
           </div>
         </div>
       </li>
@@ -131,9 +131,8 @@
         </a>
         <div id="collapseSekretarisArsip" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="<?php echo base_url("admin/inputrapat");?>">Input Surat Masuk</a>
-            <a class="collapse-item" href="<?php echo base_url("admin/inputrapat");?>">Input Surat Keluar</a>
-            <a class="collapse-item" href="cards.html">List Data Warga</a>
+            <a class="collapse-item" href="<?php echo base_url("admin/input_arsipsurat");?>">Input Surat Masuk</a>
+            <a class="collapse-item" href="<?php echo base_url("admin/riwayat_arsip");?>">Riwayat Arsip Surat</a>
           </div>
         </div>
       </li>
