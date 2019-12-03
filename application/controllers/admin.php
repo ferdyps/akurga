@@ -12,7 +12,7 @@
             if(!$this->session->has_userdata('status')){
                 redirect('auth/','refresh');
             } else {
-                if ($this->session->userdata('role') == 'warga') {
+                if ($this->session->userdata('role') == 'Warga') {
                     redirect('user/','refresh');
                 }
             }
@@ -282,8 +282,6 @@
                 ]
             ]);
 
-            $json = null;
-
             if ($this->input->post()) {
                 $jenis_warga = $this->input->post('jenis_warga');
                 $nik = $this->input->post('nik');
@@ -383,6 +381,12 @@
             }
             echo json_encode($json);
         }
+        public function detailWarga($id){
+            $data = $this->m_admin->detailWargaById($id)->row();
+
+            echo json_encode($data);
+        }
+
     }
 
     /* End of file Controllername.php */

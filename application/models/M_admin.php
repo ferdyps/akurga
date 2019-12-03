@@ -18,6 +18,10 @@
             $this->db->where($pk_field, $id);
             return $this->db->update($table, $data);
         }
+        public function detailWargaById($nik){
+            $this->db->where('nik', $nik);
+            return $this->db->get('warga');
+        }
 // =========================================================================
         public function multiple_select_data($table, $where) {
             $this->db->where($where);

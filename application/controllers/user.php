@@ -24,7 +24,19 @@
             $data['title'] = 'Home';
             $this->load->view('user/index', $data);
         }
-    
+// ================================================================================
+        public function formSuratPengantar(){
+            $data['content'] = 'user/formSuratPengantar';
+            $data['title'] = 'Surat Pengantar';
+            $this->load->view('user/index', $data);
+        }
+// ================================================================================
+        public function formKomplain(){
+            $data['content'] = 'user/formKomplain';
+            $data['title'] = 'Komplain';
+            $this->load->view('user/index', $data);
+            
+        }
     }
     
     /* End of file User.php */

@@ -66,6 +66,7 @@
 </div>
 
 <!-- Bootstrap core JavaScript-->
+<script src="<?= base_url('assets/sweetalert2-9.3.6/dist/sweetalert2.all.min.js'); ?>"></script>
 <script src="<?= base_url('assets/bootstrap4admin/vendor/jquery/jquery.min.js');?>"></script>
 <script src="<?= base_url('assets/sweetalert/sweetalert.min.js'); ?>"></script>
 <script src="<?= base_url('assets/js/main.js'); ?>"></script>

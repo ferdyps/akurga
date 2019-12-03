@@ -36,7 +36,7 @@
                 if ($this->form_validation->run() == TRUE) {
                     $auth_data = [
                         'username_email' => $username_email,
-                        'password' => $password
+                        'password' => md5($password)
                     ];
                     $user_auth = $this->m_user->cek_user($auth_data)->row();
                     if (!empty($user_auth)) {
@@ -100,6 +100,8 @@
             if($this->session->has_userdata('status')){
                 if ($this->session->userdata('role') == "adminMaster") {
                     redirect('admin/','refresh');
+                }elseif ($this->session->userdata('role') == "Warga") {
+                    redirect('user/','refresh');
                 }
             }
         }
@@ -164,7 +166,7 @@
                         $query = $this->m_user->update_data('warga', 'nik', $nik, ['id_user' => $id_user]);
 
                         if ($inputRegistrasi && $query) {
-                            $url = base_url('auth/login');
+                            $url = base_url('auth/index');
 
                             $json = [
                                 'message' => "Registrasi Akun Berhasil",

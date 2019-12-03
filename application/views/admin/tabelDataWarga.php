@@ -30,6 +30,7 @@
                       <th>Nomor Rumah</th>
                       <th>Gang</th>
                       <th>Validasi</th>
+                      <th>Action</th>
                     </tr>
                   </thead>
                   <?php
@@ -61,6 +62,9 @@
                             echo "Belum Valid";
                           }?>
                         </td>
+                        <td>
+                          <a href="#" class="d-none d-sm-inline-block btn btn-primary shadow-sm" id="detailWarga" data-url="<?= base_url('admin/detailWarga/'); ?>" data-nik="<?= $row['nik']; ?>" data-toggle="modal" data-target="#editDataWargaModal">Detail</a>
+                        </td>
                       </tr>
                   </tbody>
                   <?php } ?>
@@ -69,3 +73,35 @@
             </div>
           </div>
         </div>
+<?php $this->load->view('admin/_partials/editDataWarga_modal')?>
+<script>
+    $(document).on('click','#detailWarga',function(){
+      var id_warga = $(this).attr('data-nik');
+      var url = $(this).attr('data-url');
+      $.ajax({
+        url: url + id_warga,
+        method: 'POST',
+        data: {id_warga:id_warga},
+          dataType: 'json',
+          success:function(data) {
+            $('#editDataWargaModal #edit-jenisWarga').val(data.jenis_warga);
+            $('#editDataWargaModal #edit-nik').val(data.nik);
+            $('#editDataWargaModal #edit-nama').val(data.nama);
+            $('#editDataWargaModal #edit-nohp').val(data.nohp);
+            $('#editDataWargaModal #edit-tempat_lahir').val(data.tempat_lahir);
+            $('#editDataWargaModal #edit-tanggal_lahir').val(data.tanggal_lahir);
+            $('#editDataWargaModal #edit-Pendidikan').val(data.pendidikan);
+            $('#editDataWargaModal #edit-Pekerjaan').val(data.pekerjaan);
+            $('#editDataWargaModal #edit-nokk').val(data.nokk);
+            $('#editDataWargaModal #edit-Agama').val(data.agama);
+            $('#editDataWargaModal #edit-JK').val(data.jk);
+            $('#editDataWargaModal #edit-Hub_Dlm_Kel').val(data.hub_dlm_kel);
+            $('#editDataWargaModal #edit-Status').val(data.status);
+            $('#editDataWargaModal #edit-Gang').val(data.gang);
+          },
+          error:function() {
+            alert('Error di System..!');
+          }
+      });
+    });
+</script>
