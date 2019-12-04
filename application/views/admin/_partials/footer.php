@@ -8,7 +8,7 @@
   <script src="<?php echo base_url('assets/bootstrap4admin/vendor/chart.js/Chart.min.js');?>"></script>
 
   <!-- Page level custom scripts -->
-  <?php if($title == 'Dashboard') { ?>
+  <!-- <?php if($title == 'Dashboard') { ?> -->
   <script src="<?php echo base_url('assets/bootstrap4admin/js/demo/chart-area-demo.js');?>"></script>
   <script src="<?php echo base_url('assets/bootstrap4admin/js/demo/chart-pie-demo.js');?>"></script>
   <?php } ?>
