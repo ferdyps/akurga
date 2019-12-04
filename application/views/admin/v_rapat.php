@@ -47,14 +47,14 @@
                    </div>
 
                    <div class="form-group form-input">
-                       <label for="tembusan">Tembusan</label>
+                       <label for="input-tembusan">Tembusan</label>
                        <textarea style="width: 520px;
                      min-width:520px;
                      max-width:520px;
                      height:150px;
                      min-height:150px;
                      max-height:150px;"
-                     class="form-control" name="tembusan" id="tembusan"></textarea>
+                     class="form-control" name="tembusan" id="input-tembusan"></textarea>
                        <div class="invalid-feedback"></div>
                    </div>
                </div>

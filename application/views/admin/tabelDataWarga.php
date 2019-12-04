@@ -18,15 +18,15 @@
                       <th>Nama Lengkap</th>
                       <th>Tempat Lahir</th>
                       <th>Tanggal Lahir</th>
-                      <!-- <th>Pendidikan</th>
-                      <th>Pekerjaan</th> -->
+                      <th>Pendidikan</th>
+                      <th>Pekerjaan</th>
                       <th>Agama</th>
                       <th>Jenis Kelamin</th>
-                      <!-- <th>Status</th> -->
+                      <th>Status</th>
                       <th>Jenis Warga</th>
-                      <!-- <th>Nomor HP</th>
-                      <th>Nomor KK</th> -->
-                      <!-- <th>Hubungan Dalam Keluarga</th> -->
+                      <th>Nomor HP</th>
+                      <th>Nomor KK</th>
+                      <th>Hubungan Dalam Keluarga</th>
                       <th>Nomor Rumah</th>
                       <th>Gang</th>
                       <th>Validasi</th>
@@ -44,15 +44,15 @@
                         <td><?= $row['nama']?></td>
                         <td><?= $row['tempat_lahir']?></td>
                         <td><?= $row['tanggal_lahir']?></td>
-                        <!-- <td><?= $row['pendidikan']?></td>
-                        <td><?= $row['pekerjaan']?></td> -->
+                        <td><?= $row['pendidikan']?></td>
+                        <td><?= $row['pekerjaan']?></td>
                         <td><?= $row['agama']?></td>
                         <td><?= $row['jk']?></td>
-                        <!-- <td><?= $row['status']?></td> -->
+                        <td><?= $row['status']?></td>
                         <td><?= $row['jenis_warga']?></td>
-                        <!-- <td><?= $row['nohp']?></td>
-                        <td><?= $row['nokk']?></td> -->
-                        <!-- <td><?= $row['hub_dlm_kel']?></td> -->
+                        <td><?= $row['nohp']?></td>
+                        <td><?= $row['nokk']?></td>
+                        <td><?= $row['hub_dlm_kel']?></td>
                         <td><?= $row['no_rumah']?></td>
                         <td><?= $row['gang']?></td>
                         <td>
@@ -97,7 +97,6 @@
             $('#editDataWargaModal #edit-JK').val(data.jk);
             $('#editDataWargaModal #edit-Hub_Dlm_Kel').val(data.hub_dlm_kel);
             $('#editDataWargaModal #edit-Status').val(data.status);
-            $('#editDataWargaModal #edit-no_rumah').val(data.no_rumah);
             $('#editDataWargaModal #edit-Gang').val(data.gang);
           },
           error:function() {

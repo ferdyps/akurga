@@ -11,7 +11,7 @@ function konfirmasi_data(base_url, id) {
         reverseButtons: true
     })
     .then((result) => {
-        if(result.value) {
+        if(result.value) { 
             $.ajax({
                 url: base_url + id,
                 type: "get",
@@ -21,7 +21,7 @@ function konfirmasi_data(base_url, id) {
                     if ($.isEmptyObject(data.errors)) {
                         Swal.fire({
                             title: "Berhasil",
-                            text: data.message,
+                            text: data.message, 
                             icon: "success"
                         }).then(function() {
                             location.reload();
@@ -29,7 +29,7 @@ function konfirmasi_data(base_url, id) {
                     } else {
                         Swal.fire({
                             title: "Gagal",
-                            text: data.errors,
+                            text: data.errors, 
                             icon: "error"
                         });
                     }
@@ -37,7 +37,7 @@ function konfirmasi_data(base_url, id) {
                 error:function(){
                     Swal.fire({
                         title: "Data Proses",
-                        text: "Error di System..!",
+                        text: "Error di System..!", 
                         icon: "error"
                     });
                 }
@@ -82,7 +82,7 @@ $(document).ready(function () {
                 if ($.isEmptyObject(data.errors) && $.isEmptyObject(data.form_errors)) {
                     Swal.fire({
                         title: "Berhasil",
-                        text: data.message,
+                        text: data.message, 
                         icon: "success"
                     }).then(function() {
                         location = data.url
@@ -95,7 +95,7 @@ $(document).ready(function () {
                 } else {
                     Swal.fire({
                         title: "Gagal",
-                        text: data.errors,
+                        text: data.errors, 
                         icon: "error"
                     });
                 }
@@ -119,7 +119,7 @@ $(document).ready(function () {
         }
     });
 
-    $('form textarea').on('keyup', function () {
+    $('form textarea').on('keyup', function () { 
         if (!$(this).val()) {
             $(this).addClass('is-invalid');
             $(this).next('.invalid-feedback').text("The " + $(this).attr('placeholder').split("..").join("") + " field is required.");
@@ -129,7 +129,6 @@ $(document).ready(function () {
     });
 // =============================================================
     $(document).on('click', ':reset', function() {
-        $('input[type="hidden"]').val(null);
         $('input').removeClass('is-invalid');
         $('textarea').removeClass('is-invalid');
     });

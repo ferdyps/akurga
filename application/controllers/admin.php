@@ -411,104 +411,11 @@
             }
             echo json_encode($json);
         }
-
         public function detailWarga($id){
             $data = $this->m_admin->detailWargaById($id)->row();
             echo json_encode($data);
         }
 
-        public function editWarga(){
-            $this->form_validation->set_rules([
-                [
-                    'field' => 'nik',
-                    'label' => 'NIK',
-                    'rules' => 'trim|required|is_unique[warga.nik]|numeric'
-                ],
-                [
-                    'field' => 'nama',
-                    'label' => 'Nama Lengkap',
-                    'rules' => 'trim|required|regex_match[/^[a-zA-Z ]/]'
-                ],
-                [
-                    'field' => 'tempat_lahir',
-                    'label' => 'Tempat Lahir',
-                    'rules' => 'trim|required|regex_match[/^[a-zA-Z ]/]'
-                ],
-                [
-                    'field' => 'tanggal_lahir',
-                    'label' => 'Tanggal Lahir',
-                    'rules' => 'required'
-                ],
-                [
-                    'field' => 'no_rumah',
-                    'label' => 'No Rumah',
-                    'rules' => 'trim|numeric|required'
-                ]
-            ]);
-
-            if ($this->input->post()) {
-                $jenis_warga = $this->input->post('jenis_warga');
-                $nik = $this->input->post('nik');
-                $nama = $this->input->post('nama');
-                $tempat_lahir = $this->input->post('tempat_lahir');
-                $tanggal_lahir = $this->input->post('tanggal_lahir');
-                $pendidikan = $this->input->post('pendidikan');
-                $pekerjaan = $this->input->post('pekerjaan');
-                $agama = $this->input->post('agama');
-                $jk = $this->input->post('jk');
-                $status = $this->input->post('status');
-                $no_rumah = $this->input->post('no_rumah');
-                $gang = $this->input->post('gang');
-
-                $nokk = $this->input->post('nokk');
-                $hub_dlm_kel = $this->input->post('hub_dlm_kel');
-                $nohp = $this->input->post('nohp');
-
-
-                if ($this->form_validation->run() == TRUE) {
-                    $data = [
-                        'nama' => $nama,
-                        'tempat_lahir' => $tempat_lahir,
-                        'tanggal_lahir' => $tanggal_lahir,
-                        'pendidikan' => $pendidikan,
-                        'pekerjaan' => $pekerjaan,
-                        'agama' => $agama,
-                        'jk' => $jk,
-                        'status' => $status,
-                        'no_rumah' => $no_rumah,
-                        'gang' => $gang,
-                        'nokk' => $nokk,
-                        'hub_dlm_kel' => $hub_dlm_kel,
-                        'nohp' => $nohp
-                    ];
-
-                    $query = $this->m_admin->edit_data('warga','nik',$nik,$data);
-
-                    if ($query) {
-                        $url = base_url('admin/tabelDataWarga');
-
-                        $json = [
-                            'message' => "Data Warga berhasil diubah..",
-                            'url' => $url
-                        ];
-                    }else {
-                        $json['errors'] = "Data Warga Gagal Diubah";
-                    }
-                } else {
-                    $no = 0;
-                    foreach ($this->input->post() as $key => $value) {
-                        if (form_error($key) != "") {
-                            $json['form_errors'][$no]['id'] = $key;
-                            $json['form_errors'][$no]['msg'] = form_error($key, null, null);
-                            $no++;
-                        }
-                    }
-                }
-                echo json_encode($json);
-            } else {
-                redirect('admin/editWarga','refresh');
-            }
-    }
 
         // ================================ Insert Sekretaris =====================================
         public function insertUndanganRapat(){
@@ -545,13 +452,13 @@
 
               [
                   'field' => 'tgl_surat',
-                  'label' => 'Tanggal Surat',
-                  'rules' => 'trim|required'
+                  'label' => 'Tanggal Surat ',
+                  'rules' => 'required'
               ],
 
               [
                   'field' => 'jam_udg',
-                  'label' => 'Jam Undangan',
+                  'label' => 'Jam Undangan ',
                   'rules' => 'trim|required'
               ],
 
@@ -585,7 +492,7 @@
                 'tempat_udg' => $tempat_udg,
                 'tembusan' => $tembusan,
                 'isi_surat' => $isi_surat,
-                'tgl_udg' => $tgl_srt,
+                'tempat_udg' => $tgl_srt,
                 'jam_udg' => $jam_udg,
                 'acara_udg' => $acara_udg,
                 'id_user' => $this->id_user
@@ -606,13 +513,14 @@
             } else {
               $no = 0;
               foreach ($this->input->post() as $key => $value) {
-                if (form_error($key) != "") {
-                  $json['form_errors'][$no]['id'] = $key;
-                  $json['form_errors'][$no]['msg'] = form_error($key, null, null);
-                  $no++;
-                }
+                  if (form_error($key) != "") {
+                      $json['form_errors'][$no]['id'] = $key;
+                      $json['form_errors'][$no]['msg'] = form_error($key, null, null);
+                      $no++;
+                  }
               }
             }
+
             echo json_encode($json);
           } else {
             redirect('admin/v_rapat','refresh');
@@ -621,4 +529,5 @@
     }
 
     /* End of file Controllername.php */
+
 ?>
