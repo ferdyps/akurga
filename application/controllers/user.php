@@ -35,7 +35,6 @@
             $data['content'] = 'user/formKomplain';
             $data['title'] = 'Komplain';
             $this->load->view('user/index', $data);
-            
         }
     }
     

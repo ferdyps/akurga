@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.2
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 28, 2019 at 10:02 AM
--- Server version: 10.1.34-MariaDB
--- PHP Version: 5.6.37
+-- Generation Time: Dec 03, 2019 at 02:24 PM
+-- Server version: 10.1.38-MariaDB
+-- PHP Version: 7.3.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -25,23 +25,66 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `rapat`
+-- Table structure for table `arsip_surat`
 --
 
-CREATE TABLE `rapat` (
-  `no_rpt` varchar(30) NOT NULL,
-  `lampiran_rpt` varchar(80) NOT NULL,
-  `sifat_rpt` varchar(15) NOT NULL,
-  `perihal_rpt` varchar(80) NOT NULL,
-  `tujuan_surat` varchar(70) NOT NULL,
-  `tempat_rpt` varchar(70) NOT NULL,
-  `isi_surat` text NOT NULL,
-  `jam_rpt` time NOT NULL,
-  `acara_rpt` text NOT NULL,
-  `tgl_rpt` date NOT NULL,
+CREATE TABLE `arsip_surat` (
+  `kd_surat` varchar(10) NOT NULL,
+  `no_surat` varchar(50) NOT NULL,
+  `pengirim` varchar(100) NOT NULL,
+  `tujuan` varchar(100) NOT NULL,
+  `keterangan` text NOT NULL,
+  `gambar_srt` text NOT NULL,
+  `tgl_terima` date NOT NULL,
+  `tgl_surat` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `notulensi_rpt`
+--
+
+CREATE TABLE `notulensi_rpt` (
+  `no_notulen` varchar(30) NOT NULL,
+  `lampiran` varchar(80) NOT NULL,
+  `tembusan` varchar(100) NOT NULL,
+  `uraian_notulen` text NOT NULL,
   `tgl_buat` date NOT NULL,
   `tgl_acc` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `surat_undangan`
+--
+
+CREATE TABLE `surat_undangan` (
+  `no_udg` varchar(30) NOT NULL,
+  `lampiran_udg` varchar(80) NOT NULL,
+  `sifat_udg` varchar(15) NOT NULL,
+  `perihal_udg` varchar(80) NOT NULL,
+  `tujuan_surat` varchar(70) NOT NULL,
+  `tempat_udg` varchar(70) NOT NULL,
+  `isi_surat` text NOT NULL,
+  `jam_udg` time NOT NULL,
+  `acara_udg` text NOT NULL,
+  `catatan` text NOT NULL,
+  `tembusan` varchar(100) NOT NULL,
+  `daftar_hadir` varchar(100) NOT NULL,
+  `tgl_udg` date NOT NULL,
+  `tgl_buat` date NOT NULL,
+  `tgl_acc` date NOT NULL,
+  `id_user` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `surat_undangan`
+--
+
+INSERT INTO `surat_undangan` (`no_udg`, `lampiran_udg`, `sifat_udg`, `perihal_udg`, `tujuan_surat`, `tempat_udg`, `isi_surat`, `jam_udg`, `acara_udg`, `catatan`, `tembusan`, `daftar_hadir`, `tgl_udg`, `tgl_buat`, `tgl_acc`, `id_user`) VALUES
+('0001/RPT/', '1 lembar', 'Penting', 'Keselamatan harta benda', 'warga RW 01', '2019-12-31', 'asd', '23:59:00', 's', '', '', '', '0000-00-00', '0000-00-00', '0000-00-00', 1);
 
 -- --------------------------------------------------------
 
@@ -54,15 +97,16 @@ CREATE TABLE `user` (
   `username` varchar(50) NOT NULL,
   `email` varchar(25) NOT NULL,
   `password` varchar(50) NOT NULL,
-  `role` varchar(20) NOT NULL
+  `role` varchar(20) NOT NULL,
+  `jabatan` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id_user`, `username`, `email`, `password`, `role`) VALUES
-(1, 'admin', '', 'admin', 'adminMaster');
+INSERT INTO `user` (`id_user`, `username`, `email`, `password`, `role`, `jabatan`) VALUES
+(1, 'admin', '', 'admin', 'adminMaster', 'sekretaris RT 01');
 
 -- --------------------------------------------------------
 
@@ -96,12 +140,27 @@ CREATE TABLE `warga` (
 --
 
 INSERT INTO `warga` (`nik`, `nama`, `nohp`, `tempat_lahir`, `tanggal_lahir`, `pendidikan`, `pekerjaan`, `nokk`, `agama`, `jk`, `hub_dlm_kel`, `status`, `no_rumah`, `gang`, `jenis_warga`, `id_kepala_keluarga`, `id_user`, `valid`) VALUES
+('1123', 'asdsad', '123123', 'asdadasd', '2019-12-01', 'SLTP/SEDERAJAT', 'KARYAWAN SWASTA', NULL, 'islam', 'laki-laki', NULL, 'menikah', '12', 'Bbk.Ciamis', 'Sementara', NULL, 0, 1),
 ('12', 'terserah', NULL, 'Dimanamana', '2019-12-31', 'TIDAK/BELUM SEKOLAH', 'PEGAWAI NEGERI SIPIL', '1212', 'islam', 'laki-laki', 'suami', 'menikah', '12', 'Bbk.Ciamis', 'Tetap', NULL, 0, 1),
-('122', 'terserah', '12', 'Dimanamana', '2019-12-31', 'BELUM TAMAT SD/SEDERAJAT', 'PEGAWAI NEGERI SIPIL', NULL, 'islam', 'laki-laki', NULL, 'menikah', '12', 'Bbk.Ciamis', 'Sementara', NULL, 0, 1);
+('122', 'terserah', '12', 'Dimanamana', '2019-12-31', 'BELUM TAMAT SD/SEDERAJAT', 'PEGAWAI NEGERI SIPIL', NULL, 'islam', 'laki-laki', NULL, 'menikah', '12', 'Bbk.Ciamis', 'Sementara', NULL, 0, 1),
+('25111999', 'asfasd', '1231233', 'bengkulu', '1999-11-25', 'DIPLOMA I/II', 'KARYAWAN SWASTA', NULL, 'kristen', 'laki-laki', NULL, 'menikah', '1', 'Bbk.Ciamis', 'Sementara', NULL, 0, 0);
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `notulensi_rpt`
+--
+ALTER TABLE `notulensi_rpt`
+  ADD PRIMARY KEY (`no_notulen`);
+
+--
+-- Indexes for table `surat_undangan`
+--
+ALTER TABLE `surat_undangan`
+  ADD PRIMARY KEY (`no_udg`),
+  ADD KEY `id_user` (`id_user`);
 
 --
 -- Indexes for table `user`
@@ -126,6 +185,16 @@ ALTER TABLE `warga`
 --
 ALTER TABLE `user`
   MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `surat_undangan`
+--
+ALTER TABLE `surat_undangan`
+  ADD CONSTRAINT `surat_undangan_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id_user`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
