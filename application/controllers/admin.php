@@ -411,12 +411,12 @@
             }
             echo json_encode($json);
         }
-        
+
         public function detailWarga($id){
             $data = $this->m_admin->detailWargaById($id)->row();
             echo json_encode($data);
         }
-        
+
         public function editWarga(){
             $this->form_validation->set_rules([
                 [
@@ -445,7 +445,7 @@
                     'rules' => 'trim|numeric|required'
                 ]
             ]);
-            
+
             if ($this->input->post()) {
                 $jenis_warga = $this->input->post('jenis_warga');
                 $nik = $this->input->post('nik');
@@ -464,7 +464,7 @@
                 $hub_dlm_kel = $this->input->post('hub_dlm_kel');
                 $nohp = $this->input->post('nohp');
 
-                
+
                 if ($this->form_validation->run() == TRUE) {
                     $data = [
                         'nama' => $nama,
@@ -545,13 +545,13 @@
 
               [
                   'field' => 'tgl_surat',
-                  'label' => 'Tanggal Surat ',
-                  'rules' => 'required'
+                  'label' => 'Tanggal Surat',
+                  'rules' => 'trim|required'
               ],
 
               [
                   'field' => 'jam_udg',
-                  'label' => 'Jam Undangan ',
+                  'label' => 'Jam Undangan',
                   'rules' => 'trim|required'
               ],
 
@@ -585,7 +585,7 @@
                 'tempat_udg' => $tempat_udg,
                 'tembusan' => $tembusan,
                 'isi_surat' => $isi_surat,
-                'tempat_udg' => $tgl_srt,
+                'tgl_udg' => $tgl_srt,
                 'jam_udg' => $jam_udg,
                 'acara_udg' => $acara_udg,
                 'id_user' => $this->id_user
@@ -606,14 +606,13 @@
             } else {
               $no = 0;
               foreach ($this->input->post() as $key => $value) {
-                  if (form_error($key) != "") {
-                      $json['form_errors'][$no]['id'] = $key;
-                      $json['form_errors'][$no]['msg'] = form_error($key, null, null);
-                      $no++;
-                  }
+                if (form_error($key) != "") {
+                  $json['form_errors'][$no]['id'] = $key;
+                  $json['form_errors'][$no]['msg'] = form_error($key, null, null);
+                  $no++;
+                }
               }
             }
-
             echo json_encode($json);
           } else {
             redirect('admin/v_rapat','refresh');
