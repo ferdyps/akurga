@@ -7,19 +7,19 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <?= form_open('admin/editWarga', ['id' => 'default-form', 'log' => 'Input Warga']);?>
+      <?= form_open('admin/editWarga', ['id' => 'default-form', 'log' => 'Edit Warga']);?>
             <div class="row px-3 my-3">
                 <div class="col">
                     <div class="form-group form-input">
                         <label for="edit-jenisWarga">Jenis Warga</label>
-                        <select name="jenis_warga" id="edit-jenisWarga" class="form-control">
+                        <select name="jenis_warga" id="edit-jenisWarga" class="form-control" disabled>
                             <option value="Sementara">Sementara</option>
                             <option value="Tetap">Tetap</option>
                         </select>
                     </div>
                     <div class="form-group form-input">
                         <label for="edit-nik">NIK</label>
-                        <input type="text" name="nik" id="edit-nik" class="form-control" placeholder="Nomor Induk Kependudukan">
+                        <input type="text" name="nik" id="edit-nik" class="form-control" placeholder="Nomor Induk Kependudukan" disabled>
                         <div class="invalid-feedback"></div>
                     </div>
                     <div class="form-group form-input">
