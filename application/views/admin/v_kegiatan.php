@@ -7,20 +7,19 @@
      <div class="row bg-white rounded shadow border-left-primary">
        <div class="col px-0">
        <?php echo form_open();?>
+       <!-- 'admin/insertUndanganKegiatan', ['id' => 'default-form', 'log' => 'Input Kegiatan'] -->
            <div class="row px-3 my-3">
                <div class="col">
                    <div class="form-group">
-                       <label for="NomorKegiatan">No Surat Kegiatan</label>
-                       <input type="text" name="no_udg" value="<?= $generate_id ?>" id="NomorKegiatan" class="form-control" disabled>
+                       <label for="input-no_udg">No Surat Kegiatan</label>
+                       <input type="text" name="no_udg" value="<?= $generate_id ?>" id="input-no_udg" class="form-control" readonly>
                        <div class="invalid-feedback">
-                           <?= form_error('no_udg'); ?>
                        </div>
                    </div>
                    <div class="form-group">
-                       <label for="Lampiran">Lampiran</label>
-                       <input type="text" name="lampiran" id="Lampiran" class="form-control">
+                       <label for="input-lampiran">Lampiran</label>
+                       <input type="text" name="lampiran" id="input-lampiran" class="form-control">
                        <div class="invalid-feedback">
-                           <?= form_error('lampiran'); ?>
                        </div>
                    </div>
                    <div class="form-group">
@@ -31,74 +30,65 @@
                           <option>Segera</option>
                         </select>
                        <div class="invalid-feedback">
-                           <?= form_error('lampiran'); ?>
                        </div>
                    </div>
 
                    <div class="form-group">
-                       <label for="Hal">Hal</label>
-                       <input type="text" name="hal" id="Hal" class="form-control">
+                       <label for="input-hal">Hal</label>
+                       <input type="text" name="hal" id="input-hal" class="form-control">
                        <div class="invalid-feedback">
-                           <?= form_error('hal'); ?>
                        </div>
                    </div>
 
                    <div class="form-group">
-                       <label for="TujuanSurat">Tujuan Surat</label>
-                       <input type="text" name="tujuan_surat" id="TujuanSurat" class="form-control">
+                       <label for="input-tujuan_surat">Tujuan Surat</label>
+                       <input type="text" name="tujuan_surat" id="input-tujuan_surat" class="form-control">
                        <div class="invalid-feedback">
-                           <?= form_error('tujuan_surat'); ?>
                      </div>
                    </div>
                    <div class="form-group">
-                       <label for="TempatKegiatan">Tempat Kegiatan</label>
-                       <input type="text" name="tempat_udg" id="TempatKegiatan" class="form-control">
+                       <label for="input-tempat_udg">Tempat Kegiatan</label>
+                       <input type="text" name="tempat_udg" id="input-tempat_udg" class="form-control">
                        <div class="invalid-feedback">
-                           <?= form_error('tempat_udg'); ?>
                      </div>
                    </div>
                    <div class="form-group">
-                       <label for="cttPenting">Catatan Penting</label>
-                       <input type="text" name="catatan" id="cttPenting" class="form-control">
+                       <label for="input-catatan">Catatan Penting</label>
+                       <input type="text" name="catatan" id="input-catatan" class="form-control">
                        <div class="invalid-feedback">
-                           <?= form_error('catatan'); ?>
                      </div>
                    </div>
                </div>
                <!-- ====================Batas ke 2==================== -->
                <div class="col">
                    <div class="form-group">
-                       <label for="IsiSurat">Isi Surat</label>
+                       <label for="input-isi_surat">Isi Surat</label>
                        <textarea style="width: 530px;
                      min-width:530px;
                      max-width:530px;
                      height:210px;
                      min-height:210px;
                      max-height:210px;"
-                     class="form-control" name="isi_surat" id="IsiSurat"></textarea>
+                     class="form-control" name="isi_surat" id="input-isi_surat"></textarea>
                        <div class="invalid-feedback">
-                           <?= form_error('isi_surat'); ?>
                      </div>
                    </div>
                    <div class="form-group">
-                       <label for="TanggalSurat">Tanggal Surat</label>
-                       <input type="date" name="tgl_surat" id="TanggalSurat" class="form-control">
+                       <label for="input-tgl_surat">Tanggal Surat</label>
+                       <input type="text" name="tgl_surat" id="input-tgl_surat" class="form-control">
                        <div class="invalid-feedback">
-                           <?= form_error('tgl_surat'); ?>
                      </div>
                    </div>
                    <div class="form-group">
-                       <label for="JamKegiatan">Jam Kegiatan</label>
-                       <input type="time" name="jam_udg" id="JamKegiatan" class="form-control">
+                       <label for="input-jam_udg">Jam Kegiatan</label>
+                       <input type="text" name="jam_udg" id="input-jam_udg" class="form-control">
                        <div class="invalid-feedback">
-                           <?= form_error('jam_udg'); ?>
                      </div>
                    </div>
                    <div class="form-group">
-                       <label for="AcaraKegiatan">Acara Kegiatan</label>
-                       <input type="input" name="acara_udg" id="AcaraKegiatan" class="form-control">
+                       <label for="input-acara_udg">Acara Kegiatan</label>
+                       <input type="input" name="acara_udg" id="input-acara_udg" class="form-control">
                        <div class="invalid-feedback">
-                           <?= form_error('acara_udg'); ?>
                      </div>
                    </div>
 
@@ -112,7 +102,6 @@
                      max-height:150px;"
                      class="form-control" name="tembusan" id="Tembusan"></textarea>
                        <div class="invalid-feedback">
-                           <?= form_error('tembusan'); ?>
                      </div>
                    </div>
                </div>
