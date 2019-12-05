@@ -8,7 +8,7 @@
   <script src="<?php echo base_url('assets/bootstrap4admin/vendor/chart.js/Chart.min.js');?>"></script>
 
   <!-- Page level custom scripts -->
-  <!-- <?php if($title == 'Dashboard') { ?> -->
+  <?php if($title == 'Dashboard') { ?>
   <script src="<?php echo base_url('assets/bootstrap4admin/js/demo/chart-area-demo.js');?>"></script>
   <script src="<?php echo base_url('assets/bootstrap4admin/js/demo/chart-pie-demo.js');?>"></script>
   <?php } ?>
@@ -29,11 +29,7 @@
       var bool;
 
       $('.timepicker').pickatime({
-        formatLabel: function(time) {
-          var hours = ( time.pick - this.get('now').pick ) / 60,
-            label = hours < 0 ? ' j!am sebelumny!a' : hours > 0 ? ' j!am d!ar!i sek!ar!ang' : 'now'
-          return  'HH:i <sm!all cl!ass="flo!at-r!ig!ht">' + ( hours ? Math.abs(hours) : '' ) + label +'</sm!all>'
-        },
+
         format: 'HH:i',
         formatSubmit: 'HH:i',
         hiddenName: true,
