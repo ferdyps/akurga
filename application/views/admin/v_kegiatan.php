@@ -6,7 +6,7 @@
  <div class="container">
      <div class="row bg-white rounded shadow border-left-primary">
        <div class="col px-0">
-       <?php echo form_open();?>
+       <?php echo form_open('admin/insertUndanganKegiatan', ['id' => 'default-form', 'log' => 'Input Rapat']);?>
        <!-- 'admin/insertUndanganKegiatan', ['id' => 'default-form', 'log' => 'Input Kegiatan'] -->
            <div class="row px-3 my-3">
                <div class="col">
@@ -75,13 +75,13 @@
                    </div>
                    <div class="form-group">
                        <label for="input-tgl_surat">Tanggal Surat</label>
-                       <input type="text" name="tgl_surat" id="input-tgl_surat" class="form-control">
+                       <input type="text" name="tgl_surat" id="input-tgl_surat" class="form-control datepicker">
                        <div class="invalid-feedback">
                      </div>
                    </div>
                    <div class="form-group">
                        <label for="input-jam_udg">Jam Kegiatan</label>
-                       <input type="text" name="jam_udg" id="input-jam_udg" class="form-control">
+                       <input type="text" name="jam_udg" id="input-jam_udg" class="form-control timepicker">
                        <div class="invalid-feedback">
                      </div>
                    </div>
@@ -108,7 +108,7 @@
            </div>
            <div class="col">
                <div class="form-group text-center">
-                   <input type="submit" value="Submit" class="btn btn-primary">
+                   <input type="submit" class="btn btn-primary">
                    <input type="reset" value="Reset" class="btn btn-danger">
                </div>
            </div>

@@ -41,6 +41,10 @@
         public function selectAllData($table){
             return $this->db->get($table);
         }
+
+        public function selectWithWhere($table,$where){
+            return $this->db->get($table,$where);
+        }
         // ============================================================
         public function semuaDataWarga(){
             return $this->db->get('warga');

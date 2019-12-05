@@ -13,23 +13,22 @@
                 <table class="table table-striped table-hover" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr class="bg-primary text-white text-center">
-                      <th width="5%">No</th>
-                      <th>NIK</th>
-                      <th>Nama Lengkap</th>
-                      <th>Tempat Lahir</th>
-                      <th>Tanggal Lahir</th>
-                      <th>Pendidikan</th>
-                      <th>Pekerjaan</th>
-                      <th>Agama</th>
-                      <th>Jenis Kelamin</th>
-                      <th>Status</th>
-                      <th>Jenis Warga</th>
+                      <th>No Notulensi</th>
+                      <th>Lampiran</th>
+                      <th>Tembusan</th>
+                      <th>Uraian Notulensi</th>
                     </tr>
                   </thead>
-
+                  <?php
+                    foreach ($list_notulen as $row) {
+                  ?>
                   <tbody>
-
+                    <td><?= $row['no_notulen'] ?></td>
+                    <td><?= $row['lampiran'] ?></td>
+                    <td><?= $row['tembusan'] ?></td>
+                    <td><?= $row['uraian_notulen'] ?></td>
                   </tbody>
+                <?php } ?>
                 </table>
               </div>
             </div>

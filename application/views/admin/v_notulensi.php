@@ -6,52 +6,52 @@
  <div class="container">
      <div class="row bg-white rounded shadow border-left-primary">
        <div class="col px-0">
-       <?php echo form_open();?>
+       <?php echo form_open('admin/insertNotulen', ['id' => 'default-form', 'log' => 'Input Notulensi']);?>
            <div class="row px-3 my-3">
                <div class="col">
-                   <div class="form-group">
-                       <label for="NomorNotulensi">No Notulensi Rapat</label>
-                       <input type="text" name="no_notulen" value="<?= $generate_id  ?>" id="NomorNotulensi" class="form-control" disabled>
+                   <div class="form-group form-input">
+                       <label for="input-no_notulen">No Notulensi Rapat</label>
+                       <input type="text" name="no_notulen" value="<?= $generate_id  ?>" id="input-no_notulen" class="form-control" readonly>
                        <div class="invalid-feedback">
-                           <?= form_error('no_notulen'); ?>
+
                        </div>
                    </div>
-                   <div class="form-group">
-                       <label for="Lampiran">Lampiran</label>
-                       <input type="text" name="lampiran" id="Lampiran" class="form-control">
+                   <div class="form-group form-input">
+                       <label for="input-lampiran">Lampiran</label>
+                       <input type="text" name="lampiran" id="input-lampiran" class="form-control">
                        <div class="invalid-feedback">
-                           <?= form_error('lampiran'); ?>
+
                        </div>
                    </div>
 
-                   <div class="form-group">
-                       <label for="Tembusan">Tembusan</label>
+                   <div class="form-group form-input">
+                       <label for="tembusan">Tembusan</label>
                        <textarea style="width: 520px;
                      min-width:520px;
                      max-width:520px;
                      height:210px;
                      min-height:210px;
                      max-height:210px;"
-                     class="form-control" name="tembusan" id="Tembusan"></textarea>
+                     class="form-control" name="tembusan" id="tembusan"></textarea>
                        <div class="invalid-feedback">
-                           <?= form_error('tembusan'); ?>
+
                      </div>
                    </div>
 
                </div>
                <!-- ====================Batas ke 2==================== -->
                <div class="col">
-                   <div class="form-group">
-                       <label for="UraianNotulensi">Uraian Notulensi</label>
+                   <div class="form-group form-input">
+                       <label for="input-uraian_notulen">Uraian Notulensi</label>
                        <textarea style="width: 530px;
                      min-width:530px;
                      max-width:530px;
                      height:510px;
                      min-height:510px;
                      max-height:510px;"
-                     class="form-control" name="uraian_notulen" id="UraianNotulensi"></textarea>
+                     class="form-control" name="uraian_notulen" id="input-uraian_notulen"></textarea>
                        <div class="invalid-feedback">
-                           <?= form_error('uraian_notulen'); ?>
+
                      </div>
                    </div>
 
@@ -59,7 +59,7 @@
            </div>
            <div class="col">
                <div class="form-group text-center">
-                   <input type="submit" value="Submit" class="btn btn-primary">
+                   <input type="submit" class="btn btn-primary">
                    <input type="reset" value="Reset" class="btn btn-danger">
                </div>
            </div>
