@@ -81,6 +81,7 @@
             // 	'nip' => $this->session->userdata('nip')
             // );
             // $data['dataiuran'] = $this->petugas_model->view_data($where,'iuran_masuk')->result();
+            $data['title'] = 'Input Iuran Pengeluaran';
             $data['content'] = "admin/formpengeluaran";
             $this->load->view('admin/index',$data);
         }
@@ -89,6 +90,7 @@
             // 	'nip' => $this->session->userdata('nip')
             // );
             // $data['dataiuran'] = $this->petugas_model->view_data($where,'iuran_masuk')->result();
+            $data['title'] = 'Input Iuran Masuk ';
             $data['content'] = "admin/formpemasukan";
             $this->load->view('admin/index',$data);
         }
@@ -230,34 +232,48 @@
 // Sekretaris
 // ==========================================================================
         public function inputrapat(){
-            $data['generate_id'] = $this->m_admin->get_id('rapat'); //$this->session->userdata('jabatan')
+            $nama_id  = 'rapat';
+            $field_no = 'no_udg';
+            $tabel    = 'surat_undangan';
+            $data['generate_id'] = $this->m_admin->get_id($nama_id,$field_no,$tabel); //$this->session->userdata('jabatan')
             $data['content'] = 'admin/v_rapat';
             $data['title'] = 'Input Rapat';
             $this->load->view('admin/index', $data);
         }
 
         public function inputkegiatan(){
-            $data['generate_id'] = $this->m_admin->get_id('kegiatan'); //$this->session->userdata('jabatan')
+            $nama_id  = 'kegiatan';
+            $field_no = 'no_udg';
+            $tabel    = 'surat_undangan';
+            $data['generate_id'] = $this->m_admin->get_id($nama_id,$field_no,$tabel); //$this->session->userdata('jabatan')
             $data['content'] = 'admin/v_kegiatan';
             $data['title'] = 'Input Surat Undangan Kegiatan';
             $this->load->view('admin/index', $data);
         }
 
         public function inputnotulensi(){
-            $data['generate_id'] = $this->m_admin->get_id('notulensi'); //$this->session->userdata('jabatan')
+            $nama_id  = 'notulensi';
+            $field_no = 'no_notulen';
+            $tabel    = 'notulensi_rpt';
+            $data['generate_id'] = $this->m_admin->get_id($nama_id,$field_no,$tabel); //$this->session->userdata('jabatan')
             $data['content'] = 'admin/v_notulensi';
             $data['title'] = 'Input Notulensi Rapat';
             $this->load->view('admin/index', $data);
         }
 
         public function input_arsipsurat(){
-            $data['generate_id'] = $this->m_admin->get_id('arsip'); //$this->session->userdata('jabatan')
+            $nama_id  = 'arsip';
+            $field_no = 'kd_surat';
+            $tabel    = 'arsip_surat';
+            $data['generate_id'] = $this->m_admin->get_id($nama_id,$field_no,$tabel); //$this->session->userdata('jabatan')
             $data['content'] = 'admin/v_arsip_surat';
             $data['title'] = 'Input Notulensi Rapat';
             $this->load->view('admin/index', $data);
         }
 
         public function riwayat_Undangan(){
+            $nama_tabel = 'surat_undangan';
+            $data['list_surat_udg'] = $this->m_admin->selectAllData($nama_tabel)->result_array();
             $data['content'] = 'admin/tabel_undangan';
             $data['title'] = 'Riwayat Surat Undangan';
             $this->load->view('admin/index', $data);

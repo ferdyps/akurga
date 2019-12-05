@@ -13,23 +13,50 @@
                 <table class="table table-striped table-hover" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr class="bg-primary text-white text-center">
-                      <th width="5%">No</th>
-                      <th>NIK</th>
-                      <th>Nama Lengkap</th>
-                      <th>Tempat Lahir</th>
-                      <th>Tanggal Lahir</th>
-                      <th>Pendidikan</th>
-                      <th>Pekerjaan</th>
-                      <th>Agama</th>
-                      <th>Jenis Kelamin</th>
-                      <th>Status</th>
-                      <th>Jenis Warga</th>
+                      <th>No Surat Rapat</th>
+                      <th>Lampiran</th>
+                      <th>Sifat</th>
+                      <th>Hal</th>
+                      <th>Tujuan Surat</th>
+                      <th>Tempat Rapat</th>
+                      <th>Tembusan</th>
+                      <th>Isi Surat</th>
+                      <th>Tanggal Surat</th>
+                      <th>Jam Rapat</th>
+                      <th>Acara Rapat</th>
+                      <th>Status Approval</th>
+                      <th>Action</th>
                     </tr>
                   </thead>
-
+                  <?php
+                    foreach ($list_surat_udg as $row) {
+                  ?>
                   <tbody>
-
+                    <td><?= $row['no_udg'] ?></td>
+                    <td><?= $row['lampiran_udg'] ?></td>
+                    <td><?= $row['sifat_udg'] ?></td>
+                    <td><?= $row['perihal_udg'] ?></td>
+                    <td><?= $row['tujuan_surat'] ?></td>
+                    <td><?= $row['tempat_udg'] ?></td>
+                    <td><?= $row['tembusan'] ?></td>
+                    <td><?= $row['isi_surat'] ?></td>
+                    <td><?= $row['tgl_udg'] ?></td>
+                    <td><?= $row['jam_udg'] ?></td>
+                    <td><?= $row['acara_udg'] ?></td>
+                    <?php
+                      if ($row['status'] == 0) {
+                    ?>
+                      <td>belum approval</td>
+                        <?php
+                      }else {
+                        ?>
+                      <td>Sudah Approval</td>
+                        <?php
+                      }
+                    ?>
+                    <td></td>
                   </tbody>
+                  <?php } ?>
                 </table>
               </div>
             </div>

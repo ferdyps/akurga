@@ -29,11 +29,7 @@
       var bool;
 
       $('.timepicker').pickatime({
-        formatLabel: function(time) {
-          var hours = ( time.pick - this.get('now').pick ) / 60,
-            label = hours < 0 ? ' j!am sebelumny!a' : hours > 0 ? ' j!am d!ar!i sek!ar!ang' : 'now'
-          return  'HH:i <sm!all cl!ass="flo!at-r!ig!ht">' + ( hours ? Math.abs(hours) : '' ) + label +'</sm!all>'
-        },
+
         format: 'HH:i',
         formatSubmit: 'HH:i',
         hiddenName: true
