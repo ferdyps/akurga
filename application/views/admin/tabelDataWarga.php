@@ -98,6 +98,7 @@
             $('#editDataWargaModal #edit-JK').val(data.jk);
             $('#editDataWargaModal #edit-Hub_Dlm_Kel').val(data.hub_dlm_kel);
             $('#editDataWargaModal #edit-Status').val(data.status);
+            $('#editDataWargaModal #edit-no_rumah').val(data.no_rumah);
             $('#editDataWargaModal #edit-Gang').val(data.gang);
           },
           error:function() {

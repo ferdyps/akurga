@@ -81,7 +81,6 @@
             // 	'nip' => $this->session->userdata('nip')
             // );
             // $data['dataiuran'] = $this->petugas_model->view_data($where,'iuran_masuk')->result();
-            $data['title'] = 'Input Iuran Pengeluaran';
             $data['content'] = "admin/formpengeluaran";
             $this->load->view('admin/index',$data);
         }
@@ -90,7 +89,6 @@
             // 	'nip' => $this->session->userdata('nip')
             // );
             // $data['dataiuran'] = $this->petugas_model->view_data($where,'iuran_masuk')->result();
-            $data['title'] = 'Input Iuran Masuk ';
             $data['content'] = "admin/formpemasukan";
             $this->load->view('admin/index',$data);
         }
@@ -232,48 +230,34 @@
 // Sekretaris
 // ==========================================================================
         public function inputrapat(){
-            $nama_id  = 'rapat';
-            $field_no = 'no_udg';
-            $tabel    = 'surat_undangan';
-            $data['generate_id'] = $this->m_admin->get_id($nama_id,$field_no,$tabel); //$this->session->userdata('jabatan')
+            $data['generate_id'] = $this->m_admin->get_id('rapat'); //$this->session->userdata('jabatan')
             $data['content'] = 'admin/v_rapat';
             $data['title'] = 'Input Rapat';
             $this->load->view('admin/index', $data);
         }
 
         public function inputkegiatan(){
-            $nama_id  = 'kegiatan';
-            $field_no = 'no_udg';
-            $tabel    = 'surat_undangan';
-            $data['generate_id'] = $this->m_admin->get_id($nama_id,$field_no,$tabel); //$this->session->userdata('jabatan')
+            $data['generate_id'] = $this->m_admin->get_id('kegiatan'); //$this->session->userdata('jabatan')
             $data['content'] = 'admin/v_kegiatan';
             $data['title'] = 'Input Surat Undangan Kegiatan';
             $this->load->view('admin/index', $data);
         }
 
         public function inputnotulensi(){
-            $nama_id  = 'notulensi';
-            $field_no = 'no_notulen';
-            $tabel    = 'notulensi_rpt';
-            $data['generate_id'] = $this->m_admin->get_id($nama_id,$field_no,$tabel); //$this->session->userdata('jabatan')
+            $data['generate_id'] = $this->m_admin->get_id('notulensi'); //$this->session->userdata('jabatan')
             $data['content'] = 'admin/v_notulensi';
             $data['title'] = 'Input Notulensi Rapat';
             $this->load->view('admin/index', $data);
         }
 
         public function input_arsipsurat(){
-            $nama_id  = 'arsip';
-            $field_no = 'kd_surat';
-            $tabel    = 'arsip_surat';
-            $data['generate_id'] = $this->m_admin->get_id($nama_id,$field_no,$tabel); //$this->session->userdata('jabatan')
+            $data['generate_id'] = $this->m_admin->get_id('arsip'); //$this->session->userdata('jabatan')
             $data['content'] = 'admin/v_arsip_surat';
             $data['title'] = 'Input Notulensi Rapat';
             $this->load->view('admin/index', $data);
         }
 
         public function riwayat_Undangan(){
-            $nama_tabel = 'surat_undangan';
-            $data['list_surat_udg'] = $this->m_admin->selectAllData($nama_tabel)->result_array();
             $data['content'] = 'admin/tabel_undangan';
             $data['title'] = 'Riwayat Surat Undangan';
             $this->load->view('admin/index', $data);
@@ -555,13 +539,13 @@
 
               [
                   'field' => 'tgl_surat',
-                  'label' => 'Tanggal Surat',
-                  'rules' => 'trim|required'
+                  'label' => 'Tanggal Surat ',
+                  'rules' => 'required'
               ],
 
               [
                   'field' => 'jam_udg',
-                  'label' => 'Jam Undangan',
+                  'label' => 'Jam Undangan ',
                   'rules' => 'trim|required'
               ],
 
@@ -595,7 +579,7 @@
                 'tempat_udg' => $tempat_udg,
                 'tembusan' => $tembusan,
                 'isi_surat' => $isi_surat,
-                'tgl_udg' => $tgl_srt,
+                'tempat_udg' => $tgl_srt,
                 'jam_udg' => $jam_udg,
                 'acara_udg' => $acara_udg,
                 'id_user' => $this->id_user
@@ -616,13 +600,14 @@
             } else {
               $no = 0;
               foreach ($this->input->post() as $key => $value) {
-                if (form_error($key) != "") {
-                  $json['form_errors'][$no]['id'] = $key;
-                  $json['form_errors'][$no]['msg'] = form_error($key, null, null);
-                  $no++;
-                }
+                  if (form_error($key) != "") {
+                      $json['form_errors'][$no]['id'] = $key;
+                      $json['form_errors'][$no]['msg'] = form_error($key, null, null);
+                      $no++;
+                  }
               }
             }
+
             echo json_encode($json);
           } else {
             redirect('admin/v_rapat','refresh');
