@@ -84,6 +84,7 @@
         data: {id_warga:id_warga},
           dataType: 'json',
           success:function(data) {
+            console.log(data);
             $('#editDataWargaModal #edit-jenisWarga').val(data.jenis_warga);
             $('#editDataWargaModal #edit-nik').val(data.nik);
             $('#editDataWargaModal #edit-nama').val(data.nama);

@@ -42,7 +42,7 @@
                         </div>
                         <div class="col form-input">
                             <label for="input-tanggal_lahir">Tanggal Lahir</label>
-                            <input type="date" name="tanggal_lahir" id="input-tanggal_lahir" class="form-control">
+                            <input type="date" name="tanggal_lahir" id="input-tanggal_lahir" class="form-control datepickerLagi">
                             <div class="invalid-feedback"></div>
                         </div>
                     </div>

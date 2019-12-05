@@ -420,11 +420,6 @@
         public function editWarga(){
             $this->form_validation->set_rules([
                 [
-                    'field' => 'nik',
-                    'label' => 'NIK',
-                    'rules' => 'trim|required|is_unique[warga.nik]|numeric'
-                ],
-                [
                     'field' => 'nama',
                     'label' => 'Nama Lengkap',
                     'rules' => 'trim|required|regex_match[/^[a-zA-Z ]/]'
@@ -463,7 +458,6 @@
                 $nokk = $this->input->post('nokk');
                 $hub_dlm_kel = $this->input->post('hub_dlm_kel');
                 $nohp = $this->input->post('nohp');
-
                 
                 if ($this->form_validation->run() == TRUE) {
                     $data = [

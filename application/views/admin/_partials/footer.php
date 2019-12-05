@@ -62,6 +62,16 @@
         }
       });
     });
+
+    $('.datepickerLagi').pickadate({
+      selectYears: true,
+      selectMonths: true,
+      format: 'dd mmmm yyyy',
+      formatSubmit: 'yyyy-mm-dd',
+      hiddenName: true,
+      max: new Date(),
+      min: false
+    });
   </script>
 
 

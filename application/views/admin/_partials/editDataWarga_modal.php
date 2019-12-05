@@ -12,14 +12,14 @@
                 <div class="col">
                     <div class="form-group form-input">
                         <label for="edit-jenisWarga">Jenis Warga</label>
-                        <select name="jenis_warga" id="edit-jenisWarga" class="form-control" disabled>
+                        <select name="jenis_warga" id="edit-jenisWarga" class="form-control" readonly>
                             <option value="Sementara">Sementara</option>
                             <option value="Tetap">Tetap</option>
                         </select>
                     </div>
                     <div class="form-group form-input">
                         <label for="edit-nik">NIK</label>
-                        <input type="text" name="nik" id="edit-nik" class="form-control" placeholder="Nomor Induk Kependudukan" disabled>
+                        <input type="text" name="nik" id="edit-nik" class="form-control" placeholder="Nomor Induk Kependudukan" readonly>
                         <div class="invalid-feedback"></div>
                     </div>
                     <div class="form-group form-input">
@@ -165,11 +165,23 @@
             $('#edit-nohp').val("");
         }
     }
-    $(document).ready(function(){
-        w_sementara(true);
-        w_tetap(false);
 
-        $('#jenisWarga').change(function(){
+    function startup() {
+        var tipe = $('#edit-jenisWarga').children('option:selected').val();
+
+        if(tipe == "Tetap"){
+            w_tetap(true);
+
+            w_sementara(false);
+        } else {
+            w_sementara(true);
+
+            w_tetap(false);
+        }
+    }
+
+    $(document).ready(function(){
+        $('#edit-jenisWarga').change(function(){
             var tipe = $(this).children('option:selected').val();
 
             if(tipe == "Tetap"){
@@ -182,5 +194,9 @@
                 w_tetap(false);
             }
         });
+    });
+
+    $('#editDataWargaModal').on('shown.bs.modal', function () {
+        startup();
     });
 </script>
