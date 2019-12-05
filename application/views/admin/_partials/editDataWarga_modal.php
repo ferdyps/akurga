@@ -7,7 +7,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <?= form_open('admin/editWarga', ['id' => 'default-form', 'log' => 'Edit Warga']);?>
+      <?= form_open('admin/editWarga', ['id' => 'default-form', 'log' => 'Input Warga']);?>
             <div class="row px-3 my-3">
                 <div class="col">
                     <div class="form-group form-input">

@@ -16,7 +16,7 @@
                 <input type="date" name="tanggal_komplain" id="input-tanggal_komplain" class="form-control">
             </div>
             <div class='form-group'>
-                <label for="input-keperluan" class="text-white">Keterangan</label>
+                <label for="input-keperluan" class="text-white">Keperluan</label>
                 <input type="text" name="keperluan" id="input-keperluan" class="form-control" placeholder="Keperluan">
             </div>
             <input type="submit" value="Submit" class="btn btn-primary">

@@ -36,9 +36,8 @@
                 if ($this->form_validation->run() == TRUE) {
                     $auth_data = [
                         'username_email' => $username_email,
-                        'password' => md5($password)  
+                        'password' => md5($password)
                     ];
-                    // md5($password)
                     $user_auth = $this->m_user->cek_user($auth_data)->row();
                     if (!empty($user_auth)) {
                         $array_auth = [

@@ -32,11 +32,7 @@
 
         format: 'HH:i',
         formatSubmit: 'HH:i',
-        hiddenName: true,
-        onSet: function() {
-          $('.timepicker').parents('.form-input').find('.invalid-feedback').html('');
-          $('.timepicker').parents('.form-input').find('.form-control').removeClass('is-invalid');
-        }
+        hiddenName: true
       });
 
       var picker = $('.timepicker').pickatime().pickatime('picker');
@@ -49,7 +45,7 @@
         formatSubmit: 'yyyy-mm-dd',
         hiddenName: true,
         onSet: function() {
-          tgl_dipilih = $('input[name="tgl_surat"]').val();
+          tgl_dipilih = $('input[type=hidden]').attr('name', 'tgl_surat').val();
           var tgl = new Date();
           var tgl_sekarang = tgl.getFullYear() + "-" + (tgl.getMonth()+1) + "-0" + tgl.getDate();
 
@@ -59,9 +55,6 @@
             picker.set('min', [6,0]);
             picker.set('max', [22,0]);
           }
-
-          $('.datepicker').parents('.form-input').find('.invalid-feedback').html('');
-          $('.datepicker').parents('.form-input').find('.form-control').removeClass('is-invalid');
         }
       });
     });

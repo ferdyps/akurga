@@ -5,9 +5,9 @@
     class M_admin extends CI_Model {
 
       // ======================== GET ID otomatis ================================
-      public function get_id($input) { //$jabatan
-        $this->db->select("MAX(no_udg) as maxId");
-        $query = $this->db->get('surat_undangan')->row();
+      public function get_id($input,$no,$table) { //$jabatan
+        $this->db->select("MAX($no) as maxId");
+        $query = $this->db->get($table)->row();
         $Kode=$query->maxId;
           // $rtnya = substr($jabatan, 11, 6);
           $noUrut=(int)substr($Kode, 1, 4);
@@ -34,6 +34,14 @@
         public function input_data($table, $data){
             return $this->db->insert($table, $data);
         }
+        public function edit_data($table, $pk_field, $id, $data) {
+            $this->db->where($pk_field, $id);
+            return $this->db->update($table, $data);
+        }
+        public function selectAllData($table){
+            return $this->db->get($table);
+        }
+        // ============================================================
         public function semuaDataWarga(){
             return $this->db->get('warga');
         }
@@ -41,10 +49,7 @@
             $this->db->where('valid', 0);
             return $this->db->get('warga');
         }
-        public function edit_data($table, $pk_field, $id, $data) {
-            $this->db->where($pk_field, $id);
-            return $this->db->update($table, $data);
-        }
+
         public function detailWargaById($nik){
             $this->db->where('nik', $nik);
             return $this->db->get('warga');

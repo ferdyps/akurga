@@ -475,8 +475,6 @@
                 $hub_dlm_kel = $this->input->post('hub_dlm_kel');
                 $nohp = $this->input->post('nohp');
                 
-
-
                 if ($this->form_validation->run() == TRUE) {
                     $data = [
                         'nama' => $nama,
