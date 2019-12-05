@@ -29,14 +29,14 @@
       var bool;
 
       $('.timepicker').pickatime({
-        formatLabel: function(time) {
-          var hours = ( time.pick - this.get('now').pick ) / 60,
-            label = hours < 0 ? ' j!am sebelumny!a' : hours > 0 ? ' j!am d!ar!i sek!ar!ang' : 'now'
-          return  'HH:i <sm!all cl!ass="flo!at-r!ig!ht">' + ( hours ? Math.abs(hours) : '' ) + label +'</sm!all>'
-        },
+
         format: 'HH:i',
         formatSubmit: 'HH:i',
-        hiddenName: true
+        hiddenName: true,
+        onSet: function() {
+          $('.timepicker').parents('.form-input').find('.invalid-feedback').html('');
+          $('.timepicker').parents('.form-input').find('.form-control').removeClass('is-invalid');
+        }
       });
 
       var picker = $('.timepicker').pickatime().pickatime('picker');
@@ -49,7 +49,7 @@
         formatSubmit: 'yyyy-mm-dd',
         hiddenName: true,
         onSet: function() {
-          tgl_dipilih = $('input[type=hidden]').attr('name', 'tgl_surat').val();
+          tgl_dipilih = $('input[name="tgl_surat"]').val();
           var tgl = new Date();
           var tgl_sekarang = tgl.getFullYear() + "-" + (tgl.getMonth()+1) + "-0" + tgl.getDate();
 
@@ -59,6 +59,9 @@
             picker.set('min', [6,0]);
             picker.set('max', [22,0]);
           }
+
+          $('.datepicker').parents('.form-input').find('.invalid-feedback').html('');
+          $('.datepicker').parents('.form-input').find('.form-control').removeClass('is-invalid');
         }
       });
     });
