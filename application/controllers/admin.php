@@ -65,6 +65,7 @@
             // );
             // $data['dataiuran'] = $this->petugas_model->view_data($where,'iuran_masuk')->result();
             $data['content'] = "admin/tabelpengeluaran";
+            $data['title'] = 'Tabel Data pengeluaran';
             $this->load->view('admin/index',$data);
         }
 
@@ -73,6 +74,7 @@
             // 	'nip' => $this->session->userdata('nip')
             // );
             // $data['dataiuran'] = $this->petugas_model->view_data($where,'iuran_masuk')->result();
+            $data['title'] = 'Tabel Data Pemasukan';
             $data['content'] = "admin/tabelpemasukan";
             $this->load->view('admin/index',$data);
         }
@@ -81,6 +83,7 @@
             // 	'nip' => $this->session->userdata('nip')
             // );
             // $data['dataiuran'] = $this->petugas_model->view_data($where,'iuran_masuk')->result();
+            $data['title'] = 'Input Pengeluaran';
             $data['content'] = "admin/formpengeluaran";
             $this->load->view('admin/index',$data);
         }
@@ -89,10 +92,12 @@
             // 	'nip' => $this->session->userdata('nip')
             // );
             // $data['dataiuran'] = $this->petugas_model->view_data($where,'iuran_masuk')->result();
+            $data['title'] = 'Input Pemasukan';
             $data['content'] = "admin/formpemasukan";
             $this->load->view('admin/index',$data);
         }
         public function tabeldataiurankeluar(){
+            $data['title'] = 'Tabel Data Keluar';
             $data['dataiurank'] = $this->m_admin->tampil_iuran_keluar()->result_array();
             $data['content'] = "admin/tabelpengeluaran.php";
              $this->load->view('admin/index',$data);
