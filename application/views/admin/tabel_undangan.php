@@ -43,17 +43,13 @@
                     <td><?= $row['tgl_udg'] ?></td>
                     <td><?= $row['jam_udg'] ?></td>
                     <td><?= $row['acara_udg'] ?></td>
-                    <?php
-                      if ($row['status'] == 0) {
-                    ?>
-                      <td>belum approval</td>
-                        <?php
+                    <td>
+                      <?php if ($row['status'] == 1) {
+                        echo "Sudah Approval";
                       }else {
-                        ?>
-                      <td>Sudah Approval</td>
-                        <?php
-                      }
-                    ?>
+                        echo "Belum Approval";
+                      }?>
+                    </td>
                     <td></td>
                   </tbody>
                   <?php } ?>

@@ -31,26 +31,26 @@
 // =========================================================================
 
 // Ketua RT
-// =========================================================================
+// -------------------------------------------------------------------------
         public function index(){
             $data['content'] = 'admin/dashboard';
             $data['title'] = 'Dashboard';
             $this->load->view('admin/index', $data);
         }
-// =========================================================================
+// -------------------------------------------------------------------------
         public function inputWarga(){
             $data['content'] = 'admin/inputWarga';
             $data['title'] = 'Input Data Warga';
             $this->load->view('admin/index', $data);
         }
-// ==========================================================================
+// -------------------------------------------------------------------------
         public function tabelDataWarga(){
             $data['list_warga_semua'] = $this->m_admin->semuaDataWarga()->result_array();
             $data['content'] = 'admin/tabelDataWarga';
             $data['title'] = 'Tabel Data Warga';
             $this->load->view('admin/index', $data);
         }
-// ==========================================================================
+// -------------------------------------------------------------------------
         public function inputHasilKomplain(){
             $data['content'] = 'admin/inputHasilKomplain';
             $data['title'] = 'Input Hasil Komplain';

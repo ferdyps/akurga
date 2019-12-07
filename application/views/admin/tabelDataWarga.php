@@ -18,17 +18,17 @@
                       <th>Nama Lengkap</th>
                       <th>Tempat Lahir</th>
                       <th>Tanggal Lahir</th>
-                      <th>Pendidikan</th>
-                      <th>Pekerjaan</th>
+                      <!-- <th>Pendidikan</th> -->
+                      <!-- <th>Pekerjaan</th> -->
                       <th>Agama</th>
                       <th>Jenis Kelamin</th>
                       <th>Status</th>
                       <th>Jenis Warga</th>
-                      <th>Nomor HP</th>
-                      <th>Nomor KK</th>
-                      <th>Hubungan Dalam Keluarga</th>
-                      <th>Nomor Rumah</th>
-                      <th>Gang</th>
+                      <!-- <th>Nomor HP</th> -->
+                      <!-- <th>Nomor KK</th> -->
+                      <!-- <th>Hubungan Dalam Keluarga</th> -->
+                      <!-- <th>Nomor Rumah</th> -->
+                      <!-- <th>Gang</th> -->
                       <th>Validasi</th>
                       <th>Action</th>
                     </tr>
@@ -44,17 +44,17 @@
                         <td><?= $row['nama']?></td>
                         <td><?= $row['tempat_lahir']?></td>
                         <td><?= $row['tanggal_lahir']?></td>
-                        <td><?= $row['pendidikan']?></td>
-                        <td><?= $row['pekerjaan']?></td>
+                        <!-- <td><?= $row['pendidikan']?></td> -->
+                        <!-- <td><?= $row['pekerjaan']?></td> -->
                         <td><?= $row['agama']?></td>
                         <td><?= $row['jk']?></td>
                         <td><?= $row['status']?></td>
                         <td><?= $row['jenis_warga']?></td>
-                        <td><?= $row['nohp']?></td>
-                        <td><?= $row['nokk']?></td>
-                        <td><?= $row['hub_dlm_kel']?></td>
-                        <td><?= $row['no_rumah']?></td>
-                        <td><?= $row['gang']?></td>
+                        <!-- <td><?= $row['nohp']?></td> -->
+                        <!-- <td><?= $row['nokk']?></td> -->
+                        <!-- <td><?= $row['hub_dlm_kel']?></td> -->
+                        <!-- <td><?= $row['no_rumah']?></td> -->
+                        <!-- <td><?= $row['gang']?></td> -->
                         <td>
                           <?php if ($row['valid'] == 1) {
                             echo "Sudah Valid";
