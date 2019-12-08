@@ -33,8 +33,24 @@
 // Ketua RT
 // -------------------------------------------------------------------------
         public function index(){
-            $data['content'] = 'admin/dashboard';
-            $data['title'] = 'Dashboard';
+            $dataPoints = array();
+            $dataPoints2 = array();
+            $query = $this->m_admin->totalWarga()->result_array();
+            $result = $this->m_admin->grafikPendidikan()->result();
+            $result2 = $this->m_admin->grafikPekerjaan()->result();
+            foreach ($result as $row) {
+                array_push($dataPoints, array('label' => $row->pendidikan, 'y' => $row->total));
+            }
+            foreach ($result2 as $row) {
+                array_push($dataPoints2, array('label' => $row->pekerjaan, 'y' => $row->total));
+            }
+            $data = [
+                'content' => 'admin/dashboard',
+                'title' => 'Dashboard',
+                'semuaWarga' => $query,
+                'dataPoints' => $dataPoints,
+                'dataPoints2' => $dataPoints2
+            ];
             $this->load->view('admin/index', $data);
         }
 // -------------------------------------------------------------------------

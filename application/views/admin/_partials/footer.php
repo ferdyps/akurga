@@ -11,6 +11,7 @@
   <?php if($title == 'Dashboard') { ?>
   <script src="<?php echo base_url('assets/bootstrap4admin/js/demo/chart-area-demo.js');?>"></script>
   <script src="<?php echo base_url('assets/bootstrap4admin/js/demo/chart-pie-demo.js');?>"></script>
+  
   <?php } ?>
   <script src="<?= base_url("assets/bootstrap4admin/vendor/datatables/jquery.dataTables.min.js"); ?>"></script>
   <script src="<?= base_url("assets/bootstrap4admin/vendor/datatables/dataTables.bootstrap4.min.js"); ?>"></script>
@@ -20,8 +21,10 @@
   <script src="<?= base_url('assets/pickadate.js-3.6.2/picker.js'); ?>" charset="utf-8"></script>
   <script src="<?= base_url('assets/pickadate.js-3.6.2/picker.date.js'); ?>" charset="utf-8"></script>
   <script src="<?= base_url('assets/pickadate.js-3.6.2/picker.time.js'); ?>" charset="utf-8"></script>
+  <script src="<?= base_url('assets/js/canvasjs.min.js')?>"></script>
 
   <script src="<?= base_url('assets/js/main.js'); ?>"></script>
+  
 
   <script type="text/javascript">
     $(document).ready(function() {
@@ -83,6 +86,7 @@
       hiddenName: true
     });
   </script>
+
 
 
 </body>

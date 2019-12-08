@@ -33,11 +33,12 @@
                       <th>Action</th>
                     </tr>
                   </thead>
+                  
+                  <tbody>
                   <?php
                     $i=1; 
                     foreach($list_warga_semua as $row)
                   {?>
-                  <tbody>
                       <tr>
                         <td><?= $i++?></td>
                         <td><?= $row['nik']?></td>
@@ -66,8 +67,9 @@
                           <a href="#" class="d-none d-sm-inline-block btn btn-primary shadow-sm" id="detailWarga" data-url="<?= base_url('admin/detailWarga/'); ?>" data-nik="<?= $row['nik']; ?>" data-toggle="modal" data-target="#editDataWargaModal">Detail</a>
                         </td>
                       </tr>
-                  </tbody>
+                      
                   <?php } ?>
+                  </tbody>
                 </table>
               </div>
             </div>

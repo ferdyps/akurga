@@ -58,6 +58,20 @@
             $this->db->where('nik', $nik);
             return $this->db->get('warga');
         }
+        public function totalWarga(){
+            $this->db->select('COUNT(*) as total');
+            return $this->db->get('warga');
+        }
+        public function grafikPendidikan(){
+            $this->db->select('COUNT(nik) as total, pendidikan');
+            $this->db->group_by('pendidikan');
+            return $this->db->get('warga');
+        }
+        public function grafikPekerjaan(){
+            $this->db->select('COUNT(nik) as total, pekerjaan');
+            $this->db->group_by('pekerjaan');
+            return $this->db->get('warga');
+        }
 // =========================================================================
         public function multiple_select_data($table, $where) {
             $this->db->where($where);
