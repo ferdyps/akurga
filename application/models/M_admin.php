@@ -20,6 +20,8 @@
             $Char = "/NOT/";
           }elseif ($input == 'arsip') {
             $Char = "/ASM/";
+          }elseif ($input == 'surat_pengantar') {
+            $Char = "/SPT/";
           }else {
             echo "Erorr id";
           }
