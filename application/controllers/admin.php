@@ -165,36 +165,123 @@
 		} else {
 			redirect(base_url('admin/editiurankeluar'),'refresh');
 		}
-	}
+    }
+    public function iuranmasuk(){
+
+        if($this->input->post('submit_masuk')){
+
+            $this->form_validation->set_rules('nik','Nik','required');
+            $this->form_validation->set_rules('pembayaran_bulan', 'Pembayaran Bulan', 'required');
+            $this->form_validation->set_rules('nominal', 'Nominal', 'required');
+            $this->form_validation->set_rules('tanggal', 'Tanggal', 'required');
+            // $id_iuran_keluar = $this->input->post('id_iuran_keluar');
+            if ($this->form_validation->run()==false){
+                $data['content']="admin/formpemasukan";
+                $this->load->view('admin/index',$data);
+                // $this->load->view('admin/formpengeluaran');
+            } else {
+            $nik = $this->input->post('nik');
+            $pembayaran_bulan = $this->input->post('pembayaran_bulan');
+            $nominal = $this->input->post('nominal');
+            $tanggal = $this->input->post('tanggal');
+            // $gambar = $_FILES['gambar']['name'];
+
+            // $config['max_size'] =0;
+            // $config['max_width']=0;
+            // $config['max_height']=0;
+            // $config['allowed_types'] = "png|jpg|jpeg|gif";
+            // $config['upload_path']='./uploads/gambar';
+
+            // $this->load->library('upload');
+            // $this->upload->initialize($config);
+
+            // $this->upload->do_upload('gambar');
+            // $data_image=$this->upload->data('file_name');
+            // $gambar = $data_image;
+
+            // if(!$this->upload->do_upload('gambar')){
+            //     echo "gambar gak masook";
+            //     $error = array
+            //     ('error'=>$this->upload->display_errors());
+            //     $this->load->view('admin/tabelpengeluaran',$error);
+            // }else{
+                // $data = array(
+                //     'upload_data'=>$this->upload->data()
+                // );
+                // $file = $this->upload->data();
+                // $gambar=$file['file_name'];
+                // $gambar="gambar.jpg";
+
+
+                $dataiuranmasuk = array(
+                    'nik' => $nik,
+                    'pembayaran_bulan'=> $pembayaran_bulan,
+                    'nominal' => $nominal,
+                    'tanggal' => $tanggal,
+                  
+                );
+
+                $query = $this->m_admin->isi_data_iuran_masuk($dataiuranmasuk);
+                print_r($query);
+                $this->session->set_userdata($dataiuranmasuk);
+
+                if($query){
+                    ?>
+                    <script>
+                            alert("Berhasil Isi Data")
+                    </script>
+                    <?php
+                    $data['dataiuranmsk'] = $this->m_admin->tampil_iuran_masuk()->result_array();
+                    $data['content'] = "admin/tabelpemasukan.php";
+                    $this->load->view('admin/index',$data);
+                }else{
+                    ?>
+                    <script>
+                            alert("Gagal Isi Data")
+                    </script>
+                    <?php
+                    $data['content'] = "admin/formpemasukan.php";
+                    $this->load->view('admin/index',$data);
+                }
+            }
+        }else{
+            echo "Hai";
+            $data['content'] = "admin/formpemasukan.php";
+            $this->load->view('admin/index',$data);
+        }
+    }
         public function iurankeluar(){
 
-            // $this->form_validation->set_rules([
-            //     [
-            //         'field' => 'diberikan_kepada',
-            //         'label' => 'Diberikan Kepada',
-            //         'rules' => 'trim|required'
-            //     ],
-            //     [
-            //         'field' => 'nominal',
-            //         'label' => 'Nominal',
-            //         'rules' => 'trim|numeric'
-            //     ],
-            // ]);
-
             if($this->input->post('submit')){
+
+                $this->form_validation->set_rules('diberikan_kepada','Diberikan Kepada','required');
+                $this->form_validation->set_rules('tanggal', 'Tanggal', 'required');
+                $this->form_validation->set_rules('nominal', 'Nominal', 'required');
+                $this->form_validation->set_rules('digunakan_untuk', 'Digunakan Untuk', 'required');
                 // $id_iuran_keluar = $this->input->post('id_iuran_keluar');
+                if ($this->form_validation->run()==false){
+                    $data['content']="admin/formpengeluaran";
+                    $this->load->view('admin/index',$data);
+                    // $this->load->view('admin/formpengeluaran');
+                } else {
                 $diberikan_kepada = $this->input->post('diberikan_kepada');
                 $tanggal = $this->input->post('tanggal');
                 $nominal = $this->input->post('nominal');
                 $digunakan_untuk = $this->input->post('digunakan_untuk');
+                $gambar = $_FILES['gambar']['name'];
 
                 $config['max_size'] =0;
                 $config['max_width']=0;
                 $config['max_height']=0;
                 $config['allowed_types'] = "png|jpg|jpeg|gif";
-                $config['upload_path']='./upload/gambar';
+                $config['upload_path']='./uploads/gambar';
 
-                $this->load->library('upload',$config);
+                $this->load->library('upload');
+                $this->upload->initialize($config);
+
+                $this->upload->do_upload('gambar');
+                $data_image=$this->upload->data('file_name');
+                $gambar = $data_image;
 
                 // if(!$this->upload->do_upload('gambar')){
                 //     echo "gambar gak masook";
@@ -207,7 +294,7 @@
                     // );
                     // $file = $this->upload->data();
                     // $gambar=$file['file_name'];
-                    $gambar="gambar.jpg";
+                    // $gambar="gambar.jpg";
 
 
                     $dataiurankeluar = array(
@@ -219,6 +306,9 @@
                     );
 
                     $query = $this->m_admin->isi_data_iuran_keluar($dataiurankeluar);
+                    print_r($query);
+                    $this->session->set_userdata($dataiurankeluar);
+
                     if($query){
                         ?>
                         <script>
@@ -237,7 +327,7 @@
                         $data['content'] = "admin/formpengeluaran.php";
                         $this->load->view('admin/index',$data);
                     }
-                // }
+                }
             }else{
                 echo "Hai";
                 $data['content'] = "admin/formpengeluaran.php";

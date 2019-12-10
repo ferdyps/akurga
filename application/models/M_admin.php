@@ -99,6 +99,16 @@
             $this->db->where($where);
             $this->db->update($table,$data);
         }
+        public function isi_data_iuran_masuk($dataiuranmasuk){
+            return $this->db->insert('pembayaran',$dataiuranmasuk);
+        }
+        public function tampil_iuran_masuk(){
+            $this->db->select('warga.nik,warga.nama, pembayaran.no_pembayaran, pembayaran.pembayaran_bulan,pembayaran.nominal,pembayaran.tanggal');
+            $this->db->from('warga');
+            $this->db->join('pembayaran','warga.nik=pembayaran.nik');
+            // $this->db->where($where);
+            return $this->db->get();
+        }
 
 
     }

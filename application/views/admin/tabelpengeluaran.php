@@ -37,7 +37,8 @@
             <td><?php echo $b['nominal']; ?></td>
             <td><?php echo $b['tanggal']; ?></td>
             <td><?php echo $b['digunakan_untuk'] ?></td>
-            <td><?php echo $b['gambar'] ?></td>
+            <!-- <td><?php echo $b['gambar'] ?></td> -->
+            <td><img src="<?php echo base_url('/uploads/gambar/'.$b['gambar']);?>" height="50px" width="50px"></td>
             <td>
             <?php $sum=$sum+$b['nominal']?>
               <?php echo anchor('admin/edit_iuran_keluar/'.$b['no_pengeluaran'],'Edit'); ?> | |  
