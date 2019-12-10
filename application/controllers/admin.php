@@ -86,13 +86,12 @@
         }
 
         public function tabelpemasukan(){
-            // $where = array(
-            // 	'nip' => $this->session->userdata('nip')
-            // );
-            // $data['dataiuran'] = $this->petugas_model->view_data($where,'iuran_masuk')->result();
-            $data['title'] = 'Tabel Data Pemasukan';
-            $data['content'] = "admin/tabelpemasukan";
-            $this->load->view('admin/index',$data);
+          
+                $data['title'] = 'Tabel Data Keluar';
+                $data['dataiuranmsk'] = $this->m_admin->tampil_iuran_masuk()->result_array();
+                $data['content'] = "admin/tabelpemasukan.php";
+                 $this->load->view('admin/index',$data);
+            
         }
         public function formpengeluaran(){
             // $where = array(
