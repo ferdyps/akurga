@@ -20,7 +20,7 @@
             <th>Pembayaran Bulan</th>
             <th>Nominal</th>
             <th>Tanggal</th>
-            <th>Aksi</th>
+            <!-- <th>Aksi</th> -->
           </tr>
         </thead>
 
@@ -49,9 +49,10 @@
         <?php } ?>
         <tr>
       <td colspan="2" rospan="4">Total</td>
+      <!-- <td><?php echo $sum;?> </td> -->
+      <td></td>
+      <td></td>
       <td><?php echo $sum;?> </td>
-      <td></td>
-      <td></td>
       <td></td>
       <td></td>
     </tr>

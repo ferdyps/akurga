@@ -84,14 +84,19 @@
             $data['title'] = 'Tabel Data pengeluaran';
             $this->load->view('admin/index',$data);
         }
+        
+        public function tampilbulan(){
+            $data['content'] = "admin/tampilbulan";
+            $data['title'] = 'Tabel Data Bulan';
+            $data['iuran'] = $this->m_admin->tampil_iuran_perbulan()->result();
+            $this->load->view('admin/index',$data);
+        }
 
         public function tabelpemasukan(){
-          
-                $data['title'] = 'Tabel Data Keluar';
-                $data['dataiuranmsk'] = $this->m_admin->tampil_iuran_masuk()->result_array();
-                $data['content'] = "admin/tabelpemasukan.php";
-                 $this->load->view('admin/index',$data);
-            
+            $data['title'] = 'Tabel Data Keluar';
+            $data['dataiuranmsk'] = $this->m_admin->tampil_iuran_masuk()->result_array();
+            $data['content'] = "admin/tabelpemasukan.php";
+            $this->load->view('admin/index',$data);
         }
         public function formpengeluaran(){
             // $where = array(
@@ -109,6 +114,7 @@
             // $data['dataiuran'] = $this->petugas_model->view_data($where,'iuran_masuk')->result();
             $data['title'] = 'Input Pemasukan';
             $data['content'] = "admin/formpemasukan";
+            $data['bulan'] = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
             $this->load->view('admin/index',$data);
         }
         public function tabeldataiurankeluar(){

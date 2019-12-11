@@ -110,9 +110,48 @@
             return $this->db->get();
         }
 
+        public function tampil_iuran_perbulan(){
+            $query = "
+            SELECT 
+                `no_pembayaran`, 
+                w.nama AS nama_warga,
+                `tanggal`,
+                (SELECT nominal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'Januari' LIMIT 1) AS bulan_januari,
+                (SELECT nominal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'Februari' LIMIT 1) AS bulan_februari,
+                (SELECT nominal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'Maret' LIMIT 1) AS bulan_maret,
+                (SELECT nominal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'April' LIMIT 1) AS bulan_april,
+                (SELECT nominal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'Mei' LIMIT 1) AS bulan_mei,
+                (SELECT nominal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'Juni' LIMIT 1) AS bulan_juni,
+                (SELECT nominal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'Juli' LIMIT 1) AS bulan_juli,
+                (SELECT nominal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'Agustus' LIMIT 1) AS bulan_agustus,
+                (SELECT nominal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'September' LIMIT 1) AS bulan_september,
+                (SELECT nominal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'Oktober' LIMIT 1) AS bulan_oktober,
+                (SELECT nominal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'November' LIMIT 1) AS bulan_november,
+                (SELECT nominal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'Desember' LIMIT 1) AS bulan_desember,
+                jenis_warga,
+                SUM(nominal) AS jumlah_iuran
+            FROM `pembayaran` p
+            JOIN warga w ON w.nik = p.nik
+            GROUP BY p.nik
+            ";
+            return $this->db->query($query);
+        }
 
+        public function get_jumlah_iuran(){
+            $query = "
+            SELECT 
+                nama, 
+                SUM(nominal) AS jumlah_iuran,
+                jenis_warga
+            FROM `pembayaran` 
+            JOIN warga ON warga.nik = pembayaran.nik
+            GROUP BY pembayaran.nik
+            ";
+            return $this->db->query($query);
+        }
+
+        
     }
-
 
     /* End of file M_admin.php */
 

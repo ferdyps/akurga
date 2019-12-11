@@ -21,30 +21,33 @@
                    <div class="form-group">
                        <label for="PembayaranBulan">Pembayaran Bulan</label>
                        <select id="PembayaranBulan" name="pembayaran_bulan" class="form-control">
-                 <option selected>Januari</option>
-                 <option>Februari</option>
-                 <option>Maret</option>
-                 <option>April</option>
-                 <option>Mei</option>
-                 <option>Juni</option>
-                 <option>Juli</option>
-                 <option>Agustus</option>
-                 <option>September</option>
-                 <option>Oktober</option>
-                 <option>November</option>
-                 <option>Desember</option>
+                       <?php 
+                        $no = 1;
+                        foreach ($bulan as $row) { 
+                        ?>
+                        <option value ="<?= $row ?>"> <?= $row ?></option>
+                        <?php } ?>
                </select>
                    </div>
                    <?php echo form_error('pembayaran_bulan'); ?>
 
+                <div class ="form-group">
+                    <label class="control-label col-md-3">Jenis Iuran</label>
+                    <div class="col-md-8">
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input class="form-check-input" id="pedagang" type="radio" name='nominal' value="15000">Warga Tetap
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input class="form-check-input" id="bukanpedagang" type="radio" name='nominal' value="10000"> Sementara
+                            </label>
+                        </div>   
+                    </div>
 
-                   <div class="form-group">
-                       <label for="Nominal">Nominal</label>
-                       <input type="number" name="nominal" id="Nominal" class="form-control">
-                       <div class="invalid-feedback">
-                       </div>
-                   </div>
-                   <?php echo form_error('nominal'); ?>
+                </div>
+
 
                    <div class="form-group">
                        <label for="Tanggal">Tanggal</label>
