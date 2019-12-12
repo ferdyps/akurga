@@ -10,23 +10,24 @@
            <div class="row px-3 my-3">
                <div class="col">
 
+                 <input type="hidden" value="<?= $generate_id  ?>" name="no_udg" id="input-no_udg" class="form-control">
                  <div class="form-group form-input">
-                     <label for="input-isi_surat">Usulan Rapat</label>
+                     <label for="input-usul_surat">Usulan Rapat</label>
                      <textarea style="width: 530px;
                    min-width:530px;
                    max-width:530px;
                    height:210px;
                    min-height:210px;
                    max-height:210px;"
-                   class="form-control" name="usul_surat" id="input-isi_surat"></textarea>
+                   class="form-control" name="usul_surat" id="input-usul_surat"></textarea>
                      <div class="invalid-feedback">
                    </div>
                  </div>
 
 
                    <div class="form-group form-input">
-                       <label for="input-tgl_surat">Tanggal Surat</label>
-                       <input type="text" name="tgl_surat" id="input-tgl_surat" class="form-control datepicker">
+                       <label for="input-tgl_rpt">Tanggal rapat</label>
+                       <input type="text" name="tgl_rpt" id="input-tgl_rpt" class="form-control datepicker">
                        <div class="invalid-feedback"></div>
                    </div>
 

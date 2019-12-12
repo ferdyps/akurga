@@ -44,7 +44,7 @@
             return $this->db->get($table);
         }
         public function selectWithWhere($table,$where){
-            return $this->db->get($table,$where);
+            return $this->db->get_where($table,array('status' => $where));
         }
         // ============================================================
         public function semuaDataWarga(){
@@ -115,8 +115,8 @@
 
         public function tampil_iuran_perbulan(){
             $query = "
-            SELECT 
-                `no_pembayaran`, 
+            SELECT
+                `no_pembayaran`,
                 w.nama AS nama_warga,
                 `tanggal`,
                 (SELECT nominal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'Januari' LIMIT 1) AS bulan_januari,
@@ -142,18 +142,18 @@
 
         public function get_jumlah_iuran(){
             $query = "
-            SELECT 
-                nama, 
+            SELECT
+                nama,
                 SUM(nominal) AS jumlah_iuran,
                 jenis_warga
-            FROM `pembayaran` 
+            FROM `pembayaran`
             JOIN warga ON warga.nik = pembayaran.nik
             GROUP BY pembayaran.nik
             ";
             return $this->db->query($query);
         }
 
-        
+
     }
 
     /* End of file M_admin.php */

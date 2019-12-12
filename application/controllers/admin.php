@@ -53,6 +53,18 @@
             ];
             $this->load->view('admin/index', $data);
         }
+
+        public function tbl_usulan_ketua(){
+            $tabel = 'surat_undangan';
+            $stat = 0;
+            $list_data = $this->m_admin->selectWithWhere($tabel,$stat)->result_array();
+            $data = [
+                'content'   => 'admin/tbl_usul_ketua',
+                'title'     => 'Input Usulan Rapat',
+                'list_data' => $list_data
+            ];
+            $this->load->view('admin/index', $data);
+        }
 // -------------------------------------------------------------------------
         public function inputWarga(){
             $data['content'] = 'admin/inputWarga';
@@ -418,9 +430,17 @@
         // ==========================================================================
 
         public function usul_pengurus(){
-            $data['list_arsip'] = $this->m_admin->selectAllData('arsip_surat')->result_array();
-            $data['content'] = 'admin/form_usulan';
-            $data['title'] = 'Form Usulan Rapat';
+            $id         = 'rapat';
+            $nama_field = 'no_udg';
+            $nama_tabel = 'surat_undangan';
+            $generate_id = $this->m_admin->get_id($id,$nama_field,$nama_tabel); //$this->session->userdata('jabatan')
+            $content = 'admin/form_usulan';
+            $title = 'Form Usulan Rapat';
+            $data = [
+              'generate_id' => $generate_id,
+              'content'     => $content,
+              'title'       => $title
+            ];
             $this->load->view('admin/index', $data);
 
         }
@@ -1049,7 +1069,11 @@
 
         public function insertUsulanPengurus(){
           $this->form_validation->set_rules([
-
+              [
+                  'field' => 'no_udg',
+                  'label' => 'Nomor Surat',
+                  'rules' => 'trim|required'
+              ],
               [
                   'field' => 'tujuan_surat',
                   'label' => 'tujuan surat',
@@ -1069,7 +1093,7 @@
               ],
 
               [
-                  'field' => 'tgl_surat',
+                  'field' => 'tgl_rpt',
                   'label' => 'Tanggal Surat ',
                   'rules' => 'required'
               ],
@@ -1086,7 +1110,7 @@
             $tujuan_srt = $this->input->post('tujuan_surat');
             $tempat_udg = $this->input->post('tempat_udg');
             $usul_surat  = $this->input->post('usul_surat');
-            $tgl_srt    = $this->input->post('tgl_surat');
+            $tgl_rpt    = $this->input->post('tgl_rpt');
             $jam_udg    = $this->input->post('jam_udg');
 
             if ($this->form_validation->run() == TRUE) {
@@ -1095,7 +1119,7 @@
                 'tujuan_surat' => $tujuan_srt,
                 'tempat_udg' => $tempat_udg,
                 'usulan_rpt' => $usul_surat,
-                'tgl_udg' => $tgl_srt,
+                'tgl_udg' => $tgl_rpt,
                 'jam_udg' => $jam_udg,
                 'id_user' => $this->id_user
               ];
@@ -1103,14 +1127,14 @@
               $query = $this->m_admin->input_data('surat_undangan', $data);
 
               if ($query) {
-                $url = base_url('admin/riwayat_Undangan');
+                $url = base_url('admin/index');
 
                 $json = [
-                    'message' => "Data Rapat berhasil diinput..",
+                    'message' => "Data Usulan Rapat berhasil diinput..",
                     'url' => $url
                 ];
               } else {
-                $json['errors'] = "Data Rapat gagal diinput..!";
+                $json['errors'] = "Data Usulan Rapat gagal diinput..!";
               }
             } else {
               $no = 0;
@@ -1125,7 +1149,7 @@
 
             echo json_encode($json);
           } else {
-            redirect('admin/v_rapat','refresh');
+            redirect('admin/index','refresh');
           }
         }
       }
