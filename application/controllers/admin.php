@@ -84,7 +84,7 @@
             $data['title'] = 'Tabel Data pengeluaran';
             $this->load->view('admin/index',$data);
         }
-        
+
         public function tampilbulan(){
             $data['content'] = "admin/tampilbulan";
             $data['title'] = 'Tabel Data Bulan';
@@ -223,7 +223,7 @@
                     'pembayaran_bulan'=> $pembayaran_bulan,
                     'nominal' => $nominal,
                     'tanggal' => $tanggal,
-                  
+
                 );
 
                 $query = $this->m_admin->isi_data_iuran_masuk($dataiuranmasuk);
@@ -410,6 +410,24 @@
         // ==========================================================================
         // ==========================================================================
         // END OF SEKRETARIS
+        // ==========================================================================
+
+        // ==========================================================================
+        // ==========================================================================
+        // Pengurus
+        // ==========================================================================
+
+        public function usul_pengurus(){
+            $data['list_arsip'] = $this->m_admin->selectAllData('arsip_surat')->result_array();
+            $data['content'] = 'admin/form_usulan';
+            $data['title'] = 'Form Usulan Rapat';
+            $this->load->view('admin/index', $data);
+
+        }
+
+        // ==========================================================================
+        // ==========================================================================
+        // END OF Pengurus
         // ==========================================================================
 
 // Untuk Back-end
@@ -922,6 +940,7 @@
             redirect('admin/v_notulensi','refresh');
           }
         }
+
         public function insertArsipMasuk(){
           $this->form_validation->set_rules([
               [
@@ -1013,7 +1032,89 @@
           }
 
         }
-    }
+
+        public function insertUsulanPengurus(){
+          $this->form_validation->set_rules([
+
+              [
+                  'field' => 'tujuan_surat',
+                  'label' => 'tujuan surat',
+                  'rules' => 'trim|required'
+              ],
+
+              [
+                  'field' => 'tempat_udg',
+                  'label' => 'tempat Undangan',
+                  'rules' => 'trim|required'
+              ],
+
+              [
+                  'field' => 'usul_surat',
+                  'label' => 'Isi Surat',
+                  'rules' => 'trim|required'
+              ],
+
+              [
+                  'field' => 'tgl_surat',
+                  'label' => 'Tanggal Surat ',
+                  'rules' => 'required'
+              ],
+
+              [
+                  'field' => 'jam_udg',
+                  'label' => 'Jam Undangan ',
+                  'rules' => 'trim|required'
+              ]
+          ]);
+
+          if ($this->input->post()) {
+            $no_udg = $this->input->post('no_udg');
+            $tujuan_srt = $this->input->post('tujuan_surat');
+            $tempat_udg = $this->input->post('tempat_udg');
+            $usul_surat  = $this->input->post('usul_surat');
+            $tgl_srt    = $this->input->post('tgl_surat');
+            $jam_udg    = $this->input->post('jam_udg');
+
+            if ($this->form_validation->run() == TRUE) {
+              $data = [
+                'no_udg' => $no_udg,
+                'tujuan_surat' => $tujuan_srt,
+                'tempat_udg' => $tempat_udg,
+                'usulan_rpt' => $usul_surat,
+                'tgl_udg' => $tgl_srt,
+                'jam_udg' => $jam_udg,
+                'id_user' => $this->id_user
+              ];
+
+              $query = $this->m_admin->input_data('surat_undangan', $data);
+
+              if ($query) {
+                $url = base_url('admin/riwayat_Undangan');
+
+                $json = [
+                    'message' => "Data Rapat berhasil diinput..",
+                    'url' => $url
+                ];
+              } else {
+                $json['errors'] = "Data Rapat gagal diinput..!";
+              }
+            } else {
+              $no = 0;
+              foreach ($this->input->post() as $key => $value) {
+                  if (form_error($key) != "") {
+                      $json['form_errors'][$no]['id'] = $key;
+                      $json['form_errors'][$no]['msg'] = form_error($key, null, null);
+                      $no++;
+                  }
+              }
+            }
+
+            echo json_encode($json);
+          } else {
+            redirect('admin/v_rapat','refresh');
+          }
+        }
+      }
 
     /* End of file Controllername.php */
 ?>

@@ -1,0 +1,62 @@
+<div class="container-fluid">
+ <!-- Page Heading -->
+ <div class="d-sm-flex align-items-center justify-content-between mb-4">
+     <h1 class="h3 mb-0 text-gray-800">Form Usulan Rapat</h1>
+ </div>
+ <div class="container">
+     <div class="row bg-white rounded shadow border-left-primary">
+       <div class="col px-0">
+       <?php echo form_open('admin/insertUsulanPengurus', ['id' => 'default-form', 'log' => 'Input Kegiatan']);?>
+           <div class="row px-3 my-3">
+               <div class="col">
+
+                 <div class="form-group form-input">
+                     <label for="input-isi_surat">Usulan Rapat</label>
+                     <textarea style="width: 530px;
+                   min-width:530px;
+                   max-width:530px;
+                   height:210px;
+                   min-height:210px;
+                   max-height:210px;"
+                   class="form-control" name="usul_surat" id="input-isi_surat"></textarea>
+                     <div class="invalid-feedback">
+                   </div>
+                 </div>
+
+
+                   <div class="form-group form-input">
+                       <label for="input-tgl_surat">Tanggal Surat</label>
+                       <input type="text" name="tgl_surat" id="input-tgl_surat" class="form-control datepicker">
+                       <div class="invalid-feedback"></div>
+                   </div>
+
+               </div>
+               <!-- ====================Batas ke 2==================== -->
+               <div class="col">
+                 <div class="form-group form-input">
+                     <label for="input-tujuan_surat">Tujuan Surat</label>
+                     <input type="text" name="tujuan_surat" id="input-tujuan_surat" class="form-control">
+                     <div class="invalid-feedback"></div>
+                 </div>
+                 <div class="form-group form-input">
+                     <label for="input-tempat_udg">Tempat Rapat</label>
+                     <input type="text" name="tempat_udg" id="input-tempat_udg" class="form-control">
+                     <div class="invalid-feedback"></div>
+                 </div>
+                 <div class="form-group form-input">
+                     <label for="input-jam_udg">Jam Rapat</label>
+                     <input type="text" name="jam_udg" id="input-jam_udg" class="form-control timepicker">
+                     <div class="invalid-feedback"></div>
+                 </div>
+
+               </div>
+           </div>
+           <div class="col">
+               <div class="form-group text-center">
+                   <input type="submit" value="Submit" class="btn btn-primary">
+                   <input type="reset" value="Reset" class="btn btn-danger">
+               </div>
+           </div>
+       <?php echo form_close();?>
+       </div>
+</div>
