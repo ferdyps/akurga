@@ -43,7 +43,6 @@
         public function selectAllData($table){
             return $this->db->get($table);
         }
-
         public function selectWithWhere($table,$where){
             return $this->db->get($table,$where);
         }
@@ -62,6 +61,7 @@
         }
         public function totalWarga(){
             $this->db->select('COUNT(*) as total');
+            $this->db->where('valid', 0);
             return $this->db->get('warga');
         }
         public function grafikPendidikan(){
@@ -73,6 +73,9 @@
             $this->db->select('COUNT(nik) as total, pekerjaan');
             $this->db->group_by('pekerjaan');
             return $this->db->get('warga');
+        }
+        public function userJoinWarga($id_user){
+            return $this->db->query('SELECT * FROM user u JOIN warga w ON u.id_user=w.id_user WHERE id_user = "$id_user"');
         }
 // =========================================================================
         public function multiple_select_data($table, $where) {

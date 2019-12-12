@@ -32,17 +32,15 @@
                         <input type="text" name="nohp" id="edit-nohp" class="form-control" placeholder="Nomor HP">
                         <div class="invalid-feedback"></div>
                     </div>
-                    <div class="form-group row">
-                        <div class="col form-input">
-                            <label for="edit-tempat_lahir">Tempat Lahir</label>
-                            <input type="text" name="tempat_lahir" id="edit-tempat_lahir" class="form-control" placeholder="Tempat Lahir">
-                            <div class="invalid-feedback"></div>
-                        </div>
-                        <div class="col form-input">
-                            <label for="edit-tanggal_lahir">Tanggal Lahir</label>
-                            <input type="date" name="tanggal_lahir" id="edit-tanggal_lahir" class="form-control">
-                            <div class="invalid-feedback"></div>
-                        </div>
+                    <div class="form-group form-input">
+                        <label for="edit-tempat_lahir">Tempat Lahir</label>
+                        <input type="text" name="tempat_lahir" id="edit-tempat_lahir" class="form-control" placeholder="Tempat Lahir">
+                        <div class="invalid-feedback"></div>
+                    </div>
+                    <div class="form-group form-input">
+                        <label for="edit-tanggal_lahir">Tanggal Lahir</label>
+                        <input type="date" name="tanggal_lahir" id="edit-tanggal_lahir" class="form-control">
+                        <div class="invalid-feedback"></div>
                     </div>
                     <div class="form-group form-input">
                         <label for="edit-Pendidikan">Pendidikan</label>
@@ -64,12 +62,19 @@
                         <label for="edit-Pekerjaan">Pekerjaan</label>
                         <select name="pekerjaan" id="edit-Pekerjaan" class="form-control">
                             <option selected disabled>-- Pilih Pekerjaan --</option>
-                            <option value="PEGAWAI NEGERI SIPIL">PEGAWAI NEGERI SIPIL</option>
-                            <option value="KARYAWAN SWASTA">KARYAWAN SWASTA</option>
-                            <option value="PELAJAR/MAHASISWA">PELAJAR/MAHASISWA</option>
-                            <option value="MENGURUS RUMAH TANGGA">MENGURUS RUMAH TANGGA</option>
-                            <option value="PENSIUNAN">PENSIUNAN</option>
                             <option value="BELUM/TIDAK BEKERJA">BELUM/TIDAK BEKERJA</option>
+                            <option value="DOSEN">DOSEN</option>
+                            <option value="GURU">GURU</option>
+                            <option value="KARYAWAN BUMN">KARYAWAN BUMN</option>
+                            <option value="KARYAWAN SWASTA">KARYAWAN SWASTA</option>
+                            <option value="KEPOLISIAN RI">KEPOLISIAN RI</option>
+                            <option value="MAHASISWA">MAHASISWA</option>
+                            <option value="MENGURUS RUMAH TANGGA">MENGURUS RUMAH TANGGA</option>
+                            <option value="PEGAWAI NEGERI SIPIL">PEGAWAI NEGERI SIPIL</option>
+                            <option value="PELAJAR">PELAJAR</option>
+                            <option value="PENSIUNAN">PENSIUNAN</option>
+                            <option value="TENTARA NASIONAL INDONESIA">TENTARA NASIONAL INDONESIA</option>
+                            <option value="WIRASWASTA">WIRASWASTA</option>
                         <select>
                     </div>
                 </div>
@@ -114,6 +119,11 @@
                             <option value="menikah">Menikah</option>
                             <option value="lajang">Lajang</option>
                         </select>
+                    </div>
+                    <div class="form-group form-input">
+                        <label for="edit-nama_jalan">Nama Jalan</label>
+                        <input type="text" name="nama_jalan" id="edit-nama_jalan" class="form-control" placeholder="Nama Jalan">
+                        <div class="invalid-feedback"></div>
                     </div>
                     <div class="form-group form-input">
                         <label for="edit-no_rumah">Nomor Rumah</label>

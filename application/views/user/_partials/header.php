@@ -22,5 +22,10 @@
 
   <!-- Theme CSS - Includes Bootstrap -->
   <link href="<?php echo base_url('assets/user/css/creative.min.css');?>" rel="stylesheet">
+  <link rel="stylesheet" href="<?= config_item('asset_url') . 'pickadate.js-3.6.2/themes/classic.css'; ?>">
+  <link rel="stylesheet" href="<?= config_item('asset_url') . 'pickadate.js-3.6.2/themes/classic.date.css'; ?>">
+  <link rel="stylesheet" href="<?= config_item('asset_url') . 'pickadate.js-3.6.2/themes/classic.time.css'; ?>">
 
+  <link rel="stylesheet" href="<?= config_item('asset_url') . 'css/main.css'; ?>">
+  <?php $this->load->view('user/_partials/js_core');?>
 </head>

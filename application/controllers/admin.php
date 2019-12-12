@@ -437,6 +437,11 @@
                     'rules' => 'required'
                 ],
                 [
+                    'field' => 'nama_jalan',
+                    'label' => 'Nama Jalan',
+                    'rules' => 'trim|required|regex_match[/^[a-zA-Z ]/]'
+                ],
+                [
                     'field' => 'no_rumah',
                     'label' => 'No Rumah',
                     'rules' => 'trim|numeric|required'
@@ -454,6 +459,7 @@
                 $agama = $this->input->post('agama');
                 $jk = $this->input->post('jk');
                 $status = $this->input->post('status');
+                $nama_jalan = $this->input->post('nama_jalan');
                 $no_rumah = $this->input->post('no_rumah');
                 $gang = $this->input->post('gang');
 
@@ -491,6 +497,7 @@
                         'agama' => $agama,
                         'jk' => $jk,
                         'status' => $status,
+                        'nama_jalan' => $nama_jalan,
                         'no_rumah' => $no_rumah,
                         'gang' => $gang
                     ];
@@ -566,6 +573,11 @@
                     'rules' => 'required'
                 ],
                 [
+                    'field' => 'nama_jalan',
+                    'label' => 'Nama Jalan',
+                    'rules' => 'trim|required|regex_match[/^[a-zA-Z ]/]'
+                ],
+                [
                     'field' => 'no_rumah',
                     'label' => 'No Rumah',
                     'rules' => 'trim|numeric|required'
@@ -583,6 +595,7 @@
                 $agama = $this->input->post('agama');
                 $jk = $this->input->post('jk');
                 $status = $this->input->post('status');
+                $nama_jalan = $this->input->post('nama_jalan');
                 $no_rumah = $this->input->post('no_rumah');
                 $gang = $this->input->post('gang');
 
@@ -600,6 +613,7 @@
                         'agama' => $agama,
                         'jk' => $jk,
                         'status' => $status,
+                        'nama_jalan' => $nama_jalan,
                         'no_rumah' => $no_rumah,
                         'gang' => $gang,
                         'nokk' => $nokk,
