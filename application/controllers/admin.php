@@ -53,6 +53,18 @@
             ];
             $this->load->view('admin/index', $data);
         }
+
+        public function tbl_usulan_ketua(){
+            $tabel = 'surat_undangan';
+            $stat = 0;
+            $list_data = $this->m_admin->selectWithWhere($tabel,$stat)->result_array();
+            $data = [
+                'content'   => 'admin/tbl_usul_ketua',
+                'title'     => 'Input Usulan Rapat',
+                'list_data' => $list_data
+            ];
+            $this->load->view('admin/index', $data);
+        }
 // -------------------------------------------------------------------------
         public function inputWarga(){
             $data['content'] = 'admin/inputWarga';
@@ -84,7 +96,7 @@
             $data['title'] = 'Tabel Data pengeluaran';
             $this->load->view('admin/index',$data);
         }
-        
+
         public function tampilbulan(){
             $data['content'] = "admin/tampilbulan";
             $data['title'] = 'Tabel Data Bulan';
@@ -276,7 +288,7 @@
                     'pembayaran_bulan'=> $pembayaran_bulan,
                     'nominal' => $nominal,
                     'tanggal' => $tanggal,
-                  
+
                 );
 
                 $query = $this->m_admin->isi_data_iuran_masuk($dataiuranmasuk);
@@ -466,6 +478,32 @@
         // END OF SEKRETARIS
         // ==========================================================================
 
+        // ==========================================================================
+        // ==========================================================================
+        // Pengurus
+        // ==========================================================================
+
+        public function usul_pengurus(){
+            $id         = 'rapat';
+            $nama_field = 'no_udg';
+            $nama_tabel = 'surat_undangan';
+            $generate_id = $this->m_admin->get_id($id,$nama_field,$nama_tabel); //$this->session->userdata('jabatan')
+            $content = 'admin/form_usulan';
+            $title = 'Form Usulan Rapat';
+            $data = [
+              'generate_id' => $generate_id,
+              'content'     => $content,
+              'title'       => $title
+            ];
+            $this->load->view('admin/index', $data);
+
+        }
+
+        // ==========================================================================
+        // ==========================================================================
+        // END OF Pengurus
+        // ==========================================================================
+
 // Untuk Back-end
 // ==========================================================================
         public function insertWarga(){
@@ -491,6 +529,11 @@
                     'rules' => 'required'
                 ],
                 [
+                    'field' => 'nama_jalan',
+                    'label' => 'Nama Jalan',
+                    'rules' => 'trim|required|regex_match[/^[a-zA-Z ]/]'
+                ],
+                [
                     'field' => 'no_rumah',
                     'label' => 'No Rumah',
                     'rules' => 'trim|numeric|required'
@@ -508,6 +551,7 @@
                 $agama = $this->input->post('agama');
                 $jk = $this->input->post('jk');
                 $status = $this->input->post('status');
+                $nama_jalan = $this->input->post('nama_jalan');
                 $no_rumah = $this->input->post('no_rumah');
                 $gang = $this->input->post('gang');
 
@@ -545,6 +589,7 @@
                         'agama' => $agama,
                         'jk' => $jk,
                         'status' => $status,
+                        'nama_jalan' => $nama_jalan,
                         'no_rumah' => $no_rumah,
                         'gang' => $gang
                     ];
@@ -620,6 +665,11 @@
                     'rules' => 'required'
                 ],
                 [
+                    'field' => 'nama_jalan',
+                    'label' => 'Nama Jalan',
+                    'rules' => 'trim|required|regex_match[/^[a-zA-Z ]/]'
+                ],
+                [
                     'field' => 'no_rumah',
                     'label' => 'No Rumah',
                     'rules' => 'trim|numeric|required'
@@ -637,6 +687,7 @@
                 $agama = $this->input->post('agama');
                 $jk = $this->input->post('jk');
                 $status = $this->input->post('status');
+                $nama_jalan = $this->input->post('nama_jalan');
                 $no_rumah = $this->input->post('no_rumah');
                 $gang = $this->input->post('gang');
 
@@ -654,6 +705,7 @@
                         'agama' => $agama,
                         'jk' => $jk,
                         'status' => $status,
+                        'nama_jalan' => $nama_jalan,
                         'no_rumah' => $no_rumah,
                         'gang' => $gang,
                         'nokk' => $nokk,
@@ -976,6 +1028,7 @@
             redirect('admin/v_notulensi','refresh');
           }
         }
+
         public function insertArsipMasuk(){
           $this->form_validation->set_rules([
               [
@@ -1067,7 +1120,93 @@
           }
 
         }
-    }
+
+        public function insertUsulanPengurus(){
+          $this->form_validation->set_rules([
+              [
+                  'field' => 'no_udg',
+                  'label' => 'Nomor Surat',
+                  'rules' => 'trim|required'
+              ],
+              [
+                  'field' => 'tujuan_surat',
+                  'label' => 'tujuan surat',
+                  'rules' => 'trim|required'
+              ],
+
+              [
+                  'field' => 'tempat_udg',
+                  'label' => 'tempat Undangan',
+                  'rules' => 'trim|required'
+              ],
+
+              [
+                  'field' => 'usul_surat',
+                  'label' => 'Isi Surat',
+                  'rules' => 'trim|required'
+              ],
+
+              [
+                  'field' => 'tgl_rpt',
+                  'label' => 'Tanggal Surat ',
+                  'rules' => 'required'
+              ],
+
+              [
+                  'field' => 'jam_udg',
+                  'label' => 'Jam Undangan ',
+                  'rules' => 'trim|required'
+              ]
+          ]);
+
+          if ($this->input->post()) {
+            $no_udg = $this->input->post('no_udg');
+            $tujuan_srt = $this->input->post('tujuan_surat');
+            $tempat_udg = $this->input->post('tempat_udg');
+            $usul_surat  = $this->input->post('usul_surat');
+            $tgl_rpt    = $this->input->post('tgl_rpt');
+            $jam_udg    = $this->input->post('jam_udg');
+
+            if ($this->form_validation->run() == TRUE) {
+              $data = [
+                'no_udg' => $no_udg,
+                'tujuan_surat' => $tujuan_srt,
+                'tempat_udg' => $tempat_udg,
+                'usulan_rpt' => $usul_surat,
+                'tgl_udg' => $tgl_rpt,
+                'jam_udg' => $jam_udg,
+                'id_user' => $this->id_user
+              ];
+
+              $query = $this->m_admin->input_data('surat_undangan', $data);
+
+              if ($query) {
+                $url = base_url('admin/index');
+
+                $json = [
+                    'message' => "Data Usulan Rapat berhasil diinput..",
+                    'url' => $url
+                ];
+              } else {
+                $json['errors'] = "Data Usulan Rapat gagal diinput..!";
+              }
+            } else {
+              $no = 0;
+              foreach ($this->input->post() as $key => $value) {
+                  if (form_error($key) != "") {
+                      $json['form_errors'][$no]['id'] = $key;
+                      $json['form_errors'][$no]['msg'] = form_error($key, null, null);
+                      $no++;
+                  }
+              }
+            }
+
+            echo json_encode($json);
+          } else {
+            redirect('admin/index','refresh');
+          }
+        }
+      }
 
     /* End of file Controllername.php */
 ?>

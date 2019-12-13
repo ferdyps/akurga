@@ -143,7 +143,22 @@
 
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
+      <div class="sidebar-heading">
+        Pengurus RT/RW
+      </div>
 
+      <!-- Nav Item - Pages Collapse Menu -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePengurus" aria-expanded="true" aria-controls="collapsePengurus">
+          <i class="fas fa-fw fa-cog"></i>
+          <span>Usulan Rapat</span>
+        </a>
+        <div id="collapsePengurus" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="<?php echo base_url("admin/usul_pengurus");?>">Form Usulan Rapat</a>
+          </div>
+        </div>
+      </li>
       <!-- Sidebar Toggler (Sidebar) -->
       <div class="text-center d-none d-md-inline">
         <button class="rounded-circle border-0" id="sidebarToggle"></button>

@@ -34,28 +34,26 @@
                         <input type="text" name="nohp" id="input-nohp" class="form-control" placeholder="Nomor HP">
                         <div class="invalid-feedback"></div>
                     </div>
-                    <div class="form-group row">
-                        <div class="col form-input">
-                            <label for="input-tempat_lahir">Tempat Lahir</label>
-                            <input type="text" name="tempat_lahir" id="input-tempat_lahir" class="form-control" placeholder="Tempat Lahir">
-                            <div class="invalid-feedback"></div>
-                        </div>
-                        <div class="col form-input">
-                            <label for="input-tanggal_lahir">Tanggal Lahir</label>
-                            <input type="date" name="tanggal_lahir" id="input-tanggal_lahir" class="form-control datepickerLagi">
-                            <div class="invalid-feedback"></div>
-                        </div>
+                    <div class="form-group form-input">
+                        <label for="input-tempat_lahir">Tempat Lahir</label>
+                        <input type="text" name="tempat_lahir" id="input-tempat_lahir" class="form-control" placeholder="Tempat Lahir">
+                        <div class="invalid-feedback"></div>
+                    </div>
+                    <div class="form-group form-input">
+                        <label for="input-tanggal_lahir">Tanggal Lahir</label>
+                        <input type="date" name="tanggal_lahir" id="input-tanggal_lahir" class="form-control datepickerLagi">
+                        <div class="invalid-feedback"></div>
                     </div>
                     <div class="form-group form-input">
                         <label for="Pendidikan">Pendidikan</label>
                         <select name="pendidikan" id="Pendidikan" class="form-control">
                             <option selected disabled>-- Pilih Pendidikan Terakhir --</option>
                             <option value="TIDAK/BELUM SEKOLAH">TIDAK/BELUM SEKOLAH</option>
-                            <option value="BELUM TAMAT SD/SEDERAJAT">BELUM TAMAT SD/SEDERAJAT</option>
-                            <option value="TAMAT SD/SEDERAJAT">TAMAT SD/SEDERAJAT</option>
+                            <option value="TAMAT SD/SEDERAJAT">SD/SEDERAJAT</option>
                             <option value="SLTP/SEDERAJAT">SLTP/SEDERAJAT</option>
                             <option value="SLTA/SEDERAJAT">SLTA/SEDERAJAT</option>
-                            <option value="DIPLOMA I/II">DIPLOMA I/II</option>
+                            <option value="DIPLOMA I">DIPLOMA I</option>
+                            <option value="DIPLOMA II">DIPLOMA II</option>
                             <option value="AKADEMI/DIPLOMA III/S. MUDA">AKADEMI/DIPLOMA III/S. MUDA</option>
                             <option value="DIPLOMA IV/STRATA I">DIPLOMA IV/STRATA I</option>
                             <option value="STRATA II">STRATA II</option>
@@ -66,12 +64,19 @@
                         <label for="Pekerjaan">Pekerjaan</label>
                         <select name="pekerjaan" id="Pekerjaan" class="form-control">
                             <option selected disabled>-- Pilih Pekerjaan --</option>
-                            <option value="PEGAWAI NEGERI SIPIL">PEGAWAI NEGERI SIPIL</option>
-                            <option value="KARYAWAN SWASTA">KARYAWAN SWASTA</option>
-                            <option value="PELAJAR/MAHASISWA">PELAJAR/MAHASISWA</option>
-                            <option value="MENGURUS RUMAH TANGGA">MENGURUS RUMAH TANGGA</option>
-                            <option value="PENSIUNAN">PENSIUNAN</option>
                             <option value="BELUM/TIDAK BEKERJA">BELUM/TIDAK BEKERJA</option>
+                            <option value="DOSEN">DOSEN</option>
+                            <option value="GURU">GURU</option>
+                            <option value="KARYAWAN BUMN">KARYAWAN BUMN</option>
+                            <option value="KARYAWAN SWASTA">KARYAWAN SWASTA</option>
+                            <option value="KEPOLISIAN RI">KEPOLISIAN RI</option>
+                            <option value="MAHASISWA">MAHASISWA</option>
+                            <option value="MENGURUS RUMAH TANGGA">MENGURUS RUMAH TANGGA</option>
+                            <option value="PEGAWAI NEGERI SIPIL">PEGAWAI NEGERI SIPIL</option>
+                            <option value="PELAJAR">PELAJAR</option>
+                            <option value="PENSIUNAN">PENSIUNAN</option>
+                            <option value="TENTARA NASIONAL INDONESIA">TENTARA NASIONAL INDONESIA</option>
+                            <option value="WIRASWASTA">WIRASWASTA</option>
                         <select>
                     </div>
                 </div>
@@ -116,6 +121,11 @@
                             <option value="menikah">Menikah</option>
                             <option value="lajang">Lajang</option>
                         </select>
+                    </div>
+                    <div class="form-group form-input">
+                        <label for="input-nama_jalan">Nama Jalan</label>
+                        <input type="text" name="nama_jalan" id="input-nama_jalan" class="form-control" placeholder="Nama Jalan">
+                        <div class="invalid-feedback"></div>
                     </div>
                     <div class="form-group form-input">
                         <label for="input-no_rumah">Nomor Rumah</label>

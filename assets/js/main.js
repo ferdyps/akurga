@@ -103,7 +103,7 @@ $(document).ready(function () {
             error:function(){
                 Swal.fire({
                     title: "Error",
-                    text: "Error pada System anjing..!",
+                    text: "Error pada System!",
                     icon: "error"
                 });
             }

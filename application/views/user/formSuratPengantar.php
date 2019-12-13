@@ -6,18 +6,20 @@
           <hr class="divider my-4">
         </div>
         <div class="col-lg-8 align-self-baseline">
-        <?= form_open('url', '');?>
-            <div class='form-group'>
+        <?= form_open('user/insertSuratPengantar', ['id' => 'default-form', 'log' => 'Input Surat Pengantar']);?>
+            <div class='form-group form-input'>
                 <label for="input-nomor_surat" class="text-white">Nomor Surat</label>
-                <input type="text" name="nomor_surat" id="input-nomor_surat" class="form-control" placeholder="Nomor Surat" disabled>
+                <input type="text" value="<?= $generate_id;?>" name="nomor_surat" id="input-nomor_surat" class="form-control" readonly>
             </div>
-            <div class='form-group'>
-                <label for="input-tanggal_diperlukan" class="text-white">Tanggal Diperlukan</label>
-                <input type="date" name="nomor_surat" id="input-tanggal_diperlukan" class="form-control">
+            <div class='form-group form-input'>
+                <label for="input-tanggal_surat" class="text-white">Tanggal Diperlukan</label>
+                <input type="date" name="tanggal_surat" id="input-tanggal_surat" class="form-control">
+                <div class="invalid-feedback"></div>
             </div>
-            <div class='form-group'>
+            <div class='form-group form-input'>
                 <label for="input-keperluan" class="text-white">Keperluan</label>
                 <input type="text" name="keperluan" id="input-keperluan" class="form-control" placeholder="Keperluan">
+                <div class="invalid-feedback"></div>
             </div>
             <input type="submit" value="Submit" class="btn btn-primary">
         <?= form_close();?>
