@@ -6,7 +6,7 @@
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Tabel Pemasukan </h6>
+            <h6 class="m-0 font-weight-bold text-primary">Tabel Rekap Bulan  </h6>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -66,7 +66,9 @@
                                 }
                                 ?>
                             </td>
-                            <td>Detail</td>
+                            <td>
+                                <?php echo anchor('admin/detail_iuran_masuk/'.$row->nik,'Detail');?>
+                            </td>
                         </tr>
                         <?php
                         $no++;

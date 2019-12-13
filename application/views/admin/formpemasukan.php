@@ -7,7 +7,7 @@
      <div class="row bg-white rounded shadow border-left-primary">
        <div class="col px-0">
        <?php echo form_open_multipart("admin/iuranmasuk");
-        $tanggal=mktime(date("m"),date("d"),date("Y"));?>
+       ?>
            <div class="row px-3 my-3">
                <div class="col">
                    <div class="form-group">
@@ -51,7 +51,7 @@
 
                    <div class="form-group">
                        <label for="Tanggal">Tanggal</label>
-                       <input name="tanggal" id="Tanggal" class="form-control" value="<?=date("d-M-Y",$tanggal);?>">
+                       <input name="tanggal" id="Tanggal" class="form-control" value="<?= $tanggal ?>">
                        <div class="invalid-feedback">
                        </div>
                    </div>

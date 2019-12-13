@@ -7,20 +7,20 @@
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
   <div class="card-header py-3">
-    <h6 class="m-0 font-weight-bold text-primary">Tabel Pemasukan</h6>
+    <h6 class="m-0 font-weight-bold text-primary">Tabel Detail Pemasukan</h6>
   </div>
   <div class="card-body">
     <div class="table-responsive">
       <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
         <thead>
-          <tr>
-            <th>NO</th>
+          <!-- <tr>
+            <th>NO</th> -->
+            <th>No Pembayaran</th>
             <th>NIK</th>
             <th>Nama</th>
             <th>Pembayaran Bulan</th>
             <th>Nominal</th>
             <th>Tanggal</th>
-            <th>Aksi</th>
             <!-- <th>Aksi</th> -->
           </tr>
         </thead>
@@ -29,11 +29,11 @@
         <?php 
           $no = 1;
           $sum=0;
-          foreach($dataiuranmsk as $b){ 
+          foreach($detailpembayaran as $b){ 
         ?>
           <tr>
-            <td><?php echo $no++; ?></td>
-            <!-- <?php echo $b['no_pengeluaran']; ?></td>   -->
+            <!-- <td><?php echo $no++; ?></td> -->
+            <?php echo $b['no_pembayaran']; ?></td>   
             <td><?php echo $b['nik']; ?></td>
             <td><?php echo $b['nama']; ?></td>
             <td><?php echo $b['pembayaran_bulan']; ?></td>
@@ -43,8 +43,8 @@
             <!-- <td><img src="<?php echo base_url('/uploads/gambar/'.$b['gambar']);?>" height="50px" width="50px"></td> -->
             <td>
             <?php $sum=$sum+$b['nominal']?>
-               <?php echo anchor('admin/edit_iuran_keluar/'.$b['no_pembayaran'],'Edit'); ?>   
-                 <!-- <?php echo anchor('admin/hapus_iuran_keluar/'.$b['no_pengeluaran'],'Hapus'); ?>     -->
+              <!-- <?php echo anchor('admin/edit_iuran_keluar/'.$b['no_pengeluaran'],'Edit'); ?> | |  
+                 <?php echo anchor('admin/hapus_iuran_keluar/'.$b['no_pengeluaran'],'Hapus'); ?>    -->
             </td>
           </tr>
         <?php } ?>
@@ -62,4 +62,4 @@
 </div>
   </div>
 </div>
-
+</div>

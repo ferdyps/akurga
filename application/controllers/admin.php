@@ -104,8 +104,10 @@
             // );
             // $data['dataiuran'] = $this->petugas_model->view_data($where,'iuran_masuk')->result();
             $data['title'] = 'Input Pengeluaran';
+            $data['tanggal'] = date('Y-m-d');
             $data['content'] = "admin/formpengeluaran";
             $this->load->view('admin/index',$data);
+           
         }
         public function formpemasukan(){
             // $where = array(
@@ -113,6 +115,7 @@
             // );
             // $data['dataiuran'] = $this->petugas_model->view_data($where,'iuran_masuk')->result();
             $data['title'] = 'Input Pemasukan';
+            $data['tanggal'] = date('Y-m-d');
             $data['content'] = "admin/formpemasukan";
             $data['bulan'] = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
             $this->load->view('admin/index',$data);
@@ -141,6 +144,56 @@
             $data['pengeluaran'] = $this->m_admin->edit_data_iuran_keluar($where,'pengeluaran')->result();
             $data['content']="admin/editiurankeluar.php";
             $this->load->view('admin/index',$data);
+        }
+        public function edit_iuran_masuk($no_pembayaran)
+        {
+            $where = array(
+                'no_pembayaran' => $no_pembayaran
+            );
+            $this->session->set_userdata($where);
+
+            $data['pembayaran'] = $this->m_admin->edit_data_iuran_masuk($where,'pembayaran')->result();
+            $data['content']="admin/editiuranmasuk.php";
+            $this->load->view('admin/index',$data);
+        }
+        public function detail_iuran_masuk($nik){
+            $where = array(
+                'nik' => $nik
+            );
+            
+            $data['detailpembayaran'] = $this->m_admin->detail($where)->result();
+            // var_dump($this->m_admin->detail($where)->result());
+            $data['content']="admin/detailpembayaran.php";
+            $this->load->view('admin/index',$data);
+        }
+        function update_data_iuran_masuk(){
+            if($this->input->post('edit_masuk')){
+                $no_pengeluaran = $this->session->userdata('no_pemasukan');
+                $diberikan_kepada = $this->input->post('diberikan_kepada');
+                $tanggal = $this->input->post('tanggal');
+                $nominal = $this->input->post('nominal');
+                $digunakan_untuk = $this->input->post('digunakan_untuk');
+                $gambar = $this->input->post('gambar');
+    
+                $dataiurankeluar = array(
+                    'no_pengeluaran' => $no_pengeluaran,
+                    'diberikan_kepada' => $diberikan_kepada,
+                    'tanggal' => $tanggal,
+                    'nominal' => $nominal,
+                    'digunakan_untuk' => $digunakan_untuk,
+                    'gambar' => $gambar
+    
+                );
+    
+                $where = array(
+                    'no_pengeluaran' => $no_pengeluaran
+                );
+    
+                $this->m_admin->update_data($where,$dataiurankeluar,'pengeluaran');
+                redirect(base_url('admin/tabeldataiurankeluar'),'refresh');
+            } else {
+                redirect(base_url('admin/editiurankeluar'),'refresh');
+            }
         }
 	function update_data_iuran_keluar(){
 		if($this->input->post('edit_keluar')){
@@ -172,7 +225,7 @@
 		}
     }
     public function iuranmasuk(){
-
+        $tanggal = date("Y-m-d");
         if($this->input->post('submit_masuk')){
 
             $this->form_validation->set_rules('nik','Nik','required');
@@ -188,7 +241,7 @@
             $nik = $this->input->post('nik');
             $pembayaran_bulan = $this->input->post('pembayaran_bulan');
             $nominal = $this->input->post('nominal');
-            $tanggal = $this->input->post('tanggal');
+            $tanggal = date("Y-m-d",strtotime($tanggal));
             // $gambar = $_FILES['gambar']['name'];
 
             // $config['max_size'] =0;
@@ -250,15 +303,14 @@
                 }
             }
         }else{
-            echo "Hai";
+            $data['tanggal'] = $tanggal;
             $data['content'] = "admin/formpemasukan.php";
             $this->load->view('admin/index',$data);
         }
     }
         public function iurankeluar(){
-
+            $tanggal = date("Y-m-d");
             if($this->input->post('submit')){
-
                 $this->form_validation->set_rules('diberikan_kepada','Diberikan Kepada','required');
                 $this->form_validation->set_rules('tanggal', 'Tanggal', 'required');
                 $this->form_validation->set_rules('nominal', 'Nominal', 'required');
@@ -270,7 +322,7 @@
                     // $this->load->view('admin/formpengeluaran');
                 } else {
                 $diberikan_kepada = $this->input->post('diberikan_kepada');
-                $tanggal = $this->input->post('tanggal');
+                $tanggal = date("Y-m-d",strtotime($tanggal));
                 $nominal = $this->input->post('nominal');
                 $digunakan_untuk = $this->input->post('digunakan_untuk');
                 $gambar = $_FILES['gambar']['name'];
@@ -337,6 +389,8 @@
                 echo "Hai";
                 $data['content'] = "admin/formpengeluaran.php";
                 $this->load->view('admin/index',$data);
+                $data['tanggal'] = $tanggal;
+
             }
         }
 

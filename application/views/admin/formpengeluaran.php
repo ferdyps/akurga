@@ -27,7 +27,7 @@
 
                    <div class="form-group form-input">
                        <label for="input-tanggal">Tanggal</label>
-                       <input name="tanggal" id="input-tanggal" class="form-control" value="<?=date("d-M-Y",$tanggal);?>">
+                       <input name="tanggal" id="input-tanggal" class="form-control" value="<?=$tanggal ?>">
                        <div class="invalid-feedback">
                        </div>
                    </div>
@@ -35,7 +35,7 @@
 
                    <div class="form-group form-input">
                        <label for="input-nominal">Nominal</label>
-                       <input type="text" name="nominal" id="input-nominal" class="form-control">
+                       <input type="text" name="nominal" id="input-nominal" class="form-control" >
                        <div class="invalid-feedback">
                        </div>
                    </div>
