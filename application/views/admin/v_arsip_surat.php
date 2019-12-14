@@ -4,14 +4,14 @@
      <h1 class="h3 mb-0 text-gray-800">Input Arsip Surat Masuk</h1>
  </div>
  <div class="container">
-   <?php echo form_open('admin/insertArsipMasuk', ['id' => 'default-form', 'log' => 'Input Notulensi']);?>
+   <?php echo form_open_multipart('admin/insertArsipMasuk', ['id' => 'default-form', 'log' => 'Arsip Surat']);?>
        <div class="row bg-white rounded shadow border-left-primary">
          <div class="col px-0">
              <div class="row px-3 my-3">
                  <div class="col">
                      <div class="form-group form-input">
                          <label for="input-kd_surat">Kode Surat</label>
-                         <input type="text" name="kd_surat" id="input-kd_surat" value="<?= $generate_id ?>" class="form-control" disabled>
+                         <input type="text" name="kd_surat" id="input-kd_surat" value="<?= $generate_id ?>" class="form-control" readonly>
                          <div class="invalid-feedback">
                          </div>
                      </div>
@@ -41,11 +41,11 @@
 
                      <div class="col">
 
-                         <div class="form-group form-input">
-                             <label for="input-gbr_surat">Gambar Surat</label>
+                         <div class="form-group">
+                             <label for="">Gambar Surat</label>
                              <div class="custom-file">
-                               <input type="file" name="gbr_surat" class="custom-file-input" id="input-gbr_surat">
-                               <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                               <input type="file" name="gbr_surat" class="custom-file-input" id="">
+                               <label class="custom-file-label">Choose file</label>
                              </div>
                              <div class="invalid-feedback">
 
@@ -77,7 +77,7 @@
 
                  <div class="col">
                      <div class="form-group text-center">
-                         <input type="submit" value="Submit" class="btn btn-primary">
+                         <input type="submit" class="btn btn-primary">
                          <input type="reset" value="Reset" class="btn btn-danger">
                      </div>
                  </div>

@@ -33,8 +33,8 @@
       <div class="card-body">
         <div class="row no-gutters align-items-center">
           <div class="col mr-2">
-            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Usulan Rapat </div>
-            <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div><br>
+            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Usulan Rapat yang belum approval</div>
+            <div class="h5 mb-0 font-weight-bold text-gray-800"><?php foreach($usulan_points as $row){echo $row['total'];}?></div><br>
             <a href="<?php echo base_url('admin/tbl_usulan_ketua'); ?>" class="btn btn-primary">Lihat Usulan</a>
           </div>
           <div class="col-auto">

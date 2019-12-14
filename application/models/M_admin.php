@@ -13,13 +13,13 @@
           $noUrut=(int)substr($Kode, 1, 4);
           $noUrut++;
           if ($input == 'rapat') {
-            $Char = "/RPT/";
+            $Char = "-RPT-";
           }elseif ($input == 'kegiatan') {
-            $Char = "/KGT/";
+            $Char = "-KGT-";
           }elseif ($input == 'notulensi') {
-            $Char = "/NOT/";
+            $Char = "-NOT-";
           }elseif ($input == 'arsip') {
-            $Char = "/ASM/";
+            $Char = "-ASM-";
           }elseif ($input == 'surat_pengantar') {
             $Char = "/SPT/";
           }else {
@@ -45,6 +45,12 @@
         }
         public function selectWithWhere($table,$where){
             return $this->db->get_where($table,array('status' => $where));
+        }
+
+        public function CountData($table, $where, $valueNumber){
+            $this->db->select('COUNT(*) AS total');
+            $this->db->where($where, $valueNumber);
+            return $this->db->get($table);
         }
         // ============================================================
         public function semuaDataWarga(){
@@ -118,8 +124,8 @@
 
         public function tampil_iuran_perbulan(){
             $query = "
-            SELECT 
-                `no_pembayaran`, 
+            SELECT
+                `no_pembayaran`,
                 w.nik as nik,
                 w.nama AS nama_warga,
                 `tanggal`,
@@ -147,11 +153,11 @@
 
         public function detail($where){
             $query = "
-            SELECT 
-                `no_pembayaran`, 
+            SELECT
+                `no_pembayaran`,
                 w.nik as nik,
                 w.nama AS nama_warga,
-             
+
                 (SELECT nominal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'Januari' LIMIT 1) AS bulan_januari,
                 (SELECT nominal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'Februari' LIMIT 1) AS bulan_februari,
                 (SELECT nominal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'Maret' LIMIT 1) AS bulan_maret,
@@ -164,7 +170,7 @@
                 (SELECT nominal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'Oktober' LIMIT 1) AS bulan_oktober,
                 (SELECT nominal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'November' LIMIT 1) AS bulan_november,
                 (SELECT nominal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'Desember' LIMIT 1) AS bulan_desember,
-                
+
                 (SELECT tanggal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'Januari' LIMIT 1) AS tanggal_bulan_januari,
                 (SELECT tanggal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'Februari' LIMIT 1) AS tanggal_bulan_februari,
                 (SELECT tanggal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'Maret' LIMIT 1) AS tanggal_bulan_maret,
@@ -177,13 +183,13 @@
                 (SELECT tanggal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'Oktober' LIMIT 1) AS tanggal_bulan_oktober,
                 (SELECT tanggal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'November' LIMIT 1) AS tanggal_bulan_november,
                 (SELECT tanggal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'Desember' LIMIT 1) AS tanggal_bulan_desember,
-               
-                              
+
+
                 jenis_warga,
                 SUM(nominal) AS jumlah_iuran
             FROM `pembayaran` p
             JOIN warga w ON w.nik = p.nik
-            WHERE p.nik = ".$where['nik']." 
+            WHERE p.nik = ".$where['nik']."
             GROUP BY p.nik
             ";
             // $this->db->where("p.nik",$where);

@@ -33,7 +33,9 @@
                     <td><?= $row['tgl_udg'] ?></td>
                     <td><?= $row['tempat_udg'] ?></td>
                     <td><?= $row['jam_udg'] ?></td>
-                    <td></td>
+                    <td>
+                      <button class="btn btn-primary" onclick="konfirmasi_data('<?= base_url('admin/klik_konfirmasi_usulan_rapat/')?>', '<?= $row['no_udg']; ?>' )">Approval</button>
+                    </td>
                   </tbody>
                 <?php } ?>
                 </table>

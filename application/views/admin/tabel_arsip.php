@@ -23,17 +23,18 @@
                       <th>action</th>
                     </tr>
                   </thead>
-
-                  <tbody>
-                    <td>001-ASM</td>
-                    <td>001-TLM</td>
-                    <td>Desa Sukapura</td>
-                    <td>3 januari 2018</td>
-                    <td>3 januari 2018</td>
-                    <td width="10%"><img class="img-thumbnail img-fluid" src="<?= base_url('assets/foto/notulen.jpg')?>"></td>
-                    <td>Surat undangan rapat terbuka</td>
+                  <?php foreach ($list_arsip as $row){ ?>
+                  <tbody class="text-center">
+                    <td><?= $row['kd_surat'] ?></td>
+                    <td><?= $row['no_surat'] ?></td>
+                    <td><?= $row['pengirim'] ?></td>
+                    <td><?= $row['tgl_terima'] ?></td>
+                    <td><?= $row['tgl_surat'] ?></td>
+                    <td width="10%"><img class="img-thumbnail img-fluid" src="<?= base_url('./assets/foto/arsip/'. $row['gambar_srt'])?>"></td>
+                    <td><?= $row['keterangan'] ?></td>
                     <td></td>
                   </tbody>
+                <?php } ?>
                 </table>
               </div>
             </div>
