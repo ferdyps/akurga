@@ -16,8 +16,12 @@
                 <input type="date" name="tanggal_komplain" id="input-tanggal_komplain" class="form-control">
             </div>
             <div class='form-group'>
-                <label for="input-keperluan" class="text-white">Keperluan</label>
-                <input type="text" name="keperluan" id="input-keperluan" class="form-control" placeholder="Keperluan">
+                <label for="input-keperluan" class="text-white">Lokasi (Opsional)</label>
+                <input type="text" name="lokasi" id="input-keperluan" class="form-control" placeholder="Lokasi">
+            </div>
+            <div class='form-group'>
+                <label for="Keterangan" class="text-white">Keterangan</label>
+                <textarea name="keterangan_komplain" id="Keterangan" rows="3" class="form-control"></textarea>
             </div>
             <input type="submit" value="Submit" class="btn btn-primary">
         <?= form_close();?>
