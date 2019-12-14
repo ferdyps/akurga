@@ -21,7 +21,9 @@
           }elseif ($input == 'arsip') {
             $Char = "-ASM-";
           }elseif ($input == 'surat_pengantar') {
-            $Char = "/SPT/";
+            $Char = "-SPT-";
+          }elseif ($input == 'komplain') {
+            $Char = "-KMP-";
           }else {
             echo "Erorr id";
           }
@@ -81,7 +83,7 @@
             return $this->db->get('warga');
         }
         public function userJoinWarga($id_user){
-            return $this->db->query('SELECT * FROM user u JOIN warga w ON u.id_user=w.id_user WHERE id_user = "$id_user"');
+            return $this->db->query("SELECT * FROM user u JOIN warga w ON u.id_user=w.id_user WHERE u.id_user = '$id_user'");
         }
 // =========================================================================
         public function multiple_select_data($table, $where) {
