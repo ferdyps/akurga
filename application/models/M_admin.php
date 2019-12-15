@@ -23,7 +23,7 @@
           }elseif ($input == 'surat_pengantar') {
             $Char = "-SPT-";
           }elseif ($input == 'komplain') {
-            $Char = "-KMP-";
+            $Char = "-KOMPLAIN";
           }else {
             echo "Erorr id";
           }

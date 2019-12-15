@@ -6,22 +6,28 @@
           <hr class="divider my-4">
         </div>
         <div class="col-lg-8 align-self-baseline">
-        <?= form_open('url', '');?>
+        <?= form_open('user/formKomplain');?>
             <div class='form-group'>
                 <label for="input-nomor_komplain" class="text-white">Nomor Komplain</label>
-                <input type="text" name="nomor_komplain" id="input-nomor_komplain" class="form-control" placeholder="Nomor Komplain" disabled>
+                <input type="text" name="nomor_komplain" value="<?= $generate_id?>" id="input-nomor_komplain" class="form-control" readonly>
             </div>
             <div class='form-group'>
                 <label for="input-tanggal_komplain" class="text-white">Tanggal Komplain</label>
-                <input type="date" name="tanggal_komplain" id="input-tanggal_komplain" class="form-control">
+                <input type="date" name="tanggal_komplain" value="<?= date("Y-m-d")?>" id="input-tanggal_komplain" class="form-control" readonly>
             </div>
             <div class='form-group'>
                 <label for="input-keperluan" class="text-white">Lokasi (Opsional)</label>
-                <input type="text" name="lokasi" id="input-keperluan" class="form-control" placeholder="Lokasi">
+                <input type="text" name="lokasi" id="input-keperluan" class="form-control <?php if(form_error('lokasi')) { echo 'is-invalid'; } ?>" value="<?= set_value('lokasi'); ?>" placeholder="Lokasi">
+                <div class="invalid-feedback">
+                <?= form_error('lokasi'); ?>
+                </div>
             </div>
             <div class='form-group'>
-                <label for="Keterangan" class="text-white">Keterangan</label>
-                <textarea name="keterangan_komplain" id="Keterangan" rows="3" class="form-control"></textarea>
+                <label for="Keluhan" class="text-white">Keluhan</label>
+                <textarea name="keluhan" id="Keluhan" rows="3" class="form-control <?php if(form_error('keluhan')) { echo 'is-invalid'; } ?>" value="<?= set_value('keluhan'); ?>"></textarea>
+                <div class="invalid-feedback">
+                <?= form_error('keluhan'); ?>
+                </div>
             </div>
             <input type="submit" value="Submit" class="btn btn-primary">
         <?= form_close();?>
