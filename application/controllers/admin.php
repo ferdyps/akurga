@@ -121,7 +121,7 @@
             $data['tanggal'] = date('Y-m-d');
             $data['content'] = "admin/formpengeluaran";
             $this->load->view('admin/index',$data);
-
+           
         }
         public function formpemasukan(){
             // $where = array(
@@ -140,6 +140,7 @@
             $data['content'] = "admin/tabelpengeluaran.php";
              $this->load->view('admin/index',$data);
         }
+        
         public function hapus_iuran_keluar($no_pengeluaran){
             $where = array(
                 'no_pengeluaran' => $no_pengeluaran
@@ -174,10 +175,20 @@
             $where = array(
                 'nik' => $nik
             );
-
+            
             $data['detailpembayaran'] = $this->m_admin->detail($where)->result();
             // var_dump($this->m_admin->detail($where)->result());
             $data['content']="admin/detailpembayaran.php";
+            $this->load->view('admin/index',$data);
+        }
+        public function detail_iuran_keluar($no_pengeluaran){
+            $where = array(
+                'no_pengeluaran' => $no_pengeluaran
+            );
+            
+            $data['detailpengeluaran'] = $this->m_admin->view_detail_pengeluaran($where,'pengeluaran')->result();
+            // var_dump($this->m_admin->detail($where)->result());
+            $data['content']="admin/detailpengeluaran.php";
             $this->load->view('admin/index',$data);
         }
         function update_data_iuran_masuk(){
@@ -188,7 +199,7 @@
                 $nominal = $this->input->post('nominal');
                 $digunakan_untuk = $this->input->post('digunakan_untuk');
                 $gambar = $this->input->post('gambar');
-
+    
                 $dataiurankeluar = array(
                     'no_pengeluaran' => $no_pengeluaran,
                     'diberikan_kepada' => $diberikan_kepada,
@@ -196,13 +207,13 @@
                     'nominal' => $nominal,
                     'digunakan_untuk' => $digunakan_untuk,
                     'gambar' => $gambar
-
+    
                 );
-
+    
                 $where = array(
                     'no_pengeluaran' => $no_pengeluaran
                 );
-
+    
                 $this->m_admin->update_data($where,$dataiurankeluar,'pengeluaran');
                 redirect(base_url('admin/tabeldataiurankeluar'),'refresh');
             } else {
@@ -401,9 +412,10 @@
                 }
             }else{
                 echo "Hai";
+                $data['tanggal'] = $tanggal;
                 $data['content'] = "admin/formpengeluaran.php";
                 $this->load->view('admin/index',$data);
-                $data['tanggal'] = $tanggal;
+              
 
             }
         }
@@ -644,18 +656,6 @@
             echo json_encode($json);
         }
 
-        public function klik_konfirmasi_usulan_rapat($id2){
-            $data['status'] = 1;
-            $query = $this->m_admin->edit_data('surat_undangan','no_udg',$id2,$data);
-
-            if ($query) {
-                $json['message'] = 'Data Usulan Rapat Berhasil Dikonfirmasi';
-            }else {
-                $json['errors'] = 'Data Usulan Rapat Dikonfirmasi';
-            }
-            echo json_encode($json);
-        }
-
         public function detailWarga($id){
             $data = $this->m_admin->detailWargaById($id)->row();
             echo json_encode($data);
@@ -756,8 +756,6 @@
     }
 
         // ================================ Insert Sekretaris =====================================
-
-
         public function insertUndanganRapat(){
           $this->form_validation->set_rules([
               [
@@ -1071,6 +1069,11 @@
                   'rules' => 'required'
               ],
 
+              [
+                  'field' => 'gbr_surat',
+                  'label' => 'Gambar Surat',
+                  'rules' => 'required'
+              ],
 
               [
                   'field' => 'tgl_surat',
@@ -1082,34 +1085,17 @@
                   'field' => 'keterangan',
                   'label' => 'keterangan',
                   'rules' => 'required'
-              ]
+              ],
           ]);
 
           if ($this->input->post()) {
-            $kd_surat        = $this->input->post('kd_surat');
-            $no_surat        = $this->input->post('no_surat');
-            $pengirim        = $this->input->post('pengirim');
-            $tgl_terima      = $this->input->post('tgl_terima');
-            $tgl_surat       = $this->input->post('tgl_surat');
-            $keterangan      = $this->input->post('keterangan');
-
-            $config['upload_path']          = './assets/foto/arsip';
-            // $config['file_name']            = $this->input->post('gbr_surat');
-            $config['allowed_types']        = 'gif|jpg|png';
-            $config['max_size']             = 1024; // 1MB
-            // $config['max_width']            = 1024;
-		        // $config['max_height']           = 768;
-
-            $this->load->library('upload', $config);
-
-		          if ($this->upload->do_upload('gbr_surat')){
-			             // $error = array('error' => $this->upload->display_errors());
-                    $data_upload     = $this->upload->data('file_name');
-		                  }else{
-
-                         // $gbr_surat       = $data_upload['file_name'];
-		                  }
-
+            $kd_surat       = $this->input->post('kd_surat');
+            $no_surat       = $this->input->post('no_surat');
+            $pengirim       = $this->input->post('pengirim');
+            $tgl_terima     = $this->input->post('tgl_terima');
+            $gbr_surat     = $this->input->post('gbr_surat');
+            $tgl_surat     = $this->input->post('tgl_surat');
+            $keterangan     = $this->input->post('keterangan');
 
             if ($this->form_validation->run() == TRUE) {
               $data = [
@@ -1117,10 +1103,9 @@
                 'no_surat' => $no_surat,
                 'pengirim' => $pengirim,
                 'keterangan' => $keterangan,
-                'gambar_srt' => $data_upload,
+                'gambar_srt' => $gbr_surat,
                 'tgl_terima' => $tgl_terima,
-                'tgl_surat' => $tgl_surat,
-                'id_user' => $this->id_user
+                'tgl_surat' => $tgl_surat
               ];
               $query = $this->m_admin->input_data('arsip_surat', $data);
               if ($query) {
@@ -1145,7 +1130,7 @@
             }
             echo json_encode($json);
           }else {
-            redirect('admin/riwayat_arsip','refresh');
+            redirect('admin/v_arsip_surat','refresh');
           }
 
         }

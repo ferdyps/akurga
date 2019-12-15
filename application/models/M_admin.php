@@ -123,6 +123,9 @@
         public function view_detail_pembayaran($where,$table){
             return $this->db->get_where($table,$where);
         }
+        public function view_detail_pengeluaran($where,$table){
+            return $this->db->get_where($table,$where);
+        }
 
         public function tampil_iuran_perbulan(){
             $query = "
