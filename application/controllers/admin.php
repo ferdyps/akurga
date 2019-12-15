@@ -81,6 +81,16 @@
             $this->load->view('admin/index', $data);
         }
 // -------------------------------------------------------------------------
+        public function daftarSuratPengantar(){
+            $list_surat_pengantar = $this->m_admin->suratJoinWarga()->result_array();
+            $data = [
+                'content' => 'admin/daftarSuratPengantar',
+                'title' => 'Daftar Surat Pengantar',
+                'list_surat_pengantar' => $list_surat_pengantar
+            ];
+            $this->load->view('admin/index', $data);
+        }        
+// -------------------------------------------------------------------------
         public function inputHasilKomplain(){
             $data['content'] = 'admin/inputHasilKomplain';
             $data['title'] = 'Input Hasil Komplain';

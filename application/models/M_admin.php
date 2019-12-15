@@ -86,6 +86,9 @@
         public function userJoinWarga($id_user){
             return $this->db->query("SELECT * FROM user u JOIN warga w ON u.id_user=w.id_user WHERE u.id_user = '$id_user'");
         }
+        public function suratJoinWarga(){
+            return $this->db->query("SELECT nomor_surat,keperluan,w.nik,nama FROM surat_pengantar s JOIN warga w ON w.nik=s.nik");
+        }
 // =========================================================================
         public function multiple_select_data($table, $where) {
             $this->db->where($where);
