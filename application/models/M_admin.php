@@ -54,6 +54,7 @@
             $this->db->where($where, $valueNumber);
             return $this->db->get($table);
         }
+        
         // ============================================================
         public function semuaDataWarga(){
             return $this->db->get('warga');
