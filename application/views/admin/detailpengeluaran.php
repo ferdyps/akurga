@@ -15,13 +15,12 @@
         <thead>
           <tr>
             <th>NO</th>
-            <!-- <th>NO Pengeluaran</th> -->
-            <!-- <th>Diberikan Kepada</th> -->
+            <th>Diberikan Kepada</th> -
             <th>Nominal</th>
-            <!-- <th>Tanggal</th> -->
-            <th>Digunakan Untuk</th>
+            <th>Tanggal</th> 
+            <th>Digunakan Untuk</th> 
             <th>Gambar</th>
-            <th>Aksi</th>
+            <!-- <th>Aksi</th> -->
           </tr>
         </thead>
 
@@ -29,27 +28,22 @@
         <?php 
           $no = 1;
           $sum=0;
-          foreach($dataiurank as $b){ 
+          foreach($detailpengeluaran as $b){ 
         ?>
           <tr>
-            <td><?php echo $no++; ?></td>
-            <!-- <td><?php echo $b['no_pengeluaran']; ?></td>    -->
-            <!-- <td><?php echo $b['diberikan_kepada']; ?></td> -->
-            <td><?php echo $b['nominal']; ?></td>
-            <!-- <td><?php echo $b['tanggal']; ?></td> -->
-            <td><?php echo $b['digunakan_untuk'] ?></td>
-            <!-- <td><?php echo $b['gambar'] ?></td> -->
-            <td><img src="<?php echo base_url('/uploads/gambar/'.$b['gambar']);?>" height="50px" width="50px"></td>
-            <td>
-            <?php $sum=$sum+$b['nominal']?>
-              <?php echo anchor('admin/edit_iuran_keluar/'.$b['no_pengeluaran'],'Edit'); ?> | |  
-                 <?php echo anchor('admin/detail_iuran_keluar/'.$b['no_pengeluaran'],'Detail'); ?>  
-            </td>
+            <td><?php echo $no++; ?></td> 
+            <!-- <td><?php echo $b->no_pengeluaran ?></td>    -->
+            <td><?php echo $b->diberikan_kepada ?></td> 
+            <td><?php echo $b->nominal ?></td>
+            <td><?php echo $b->tanggal ?></td>
+            <td><?php echo $b->digunakan_untuk ?></td>
+            <!-- <td><?php echo $b->gambar ?></td> -->
+            <td><img src="<?php echo base_url('/uploads/gambar/'.$b->gambar);?>" height="150px" width="150px"></td>
           </tr>
         <?php } ?>
         <tr>
       <td colspan="2" rospan="4">Total</td>
-      <td><?php echo $sum;?> </td>
+      <td> </td>
       <td></td>
       <td></td>
       <td></td>

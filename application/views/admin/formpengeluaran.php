@@ -13,7 +13,7 @@
   <?php echo validation_errors() ?>
 <?php endif; ?> -->
        <?=form_open_multipart("admin/iurankeluar");
-        $tanggal=mktime(date("m"),date("d"),date("Y"));?>
+        $tanggal = date("Y-m-d");?>
       
            <div class="row px-3 my-3">
                <div class="col">
