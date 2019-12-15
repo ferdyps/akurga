@@ -17,7 +17,8 @@
         <div class="row no-gutters align-items-center">
           <div class="col mr-2">
             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Warga Yang belum Approval</div>
-            <div class="h5 mb-0 font-weight-bold text-gray-800"><?php foreach($semuaWarga as $row){echo $row['total'];}?></div>
+            <div class="h5 mb-0 font-weight-bold text-gray-800"><?php foreach($semuaWarga as $row){echo $row['total'];}?></div><br>
+            <a href="<?php echo base_url('admin/konfirmasiDataWarga'); ?>" class="btn btn-primary">Lihat Warga</a>
           </div>
           <div class="col-auto">
             <i class="fas fa-users fa-2x text-gray-300"></i>

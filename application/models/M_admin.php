@@ -68,11 +68,6 @@
             $this->db->where('nik', $nik);
             return $this->db->get('warga');
         }
-        public function totalWarga(){
-            $this->db->select('COUNT(*) as total');
-            $this->db->where('valid', 0);
-            return $this->db->get('warga');
-        }
         public function grafikPendidikan(){
             $this->db->select('COUNT(nik) as total, pendidikan');
             $this->db->group_by('pendidikan');
@@ -87,7 +82,7 @@
             return $this->db->query("SELECT * FROM user u JOIN warga w ON u.id_user=w.id_user WHERE u.id_user = '$id_user'");
         }
         public function suratJoinWarga(){
-            return $this->db->query("SELECT nomor_surat,keperluan,w.nik,nama FROM surat_pengantar s JOIN warga w ON w.nik=s.nik");
+            return $this->db->query("SELECT nomor_surat,keperluan,w.nik,nama,tanggal_surat FROM surat_pengantar s JOIN warga w ON w.nik=s.nik");
         }
 // =========================================================================
         public function multiple_select_data($table, $where) {

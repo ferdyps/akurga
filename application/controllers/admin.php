@@ -36,7 +36,7 @@
             $dataPoints = array();
             $dataPoints2 = array();
             $usulanPoints = $this->m_admin->CountData('surat_undangan', 'status', 0)->result_array();
-            $query = $this->m_admin->totalWarga()->result_array();
+            $query = $this->m_admin->CountData('warga','valid',0)->result_array();
             $result = $this->m_admin->grafikPendidikan()->result();
             $result2 = $this->m_admin->grafikPekerjaan()->result();
             foreach ($result as $row) {

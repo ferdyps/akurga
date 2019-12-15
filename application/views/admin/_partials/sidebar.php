@@ -59,7 +59,7 @@
         </a>
         <div id="collapseKetuaRTsurat" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="<?php echo base_url();?>">Riwayat Surat Pengantar</a>
+            <a class="collapse-item" href="<?php echo base_url('admin/daftarSuratPengantar');?>">Daftar Surat Pengantar</a>
           </div>
         </div>
       </li>
