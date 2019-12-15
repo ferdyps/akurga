@@ -23,7 +23,7 @@
           }elseif ($input == 'surat_pengantar') {
             $Char = "-SPT-";
           }elseif ($input == 'komplain') {
-            $Char = "-KMP-";
+            $Char = "-KOMPLAIN";
           }else {
             echo "Erorr id";
           }
@@ -54,6 +54,7 @@
             $this->db->where($where, $valueNumber);
             return $this->db->get($table);
         }
+        
         // ============================================================
         public function semuaDataWarga(){
             return $this->db->get('warga');
