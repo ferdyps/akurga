@@ -45,8 +45,8 @@
         public function selectAllData($table){
             return $this->db->get($table);
         }
-        public function selectWithWhere($table,$field,$where){
-            return $this->db->get_where($table,array($field => $where));
+        public function selectWithWhere($table,$where){
+            return $this->db->get_where($table,$where);
         }
 
         public function CountData($table, $where, $valueNumber){
