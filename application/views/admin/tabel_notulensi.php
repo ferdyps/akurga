@@ -30,8 +30,8 @@
                     <td><?= $row['uraian_notulen'] ?></td>
                     <td>
                       <a href="#" class="d-none d-sm-inline-block btn btn-primary shadow-sm" id="editNotulensi"
-                      data-url="<?= base_url('admin/detailRapat/'); ?>" data-noudg="<?= $row['no_udg']; ?>"
-                      data-toggle="modal" data-target="#editDataRapatModal">Edit</a>
+                      data-url="<?= base_url('admin/detailNotulensi/'); ?>" data-notulen="<?= $row['no_notulen']; ?>"
+                      data-toggle="modal" data-target="#editDataNotulensiModal">Edit</a>
                     </td>
                   </tbody>
                 <?php } ?>
