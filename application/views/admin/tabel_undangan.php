@@ -32,6 +32,7 @@
                     foreach ($list_surat_udg as $row) {
                   ?>
                   <tbody>
+                    <tr>
                     <td><?= $row['no_udg'] ?></td>
                     <td><?= $row['lampiran_udg'] ?></td>
                     <td><?= $row['sifat_udg'] ?></td>
@@ -51,46 +52,39 @@
                       }?>
                     </td>
                     <td>
-                      <a href="#" class="d-none d-sm-inline-block btn btn-primary shadow-sm"
-                      id="detailWarga" data-url="<?= base_url('admin/detailWarga/'); ?>"
-                      data-nik="<?= $row['nik']; ?>" data-toggle="modal"
-                      data-target="#editDataWargaModal">Edit</a>
+                      <a href="#" class="d-none d-sm-inline-block btn btn-primary shadow-sm" id="detailRapat" data-url="<?= base_url('admin/detailRapat/'); ?>" data-noudg="<?= $row['no_udg']; ?>" data-toggle="modal" data-target="#editDataRapatModal">Edit</a>
                     </td>
-                  </tbody>
+                    </tr>
                   <?php } ?>
+                  </tbody>
                 </table>
               </div>
             </div>
           </div>
         </div>
-        <?php $this->load->view('admin/_partials/editDataWarga_modal')?>
+        <?php $this->load->view('admin/_partials/editrapat_modal')?>
         <script>
-            $(document).on('click','#detailWarga',function(){
-              var id_warga = $(this).attr('data-nik');
+            $(document).on('click','#detailRapat',function(){
+              var id_rapat = $(this).attr('data-noudg');
               var url = $(this).attr('data-url');
               $.ajax({
-                url: url + id_warga,
+                url: url + id_rapat,
                 method: 'POST',
-                data: {id_warga:id_warga},
-                  dataType: 'json',
+                data: {id_rapat:id_rapat},
+                dataType: 'json',
                   success:function(data) {
                     console.log(data);
-                    $('#editDataWargaModal #edit-jenisWarga').val(data.jenis_warga);
-                    $('#editDataWargaModal #edit-nik').val(data.nik);
-                    $('#editDataWargaModal #edit-nama').val(data.nama);
-                    $('#editDataWargaModal #edit-nohp').val(data.nohp);
-                    $('#editDataWargaModal #edit-tempat_lahir').val(data.tempat_lahir);
-                    $('#editDataWargaModal #edit-tanggal_lahir').val(data.tanggal_lahir);
-                    $('#editDataWargaModal #edit-Pendidikan').val(data.pendidikan);
-                    $('#editDataWargaModal #edit-Pekerjaan').val(data.pekerjaan);
-                    $('#editDataWargaModal #edit-nokk').val(data.nokk);
-                    $('#editDataWargaModal #edit-Agama').val(data.agama);
-                    $('#editDataWargaModal #edit-JK').val(data.jk);
-                    $('#editDataWargaModal #edit-Hub_Dlm_Kel').val(data.hub_dlm_kel);
-                    $('#editDataWargaModal #edit-Status').val(data.status);
-                    $('#editDataWargaModal #edit-nama_jalan').val(data.nama_jalan);
-                    $('#editDataWargaModal #edit-no_rumah').val(data.no_rumah);
-                    $('#editDataWargaModal #edit-Gang').val(data.gang);
+                    $('#editDataRapatModal #edit-no_udg').val(data.no_udg);
+                    $('#editDataRapatModal #edit-lampiran').val(data.lampiran_udg);
+                    $('#editDataRapatModal #edit-sifat').val(data.sifat_udg);
+                    $('#editDataRapatModal #edit-hal').val(data.perihal_udg);
+                    $('#editDataRapatModal #edit-tujuan_surat').val(data.tujuan_surat);
+                    $('#editDataRapatModal #edit-tempat_udg').val(data.tempat_udg);
+                    $('#editDataRapatModal #edit-tembusan').val(data.tembusan);
+                    $('#editDataRapatModal #edit-isi_surat').val(data.isi_surat);
+                    $('#editDataRapatModal #edit-tgl_surat').val(data.tgl_udg);
+                    $('#editDataRapatModal #edit-jam_udg').val(data.jam_udg);
+                    $('#editDataRapatModal #edit-acara_udg').val(data.acara_udg);
                   },
                   error:function() {
                     alert('Error di System..!');

@@ -58,8 +58,9 @@
 
         public function tbl_usulan_ketua(){
             $tabel = 'surat_undangan';
+            $field = 'status';
             $stat = 0;
-            $list_data = $this->m_admin->selectWithWhere($tabel,$stat)->result_array();
+            $list_data = $this->m_admin->selectWithWhere($tabel,$field,$stat)->result_array();
             $data = [
                 'content'   => 'admin/tbl_usul_ketua',
                 'title'     => 'Input Usulan Rapat',
@@ -657,7 +658,7 @@
         }
 
         public function detailWarga($id){
-            $data = $this->m_admin->detailWargaById($id)->row();
+            $data  = $this->m_admin->detailWargaById($id)->row();
             echo json_encode($data);
         }
 
@@ -1235,7 +1236,126 @@
             redirect('admin/index','refresh');
           }
         }
+        // ================================ End of Insert Sekretaris =====================================
+
+        // ================================ Update Sekretaris =====================================
+        public function editRapat(){
+          $this->form_validation->set_rules([
+              [
+                  'field' => 'no_udg',
+                  'label' => 'Nomor Undangan',
+                  'rules' => 'trim|required'
+              ],
+
+              [
+                  'field' => 'hal',
+                  'label' => 'hal',
+                  'rules' => 'trim|required'
+              ],
+
+              [
+                  'field' => 'tujuan_surat',
+                  'label' => 'tujuan surat',
+                  'rules' => 'trim|required'
+              ],
+
+              [
+                  'field' => 'tempat_udg',
+                  'label' => 'tempat Undangan',
+                  'rules' => 'trim|required'
+              ],
+
+              [
+                  'field' => 'isi_surat',
+                  'label' => 'Isi Surat',
+                  'rules' => 'trim|required'
+              ],
+
+              [
+                  'field' => 'tgl_surat',
+                  'label' => 'Tanggal Surat ',
+                  'rules' => 'required'
+              ],
+
+              [
+                  'field' => 'jam_udg',
+                  'label' => 'Jam Undangan ',
+                  'rules' => 'trim|required'
+              ],
+
+              [
+                  'field' => 'acara_udg',
+                  'label' => 'acara Undangan',
+                  'rules' => 'trim|required'
+              ]
+          ]);
+
+          if ($this->input->post()) {
+            $no_udg     = $this->input->post('no_udg');
+            $lampiran   = $this->input->post('lampiran');
+            $sifat      = $this->input->post('sifat');
+            $hal        = $this->input->post('hal');
+            $tujuan_srt = $this->input->post('tujuan_surat');
+            $tempat_udg = $this->input->post('tempat_udg');
+            $tembusan   = $this->input->post('tembusan');
+            $isi_surat  = $this->input->post('isi_surat');
+            $tgl_srt    = $this->input->post('tgl_surat');
+            $jam_udg    = $this->input->post('jam_udg');
+            $acara_udg  = $this->input->post('acara_udg');
+
+            if ($this->form_validation->run() == TRUE) {
+              $data = [
+                'no_udg' => $no_udg,
+                'lampiran_udg' => $lampiran,
+                'sifat_udg' => $sifat,
+                'perihal_udg' => $hal,
+                'tujuan_surat' => $tujuan_srt,
+                'tempat_udg' => $tempat_udg,
+                'tembusan' => $tembusan,
+                'isi_surat' => $isi_surat,
+                'tgl_udg' => $tgl_srt,
+                'jam_udg' => $jam_udg,
+                'acara_udg' => $acara_udg,
+                'id_user' => $this->id_user
+              ];
+
+              $query = $this->m_admin->edit_data('surat_undangan','no_udg', $no_udg,$data);
+
+              if ($query) {
+                $url = base_url('admin/riwayat_Undangan');
+
+                $json = [
+                    'message' => "Data Rapat berhasil diubah..",
+                    'url' => $url
+                ];
+              } else {
+                $json['errors'] = "Data Rapat gagal diubah..!";
+              }
+            } else {
+              $no = 0;
+              foreach ($this->input->post() as $key => $value) {
+                  if (form_error($key) != "") {
+                      $json['form_errors'][$no]['id'] = $key;
+                      $json['form_errors'][$no]['msg'] = form_error($key, null, null);
+                      $no++;
+                  }
+              }
+            }
+
+            echo json_encode($json);
+          } else {
+            redirect('admin/editRapat','refresh');
+          }
+        }
+        public function detailRapat($id){
+            $tabel = 'surat_undangan';
+            $field = 'no_udg';
+            $data = $this->m_admin->selectWithWhere($tabel,$field,$id)->row();
+            echo json_encode($data);
+        }
       }
+
+
 
     /* End of file Controllername.php */
 ?>
