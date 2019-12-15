@@ -23,9 +23,23 @@
 // Ketua RW
 // =========================================================================
         public function konfirmasiDataWarga(){
-            $data['list_warga_belum_valid'] = $this->m_admin->konfirmasiDataWarga()->result_array();
-            $data['content'] = 'admin/konfirmasiDataWarga';
-            $data['title'] = 'Konfirmasi Data Warga';
+            $table = 'warga';
+            $where = [
+                'jenis_warga' => 'sementara',
+                'valid' => 0
+            ];
+            $where2 =[
+                'jenis_warga' => 'tetap',
+                'valid' => 0
+            ];
+            $wargaSementara = $this->m_admin->selectWithWhere($table,$where)->result_array();
+            $wargaTetap = $this->m_admin->selectWithWhere($table,$where2)->result_array();
+            $data = [
+                'content' => 'admin/konfirmasiDataWarga',
+                'title' => 'Konfirmasi Data Warga',
+                'list_warga_belum_valid_sementara' => $wargaSementara,
+                'list_warga_belum_valid_tetap' => $wargaTetap
+            ];
             $this->load->view('admin/index', $data);
         }
 // =========================================================================
@@ -58,9 +72,10 @@
 
         public function tbl_usulan_ketua(){
             $tabel = 'surat_undangan';
-            $field = 'status';
-            $stat = 0;
-            $list_data = $this->m_admin->selectWithWhere($tabel,$field,$stat)->result_array();
+            $where = [
+                'status' => 0
+            ];
+            $list_data = $this->m_admin->selectWithWhere($tabel,$where)->result_array();
             $data = [
                 'content'   => 'admin/tbl_usul_ketua',
                 'title'     => 'Input Usulan Rapat',
@@ -1344,8 +1359,11 @@
         }
         public function detailRapat($id){
             $tabel = 'surat_undangan';
-            $field = 'no_udg';
-            $data = $this->m_admin->selectWithWhere($tabel,$field,$id)->row();
+            $where = [
+                'no_udg' => $id
+            ];
+            
+            $data = $this->m_admin->selectWithWhere($tabel,$where)->row();
             echo json_encode($data);
         }
       }
