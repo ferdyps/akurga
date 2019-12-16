@@ -17,12 +17,22 @@
       
            <div class="row px-3 my-3">
                <div class="col">
-                   <div class="form-group form-input">
-                       <label for="input-diberikan_kepada">Diberikan Kepada</label>
-                       <input type="text" name="diberikan_kepada" id="input-diberikan_kepada" class="form-control">
-                       <div class="invalid-feedback">
-                       </div>
-                   </div>
+               <div class="form-group form-input">
+                        <label for="diberikan_kepada">Kelompok Anggaran</label>
+                        <select name="diberikan_kepada" id="Pendidikan" class="form-control">
+                            <option selected disabled>-- Kelompok Anggaran --</option>
+                            <option value="Fotocopy">Fotocopy</option>
+                            <option value="Gaji Pegawai">Gaji Pegawai</option>
+                            <option value="Kesehatan">Kesehatan</option>
+                            <option value="Duka Cita">Duka Cita</option>
+                            <option value="Kebersihan">Kebersihan</option>
+                            <!-- <option value="DIPLOMA II">DIPLOMA II</option>
+                            <option value="AKADEMI/DIPLOMA III/S. MUDA">AKADEMI/DIPLOMA III/S. MUDA</option>
+                            <option value="DIPLOMA IV/STRATA I">DIPLOMA IV/STRATA I</option>
+                            <option value="STRATA II">STRATA II</option>
+                            <option value="STRATA III">STRATA III</option> -->
+                        </select>
+                    </div>
                    <?php echo form_error('diberikan_kepada'); ?>
 
                    <div class="form-group form-input">
@@ -42,7 +52,7 @@
                    <?php echo form_error('nominal'); ?>
                    
                    <div class="form-group form-input">
-                       <label for="input-digunakan_untuk">Digunakan Untuk</label>
+                       <label for="input-digunakan_untuk">Keterangan</label>
                        <input type="text" name="digunakan_untuk" id="input-digunakan_untuk" class="form-control">
                        <div class="invalid-feedback">
                      </div>

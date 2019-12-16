@@ -20,7 +20,7 @@
             <th>Pembayaran Bulan</th>
             <th>Nominal</th>
             <th>Tanggal</th>
-            <th>Aksi</th>
+            <!-- <th>Aksi</th> -->
             <!-- <th>Aksi</th> -->
           </tr>
         </thead>
@@ -43,7 +43,7 @@
             <!-- <td><img src="<?php echo base_url('/uploads/gambar/'.$b['gambar']);?>" height="50px" width="50px"></td> -->
             <td>
             <?php $sum=$sum+$b['nominal']?>
-               <?php echo anchor('admin/edit_iuran_keluar/'.$b['no_pembayaran'],'Edit'); ?>   
+               <!-- <?php echo anchor('admin/edit_iuran_keluar/'.$b['no_pembayaran'],'Edit'); ?>    -->
                  <!-- <?php echo anchor('admin/hapus_iuran_keluar/'.$b['no_pengeluaran'],'Hapus'); ?>     -->
             </td>
           </tr>

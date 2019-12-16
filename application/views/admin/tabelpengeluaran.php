@@ -19,7 +19,7 @@
             <!-- <th>Diberikan Kepada</th> -->
             <th>Nominal</th>
             <!-- <th>Tanggal</th> -->
-            <th>Digunakan Untuk</th>
+            <th>Keterangan</th>
             <th>Gambar</th>
             <th>Aksi</th>
           </tr>

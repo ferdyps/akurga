@@ -19,7 +19,7 @@
             <th>NIK</th>
             <th>Nama</th>
             <th>Pembayaran Bulan</th>
-            <th>Nominal</th>
+            <!-- <th>Nominal</th> -->
             <th>Tanggal Bulan januari</th>
             <th>Tanggal Bulan Februari</th>
             <th>Tanggal Bulan Maret</th>
