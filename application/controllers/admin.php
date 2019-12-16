@@ -91,9 +91,17 @@
         }
 // -------------------------------------------------------------------------
         public function tabelDataWarga(){
-            $data['list_warga_semua'] = $this->m_admin->semuaDataWarga()->result_array();
-            $data['content'] = 'admin/tabelDataWarga';
-            $data['title'] = 'Tabel Data Warga';
+            $table = 'warga';
+            $where = ['jenis_warga' => 'sementara'];
+            $where2 = ['jenis_warga' => 'tetap'];
+            $list_warga_sementara = $this->m_admin->selectWithWhere($table,$where)->result_array();
+            $list_warga_tetap = $this->m_admin->selectWithWhere($table,$where2)->result_array();
+            $data = [
+                'content' => 'admin/tabelDataWarga',
+                'title' => 'List Data Warga',
+                'list_warga_sementara' => $list_warga_sementara,
+                'list_warga_tetap' => $list_warga_tetap
+            ];
             $this->load->view('admin/index', $data);
         }
 // -------------------------------------------------------------------------
@@ -101,10 +109,20 @@
             $list_surat_pengantar = $this->m_admin->suratJoinWarga()->result_array();
             $data = [
                 'content' => 'admin/daftarSuratPengantar',
-                'title' => 'Daftar Surat Pengantar',
+                'title' => 'List Surat Pengantar',
                 'list_surat_pengantar' => $list_surat_pengantar
             ];
             $this->load->view('admin/index', $data);
+        }
+        public function daftarKomplain(){
+            $list_komplain = $this->m_admin->komplainJoinWarga()->result_array();
+            $data = [
+                'content' => 'admin/daftarKomplain',
+                'title' => 'List Komplain',
+                'list_komplain' => $list_komplain
+            ];
+            $this->load->view('admin/index', $data);
+            
         }        
 // -------------------------------------------------------------------------
         public function inputHasilKomplain(){

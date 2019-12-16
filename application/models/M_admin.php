@@ -84,6 +84,9 @@
         public function suratJoinWarga(){
             return $this->db->query("SELECT nomor_surat,keperluan,w.nik,nama,tanggal_surat FROM surat_pengantar s JOIN warga w ON w.nik=s.nik");
         }
+        public function komplainJoinWarga(){
+            return $this->db->query("SELECT nomor_komplain,w.nik,nama,keluhan,lokasi,tanggal_komplain FROM komplain k JOIN warga w ON w.nik=k.nik");
+        }
 // =========================================================================
         public function multiple_select_data($table, $where) {
             $this->db->where($where);

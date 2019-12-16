@@ -9,54 +9,116 @@
                 <h6 class="m-0 font-weight-bold text-primary">Data Warga</h6>
             </div>
             <div class="card-body">
-              <div class="table-responsive">
-                <table class="table table-striped table-hover" id="dataTable" width="100%" cellspacing="0">
-                  <thead>
-                    <tr class="bg-primary text-white text-center">
-                      <th width="5%">No</th>
-                      <th>NIK</th>
-                      <th>Nama Lengkap</th>
-                      <th>Tempat Lahir</th>
-                      <th>Tanggal Lahir</th>
-                      <th>Agama</th>
-                      <th>Jenis Kelamin</th>
-                      <th>Status</th>
-                      <th>Jenis Warga</th>
-                      <th>Validasi</th>
-                      <th>Action</th>
-                    </tr>
-                  </thead>
-                  
-                  <tbody>
-                  <?php
-                    $i=1; 
-                    foreach($list_warga_semua as $row)
-                  {?>
-                      <tr>
-                        <td><?= $i++?></td>
-                        <td><?= $row['nik']?></td>
-                        <td><?= $row['nama']?></td>
-                        <td><?= $row['tempat_lahir']?></td>
-                        <td><?= $row['tanggal_lahir']?></td>
-                        <td><?= $row['agama']?></td>
-                        <td><?= $row['jk']?></td>
-                        <td><?= $row['status']?></td>
-                        <td><?= $row['jenis_warga']?></td>
-                        <td>
-                          <?php if ($row['valid'] == 1) {
-                            echo "Sudah Valid";
-                          }else {
-                            echo "Belum Valid";
-                          }?>
-                        </td>
-                        <td>
-                          <a href="#" class="d-none d-sm-inline-block btn btn-primary shadow-sm" id="detailWarga" data-url="<?= base_url('admin/detailWarga/'); ?>" data-nik="<?= $row['nik']; ?>" data-toggle="modal" data-target="#editDataWargaModal">Detail</a>
-                        </td>
-                      </tr>
+              <nav>
+                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                  <a class="nav-item nav-link active" id="nav-sementara-tab" data-toggle="tab" href="#nav-sementara" role="tab" aria-controls="nav-sementara" aria-selected="true">Sementara</a>
+                  <a class="nav-item nav-link" id="nav-tetap-tab" data-toggle="tab" href="#nav-tetap" role="tab" aria-controls="nav-tetap" aria-selected="false">Tetap</a>
+                </div>
+              </nav>
+              <div class="tab-content" id="nav-tabContent">
+                <div class="tab-pane fade show active" id="nav-sementara" role="tabpanel" aria-labelledby="nav-sementara-tab">
+                  <div class="table-responsive">
+                    <table class="table table-striped table-hover" id="dataTable" width="100%" cellspacing="0">
+                      <thead>
+                        <tr class="bg-primary text-white text-center">
+                          <th width="5%">No</th>
+                          <th>NIK</th>
+                          <th>Nama Lengkap</th>
+                          <th>Tempat Lahir</th>
+                          <th>Tanggal Lahir</th>
+                          <th>Agama</th>
+                          <th>Jenis Kelamin</th>
+                          <th>Status</th>
+                          <th>Jenis Warga</th>
+                          <th>Validasi</th>
+                          <th>Action</th>
+                        </tr>
+                      </thead>
                       
-                  <?php } ?>
-                  </tbody>
-                </table>
+                      <tbody>
+                      <?php
+                        $i=1; 
+                        foreach($list_warga_sementara as $row)
+                      {?>
+                          <tr>
+                            <td><?= $i++?></td>
+                            <td><?= $row['nik']?></td>
+                            <td><?= $row['nama']?></td>
+                            <td><?= $row['tempat_lahir']?></td>
+                            <td><?= $row['tanggal_lahir']?></td>
+                            <td><?= $row['agama']?></td>
+                            <td><?= $row['jk']?></td>
+                            <td><?= $row['status']?></td>
+                            <td><?= $row['jenis_warga']?></td>
+                            <td>
+                              <?php if ($row['valid'] == 1) {
+                                echo "Sudah Valid";
+                              }else {
+                                echo "Belum Valid";
+                              }?>
+                            </td>
+                            <td>
+                              <a href="#" class="d-none d-sm-inline-block btn btn-primary shadow-sm" id="detailWarga" data-url="<?= base_url('admin/detailWarga/'); ?>" data-nik="<?= $row['nik']; ?>" data-toggle="modal" data-target="#editDataWargaModal">Detail</a>
+                            </td>
+                          </tr>
+                          
+                      <?php } ?>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                
+                <div class="tab-pane fade show" id="nav-tetap" role="tabpanel" aria-labelledby="nav-tetap-tab">
+                  <div class="table-responsive">
+                    <table class="table table-striped table-hover" id="dataTable2" width="100%" cellspacing="0">
+                      <thead>
+                        <tr class="bg-primary text-white text-center">
+                          <th width="5%">No</th>
+                          <th>NIK</th>
+                          <th>Nama Lengkap</th>
+                          <th>Tempat Lahir</th>
+                          <th>Tanggal Lahir</th>
+                          <th>Agama</th>
+                          <th>Jenis Kelamin</th>
+                          <th>Status</th>
+                          <th>Jenis Warga</th>
+                          <th>Validasi</th>
+                          <th>Action</th>
+                        </tr>
+                      </thead>
+                      
+                      <tbody>
+                      <?php
+                        $i=1; 
+                        foreach($list_warga_tetap as $row)
+                      {?>
+                          <tr>
+                            <td><?= $i++?></td>
+                            <td><?= $row['nik']?></td>
+                            <td><?= $row['nama']?></td>
+                            <td><?= $row['tempat_lahir']?></td>
+                            <td><?= $row['tanggal_lahir']?></td>
+                            <td><?= $row['agama']?></td>
+                            <td><?= $row['jk']?></td>
+                            <td><?= $row['status']?></td>
+                            <td><?= $row['jenis_warga']?></td>
+                            <td>
+                              <?php if ($row['valid'] == 1) {
+                                echo "Sudah Valid";
+                              }else {
+                                echo "Belum Valid";
+                              }?>
+                            </td>
+                            <td>
+                              <a href="#" class="d-none d-sm-inline-block btn btn-primary shadow-sm" id="detailWarga" data-url="<?= base_url('admin/detailWarga/'); ?>" data-nik="<?= $row['nik']; ?>" data-toggle="modal" data-target="#editDataWargaModal">Detail</a>
+                            </td>
+                          </tr>
+                          
+                      <?php } ?>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
