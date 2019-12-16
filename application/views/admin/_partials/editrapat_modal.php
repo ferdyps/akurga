@@ -1,212 +1,93 @@
-<div class="modal fade" id="editDataWargaModal" tabindex="-1" role="dialog" aria-labelledby="editDataWargaModalLabel" aria-hidden="true">
+<div class="modal fade" id="editDataRapatModal" tabindex="-1" role="dialog" aria-labelledby="editDataRapatModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="editDataWargaModalLabel">Detail Data Warga</h5>
+        <h5 class="modal-title" id="editDataRapatModalLabel">Edit Data Rapat</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <?= form_open('admin/editWarga', ['id' => 'default-form', 'log' => 'Input Warga']);?>
-            <div class="row px-3 my-3">
-                <div class="col">
-                    <div class="form-group form-input">
-                        <label for="edit-jenisWarga">Jenis Warga</label>
-                        <select name="jenis_warga" id="edit-jenisWarga" class="form-control" readonly>
-                            <option value="Sementara">Sementara</option>
-                            <option value="Tetap">Tetap</option>
-                        </select>
-                    </div>
-                    <div class="form-group form-input">
-                        <label for="edit-nik">NIK</label>
-                        <input type="text" name="nik" id="edit-nik" class="form-control" placeholder="Nomor Induk Kependudukan" readonly>
-                        <div class="invalid-feedback"></div>
-                    </div>
-                    <div class="form-group form-input">
-                        <label for="edit-nama">Nama Lengkap</label>
-                        <input type="text" name="nama" id="edit-nama" class="form-control" placeholder="Nama Lengkap">
-                        <div class="invalid-feedback"></div>
-                    </div>
-                    <div class="form-group form-input form-nohp">
-                        <label for="edit-nohp">Nomor HP</label>
-                        <input type="text" name="nohp" id="edit-nohp" class="form-control" placeholder="Nomor HP">
-                        <div class="invalid-feedback"></div>
-                    </div>
-                    <div class="form-group form-input">
-                        <label for="edit-tempat_lahir">Tempat Lahir</label>
-                        <input type="text" name="tempat_lahir" id="edit-tempat_lahir" class="form-control" placeholder="Tempat Lahir">
-                        <div class="invalid-feedback"></div>
-                    </div>
-                    <div class="form-group form-input">
-                        <label for="edit-tanggal_lahir">Tanggal Lahir</label>
-                        <input type="date" name="tanggal_lahir" id="edit-tanggal_lahir" class="form-control">
-                        <div class="invalid-feedback"></div>
-                    </div>
-                    <div class="form-group form-input">
-                        <label for="edit-Pendidikan">Pendidikan</label>
-                        <select name="pendidikan" id="edit-Pendidikan" class="form-control">
-                            <option selected disabled>-- Pilih Pendidikan Terakhir --</option>
-                            <option value="TIDAK/BELUM SEKOLAH">TIDAK/BELUM SEKOLAH</option>
-                            <option value="BELUM TAMAT SD/SEDERAJAT">BELUM TAMAT SD/SEDERAJAT</option>
-                            <option value="TAMAT SD/SEDERAJAT">TAMAT SD/SEDERAJAT</option>
-                            <option value="SLTP/SEDERAJAT">SLTP/SEDERAJAT</option>
-                            <option value="SLTA/SEDERAJAT">SLTA/SEDERAJAT</option>
-                            <option value="DIPLOMA I/II">DIPLOMA I/II</option>
-                            <option value="AKADEMI/DIPLOMA III/S. MUDA">AKADEMI/DIPLOMA III/S. MUDA</option>
-                            <option value="DIPLOMA IV/STRATA I">DIPLOMA IV/STRATA I</option>
-                            <option value="STRATA II">STRATA II</option>
-                            <option value="STRATA III">STRATA III</option>
-                        </select>
-                    </div>
-                    <div class="form-group form-input">
-                        <label for="edit-Pekerjaan">Pekerjaan</label>
-                        <select name="pekerjaan" id="edit-Pekerjaan" class="form-control">
-                            <option selected disabled>-- Pilih Pekerjaan --</option>
-                            <option value="BELUM/TIDAK BEKERJA">BELUM/TIDAK BEKERJA</option>
-                            <option value="DOSEN">DOSEN</option>
-                            <option value="GURU">GURU</option>
-                            <option value="KARYAWAN BUMN">KARYAWAN BUMN</option>
-                            <option value="KARYAWAN SWASTA">KARYAWAN SWASTA</option>
-                            <option value="KEPOLISIAN RI">KEPOLISIAN RI</option>
-                            <option value="MAHASISWA">MAHASISWA</option>
-                            <option value="MENGURUS RUMAH TANGGA">MENGURUS RUMAH TANGGA</option>
-                            <option value="PEGAWAI NEGERI SIPIL">PEGAWAI NEGERI SIPIL</option>
-                            <option value="PELAJAR">PELAJAR</option>
-                            <option value="PENSIUNAN">PENSIUNAN</option>
-                            <option value="TENTARA NASIONAL INDONESIA">TENTARA NASIONAL INDONESIA</option>
-                            <option value="WIRASWASTA">WIRASWASTA</option>
-                        <select>
-                    </div>
+      <?= form_open('admin/editRapat', ['id' => 'default-form', 'log' => 'Input Rapat']);?>
+      <div class="row px-3 my-3">
+          <div class="col">
+              <div class="form-group form-input">
+                  <label for="edit-no_udg">No Surat Rapat</label>
+                  <input type="text" name="no_udg" id="edit-no_udg" class="form-control" readonly>
+                  <div class="invalid-feedback"></div>
+              </div>
+              <div class="form-group form-input">
+                  <label for="edit-lampiran">Lampiran</label>
+                  <input type="text" name="lampiran" id="edit-lampiran" class="form-control">
+                  <div class="invalid-feedback"></div>
+              </div>
+              <div class="form-group form-input">
+                  <label for="sifat">Sifat</label>
+                  <select id="edit-sifat" name="sifat" class="form-control">
+                     <option selected>Biasa</option>
+                     <option>Penting</option>
+                     <option>Segera</option>
+                   </select>
+                  <div class="invalid-feedback"></div>
+              </div>
+
+              <div class="form-group form-input">
+                  <label for="edit-hal">Hal</label>
+                  <input type="text" name="hal" id="edit-hal" class="form-control">
+                  <div class="invalid-feedback"></div>
+              </div>
+
+              <div class="form-group form-input">
+                  <label for="edit-tujuan_surat">Tujuan Surat</label>
+                  <input type="text" name="tujuan_surat" id="edit-tujuan_surat" class="form-control">
+                  <div class="invalid-feedback"></div>
+              </div>
+              <div class="form-group form-input">
+                  <label for="edit-tempat_udg">Tempat Rapat</label>
+                  <input type="text" name="tempat_udg" id="edit-tempat_udg" class="form-control">
+                  <div class="invalid-feedback"></div>
+              </div>
+
+              <div class="form-group form-input">
+                  <label for="edit-tembusan">Tembusan</label>
+                  <textarea class="form-control" name="tembusan" id="edit-tembusan"></textarea>
+                  <div class="invalid-feedback"></div>
+              </div>
+          </div>
+          <!-- ====================Batas ke 2==================== -->
+          <div class="col">
+              <div class="form-group form-input">
+                  <label for="edit-isi_surat">Isi Surat</label>
+                  <textarea class="form-control" name="isi_surat" id="edit-isi_surat"></textarea>
+                  <div class="invalid-feedback">
                 </div>
-                <div class="col">
-                    <div class="form-group form-input form-kk">
-                        <label for="edit-nokk">Nomor KK</label>
-                        <input type="text" name="nokk" id="edit-nokk" class="form-control" placeholder="Nomor KK">
-                        <div class="invalid-feedback"></div>
-                    </div>
-                    <div class="form-group form-input">
-                        <label for="edit-Agama">Agama</label>
-                        <select name="agama" id="edit-Agama" class="form-control">
-                            <option selected disabled>-- Pilih Agama --</option>
-                            <option value="islam">Islam</option>
-                            <option value="kristen">Kristen</option>
-                            <option value="katolik">Katolik</option>
-                            <option value="hindu">Hindu</option>
-                            <option value="budha">Budha</option>
-                        </select>
-                    </div>
-                    <div class="form-group form-input">
-                        <label for="edit-JK">Jenis Kelamin</label>
-                        <select name="jk" id="edit-JK" class="form-control">
-                            <option selected disabled>-- Pilih Jenis Kelamin --</option>
-                            <option value="laki-laki">Laki-laki</option>
-                            <option value="perempuan">Perempuan</option>
-                        </select>
-                    </div>
-                    <div class="form-group form-input form-hub">
-                        <label for="edit-Hub_Dlm_Kel">Hubungan Dalam Keluarga</label>
-                        <select name="hub_dlm_kel" id="edit-Hub_Dlm_Kel" class="form-control">
-                            <option value="" selected disabled>-- Hubungan dalam Keluarga --</option>
-                            <option value="suami">Suami</option>
-                            <option value="istri">Istri</option>
-                            <option value="anak">Anak</option>
-                        </select>
-                    </div>
-                    <div class="form-group form-input">
-                        <label for="edit-Status">Status Pernikahan</label>
-                        <select name="status" id="edit-Status" class="form-control">
-                            <option selected disabled>-- Pilih Status --</option>
-                            <option value="menikah">Menikah</option>
-                            <option value="lajang">Lajang</option>
-                        </select>
-                    </div>
-                    <div class="form-group form-input">
-                        <label for="edit-nama_jalan">Nama Jalan</label>
-                        <input type="text" name="nama_jalan" id="edit-nama_jalan" class="form-control" placeholder="Nama Jalan">
-                        <div class="invalid-feedback"></div>
-                    </div>
-                    <div class="form-group form-input">
-                        <label for="edit-no_rumah">Nomor Rumah</label>
-                        <input type="text" name="no_rumah" id="edit-no_rumah" class="form-control" placeholder="Nomor Rumah">
-                        <div class="invalid-feedback"></div>
-                    </div>
-                    <div class="form-group form-input">
-                        <label for="edit-Gang">Gang</label>
-                        <select name="gang" id="edit-Gang" class="form-control">
-                            <option selected disabled>-- Pilih Gang --</option>
-                            <option value="Bbk.Ciamis I">Bbk.Ciamis I</option>
-                            <option value="Bbk.Ciamis II">Bbk.Ciamis II</option>
-                            <option value="Bbk.Ciamis III">Bbk.Ciamis III</option>
-                            <option value="Bbk.Ciamis IV">Bbk.Ciamis IV</option>
-                            <option value="Bbk.Ciamis V">Bbk.Ciamis V</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="form-group text-center">
-                    <input type="submit" value="Edit" class="btn btn-primary">
-                    <input type="reset" value="Reset" class="btn btn-danger">
-                </div>
-            </div>
+              </div>
+
+              <div class="form-group form-input">
+                  <label for="edit-tgl_surat">Tanggal Surat</label>
+                  <input type="text" name="tgl_surat" id="edit-tgl_surat" class="form-control datepicker">
+                  <div class="invalid-feedback"></div>
+              </div>
+
+              <div class="form-group form-input">
+                  <label for="edit-jam_udg">Jam Rapat</label>
+                  <input type="text" name="jam_udg" id="edit-jam_udg" class="form-control timepicker">
+                  <div class="invalid-feedback"></div>
+              </div>
+
+              <div class="form-group form-input">
+                  <label for="edit-acara_udg">Acara Rapat</label>
+                  <input type="input" name="acara_udg" id="edit-acara_udg" class="form-control">
+                  <div class="invalid-feedback"></div>
+              </div>
+          </div>
+      </div>
+      <div class="col">
+          <div class="form-group text-center">
+              <input type="submit" value="Submit" class="btn btn-primary">
+              <input type="reset" value="Reset" class="btn btn-danger">
+          </div>
+      </div>
         <?= form_close();?>
     </div>
   </div>
 </div>
-<script>
-    function w_tetap(stats) {
-        if (stats) {
-            $('.form-hub').fadeIn();
-            $('.form-kk').fadeIn();
-        } else {
-            $('.form-kk').fadeOut();
-            $('#edit-nokk').val("");
-
-            $('.form-hub').fadeOut();
-            $('#edit-Hub_Dlm_Kel').val("");
-        }
-    }
-
-    function w_sementara(stats) {
-        if (stats) {
-            $('.form-nohp').fadeIn();
-        } else {
-            $('.form-nohp').fadeOut();
-            $('#edit-nohp').val("");
-        }
-    }
-
-    function startup() {
-        var tipe = $('#edit-jenisWarga').children('option:selected').val();
-
-        if(tipe == "Tetap"){
-            w_tetap(true);
-
-            w_sementara(false);
-        } else {
-            w_sementara(true);
-
-            w_tetap(false);
-        }
-    }
-
-    $(document).ready(function(){
-        $('#edit-jenisWarga').change(function(){
-            var tipe = $(this).children('option:selected').val();
-
-            if(tipe == "Tetap"){
-                w_tetap(true);
-
-                w_sementara(false);
-            } else {
-                w_sementara(true);
-
-                w_tetap(false);
-            }
-        });
-    });
-
-    $('#editDataWargaModal').on('shown.bs.modal', function () {
-        startup();
-    });
-</script>

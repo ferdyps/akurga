@@ -39,7 +39,7 @@
                     </div>
                     <div class="form-group form-input">
                         <label for="edit-tanggal_lahir">Tanggal Lahir</label>
-                        <input type="date" name="tanggal_lahir" id="edit-tanggal_lahir" class="form-control">
+                        <input type="date" name="tanggal_lahir" id="edit-tanggal_lahir" class="form-control datepickerLagi">
                         <div class="invalid-feedback"></div>
                     </div>
                     <div class="form-group form-input">

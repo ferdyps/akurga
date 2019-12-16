@@ -8,60 +8,125 @@
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">Konfirmasi Data Warga</h6>
             </div>
+
             <div class="card-body">
-              <div class="table-responsive">
-                <table class="table table-striped table-hover" id="dataTable" width="100%" cellspacing="0">
-                  <thead>
-                    <tr class="bg-primary text-white text-center">
-                      <th width="5%">No</th>
-                      <th>NIK</th>
-                      <th>Nama Lengkap</th>
-                      <th>Tempat Lahir</th>
-                      <th>Tanggal Lahir</th>
-                      <th>Pendidikan</th>
-                      <th>Pekerjaan</th>
-                      <th>Agama</th>
-                      <th>Jenis Kelamin</th>
-                      <th>Status</th>
-                      <th>Jenis Warga</th>
-                      <th>Nomor HP</th>
-                      <th>Nomor KK</th>
-                      <th>Hubungan Dalam Keluarga</th>
-                      <th>Nama Jalan</th>
-                      <th>Nomor Rumah</th>
-                      <th>Gang</th>
-                      <th>Action</th>
-                    </tr>
-                  </thead>
-                  <?php
-                    $i=1; 
-                    foreach($list_warga_belum_valid as $row)
-                  {?>
-                  <tbody>
-                      <tr>
-                        <td><?= $i++?></td>
-                        <td><?= $row['nik']?></td>
-                        <td><?= $row['nama']?></td>
-                        <td><?= $row['tempat_lahir']?></td>
-                        <td><?= $row['tanggal_lahir']?></td>
-                        <td><?= $row['pendidikan']?></td>
-                        <td><?= $row['pekerjaan']?></td>
-                        <td><?= $row['agama']?></td>
-                        <td><?= $row['jk']?></td>
-                        <td><?= $row['status']?></td>
-                        <td><?= $row['jenis_warga']?></td>
-                        <td><?= $row['nohp']?></td>
-                        <td><?= $row['nokk']?></td>
-                        <td><?= $row['hub_dlm_kel']?></td>
-                        <td><?= $row['nama_jalan']?></td>
-                        <td><?= $row['no_rumah']?></td>
-                        <td><?= $row['gang']?></td>
-                        <td><button class="btn btn-primary" onclick="konfirmasi_data('<?= base_url('admin/klik_konfirmasi_data_warga/')?>', <?= $row['nik']; ?>)">Aprroval</button></td>
-                      </tr>
-                  </tbody>
-                  <?php } ?>
-                </table>
+              <nav>
+                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                  <a class="nav-item nav-link active" id="nav-sementara-tab" data-toggle="tab" href="#nav-sementara" role="tab" aria-controls="nav-sementara" aria-selected="true">Sementara</a>
+                  <a class="nav-item nav-link" id="nav-tetap-tab" data-toggle="tab" href="#nav-tetap" role="tab" aria-controls="nav-tetap" aria-selected="false">Tetap</a>
+                </div>
+              </nav>
+              <div class="tab-content" id="nav-tabContent">
+                <div class="tab-pane fade show active" id="nav-sementara" role="tabpanel" aria-labelledby="nav-sementara-tab">
+                  <div class="table-responsive">
+                    <table class="table table-striped table-hover" id="dataTable" width="100%" cellspacing="0">
+                      <thead>
+                        <tr class="bg-primary text-white text-center">
+                          <th width="5%">No</th>
+                          <th>NIK</th>
+                          <th>Nama Lengkap</th>
+                          <th>Tempat Lahir</th>
+                          <th>Tanggal Lahir</th>
+                          <th>Pendidikan</th>
+                          <th>Pekerjaan</th>
+                          <th>Agama</th>
+                          <th>Jenis Kelamin</th>
+                          <th>Status</th>
+                          <th>Jenis Warga</th>
+                          <th>Nomor HP</th>
+                          <th>Nomor KK</th>
+                          <th>Hubungan Dalam Keluarga</th>
+                          <th>Nama Jalan</th>
+                          <th>Nomor Rumah</th>
+                          <th>Gang</th>
+                          <th>Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      <?php
+                        $i=1; 
+                        foreach($list_warga_belum_valid_sementara as $row)
+                      {?>
+                          <tr>
+                            <td><?= $i++?></td>
+                            <td><?= $row['nik']?></td>
+                            <td><?= $row['nama']?></td>
+                            <td><?= $row['tempat_lahir']?></td>
+                            <td><?= $row['tanggal_lahir']?></td>
+                            <td><?= $row['pendidikan']?></td>
+                            <td><?= $row['pekerjaan']?></td>
+                            <td><?= $row['agama']?></td>
+                            <td><?= $row['jk']?></td>
+                            <td><?= $row['status']?></td>
+                            <td><?= $row['jenis_warga']?></td>
+                            <td><?= $row['nohp']?></td>
+                            <td><?= $row['nokk']?></td>
+                            <td><?= $row['hub_dlm_kel']?></td>
+                            <td><?= $row['nama_jalan']?></td>
+                            <td><?= $row['no_rumah']?></td>
+                            <td><?= $row['gang']?></td>
+                            <td><button class="btn btn-primary" onclick="konfirmasi_data('<?= base_url('admin/klik_konfirmasi_data_warga/')?>', <?= $row['nik']; ?>)">Aprroval</button></td>
+                          </tr>
+                      <?php } ?>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              
+                <div class="tab-pane fade show" id="nav-tetap" role="tabpanel" aria-labelledby="nav-tetap-tab">
+                  <div class="table-responsive">
+                    <table class="table table-striped table-hover" id="dataTable" width="100%" cellspacing="0">
+                      <thead>
+                        <tr class="bg-primary text-white text-center">
+                          <th width="5%">No</th>
+                          <th>NIK</th>
+                          <th>Nama Lengkap</th>
+                          <th>Tempat Lahir</th>
+                          <th>Tanggal Lahir</th>
+                          <th>Pendidikan</th>
+                          <th>Pekerjaan</th>
+                          <th>Agama</th>
+                          <th>Jenis Kelamin</th>
+                          <th>Status</th>
+                          <th>Jenis Warga</th>
+                          <th>Nomor HP</th>
+                          <th>Nomor KK</th>
+                          <th>Hubungan Dalam Keluarga</th>
+                          <th>Nama Jalan</th>
+                          <th>Nomor Rumah</th>
+                          <th>Gang</th>
+                          <th>Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      <?php
+                        $i=1; 
+                        foreach($list_warga_belum_valid_tetap as $row)
+                      {?>
+                          <tr>
+                            <td><?= $i++?></td>
+                            <td><?= $row['nik']?></td>
+                            <td><?= $row['nama']?></td>
+                            <td><?= $row['tempat_lahir']?></td>
+                            <td><?= $row['tanggal_lahir']?></td>
+                            <td><?= $row['pendidikan']?></td>
+                            <td><?= $row['pekerjaan']?></td>
+                            <td><?= $row['agama']?></td>
+                            <td><?= $row['jk']?></td>
+                            <td><?= $row['status']?></td>
+                            <td><?= $row['jenis_warga']?></td>
+                            <td><?= $row['nohp']?></td>
+                            <td><?= $row['nokk']?></td>
+                            <td><?= $row['hub_dlm_kel']?></td>
+                            <td><?= $row['nama_jalan']?></td>
+                            <td><?= $row['no_rumah']?></td>
+                            <td><?= $row['gang']?></td>
+                            <td><button class="btn btn-primary" onclick="konfirmasi_data('<?= base_url('admin/klik_konfirmasi_data_warga/')?>', <?= $row['nik']; ?>)">Aprroval</button></td>
+                          </tr>
+                      <?php } ?>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
               </div>
-            </div>
           </div>
-        </div>

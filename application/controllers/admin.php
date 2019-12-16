@@ -23,9 +23,23 @@
 // Ketua RW
 // =========================================================================
         public function konfirmasiDataWarga(){
-            $data['list_warga_belum_valid'] = $this->m_admin->konfirmasiDataWarga()->result_array();
-            $data['content'] = 'admin/konfirmasiDataWarga';
-            $data['title'] = 'Konfirmasi Data Warga';
+            $table = 'warga';
+            $where = [
+                'jenis_warga' => 'sementara',
+                'valid' => 0
+            ];
+            $where2 =[
+                'jenis_warga' => 'tetap',
+                'valid' => 0
+            ];
+            $wargaSementara = $this->m_admin->selectWithWhere($table,$where)->result_array();
+            $wargaTetap = $this->m_admin->selectWithWhere($table,$where2)->result_array();
+            $data = [
+                'content' => 'admin/konfirmasiDataWarga',
+                'title' => 'Konfirmasi Data Warga',
+                'list_warga_belum_valid_sementara' => $wargaSementara,
+                'list_warga_belum_valid_tetap' => $wargaTetap
+            ];
             $this->load->view('admin/index', $data);
         }
 // =========================================================================
@@ -36,7 +50,7 @@
             $dataPoints = array();
             $dataPoints2 = array();
             $usulanPoints = $this->m_admin->CountData('surat_undangan', 'status', 0)->result_array();
-            $query = $this->m_admin->totalWarga()->result_array();
+            $query = $this->m_admin->CountData('warga','valid',0)->result_array();
             $result = $this->m_admin->grafikPendidikan()->result();
             $result2 = $this->m_admin->grafikPekerjaan()->result();
             foreach ($result as $row) {
@@ -58,8 +72,10 @@
 
         public function tbl_usulan_ketua(){
             $tabel = 'surat_undangan';
-            $stat = 0;
-            $list_data = $this->m_admin->selectWithWhere($tabel,$stat)->result_array();
+            $where = [
+                'status' => 0
+            ];
+            $list_data = $this->m_admin->selectWithWhere($tabel,$where)->result_array();
             $data = [
                 'content'   => 'admin/tbl_usul_ketua',
                 'title'     => 'Input Usulan Rapat',
@@ -78,6 +94,16 @@
             $data['list_warga_semua'] = $this->m_admin->semuaDataWarga()->result_array();
             $data['content'] = 'admin/tabelDataWarga';
             $data['title'] = 'Tabel Data Warga';
+            $this->load->view('admin/index', $data);
+        }
+// -------------------------------------------------------------------------
+        public function daftarSuratPengantar(){
+            $list_surat_pengantar = $this->m_admin->suratJoinWarga()->result_array();
+            $data = [
+                'content' => 'admin/daftarSuratPengantar',
+                'title' => 'Daftar Surat Pengantar',
+                'list_surat_pengantar' => $list_surat_pengantar
+            ];
             $this->load->view('admin/index', $data);
         }
 // -------------------------------------------------------------------------
@@ -122,7 +148,7 @@
             $data['tanggal'] = date('Y-m-d');
             $data['content'] = "admin/formpengeluaran";
             $this->load->view('admin/index',$data);
-           
+
         }
 
         
@@ -143,7 +169,7 @@
             $data['content'] = "admin/tabelpengeluaran.php";
              $this->load->view('admin/index',$data);
         }
-        
+
         public function hapus_iuran_keluar($no_pengeluaran){
             $where = array(
                 'no_pengeluaran' => $no_pengeluaran
@@ -178,7 +204,7 @@
             $where = array(
                 'nik' => $nik
             );
-            
+
             $data['detailpembayaran'] = $this->m_admin->detail($where)->result();
             // var_dump($this->m_admin->detail($where)->result());
             $data['content']="admin/detailpembayaran.php";
@@ -188,7 +214,7 @@
             $where = array(
                 'no_pengeluaran' => $no_pengeluaran
             );
-            
+
             $data['detailpengeluaran'] = $this->m_admin->view_detail_pengeluaran($where,'pengeluaran')->result();
             // var_dump($this->m_admin->detail($where)->result());
             $data['content']="admin/detailpengeluaran.php";
@@ -202,7 +228,7 @@
                 $nominal = $this->input->post('nominal');
                 $digunakan_untuk = $this->input->post('digunakan_untuk');
                 $gambar = $this->input->post('gambar');
-    
+
                 $dataiurankeluar = array(
                     'no_pengeluaran' => $no_pengeluaran,
                     'diberikan_kepada' => $diberikan_kepada,
@@ -210,13 +236,13 @@
                     'nominal' => $nominal,
                     'digunakan_untuk' => $digunakan_untuk,
                     'gambar' => $gambar
-    
+
                 );
-    
+
                 $where = array(
                     'no_pengeluaran' => $no_pengeluaran
                 );
-    
+
                 $this->m_admin->update_data($where,$dataiurankeluar,'pengeluaran');
                 redirect(base_url('admin/tabeldataiurankeluar'),'refresh');
             } else {
@@ -434,7 +460,7 @@
                 $data['tanggal'] = $tanggal;
                 $data['content'] = "admin/formpengeluaran.php";
                 $this->load->view('admin/index',$data);
-              
+
 
             }
         }
@@ -676,7 +702,7 @@
         }
 
         public function detailWarga($id){
-            $data = $this->m_admin->detailWargaById($id)->row();
+            $data  = $this->m_admin->detailWargaById($id)->row();
             echo json_encode($data);
         }
 
@@ -838,6 +864,7 @@
             $tgl_srt    = $this->input->post('tgl_surat');
             $jam_udg    = $this->input->post('jam_udg');
             $acara_udg  = $this->input->post('acara_udg');
+            $date = date("Y/m/d");
 
             if ($this->form_validation->run() == TRUE) {
               $data = [
@@ -852,6 +879,7 @@
                 'tgl_udg' => $tgl_srt,
                 'jam_udg' => $jam_udg,
                 'acara_udg' => $acara_udg,
+                'tgl_buat' => $date,
                 'id_user' => $this->id_user
               ];
 
@@ -1239,7 +1267,202 @@
             redirect('admin/index','refresh');
           }
         }
+        // ================================ End of Insert Sekretaris =====================================
+
+        // ================================ Update Sekretaris =====================================
+        public function editRapat(){
+          $this->form_validation->set_rules([
+              [
+                  'field' => 'no_udg',
+                  'label' => 'Nomor Undangan',
+                  'rules' => 'trim|required'
+              ],
+
+              [
+                  'field' => 'hal',
+                  'label' => 'hal',
+                  'rules' => 'trim|required'
+              ],
+
+              [
+                  'field' => 'tujuan_surat',
+                  'label' => 'tujuan surat',
+                  'rules' => 'trim|required'
+              ],
+
+              [
+                  'field' => 'tempat_udg',
+                  'label' => 'tempat Undangan',
+                  'rules' => 'trim|required'
+              ],
+
+              [
+                  'field' => 'isi_surat',
+                  'label' => 'Isi Surat',
+                  'rules' => 'trim|required'
+              ],
+
+              [
+                  'field' => 'tgl_surat',
+                  'label' => 'Tanggal Surat ',
+                  'rules' => 'required'
+              ],
+
+              [
+                  'field' => 'jam_udg',
+                  'label' => 'Jam Undangan ',
+                  'rules' => 'trim|required'
+              ],
+
+              [
+                  'field' => 'acara_udg',
+                  'label' => 'acara Undangan',
+                  'rules' => 'trim|required'
+              ]
+          ]);
+
+          if ($this->input->post()) {
+            $no_udg     = $this->input->post('no_udg');
+            $lampiran   = $this->input->post('lampiran');
+            $sifat      = $this->input->post('sifat');
+            $hal        = $this->input->post('hal');
+            $tujuan_srt = $this->input->post('tujuan_surat');
+            $tempat_udg = $this->input->post('tempat_udg');
+            $tembusan   = $this->input->post('tembusan');
+            $isi_surat  = $this->input->post('isi_surat');
+            $tgl_srt    = $this->input->post('tgl_surat');
+            $jam_udg    = $this->input->post('jam_udg');
+            $acara_udg  = $this->input->post('acara_udg');
+
+            if ($this->form_validation->run() == TRUE) {
+              $data = [
+                'no_udg' => $no_udg,
+                'lampiran_udg' => $lampiran,
+                'sifat_udg' => $sifat,
+                'perihal_udg' => $hal,
+                'tujuan_surat' => $tujuan_srt,
+                'tempat_udg' => $tempat_udg,
+                'tembusan' => $tembusan,
+                'isi_surat' => $isi_surat,
+                'tgl_udg' => $tgl_srt,
+                'jam_udg' => $jam_udg,
+                'acara_udg' => $acara_udg,
+                'id_user' => $this->id_user
+              ];
+
+              $query = $this->m_admin->edit_data('surat_undangan','no_udg', $no_udg,$data);
+
+              if ($query) {
+                $url = base_url('admin/riwayat_Undangan');
+
+                $json = [
+                    'message' => "Data Surat Undangan berhasil diubah..",
+                    'url' => $url
+                ];
+              } else {
+                $json['errors'] = "Data Surat Undangan gagal diubah..!";
+              }
+            } else {
+              $no = 0;
+              foreach ($this->input->post() as $key => $value) {
+                  if (form_error($key) != "") {
+                      $json['form_errors'][$no]['id'] = $key;
+                      $json['form_errors'][$no]['msg'] = form_error($key, null, null);
+                      $no++;
+                  }
+              }
+            }
+
+            echo json_encode($json);
+          } else {
+            redirect('admin/editRapat','refresh');
+          }
+        }
+        public function detailRapat($id){
+            $tabel = 'surat_undangan';
+            $where = [
+                'no_udg' => $id
+            ];
+
+            $data = $this->m_admin->selectWithWhere($tabel,$where)->row();
+            echo json_encode($data);
+        }
+
+        public function editNotulen(){
+          $this->form_validation->set_rules([
+              [
+                  'field' => 'no_notulen',
+                  'label' => 'Nomor Notulensi',
+                  'rules' => 'trim|required'
+              ],
+
+              [
+                  'field' => 'lampiran',
+                  'label' => 'lampiran',
+                  'rules' => 'required'
+              ],
+
+              [
+                  'field' => 'uraian_notulen',
+                  'label' => 'Uraian Notulensi',
+                  'rules' => 'trim|required'
+              ]
+          ]);
+
+          if ($this->input->post()) {
+            $no_notulen     = $this->input->post('no_notulen');
+            $lampiran       = $this->input->post('lampiran');
+            $tembusan       = $this->input->post('tembusan');
+            $uraian_notulen = $this->input->post('uraian_notulen');
+
+
+            if ($this->form_validation->run() == TRUE) {
+              $data = [
+                'no_notulen' => $no_notulen,
+                'lampiran' => $lampiran,
+                'tembusan' => $tembusan,
+                'uraian_notulen' => $uraian_notulen
+              ];
+
+              $query = $this->m_admin->edit_data('notulensi_rpt','no_notulen', $no_notulen, $data);
+              if ($query) {
+                $url = base_url('admin/riwayat_notulensi');
+
+                $json = [
+                    'message' => "Data Notulensi berhasil diubah..",
+                    'url' => $url
+                ];
+              }else {
+                $json['errors'] = "Data Notulensi gagal diubah..!";
+              }
+            }else {
+              $no = 0;
+              foreach ($this->input->post() as $key => $value) {
+                  if (form_error($key) != "") {
+                      $json['form_errors'][$no]['id'] = $key;
+                      $json['form_errors'][$no]['msg'] = form_error($key, null, null);
+                      $no++;
+                  }
+              }
+            }
+            echo json_encode($json);
+          }else {
+            redirect('admin/editNotulen','refresh');
+          }
+        }
+
+        public function detailNotulen($id){
+            $tabel = 'notulensi_rpt';
+            $where = [
+                'no_notulen' => $id
+            ];
+
+            $data = $this->m_admin->selectWithWhere($tabel,$where)->row();
+            echo json_encode($data);
+        }
       }
+
+
 
     /* End of file Controllername.php */
 ?>
