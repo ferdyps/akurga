@@ -128,7 +128,10 @@
         public function view_detail_pengeluaran($where,$table){
             return $this->db->get_where($table,$where);
         }
-
+        public function tampil_bulan_iuran($nik){
+            $this->db->where('nik', $nik);
+            return $this->db->get('pembayaran');
+        }
         public function tampil_iuran_perbulan(){
             $query = "
             SELECT

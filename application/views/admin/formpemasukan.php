@@ -23,11 +23,20 @@
                        <select id="PembayaranBulan" name="pembayaran_bulan" class="form-control">
                        <?php 
                         $no = 1;
-                        foreach ($bulan as $row) { 
-                        ?>
-                        <option value ="<?= $row ?>"> <?= $row ?></option>
-                        <?php } ?>
+                            foreach ($bulan as $bulan) {?> 
+                                   <option value ="<?= $bulan ?>"> <?= $bulan ?></option>
+                            <?php }?>
                </select>
+                <?php if ($this->session->flashdata('pembayaran')) {
+                    ?>
+                    <a href="#" class="btn btn-warning btn-icon-split">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </span>
+                    <span class="text"><?= $this->session->flashdata('pembayaran');?></span>
+                    </a>
+                    <?php
+                }?>                  
                    </div>
                    <?php echo form_error('pembayaran_bulan'); ?>
 
@@ -59,7 +68,7 @@
            <div class="col">
                <div class="form-group text-center">
                    <input type="submit" name="submit_masuk" value="Submit" class="btn btn-primary">
-                   <input type="reset" value="Reset" class="btn btn-danger">
+                   <!-- <input type="reset" value="Reset" class="btn btn-danger"> -->
                </div>
            </div>
        <!-- <?php echo form_close();?> -->

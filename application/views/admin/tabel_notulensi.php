@@ -30,7 +30,7 @@
                     <td><?= $row['uraian_notulen'] ?></td>
                     <td>
                       <a href="#" class="d-none d-sm-inline-block btn btn-primary shadow-sm" id="editNotulensi"
-                      data-url="<?= base_url('admin/detailNotulensi/'); ?>" data-notulen="<?= $row['no_notulen']; ?>"
+                      data-url="<?= base_url('admin/detailNotulen/'); ?>" data-notulen="<?= $row['no_notulen']; ?>"
                       data-toggle="modal" data-target="#editDataNotulensiModal">Edit</a>
                     </td>
                   </tbody>
@@ -40,29 +40,24 @@
             </div>
           </div>
         </div>
-        <?php $this->load->view('admin/_partials/editrapat_modal')?>
+
+        <?php $this->load->view('admin/_partials/editnotulensi_modal')?>
+
         <script>
             $(document).on('click','#editNotulensi',function(){
-              var id_rapat = $(this).attr('data-noudg');
+              var id_notulen = $(this).attr('data-notulen');
               var url = $(this).attr('data-url');
               $.ajax({
-                url: url + id_rapat,
+                url: url + id_notulen,
                 method: 'POST',
-                data: {id_rapat:id_rapat},
+                data: {id_notulen:id_notulen},
                 dataType: 'json',
                   success:function(data) {
                     console.log(data);
-                    $('#editDataRapatModal #edit-no_udg').val(data.no_udg);
-                    $('#editDataRapatModal #edit-lampiran').val(data.lampiran_udg);
-                    $('#editDataRapatModal #edit-sifat').val(data.sifat_udg);
-                    $('#editDataRapatModal #edit-hal').val(data.perihal_udg);
-                    $('#editDataRapatModal #edit-tujuan_surat').val(data.tujuan_surat);
-                    $('#editDataRapatModal #edit-tempat_udg').val(data.tempat_udg);
-                    $('#editDataRapatModal #edit-tembusan').val(data.tembusan);
-                    $('#editDataRapatModal #edit-isi_surat').val(data.isi_surat);
-                    $('#editDataRapatModal #edit-tgl_surat').val(data.tgl_udg);
-                    $('#editDataRapatModal #edit-jam_udg').val(data.jam_udg);
-                    $('#editDataRapatModal #edit-acara_udg').val(data.acara_udg);
+                    $('#editDataNotulensiModal #edit-no_notulen').val(data.no_notulen);
+                    $('#editDataNotulensiModal #edit-lampiran').val(data.lampiran);
+                    $('#editDataNotulensiModal #edit-tembusan').val(data.tembusan);
+                    $('#editDataNotulensiModal #edit-uraian_notulen').val(data.uraian_notulen);
                   },
                   error:function() {
                     alert('Error di System..!');
