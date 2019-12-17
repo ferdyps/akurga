@@ -41,10 +41,10 @@
 
                      <div class="col">
 
-                         <div class="form-group">
-                             <label for="">Gambar Surat</label>
+                         <div class="form-group form-input">
+                             <label for="gbr_surat">Gambar Surat</label>
                              <div class="custom-file">
-                               <input type="file" name="gbr_surat" class="custom-file-input" id="">
+                               <input type="file" name="gbr_surat" class="custom-file-input" id="gbr_surat">
                                <label class="custom-file-label">Choose file</label>
                              </div>
                              <div class="invalid-feedback">

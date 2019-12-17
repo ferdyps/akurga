@@ -122,8 +122,8 @@
                 'list_komplain' => $list_komplain
             ];
             $this->load->view('admin/index', $data);
-            
-        }        
+
+        }
 // -------------------------------------------------------------------------
         public function inputHasilKomplain(){
             $data['content'] = 'admin/inputHasilKomplain';
@@ -169,7 +169,7 @@
 
         }
 
-        
+
         public function formpemasukan(){
             // $where = array(
             // 	'nip' => $this->session->userdata('nip')
@@ -309,7 +309,7 @@
                 $data['content']="admin/formpemasukan";
                 $data['tanggal'] = date('Y-m-d');
                 $data['bulan'] = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
-                
+
                 $this->load->view('admin/index',$data);
                 // $this->load->view('admin/formpengeluaran');
             } else {
@@ -323,10 +323,10 @@
                         $this->session->set_flashdata('pembayaran', 'maaf user sudah membayar');
                         redirect("admin/formpemasukan");
                     } else {
-                        
+
                     }
                 }
-                
+
                 $tanggal = date("Y-m-d",strtotime($tanggal));
             // $gambar = $_FILES['gambar']['name'];
 
@@ -387,7 +387,7 @@
                     $data['content'] = "admin/formpemasukan.php";
                     $this->load->view('admin/index',$data);
                 }
-            
+
         }
     }else{
         $data['tanggal'] = $tanggal;
@@ -1134,11 +1134,6 @@
                   'rules' => 'required'
               ],
 
-              [
-                  'field' => 'gbr_surat',
-                  'label' => 'Gambar Surat',
-                  'rules' => 'required'
-              ],
 
               [
                   'field' => 'tgl_surat',
@@ -1150,27 +1145,42 @@
                   'field' => 'keterangan',
                   'label' => 'keterangan',
                   'rules' => 'required'
-              ],
+              ]
           ]);
 
           if ($this->input->post()) {
-            $kd_surat       = $this->input->post('kd_surat');
-            $no_surat       = $this->input->post('no_surat');
-            $pengirim       = $this->input->post('pengirim');
-            $tgl_terima     = $this->input->post('tgl_terima');
-            $gbr_surat     = $this->input->post('gbr_surat');
-            $tgl_surat     = $this->input->post('tgl_surat');
-            $keterangan     = $this->input->post('keterangan');
+            $kd_surat        = $this->input->post('kd_surat');
+            $no_surat        = $this->input->post('no_surat');
+            $pengirim        = $this->input->post('pengirim');
+            $tgl_terima      = $this->input->post('tgl_terima');
+            $tgl_surat       = $this->input->post('tgl_surat');
+            $keterangan      = $this->input->post('keterangan');
+
+            $config['upload_path']          = './assets/foto/arsip';
+            // $config['file_name']            = $this->input->post('gbr_surat');
+            $config['allowed_types']        = 'gif|jpg|png';
+            $config['max_size']             = 1024; // 1MB
+            // $config['max_width']            = 1024;
+		        // $config['max_height']           = 768;
+
+            $this->load->library('upload', $config);
+
 
             if ($this->form_validation->run() == TRUE) {
+              if ($this->upload->do_upload('gbr_surat')){
+  			             // $error = array('error' => $this->upload->display_errors());
+                      $data_upload     = $this->upload->data('file_name');
+  		        }
+
               $data = [
                 'kd_surat' => $kd_surat,
                 'no_surat' => $no_surat,
                 'pengirim' => $pengirim,
                 'keterangan' => $keterangan,
-                'gambar_srt' => $gbr_surat,
+                'gambar_srt' => $data_upload,
                 'tgl_terima' => $tgl_terima,
-                'tgl_surat' => $tgl_surat
+                'tgl_surat' => $tgl_surat,
+                'id_user' => $this->id_user
               ];
               $query = $this->m_admin->input_data('arsip_surat', $data);
               if ($query) {
@@ -1195,7 +1205,7 @@
             }
             echo json_encode($json);
           }else {
-            redirect('admin/v_arsip_surat','refresh');
+             redirect('admin/riwayat_arsip','refresh');
           }
 
         }
