@@ -11,7 +11,7 @@
   <?php if($title == 'Dashboard') { ?>
   <script src="<?php echo base_url('assets/bootstrap4admin/js/demo/chart-area-demo.js');?>"></script>
   <script src="<?php echo base_url('assets/bootstrap4admin/js/demo/chart-pie-demo.js');?>"></script>
-  
+
   <?php } ?>
   <script src="<?= base_url("assets/bootstrap4admin/vendor/datatables/jquery.dataTables.min.js"); ?>"></script>
   <script src="<?= base_url("assets/bootstrap4admin/vendor/datatables/dataTables.bootstrap4.min.js"); ?>"></script>
@@ -24,7 +24,7 @@
   <script src="<?= base_url('assets/js/canvasjs.min.js')?>"></script>
 
   <script src="<?= base_url('assets/js/main.js'); ?>"></script>
-  
+
 
   <script type="text/javascript">
     $(document).ready(function() {
@@ -34,7 +34,7 @@
       $('.timepicker').pickatime({
 
         format: 'HH:i',
-        formatSubmit: 'HH:i',
+        formatSubmit: 'H:i',
         hiddenName: true,
         onSet: function() {
           $('.timepicker').parents('.form-input').find('.invalid-feedback').html('');
@@ -77,6 +77,16 @@
       min: false
     });
 
+    $('.datepickerArsip').pickadate({
+      selectYears: true,
+      selectMonths: true,
+      format: 'dd mmmm yyyy',
+      formatSubmit: 'yyyy-mm-dd',
+      max: new Date(),
+      min: false,
+      hiddenName: true
+    });
+
     $('.datepickerStandar').pickadate({
       selectYears: true,
       selectMonths: true,
@@ -84,6 +94,7 @@
       formatSubmit: 'yyyy-mm-dd',
       hiddenName: true
     });
+
   </script>
 
 

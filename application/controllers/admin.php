@@ -529,7 +529,8 @@
         }
 
         public function riwayat_Undangan(){
-            $data['list_surat_udg'] = $this->m_admin->selectAllData('surat_undangan')->result_array();
+            $id = array('status' => 1 );
+            $data['list_surat_udg'] = $this->m_admin->selectWithWhere('surat_undangan',$id)->result_array();
             $data['content'] = 'admin/tabel_undangan';
             $data['title'] = 'Riwayat Surat Undangan';
             $this->load->view('admin/index', $data);
@@ -715,6 +716,18 @@
                 $json['message'] = 'Data Warga Berhasil Dikonfirmasi';
             }else {
                 $json['errors'] = 'Data Warga Gagal Dikonfirmasi';
+            }
+            echo json_encode($json);
+        }
+
+        public function klik_konfirmasi_usulan_rapat($id2){
+            $data['status'] = 1;
+            $query = $this->m_admin->edit_data('surat_undangan','no_udg',$id2,$data);
+
+            if ($query) {
+                $json['message'] = 'Data Usulan Rapat Berhasil Dikonfirmasi';
+            }else {
+                $json['errors'] = 'Data Usulan Rapat Dikonfirmasi';
             }
             echo json_encode($json);
         }
@@ -1170,18 +1183,29 @@
               if ($this->upload->do_upload('gbr_surat')){
   			             // $error = array('error' => $this->upload->display_errors());
                       $data_upload     = $this->upload->data('file_name');
-  		        }
+                      $data = [
+                        'kd_surat' => $kd_surat,
+                        'no_surat' => $no_surat,
+                        'pengirim' => $pengirim,
+                        'keterangan' => $keterangan,
+                        'gambar_srt' => $data_upload,
+                        'tgl_terima' => $tgl_terima,
+                        'tgl_surat' => $tgl_surat,
+                        'id_user' => $this->id_user
+                      ];
+  		        }else {
+                $data = [
+                  'kd_surat' => $kd_surat,
+                  'no_surat' => $no_surat,
+                  'pengirim' => $pengirim,
+                  'keterangan' => $keterangan,
+                  'tgl_terima' => $tgl_terima,
+                  'tgl_surat' => $tgl_surat,
+                  'id_user' => $this->id_user
+                ];
+              }
 
-              $data = [
-                'kd_surat' => $kd_surat,
-                'no_surat' => $no_surat,
-                'pengirim' => $pengirim,
-                'keterangan' => $keterangan,
-                'gambar_srt' => $data_upload,
-                'tgl_terima' => $tgl_terima,
-                'tgl_surat' => $tgl_surat,
-                'id_user' => $this->id_user
-              ];
+
               $query = $this->m_admin->input_data('arsip_surat', $data);
               if ($query) {
                 $url = base_url('admin/riwayat_arsip');
@@ -1330,17 +1354,17 @@
                   'rules' => 'trim|required'
               ],
 
-              [
-                  'field' => 'tgl_surat',
-                  'label' => 'Tanggal Surat ',
-                  'rules' => 'required'
-              ],
-
-              [
-                  'field' => 'jam_udg',
-                  'label' => 'Jam Undangan ',
-                  'rules' => 'trim|required'
-              ],
+              // [
+              //     'field' => 'tgl_surat',
+              //     'label' => 'Tanggal Surat ',
+              //     'rules' => 'required'
+              // ],
+              //
+              // [
+              //     'field' => 'jam_udg',
+              //     'label' => 'Jam Undangan ',
+              //     'rules' => 'trim|required'
+              // ],
 
               [
                   'field' => 'acara_udg',
@@ -1488,9 +1512,130 @@
             $data = $this->m_admin->selectWithWhere($tabel,$where)->row();
             echo json_encode($data);
         }
+
+        public function editArsipMasuk(){
+          $this->form_validation->set_rules([
+              [
+                  'field' => 'kd_surat',
+                  'label' => 'Kode Surat',
+                  'rules' => 'trim|required'
+              ],
+
+              [
+                  'field' => 'no_surat',
+                  'label' => 'nomor surat',
+                  'rules' => 'required'
+              ],
+
+              [
+                  'field' => 'pengirim',
+                  'label' => 'Pengirim',
+                  'rules' => 'trim|required'
+              ],
+
+              [
+                  'field' => 'tgl_terima',
+                  'label' => 'Tanggal Terima Surat',
+                  'rules' => 'required'
+              ],
+
+
+              // [
+              //     'field' => 'tgl_surat',
+              //     'label' => 'Tanggal Surat',
+              //     'rules' => 'required'
+              // ],
+
+              [
+                  'field' => 'keterangan',
+                  'label' => 'keterangan',
+                  'rules' => 'required'
+              ]
+          ]);
+
+          if ($this->input->post()) {
+            $kd_surat        = $this->input->post('kd_surat');
+            $no_surat        = $this->input->post('no_surat');
+            $pengirim        = $this->input->post('pengirim');
+            $tgl_terima      = $this->input->post('tgl_terima');
+            $tgl_surat       = $this->input->post('tgl_surat');
+            $keterangan      = $this->input->post('keterangan');
+
+            $config['upload_path']          = './assets/foto/arsip';
+            // $config['file_name']            = $this->input->post('gbr_surat');
+            $config['allowed_types']        = 'gif|jpg|png';
+            $config['max_size']             = 1024; // 1MB
+            // $config['max_width']            = 1024;
+            // $config['max_height']           = 768;
+
+            $this->load->library('upload', $config);
+
+
+            if ($this->form_validation->run() == TRUE) {
+              if ($this->upload->do_upload('gbr_surat')){
+                      $data_upload     = $this->upload->data('file_name');
+                      // $error = array('error' => $this->upload->display_errors());
+                      $data = [
+                        'kd_surat' => $kd_surat,
+                        'no_surat' => $no_surat,
+                        'pengirim' => $pengirim,
+                        'keterangan' => $keterangan,
+                        'gambar_srt' => $data_upload,
+                        'tgl_terima' => $tgl_terima,
+                        'tgl_surat' => $tgl_surat,
+                        'id_user' => $this->id_user
+                      ];
+              }else{
+                $data = [
+                  'kd_surat' => $kd_surat,
+                  'no_surat' => $no_surat,
+                  'pengirim' => $pengirim,
+                  'keterangan' => $keterangan,
+                  'tgl_terima' => $tgl_terima,
+                  'tgl_surat' => $tgl_surat,
+                  'id_user' => $this->id_user
+                ];
+              }
+
+
+              $query = $this->m_admin->edit_data('arsip_surat','kd_surat', $kd_surat, $data);
+              if ($query) {
+                $url = base_url('admin/riwayat_arsip');
+
+                $json = [
+                    'message' => "Data arsip berhasil diubah..",
+                    'url' => $url
+                ];
+              }else {
+                $json['errors'] = "Data arsip gagal diubah..!";
+              }
+            }else {
+              $no = 0;
+              foreach ($this->input->post() as $key => $value) {
+                  if (form_error($key) != "") {
+                      $json['form_errors'][$no]['id'] = $key;
+                      $json['form_errors'][$no]['msg'] = form_error($key, null, null);
+                      $no++;
+                  }
+              }
+            }
+            echo json_encode($json);
+          }else {
+             redirect('admin/riwayat_arsip','refresh');
+          }
+
+        }
+
+        public function detailArsip($id){
+            $tabel = 'arsip_surat';
+            $where = [
+                'kd_surat' => $id
+            ];
+
+            $data = $this->m_admin->selectWithWhere($tabel,$where)->row();
+            echo json_encode($data);
+        }
+
       }
-
-
-
     /* End of file Controllername.php */
 ?>
