@@ -13,7 +13,7 @@
   <?php echo validation_errors() ?>
 <?php endif; ?> -->
        <?=form_open_multipart("admin/iurankeluar");
-        $tanggal = date("Y-m-d");?>
+        $tanggal = date("d-m-Y");?>
       
            <div class="row px-3 my-3">
                <div class="col">
@@ -37,7 +37,7 @@
 
                    <div class="form-group form-input">
                        <label for="input-tanggal">Tanggal</label>
-                       <input name="tanggal" id="input-tanggal" class="form-control" value="<?=$tanggal ?>">
+                       <input name="tanggal" id="input-tanggal" class="form-control" value="<?= date("d-m-Y",strtotime($tanggal)) ?>">
                        <div class="invalid-feedback">
                        </div>
                    </div>

@@ -65,7 +65,8 @@
                 'semuaWarga'    => $query,
                 'dataPoints'    => $dataPoints,
                 'dataPoints2'   => $dataPoints2,
-                'usulan_points' => $usulanPoints
+                'usulan_points' => $usulanPoints,
+                'dataiurank'    => $this->m_admin->tampil_iuran_keluar()->result_array(),
             ];
             $this->load->view('admin/index', $data);
         }

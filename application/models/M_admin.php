@@ -96,7 +96,10 @@
             return $this->db->insert('pengeluaran',$dataiurankeluar);
         }
         public function tampil_iuran_keluar(){
-            return $this->db->get('pengeluaran');
+            // return $this->db->get('pengeluaran');
+            $this->db->from('pengeluaran');
+            $this->db->order_by('no_pengeluaran', 'desc');
+            return $this->db->get();
         }
         public function view_data($where,$table){
             return $this->db->get_where($table,$where);
