@@ -31,7 +31,7 @@
 
                      <div class="form-group form-input">
                          <label for="input-tgl_terima">Tanggal Terima Surat</label>
-                         <input type="text" name="tgl_terima" id="input-tgl_terima" class="form-control datepickerLagi">
+                         <input type="text" name="tgl_terima" id="input-tgl_terima" class="form-control datepickerArsip">
                          <div class="invalid-feedback">
                          </div>
                      </div>
@@ -83,7 +83,5 @@
                  </div>
              </div>
          </div>
-
           <?php echo form_close();?>
-
    </div>
