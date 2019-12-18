@@ -11,40 +11,40 @@
             <div class="row px-3 my-3">
                 <div class="col">
                     <div class="form-group form-input">
-                        <label for="edit-jenisWarga">Jenis Warga</label>
-                        <select name="jenis_warga" id="edit-jenisWarga" class="form-control" readonly>
+                        <label for="input-jenisWarga">Jenis Warga</label>
+                        <select name="jenis_warga" id="input-jenisWarga" class="form-control" readonly>
                             <option value="Sementara">Sementara</option>
                             <option value="Tetap">Tetap</option>
                         </select>
                     </div>
                     <div class="form-group form-input">
-                        <label for="edit-nik">NIK</label>
-                        <input type="text" name="nik" id="edit-nik" class="form-control" placeholder="Nomor Induk Kependudukan" readonly>
+                        <label for="input-nik">NIK</label>
+                        <input type="text" name="nik" id="input-nik" class="form-control" placeholder="Nomor Induk Kependudukan" readonly>
                         <div class="invalid-feedback"></div>
                     </div>
                     <div class="form-group form-input">
-                        <label for="edit-nama">Nama Lengkap</label>
-                        <input type="text" name="nama" id="edit-nama" class="form-control" placeholder="Nama Lengkap">
+                        <label for="input-nama">Nama Lengkap</label>
+                        <input type="text" name="nama" id="input-nama" class="form-control" placeholder="Nama Lengkap">
                         <div class="invalid-feedback"></div>
                     </div>
                     <div class="form-group form-input form-nohp">
-                        <label for="edit-nohp">Nomor HP</label>
-                        <input type="text" name="nohp" id="edit-nohp" class="form-control" placeholder="Nomor HP">
+                        <label for="input-nohp">Nomor HP</label>
+                        <input type="text" name="nohp" id="input-nohp" class="form-control" placeholder="Nomor HP">
                         <div class="invalid-feedback"></div>
                     </div>
                     <div class="form-group form-input">
-                        <label for="edit-tempat_lahir">Tempat Lahir</label>
-                        <input type="text" name="tempat_lahir" id="edit-tempat_lahir" class="form-control" placeholder="Tempat Lahir">
+                        <label for="input-tempat_lahir">Tempat Lahir</label>
+                        <input type="text" name="tempat_lahir" id="input-tempat_lahir" class="form-control" placeholder="Tempat Lahir">
                         <div class="invalid-feedback"></div>
                     </div>
                     <div class="form-group form-input">
-                        <label for="edit-tanggal_lahir">Tanggal Lahir</label>
-                        <input type="date" name="tanggal_lahir" id="edit-tanggal_lahir" class="form-control datepickerLagi">
+                        <label for="input-tanggal_lahir">Tanggal Lahir</label>
+                        <input type="text" name="tanggal_lahir" id="input-tanggal_lahir" class="form-control datepickerLagi">
                         <div class="invalid-feedback"></div>
                     </div>
                     <div class="form-group form-input">
-                        <label for="edit-Pendidikan">Pendidikan</label>
-                        <select name="pendidikan" id="edit-Pendidikan" class="form-control">
+                        <label for="input-Pendidikan">Pendidikan</label>
+                        <select name="pendidikan" id="input-Pendidikan" class="form-control">
                             <option selected disabled>-- Pilih Pendidikan Terakhir --</option>
                             <option value="TIDAK/BELUM SEKOLAH">TIDAK/BELUM SEKOLAH</option>
                             <option value="BELUM TAMAT SD/SEDERAJAT">BELUM TAMAT SD/SEDERAJAT</option>
@@ -59,8 +59,8 @@
                         </select>
                     </div>
                     <div class="form-group form-input">
-                        <label for="edit-Pekerjaan">Pekerjaan</label>
-                        <select name="pekerjaan" id="edit-Pekerjaan" class="form-control">
+                        <label for="input-Pekerjaan">Pekerjaan</label>
+                        <select name="pekerjaan" id="input-Pekerjaan" class="form-control">
                             <option selected disabled>-- Pilih Pekerjaan --</option>
                             <option value="BELUM/TIDAK BEKERJA">BELUM/TIDAK BEKERJA</option>
                             <option value="DOSEN">DOSEN</option>
@@ -80,13 +80,13 @@
                 </div>
                 <div class="col">
                     <div class="form-group form-input form-kk">
-                        <label for="edit-nokk">Nomor KK</label>
-                        <input type="text" name="nokk" id="edit-nokk" class="form-control" placeholder="Nomor KK">
+                        <label for="input-nokk">Nomor KK</label>
+                        <input type="text" name="nokk" id="input-nokk" class="form-control" placeholder="Nomor KK">
                         <div class="invalid-feedback"></div>
                     </div>
                     <div class="form-group form-input">
-                        <label for="edit-Agama">Agama</label>
-                        <select name="agama" id="edit-Agama" class="form-control">
+                        <label for="input-Agama">Agama</label>
+                        <select name="agama" id="input-Agama" class="form-control">
                             <option selected disabled>-- Pilih Agama --</option>
                             <option value="islam">Islam</option>
                             <option value="kristen">Kristen</option>
@@ -96,16 +96,16 @@
                         </select>
                     </div>
                     <div class="form-group form-input">
-                        <label for="edit-JK">Jenis Kelamin</label>
-                        <select name="jk" id="edit-JK" class="form-control">
+                        <label for="input-JK">Jenis Kelamin</label>
+                        <select name="jk" id="input-JK" class="form-control">
                             <option selected disabled>-- Pilih Jenis Kelamin --</option>
                             <option value="laki-laki">Laki-laki</option>
                             <option value="perempuan">Perempuan</option>
                         </select>
                     </div>
                     <div class="form-group form-input form-hub">
-                        <label for="edit-Hub_Dlm_Kel">Hubungan Dalam Keluarga</label>
-                        <select name="hub_dlm_kel" id="edit-Hub_Dlm_Kel" class="form-control">
+                        <label for="input-Hub_Dlm_Kel">Hubungan Dalam Keluarga</label>
+                        <select name="hub_dlm_kel" id="input-Hub_Dlm_Kel" class="form-control">
                             <option value="" selected disabled>-- Hubungan dalam Keluarga --</option>
                             <option value="suami">Suami</option>
                             <option value="istri">Istri</option>
@@ -113,26 +113,26 @@
                         </select>
                     </div>
                     <div class="form-group form-input">
-                        <label for="edit-Status">Status Pernikahan</label>
-                        <select name="status" id="edit-Status" class="form-control">
+                        <label for="input-Status">Status Pernikahan</label>
+                        <select name="status" id="input-Status" class="form-control">
                             <option selected disabled>-- Pilih Status --</option>
                             <option value="menikah">Menikah</option>
                             <option value="lajang">Lajang</option>
                         </select>
                     </div>
                     <div class="form-group form-input">
-                        <label for="edit-nama_jalan">Nama Jalan</label>
-                        <input type="text" name="nama_jalan" id="edit-nama_jalan" class="form-control" placeholder="Nama Jalan">
+                        <label for="input-nama_jalan">Nama Jalan</label>
+                        <input type="text" name="nama_jalan" id="input-nama_jalan" class="form-control" placeholder="Nama Jalan">
                         <div class="invalid-feedback"></div>
                     </div>
                     <div class="form-group form-input">
-                        <label for="edit-no_rumah">Nomor Rumah</label>
-                        <input type="text" name="no_rumah" id="edit-no_rumah" class="form-control" placeholder="Nomor Rumah">
+                        <label for="input-no_rumah">Nomor Rumah</label>
+                        <input type="text" name="no_rumah" id="input-no_rumah" class="form-control" placeholder="Nomor Rumah">
                         <div class="invalid-feedback"></div>
                     </div>
                     <div class="form-group form-input">
-                        <label for="edit-Gang">Gang</label>
-                        <select name="gang" id="edit-Gang" class="form-control">
+                        <label for="input-Gang">Gang</label>
+                        <select name="gang" id="input-Gang" class="form-control">
                             <option selected disabled>-- Pilih Gang --</option>
                             <option value="Bbk.Ciamis I">Bbk.Ciamis I</option>
                             <option value="Bbk.Ciamis II">Bbk.Ciamis II</option>
@@ -160,10 +160,10 @@
             $('.form-kk').fadeIn();
         } else {
             $('.form-kk').fadeOut();
-            $('#edit-nokk').val("");
+            $('#input-nokk').val("");
 
             $('.form-hub').fadeOut();
-            $('#edit-Hub_Dlm_Kel').val("");
+            $('#input-Hub_Dlm_Kel').val("");
         }
     }
 
@@ -172,12 +172,12 @@
             $('.form-nohp').fadeIn();
         } else {
             $('.form-nohp').fadeOut();
-            $('#edit-nohp').val("");
+            $('#input-nohp').val("");
         }
     }
 
     function startup() {
-        var tipe = $('#edit-jenisWarga').children('option:selected').val();
+        var tipe = $('#input-jenisWarga').children('option:selected').val();
 
         if(tipe == "Tetap"){
             w_tetap(true);
@@ -191,7 +191,7 @@
     }
 
     $(document).ready(function(){
-        $('#edit-jenisWarga').change(function(){
+        $('#input-jenisWarga').change(function(){
             var tipe = $(this).children('option:selected').val();
 
             if(tipe == "Tetap"){

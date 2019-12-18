@@ -171,7 +171,14 @@
         }
 
 // ===============================================================================
-        
+        public function riwayatSuratPengantar(){
+            $data = [
+                'content' => 'user/riwayatSuratPengantar',
+                'title' => 'List Surat Pengantar'
+            ];
+            $this->load->view('user/index', $data);
+            
+        }
     }
     
     /* End of file User.php */

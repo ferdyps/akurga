@@ -624,7 +624,7 @@
                 $nik = $this->input->post('nik');
                 $nama = $this->input->post('nama');
                 $tempat_lahir = $this->input->post('tempat_lahir');
-                $tanggal_lahir = $this->input->post('tanggal_lahir');
+                $tanggal_lahir = $this->input->post('tanggal_lahir_submit');
                 $pendidikan = $this->input->post('pendidikan');
                 $pekerjaan = $this->input->post('pekerjaan');
                 $agama = $this->input->post('agama');
@@ -772,7 +772,7 @@
                 $nik = $this->input->post('nik');
                 $nama = $this->input->post('nama');
                 $tempat_lahir = $this->input->post('tempat_lahir');
-                $tanggal_lahir = $this->input->post('tanggal_lahir');
+                $tanggal_lahir = $this->input->post('tanggal_lahir_submit');
                 $pendidikan = $this->input->post('pendidikan');
                 $pekerjaan = $this->input->post('pekerjaan');
                 $agama = $this->input->post('agama');

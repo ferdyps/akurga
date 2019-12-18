@@ -13,13 +13,16 @@
             <a class="nav-link" href="<?= base_url('user/formSuratPengantar')?>">Surat Pengantar</a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" href="<?= base_url('user/riwayatSuratPengantar')?>">Riwayat Surat Pengantar</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="<?= base_url('user/formKomplain')?>">Komplain</a>
           </li> 
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="<?= base_url()?>">Notulensi</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link " href="<?= site_url('auth/logout')?>">Logout</a>
+            <a class="nav-link" onclick="return confirm('Apakah anda yakin untuk logout..?');" href="<?= site_url('auth/logout')?>">Logout</a>
           </li>
          
         </ul>

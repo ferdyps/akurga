@@ -135,22 +135,22 @@
           dataType: 'json',
           success:function(data) {
             console.log(data);
-            $('#editDataWargaModal #edit-jenisWarga').val(data.jenis_warga);
-            $('#editDataWargaModal #edit-nik').val(data.nik);
-            $('#editDataWargaModal #edit-nama').val(data.nama);
-            $('#editDataWargaModal #edit-nohp').val(data.nohp);
-            $('#editDataWargaModal #edit-tempat_lahir').val(data.tempat_lahir);
-            $('#editDataWargaModal #edit-tanggal_lahir').val(data.tanggal_lahir);
-            $('#editDataWargaModal #edit-Pendidikan').val(data.pendidikan);
-            $('#editDataWargaModal #edit-Pekerjaan').val(data.pekerjaan);
-            $('#editDataWargaModal #edit-nokk').val(data.nokk);
-            $('#editDataWargaModal #edit-Agama').val(data.agama);
-            $('#editDataWargaModal #edit-JK').val(data.jk);
-            $('#editDataWargaModal #edit-Hub_Dlm_Kel').val(data.hub_dlm_kel);
-            $('#editDataWargaModal #edit-Status').val(data.status);
-            $('#editDataWargaModal #edit-nama_jalan').val(data.nama_jalan);
-            $('#editDataWargaModal #edit-no_rumah').val(data.no_rumah);
-            $('#editDataWargaModal #edit-Gang').val(data.gang);
+            $('#editDataWargaModal #input-jenisWarga').val(data.jenis_warga);
+            $('#editDataWargaModal #input-nik').val(data.nik);
+            $('#editDataWargaModal #input-nama').val(data.nama);
+            $('#editDataWargaModal #input-nohp').val(data.nohp);
+            $('#editDataWargaModal #input-tempat_lahir').val(data.tempat_lahir);
+            $('#editDataWargaModal #input-tanggal_lahir').val(data.tanggal_lahir);
+            $('#editDataWargaModal #input-Pendidikan').val(data.pendidikan);
+            $('#editDataWargaModal #input-Pekerjaan').val(data.pekerjaan);
+            $('#editDataWargaModal #input-nokk').val(data.nokk);
+            $('#editDataWargaModal #input-Agama').val(data.agama);
+            $('#editDataWargaModal #input-JK').val(data.jk);
+            $('#editDataWargaModal #input-Hub_Dlm_Kel').val(data.hub_dlm_kel);
+            $('#editDataWargaModal #input-Status').val(data.status);
+            $('#editDataWargaModal #input-nama_jalan').val(data.nama_jalan);
+            $('#editDataWargaModal #input-no_rumah').val(data.no_rumah);
+            $('#editDataWargaModal #input-Gang').val(data.gang);
           },
           error:function() {
             alert('Error di System..!');
