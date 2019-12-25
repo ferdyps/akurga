@@ -1534,11 +1534,11 @@
                   'rules' => 'trim|required'
               ],
 
-              [
-                  'field' => 'tgl_terima',
-                  'label' => 'Tanggal Terima Surat',
-                  'rules' => 'required'
-              ],
+              // [
+              //     'field' => 'tgl_terima',
+              //     'label' => 'Tanggal Terima Surat',
+              //     'rules' => 'required'
+              // ],
 
 
               // [
@@ -1561,18 +1561,20 @@
             $tgl_terima      = $this->input->post('tgl_terima');
             $tgl_surat       = $this->input->post('tgl_surat');
             $keterangan      = $this->input->post('keterangan');
+            $gbr_surat      = $this->input->post('gbr_surat');
 
-            $config['upload_path']          = './assets/foto/arsip';
-            // $config['file_name']            = $this->input->post('gbr_surat');
-            $config['allowed_types']        = 'gif|jpg|png';
-            $config['max_size']             = 1024; // 1MB
-            // $config['max_width']            = 1024;
-            // $config['max_height']           = 768;
 
-            $this->load->library('upload', $config);
 
 
             if ($this->form_validation->run() == TRUE) {
+              $config['upload_path']          = './assets/foto/arsip';
+              // $config['file_name']            = $this->input->post('gbr_surat');
+              $config['allowed_types']        = 'gif|jpg|png';
+              $config['max_size']             = 1024; // 1MB
+              // $config['max_width']            = 1024;
+              // $config['max_height']           = 768;
+
+              $this->load->library('upload', $config);
               if ($this->upload->do_upload('gbr_surat')){
                       $data_upload     = $this->upload->data('file_name');
                       // $error = array('error' => $this->upload->display_errors());
@@ -1622,7 +1624,7 @@
             }
             echo json_encode($json);
           }else {
-             redirect('admin/riwayat_arsip','refresh');
+             redirect('admin/editArsipMasuk','refresh');
           }
 
         }
