@@ -36,7 +36,7 @@
                    </div>
 
                    <div class="form-group form-input">
-                       <label for="input-tujuan_surat">Tujuan Surat</label>
+                       <label for="input-tujuan_surat">Pihak Yang Diundang</label>
                        <input type="text" name="tujuan_surat" id="input-tujuan_surat" class="form-control">
                        <div class="invalid-feedback"></div>
                    </div>

@@ -34,7 +34,7 @@
                     <td><?= $row['keterangan'] ?></td>
                     <td>
                       <a href="#" class="d-none d-sm-inline-block btn btn-primary shadow-sm" id="editArsip"
-                      data-url="<?= base_url('admin/detailArsip/'); ?>" data-arsip="<?= $row['kd_surat']; ?>"
+                      data-url="<?= base_url('admin/detailArsip/'); ?>" data-arsip="<?= $row['kd_surat']; ?>" values="<?= $row['gambar_srt']; ?>"
                       data-toggle="modal" data-target="#editDataArsipModal">Edit</a>
                     </td>
                   </tbody>
@@ -51,6 +51,7 @@
             $(document).on('click','#editArsip',function(){
               var id_arsip = $(this).attr('data-arsip');
               var url = $(this).attr('data-url');
+
               $.ajax({
                 url: url + id_arsip,
                 method: 'POST',
@@ -59,12 +60,12 @@
                   success:function(data) {
                     console.log(data);
                     $('#editDataArsipModal #edit-kd_surat').val(data.kd_surat);
-                    $('#editDataArsipModal #edit-pengirim').val(data.pengirim);
                     $('#editDataArsipModal #edit-no_surat').val(data.no_surat);
-                    $('#editDataArsipModal #edit-tgl_terima').val(data.tgl_terima);
-                    $('#editDataArsipModal #edit-gbr_surat').val(data.gambar_srt);
-                    $('#editDataArsipModal #edit-tgl_surat').val(data.tgl_surat);
+                    $('#editDataArsipModal #edit-pengirim').val(data.pengirim);
                     $('#editDataArsipModal #edit-keterangan').val(data.keterangan);
+                    $('#editDataArsipModal #gbr_surat').val(data.gambar_srt);
+                    $('#editDataArsipModal #edit-tgl_terima').val(data.tgl_terima);
+                    $('#editDataArsipModal #edit-tgl_surat').val(data.tgl_surat);
                   },
                   error:function() {
                     alert('Error di System..!');

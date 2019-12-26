@@ -49,7 +49,7 @@ function konfirmasi_data(base_url, id) {
 $(document).ready(function () {
 // =============================================================
     //Function for All Form. Supported with Input File..
-    $('#default-form').submit(function(event) {
+    $('#default-form').submit(function() {
         $('input').blur();
         event.preventDefault();
 
@@ -134,7 +134,4 @@ $(document).ready(function () {
         $('textarea').removeClass('is-invalid');
     });
 // =============================================================
-    $(document).ready(function() {
-        $('#dataTable,#dataTable2').DataTable();
-    });
 });

@@ -82,9 +82,9 @@
       selectMonths: true,
       format: 'dd mmmm yyyy',
       formatSubmit: 'yyyy-mm-dd',
+      hiddenName: true,
       max: new Date(),
-      min: false,
-      hiddenName: true
+      min: false
     });
 
     $('.datepickerStandar').pickadate({

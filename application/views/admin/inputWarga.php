@@ -26,7 +26,7 @@
                     </div>
                     <div class="form-group form-input">
                         <label for="input-nama">Nama Lengkap</label>
-                        <input type="text" name="nama" id="input-nama" class="form-control" placeholder="Nama Lengkap">
+                        <input type="text" name="nama" id="input-nama" class="form-control" placeholder="Nama Lengkap" autocomplete="off">
                         <div class="invalid-feedback"></div>
                     </div>
                     <div class="form-group form-input form-nohp">
