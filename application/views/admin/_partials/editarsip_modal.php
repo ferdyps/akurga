@@ -32,7 +32,7 @@
 
                         <div class="form-group form-input">
                             <label for="edit-tgl_terima">Tanggal Terima Surat</label>
-                            <input type="text" name="tgl_terima" id="edit-tgl_terima" class="form-control datepickerLagi">
+                            <input type="text" name="tgl_terima" id="edit-tgl_terima" class="form-control datepickerArsip">
                             <div class="invalid-feedback">
                             </div>
                         </div>
@@ -43,9 +43,9 @@
                         <div class="col">
 
                             <div class="form-group form-input">
-                                <label for="edit-gbr_surat">Gambar Surat</label>
+                                <label for="gbr_surat">Gambar Surat</label>
                                 <div class="custom-file">
-                                  <input type="file" name="gbr_surat" class="custom-file-input" id="edit-gbr_surat">
+                                  <input type="file" name="gbr_surat" class="custom-file-input" id="gbr_surat">
                                   <label class="custom-file-label">Choose file</label>
                                 </div>
                                 <div class="invalid-feedback">

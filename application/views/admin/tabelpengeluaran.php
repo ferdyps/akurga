@@ -48,7 +48,7 @@
           </tr>
         <?php } ?>
         <tr>
-      <td colspan="2" rospan="4">Total</td>
+      <td>Total</td>
       <td><?php echo $sum;?> </td>
       <td></td>
       <td></td>
