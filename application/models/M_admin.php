@@ -77,7 +77,7 @@
             return $this->db->query("SELECT * FROM user u JOIN warga w ON u.id_user=w.id_user WHERE u.id_user = '$id_user'");
         }
         public function suratJoinWarga(){
-            return $this->db->query("SELECT nomor_surat,keperluan,w.nik,nama,tanggal_surat FROM surat_pengantar s JOIN warga w ON w.nik=s.nik");
+            return $this->db->query("SELECT nomor_surat,keperluan,w.nik,nama,tanggal_surat,s.valid FROM surat_pengantar s JOIN warga w ON w.nik=s.nik");
         }
         public function komplainJoinWarga(){
             return $this->db->query("SELECT nomor_komplain,w.nik,nama,keluhan,lokasi,tanggal_komplain FROM komplain k JOIN warga w ON w.nik=k.nik");

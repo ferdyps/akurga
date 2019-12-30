@@ -33,6 +33,11 @@
           <i class="fas fa-fw fa-chart-area"></i>
           <span>Approval Data Warga</span></a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="<?= base_url('admin/cetakSuratPengantar')?>">
+          <i class="fas fa-fw fa-chart-area"></i>
+          <span>Cetak Surat Pengantar</span></a>
+      </li>
       <hr class="sidebar-divider">
 
       <div class="sidebar-heading">

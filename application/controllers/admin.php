@@ -727,6 +727,19 @@
             echo json_encode($json);
         }
 
+        public function klik_konfirmasi_surat_pengantar($id){
+            $data['valid'] = 1;
+
+            $query = $this->m_admin->edit_data('surat_pengantar','nomor_surat',$id,$data);
+
+            if ($query) {
+                $json['message'] = 'Surat Pengantar Berhasil Diapproval';
+            }else {
+                $json['errors'] = 'Surat Pengantar Gagal Diapproval';
+            }
+            echo json_encode($json);
+        }
+
         public function klik_konfirmasi_usulan_rapat($id2){
             $data['status'] = 1;
             $query = $this->m_admin->edit_data('surat_undangan','no_udg',$id2,$data);
@@ -1540,11 +1553,11 @@
                   'rules' => 'trim|required'
               ],
 
-              // [
-              //     'field' => 'tgl_terima',
-              //     'label' => 'Tanggal Terima Surat',
-              //     'rules' => 'required'
-              // ],
+              [
+                  'field' => 'tgl_terima',
+                  'label' => 'Tanggal Terima Surat',
+                  'rules' => 'required'
+              ],
 
 
               // [
@@ -1567,20 +1580,18 @@
             $tgl_terima      = $this->input->post('tgl_terima');
             $tgl_surat       = $this->input->post('tgl_surat');
             $keterangan      = $this->input->post('keterangan');
-            $gbr_surat      = $this->input->post('gbr_surat');
 
+            $config['upload_path']          = './assets/foto/arsip';
+            // $config['file_name']            = $this->input->post('gbr_surat');
+            $config['allowed_types']        = 'gif|jpg|png';
+            $config['max_size']             = 1024; // 1MB
+            // $config['max_width']            = 1024;
+            // $config['max_height']           = 768;
 
+            $this->load->library('upload', $config);
 
 
             if ($this->form_validation->run() == TRUE) {
-              $config['upload_path']          = './assets/foto/arsip';
-              // $config['file_name']            = $this->input->post('gbr_surat');
-              $config['allowed_types']        = 'gif|jpg|png';
-              $config['max_size']             = 1024; // 1MB
-              // $config['max_width']            = 1024;
-              // $config['max_height']           = 768;
-
-              $this->load->library('upload', $config);
               if ($this->upload->do_upload('gbr_surat')){
                       $data_upload     = $this->upload->data('file_name');
                       // $error = array('error' => $this->upload->display_errors());
@@ -1630,7 +1641,7 @@
             }
             echo json_encode($json);
           }else {
-             redirect('admin/editArsipMasuk','refresh');
+             redirect('admin/riwayat_arsip','refresh');
           }
 
         }

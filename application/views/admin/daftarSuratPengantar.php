@@ -37,13 +37,16 @@
                         <td><?= $row['keperluan']?></td>
                         <td><?= $row['tanggal_surat']?></td>
                         <td>
-                            -
+                          <?php if ($row['valid'] == 1) {
+                                echo "Sudah Valid";
+                              }else {
+                                echo "Belum Valid";
+                          }?>
                         </td>
                         <td>
-                        <button class="btn btn-primary" >Aprroval</button>
+                          <button class="btn btn-primary" onclick="konfirmasi_data('<?= base_url('admin/klik_konfirmasi_surat_pengantar/')?>', '<?= $row['nomor_surat']; ?>')">Aprroval</button>
                         </td>
                       </tr>
-                      
                   <?php } ?>
                   </tbody>
                 </table>
