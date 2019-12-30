@@ -83,7 +83,7 @@
             return $this->db->query("SELECT nomor_komplain,w.nik,nama,keluhan,lokasi,tanggal_komplain FROM komplain k JOIN warga w ON w.nik=k.nik");
         }
         public function riwayatSuratPengantar($id_user){
-            return $this->db->query("SELECT u.id_user,s.nomor_surat FROM `user` u JOIN warga w ON u.id_user=w.id_user JOIN surat_pengantar s ON w.nik=s.nik WHERE u.id_user='$id_user'");
+            return $this->db->query("SELECT u.id_user,s.nomor_surat,s.tanggal_surat,s.keperluan FROM `user` u JOIN warga w ON u.id_user=w.id_user JOIN surat_pengantar s ON w.nik=s.nik WHERE u.id_user='$id_user'");
         }
 // =========================================================================
         public function multiple_select_data($table, $where) {

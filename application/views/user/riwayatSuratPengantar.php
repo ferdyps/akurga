@@ -9,25 +9,24 @@
             <table class="table table-striped table-dark">
                 <thead>
                     <tr>
-                        <th scope="col">No</th>
-                        <th scope="col">Nomor Surat</th>
-                        <th scope="col">Tanggal Pengajuan</th>
-                        <th scope="col">Keperluan</th>
+                        <th width="5%">No</th>
+                        <th>Nomor Surat</th>
+                        <th>Tanggal Pengajuan</th>
+                        <th>Keperluan</th>
                     </tr>
                 </thead>
                 <tbody>
+                <?php
+                    $i=1; 
+                    foreach($listSurat as $row)
+                {?>
                     <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
+                        <th><?= $i++?></th>
+                        <td><?= $row['nomor_surat']?></td>
+                        <td><?= $row['tanggal_surat']?></td>
+                        <td><?= $row['keperluan']?></td>
                     </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                    </tr>
+                <?php }?>
                 </tbody>
             </table>
         </div>

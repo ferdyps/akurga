@@ -123,7 +123,13 @@
                 'list_komplain' => $list_komplain
             ];
             $this->load->view('admin/index', $data);
-
+        }
+        public function cetakSuratPengantar(){
+            $data = [
+                'content' => 'admin/cetakSuratPengantar',
+                'title' => 'Cetak Surat Pengantar'
+            ];
+            $this->load->view('admin/index', $data);
         }
 // -------------------------------------------------------------------------
         public function inputHasilKomplain(){

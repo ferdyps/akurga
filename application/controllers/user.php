@@ -172,12 +172,13 @@
 
 // ===============================================================================
         public function riwayatSuratPengantar(){
+            $riwayatSurat = $this->m_admin->riwayatSuratPengantar($this->session->userdata('id_user'))->result_array();
             $data = [
                 'content' => 'user/riwayatSuratPengantar',
-                'title' => 'List Surat Pengantar'
+                'title' => 'List Surat Pengantar',
+                'listSurat' => $riwayatSurat
             ];
             $this->load->view('user/index', $data);
-            
         }
     }
     
