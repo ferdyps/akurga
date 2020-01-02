@@ -21,7 +21,7 @@
           }elseif ($input == 'arsip') {
             $Char = "-ASM-";
           }elseif ($input == 'surat_pengantar') {
-            $Char = "-SPT-";
+            $Char = "'/SK-I/'";
           }elseif ($input == 'komplain') {
             $Char = "-KOMPLAIN";
           }else {
@@ -78,6 +78,16 @@
         }
         public function suratJoinWarga(){
             return $this->db->query("SELECT nomor_surat,keperluan,w.nik,nama,tanggal_surat,s.valid FROM surat_pengantar s JOIN warga w ON w.nik=s.nik");
+        }
+        public function cetakSuratJoinWarga(){
+            return $this->db->query("SELECT nomor_surat,keperluan,w.nik,nama,tanggal_surat,s.valid FROM surat_pengantar s JOIN warga w ON w.nik=s.nik WHERE s.valid=1");
+        }
+        public function detailSuratPengantar($value){
+            $this->db->select('*');
+            $this->db->from('surat_pengantar');
+            $this->db->join('warga', 'surat_pengantar.nik = warga.nik');
+            $this->db->where('surat_pengantar.nomor_surat', $value);
+            return $this->db->get();
         }
         public function komplainJoinWarga(){
             return $this->db->query("SELECT nomor_komplain,w.nik,nama,keluhan,lokasi,tanggal_komplain FROM komplain k JOIN warga w ON w.nik=k.nik");

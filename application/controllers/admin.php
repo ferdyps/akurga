@@ -124,10 +124,21 @@
             ];
             $this->load->view('admin/index', $data);
         }
-        public function cetakSuratPengantar(){
+        public function cetakSuratPengantar($id){
+            $cetak_surat_pengantar = $this->m_admin->detailSuratPengantar($id)->row();
             $data = [
                 'content' => 'admin/cetakSuratPengantar',
-                'title' => 'Cetak Surat Pengantar'
+                'title' => 'Cetak Surat Pengantar',
+                'cetak_surat_pengantar' => $cetak_surat_pengantar 
+            ];
+            $this->load->view('admin/index', $data);
+        }
+        public function listCetakSuratPengantar(){
+            $list_cetak_surat_pengantar = $this->m_admin->cetakSuratJoinWarga()->result_array();
+            $data = [
+                'content' => 'admin/listCetakSuratPengantar',
+                'title' => 'List Cetak Surat Pengantar',
+                'list_cetak_surat_pengantar' => $list_cetak_surat_pengantar
             ];
             $this->load->view('admin/index', $data);
         }

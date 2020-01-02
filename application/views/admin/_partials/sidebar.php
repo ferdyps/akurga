@@ -34,7 +34,7 @@
           <span>Approval Data Warga</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="<?= base_url('admin/cetakSuratPengantar')?>">
+        <a class="nav-link" href="<?= base_url('admin/listCetakSuratPengantar')?>">
           <i class="fas fa-fw fa-chart-area"></i>
           <span>Cetak Surat Pengantar</span></a>
       </li>

@@ -17,33 +17,36 @@
             <div class="card-body">
               <div class="table-responsive">
                 <h5 class="text-center font-weight-bold"><u>SURAT KETERANGAN</u></h5>
-                <h6 class="text-center font-weight-bold">No. :</h6>
+                <?php 
+                    $row=$cetak_surat_pengantar
+                ?>
+                <h6 class="text-center font-weight-bold">No. :<?= $row->nomor_surat?></h6>
                 <p class="mt-5">Saya yang bertanda tangan di bawah ini Ketua RT 01/ RW 01 , Desa Sukapura Kecamatan Dayeuhkolot Kabupaten Bandung, dengan ini menerangkan bahwa:</p>
                 <table class="mt-3 ml-5">
                     <tr>
                         <td>Nama</td>
                         <td>:</td>
-                        <td></td>
+                        <td><?= ucwords($row->nama)?></td>
                     </tr>
                     <tr>
                         <td>Tempat/ Tanggal Lahir</td>
                         <td>:</td>
-                        <td></td>
+                        <td><?= ucwords($row->tempat_lahir)?>/<?= date('d F Y', strtotime($row->tanggal_lahir))?></td>
                     </tr>
                     <tr>
                         <td>No. KTP</td>
                         <td>:</td>
-                        <td></td>
+                        <td><?= $row->nik?></td>
                     </tr>
                     <tr>
                         <td>Pekerjaan</td>
                         <td>:</td>
-                        <td></td>
+                        <td><?= ucwords($row->pekerjaan)?></td>
                     </tr>
                     <tr>
                         <td>Agama</td>
                         <td>:</td>
-                        <td></td>
+                        <td><?= ucwords($row->agama)?></td>
                     </tr>
                     <tr>
                         <td>Kewarganegaraan</td>
@@ -53,17 +56,18 @@
                     <tr>
                         <td>Status Perkawinan</td>
                         <td>:</td>
-                        <td></td>
+                        <td><?= ucfirst($row->status)?></td>
                     </tr>
                     <tr>
                         <td>Alamat</td>
                         <td>:</td>
-                        <td></td>
+                        <td>Jl. <?= ucwords($row->nama_jalan)?>, <?= $row->gang?>, No. <?= $row->no_rumah?>, RT. 01 RW. 01, Babakan Ciamis, Kabupaten bandung</td>
                     </tr>
                 </table>
                 <p class="mt-5">Adalah benar warga kami.</p>
-                <p class="m-0">Surat Keterangan ini diberikan untuk dipergunakan</p>
-                <p class="text-right mt-5 mb-0">Manggadua,</p>
+                <p class="m-0">Surat Keterangan ini diberikan untuk dipergunakan <?= ucwords($row->keperluan)?>.</p>
+                <p class="text-right mt-5 mb-0">Manggadua, <?= date('d F Y', strtotime($row->tanggal_surat))?></p>
+                
                 <div class="row m-0">
                     <div class="col">
                         <h6 class="font-weight-bold pb-4">KETUA RW. 01</h6>
