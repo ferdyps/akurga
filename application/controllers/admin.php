@@ -127,11 +127,10 @@
         public function cetakSuratPengantar($id){
             $cetak_surat_pengantar = $this->m_admin->detailSuratPengantar($id)->row();
             $data = [
-                'content' => 'admin/cetakSuratPengantar',
                 'title' => 'Cetak Surat Pengantar',
                 'cetak_surat_pengantar' => $cetak_surat_pengantar 
             ];
-            $this->load->view('admin/index', $data);
+            $this->load->view('cetakSuratPengantar', $data);
         }
         public function listCetakSuratPengantar(){
             $list_cetak_surat_pengantar = $this->m_admin->cetakSuratJoinWarga()->result_array();
