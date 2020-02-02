@@ -113,8 +113,7 @@
         </a>
         <div id="collapseSekretarisUndangan" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="<?php echo base_url("admin/inputrapat");?>">Input Surat Rapat</a>
-            <a class="collapse-item" href="<?php echo base_url("admin/inputkegiatan");?>">Input Surat Kegiatan</a>
+            <a class="collapse-item" href="<?php echo base_url("admin/inputundangan");?>">Input Surat Undangan</a>
             <a class="collapse-item" href="<?php echo base_url("admin/riwayat_Undangan");?>">Riwayat Surat Undangan</a>
           </div>
         </div>

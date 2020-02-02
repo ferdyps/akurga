@@ -128,7 +128,7 @@
             $cetak_surat_pengantar = $this->m_admin->detailSuratPengantar($id)->row();
             $data = [
                 'title' => 'Cetak Surat Pengantar',
-                'cetak_surat_pengantar' => $cetak_surat_pengantar 
+                'cetak_surat_pengantar' => $cetak_surat_pengantar
             ];
             $this->load->view('cetakSuratPengantar', $data);
         }
@@ -505,22 +505,16 @@
 // ==========================================================================
 // Sekretaris
 // ==========================================================================
-        public function inputrapat(){
-            $id         = 'rapat';
-            $nama_field = 'no_udg';
-            $nama_tabel = 'surat_undangan';
-            $data['generate_id'] = $this->m_admin->get_id($id,$nama_field,$nama_tabel); //$this->session->userdata('jabatan')
-            $data['content'] = 'admin/v_rapat';
-            $data['title'] = 'Input Rapat';
-            $this->load->view('admin/index', $data);
-        }
 
-        public function inputkegiatan(){
-            $id         = 'kegiatan';
+
+        public function inputundangan(){
+            $id         = 'rapat';
+            $id2        = 'kegiatan';
             $nama_field = 'no_udg';
             $nama_tabel = 'surat_undangan';
             $data['generate_id'] = $this->m_admin->get_id($id,$nama_field,$nama_tabel); //$this->session->userdata('jabatan')
-            $data['content'] = 'admin/v_kegiatan';
+            $data['generate_id2'] = $this->m_admin->get_id($id2,$nama_field,$nama_tabel); //$this->session->userdata('jabatan')
+            $data['content'] = 'admin/v_undangan';
             $data['title'] = 'Input Surat Undangan Kegiatan';
             $this->load->view('admin/index', $data);
         }
@@ -977,67 +971,67 @@
         public function insertUndanganKegiatan(){
           $this->form_validation->set_rules([
               [
-                  'field' => 'no_udg',
+                  'field' => 'no_udg_kgt',
                   'label' => 'Nomor Undangan',
                   'rules' => 'trim|required'
               ],
 
               [
-                  'field' => 'hal',
+                  'field' => 'hal_kgt',
                   'label' => 'hal',
                   'rules' => 'trim|required'
               ],
 
               [
-                  'field' => 'tujuan_surat',
+                  'field' => 'tujuan_surat_kgt',
                   'label' => 'tujuan surat',
                   'rules' => 'trim|required'
               ],
 
               [
-                  'field' => 'tempat_udg',
+                  'field' => 'tempat_udg_kgt',
                   'label' => 'tempat Undangan',
                   'rules' => 'trim|required'
               ],
 
               [
-                  'field' => 'isi_surat',
+                  'field' => 'isi_surat_kgt',
                   'label' => 'Isi Surat',
                   'rules' => 'trim|required'
               ],
 
               [
-                  'field' => 'tgl_surat',
+                  'field' => 'tgl_surat_kgt',
                   'label' => 'Tanggal Surat ',
                   'rules' => 'required'
               ],
 
               [
-                  'field' => 'jam_udg',
+                  'field' => 'jam_udg_kgt',
                   'label' => 'Jam Undangan ',
                   'rules' => 'trim|required'
               ],
 
               [
-                  'field' => 'acara_udg',
+                  'field' => 'acara_udg_kgt',
                   'label' => 'acara Undangan',
                   'rules' => 'trim|required'
               ]
           ]);
 
           if ($this->input->post()) {
-            $no_udg     = $this->input->post('no_udg');
-            $lampiran   = $this->input->post('lampiran');
-            $sifat      = $this->input->post('sifat');
-            $hal        = $this->input->post('hal');
-            $tujuan_srt = $this->input->post('tujuan_surat');
-            $tempat_udg = $this->input->post('tempat_udg');
-            $catatan    = $this->input->post('catatan');
+            $no_udg     = $this->input->post('no_udg_kgt');
+            $lampiran   = $this->input->post('lampiran_kgt');
+            $sifat      = $this->input->post('sifat_kgt');
+            $hal        = $this->input->post('hal_kgt');
+            $tujuan_srt = $this->input->post('tujuan_surat_kgt');
+            $tempat_udg = $this->input->post('tempat_udg_kgt');
+            $catatan    = $this->input->post('catatan_kgt');
             $tembusan   = $this->input->post('tembusan');
-            $isi_surat  = $this->input->post('isi_surat');
-            $tgl_srt    = $this->input->post('tgl_surat');
-            $jam_udg    = $this->input->post('jam_udg');
-            $acara_udg  = $this->input->post('acara_udg');
+            $isi_surat  = $this->input->post('isi_surat_kgt');
+            $tgl_srt    = $this->input->post('tgl_surat_kgt');
+            $jam_udg    = $this->input->post('jam_udg_kgt');
+            $acara_udg  = $this->input->post('acara_udg_kgt');
             $date = date("Y/m/d");
 
             if ($this->form_validation->run() == TRUE) {
