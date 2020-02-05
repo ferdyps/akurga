@@ -8,6 +8,7 @@
             parent::__construct();
             $this->load->model('m_admin');
             $this->load->library('form_validation');
+            $this->load->library('pdf');
 
             $this->id_user = $this->session->userdata('id_user');
 
@@ -560,6 +561,21 @@
             $data['title'] = 'Riwayat Arsip Surat';
             $this->load->view('admin/index', $data);
 
+        }
+
+        public function cetak_undangan()
+        {
+          $pdf = new FPDF('P','mm','A4');
+          // membuat halaman baru
+          $pdf->AddPage();
+          // setting jenis font yang akan digunakan
+          $pdf->SetFont('Arial','B',16);
+          // mencetak string
+          $pdf->Cell(190,7,'RUKUN WARGA 01',0,1,'C');
+          $pdf->SetFont('Arial','B',12);
+          $pdf->Cell(190,7,'DAFTAR SISWA KELAS IX JURUSAN REKAYASA PERANGKAT LUNAK',0,1,'C');
+
+          $pdf->Output('undangan rapat','I');
         }
 
         // ==========================================================================

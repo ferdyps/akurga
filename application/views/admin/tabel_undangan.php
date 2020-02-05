@@ -34,15 +34,16 @@
                     <td><?= $row['jam_udg'] ?></td>
                     <td><?= $row['acara_udg'] ?></td>
                     <td>
-                      <a href="#" class="d-none d-sm-inline-block btn btn-primary shadow-sm fas fa-folder-open" title="Detail Data"
+                      <a href="#" class="d-none d-sm-inline-block btn btn-primary shadow-sm" title="Detail Data"
                         id="detailData" data-url="<?= base_url('admin/detailRapat/'); ?>" data-noudg="<?= $row['no_udg']; ?>"
-                        data-toggle="modal" data-target="#detailDataModal"></a>
+                        data-toggle="modal" data-target="#detailDataModal"><i class="fas fa-folder-open"></i></a>
                       <b>||</b>
-                      <a href="#" class="d-none d-sm-inline-block btn btn-primary shadow-sm fas fa-edit" title="Edit Data" id="detailRapat" data-url="<?= base_url('admin/detailRapat/'); ?>" data-noudg="<?= $row['no_udg']; ?>"
-                         data-toggle="modal" data-target="#editDataRapatModal"></a>
+                      <a href="#" class="d-none d-sm-inline-block btn btn-primary shadow-sm" title="Edit Data" id="detailRapat" data-url="<?= base_url('admin/detailRapat/'); ?>" data-noudg="<?= $row['no_udg']; ?>"
+                         data-toggle="modal" data-target="#editDataRapatModal"><i class="fas fa-edit"></i></a>
                       <b>||</b>
-                      <a href="<?= base_url("admin/inputnotulensi");?>" class="d-none d-sm-inline-block btn btn-primary shadow-sm fas fa-clipboard" title="Input Notulensi"></a>
+                      <a href="<?= base_url("admin/inputnotulensi");?>" class="d-none d-sm-inline-block btn btn-primary shadow-sm" title="Input Notulensi"><i class="fas fa-clipboard"></i></a>
                       <b>||</b>
+                      <a href="<?= base_url("admin/cetak_undangan");?>" class="d-none d-sm-inline-block btn btn-primary shadow-sm" title="cetak laporan"><i class="fas fa-print"></i></a>
                     </td>
                     </tr>
                   <?php } ?>
