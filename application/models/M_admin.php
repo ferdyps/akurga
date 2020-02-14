@@ -76,6 +76,7 @@
             FROM surat_pengantar sp 
             JOIN warga w ON w.nik=sp.nik");
         }
+
         public function list_cetak_sp()
         {
             return $this->db->query("SELECT w.nik, nama, sp.nomor_surat, keperluan, tanggal_surat, ss.STATUS
@@ -85,27 +86,31 @@
             WHERE ss.STATUS='diterima'");
         }
 
-        public function getNomorSuratPengantar()
-        {
+        public function getNomorSuratPengantar(){
             return $this->db->query("SELECT nomor_surat FROM `surat_pengantar` ORDER BY nomor_surat DESC LIMIT 1");
         }
+
         public function semuaDataWarga(){
             return $this->db->get('warga');
         }
+
         public function detailWargaById($nik){
             $this->db->where('nik', $nik);
             return $this->db->get('warga');
         }
+
         public function grafikPendidikan(){
             $this->db->select('COUNT(nik) as total, pendidikan');
             $this->db->group_by('pendidikan');
             return $this->db->get('warga');
         }
+
         public function grafikPekerjaan(){
             $this->db->select('COUNT(nik) as total, pekerjaan');
             $this->db->group_by('pekerjaan');
             return $this->db->get('warga');
         }
+
         public function userJoinWarga($id_user){
             return $this->db->query("SELECT * FROM user u JOIN warga w ON u.id_user=w.id_user WHERE u.id_user = '$id_user'");
         }
@@ -122,9 +127,11 @@
             $this->db->where('surat_pengantar.nomor_surat', $value);
             return $this->db->get();
         }
+
         public function komplainJoinWarga(){
             return $this->db->query("SELECT nomor_komplain,w.nik,nama,keluhan,lokasi,tanggal_komplain FROM komplain k JOIN warga w ON w.nik=k.nik");
         }
+
         public function riwayatSuratPengantar($id_user){
             return $this->db->query("SELECT u.id_user,sp.nomor_surat,sp.tanggal_surat,sp.keperluan, ss.status, ss.created_at, ss.pesan
             FROM `user` u 
@@ -138,6 +145,10 @@
             ) sp_max ON (sp_max.nomor_surat = sp.nomor_surat)
             JOIN status_surat ss ON (ss.id = sp_max.max_id)
             WHERE u.id_user='$id_user'");
+        }
+
+        public function list_akun(){
+            return $this->db->query("SELECT u.id_user,username,email,nik,nama,role FROM user u JOIN warga w ON w.id_user=u.id_user WHERE u.id_user NOT IN (1,2)");
         }
 // =========================================================================
         public function multiple_select_data($table, $where) {

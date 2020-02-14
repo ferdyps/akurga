@@ -50,7 +50,7 @@
 
                         $this->session->set_userdata($array_auth);
 
-                        if ($user_auth->role == 'adminMaster') {
+                        if ($user_auth->role == 'adminMaster' || $user_auth->role == 'Ketua RT') {
                             $url = base_url('admin/index');
 
                             $json = [
@@ -103,6 +103,8 @@
                     redirect('admin/','refresh');
                 }elseif ($this->session->userdata('role') == "Warga") {
                     redirect('user/','refresh');
+                }elseif ($this->session->userdata('role') == "Ketua RT") {
+                    redirect('admin/','refresh');
                 }
             }
         }

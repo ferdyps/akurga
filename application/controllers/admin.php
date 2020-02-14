@@ -23,7 +23,8 @@
 // Untuk Front-end
 // Ketua RW
 // =========================================================================
-        public function konfirmasiDataWarga(){
+        public function konfirmasiDataWarga()
+        {
             $table = 'warga';
             $where = [
                 'jenis_warga' => 'sementara',
@@ -43,6 +44,41 @@
             ];
             $this->load->view('admin/index', $data);
         }
+        function list_akun(){
+            $list_akun = $this->m_admin->list_akun()->result_array();
+            $data = [
+                'content' => 'admin/daftarAkun',
+                'title' => 'List Akun',
+                'list_akun' => $list_akun
+            ];
+            $this->load->view('admin/index', $data);   
+        }
+        public function edit_role($id_user)
+        {
+            if ($this->input->post()) {
+                $role = $this->input->post('role');
+                $data = ['role' => $role];
+                $update_role = $this->m_admin->edit_data('user', 'id_user',$id_user,$data);
+
+                if ($update_role) {
+                    ?>
+                    <script>
+                        alert('Role berhasil diupdate');
+                        location = "<?php base_url('admin/list_akun');?>";
+                    </script>
+                    <?php
+                }else{
+                    ?>
+                    <script>
+                        alert('Role gagal diupdate');
+                        location = "<?php base_url('admin/list_akun');?>";
+                    </script>
+                    <?php
+                }
+                
+            }    
+        }
+        
 // =========================================================================
 
 // Ketua RT

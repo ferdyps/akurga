@@ -38,6 +38,11 @@
           <i class="fas fa-fw fa-chart-area"></i>
           <span>Cetak Surat Pengantar</span></a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="<?= base_url('admin/list_akun')?>">
+          <i class="fas fa-fw fa-chart-area"></i>
+          <span>List Akun Pengguna</span></a>
+      </li>
       <hr class="sidebar-divider">
 
       <div class="sidebar-heading">
@@ -45,6 +50,7 @@
       </div>
 
       <!-- Nav Item - Pages Collapse Menu -->
+      
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseKetuaRT" aria-expanded="true" aria-controls="collapseKetuaRT">
           <i class="fas fa-fw fa-users"></i>

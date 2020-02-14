@@ -13,7 +13,7 @@
             if(!$this->session->has_userdata('status')){
                 redirect('auth/','refresh');
             } else {
-                if ($this->session->userdata('role') == 'adminMaster') {
+                if ($this->session->userdata('role') == 'adminMaster' || $this->session->userdata('role') == 'Ketua RT') {
                     redirect('admin/','refresh');
                 }
             }
