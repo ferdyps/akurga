@@ -21,7 +21,7 @@
           }elseif ($input == 'arsip') {
             $Char = "-ASM-";
           }elseif ($input == 'surat_pengantar') {
-            $Char = "'/SK-I/'";
+            $Char = '-SK-I-';
           }elseif ($input == 'komplain') {
             $Char = "-KOMPLAIN";
           }else {
@@ -56,6 +56,39 @@
         }
 
         // ============================================================
+        public function list_surat_pengantar()
+        {
+            return $this->db->query("SELECT sp.*,nama,
+            (
+                SELECT status
+                FROM status_surat ss
+                WHERE ss.nomor_surat = sp.nomor_surat
+                ORDER BY created_at DESC
+                LIMIT 1
+            ) as status,
+            (
+                SELECT pesan
+                FROM status_surat ss
+                WHERE ss.nomor_surat = sp.nomor_surat
+                ORDER BY created_at DESC
+                LIMIT 1
+            ) as pesan
+            FROM surat_pengantar sp 
+            JOIN warga w ON w.nik=sp.nik");
+        }
+        public function list_cetak_sp()
+        {
+            return $this->db->query("SELECT w.nik, nama, sp.nomor_surat, keperluan, tanggal_surat, ss.STATUS
+            FROM surat_pengantar sp
+            JOIN warga w ON w.nik=sp.nik
+            JOIN status_surat ss ON sp.nomor_surat = ss.nomor_surat
+            WHERE ss.STATUS='diterima'");
+        }
+
+        public function getNomorSuratPengantar()
+        {
+            return $this->db->query("SELECT nomor_surat FROM `surat_pengantar` ORDER BY nomor_surat DESC LIMIT 1");
+        }
         public function semuaDataWarga(){
             return $this->db->get('warga');
         }
@@ -76,12 +109,12 @@
         public function userJoinWarga($id_user){
             return $this->db->query("SELECT * FROM user u JOIN warga w ON u.id_user=w.id_user WHERE u.id_user = '$id_user'");
         }
-        public function suratJoinWarga(){
-            return $this->db->query("SELECT nomor_surat,keperluan,w.nik,nama,tanggal_surat,s.valid FROM surat_pengantar s JOIN warga w ON w.nik=s.nik");
-        }
-        public function cetakSuratJoinWarga(){
-            return $this->db->query("SELECT nomor_surat,keperluan,w.nik,nama,tanggal_surat,s.valid FROM surat_pengantar s JOIN warga w ON w.nik=s.nik WHERE s.valid=1");
-        }
+        // public function suratJoinWarga(){
+        //     return $this->db->query("SELECT nomor_surat,keperluan,w.nik,nama,tanggal_surat,s.valid FROM surat_pengantar s JOIN warga w ON w.nik=s.nik");
+        // }
+        // public function cetakSuratJoinWarga(){
+        //     return $this->db->query("SELECT nomor_surat,keperluan,w.nik,nama,tanggal_surat,s.valid FROM surat_pengantar s JOIN warga w ON w.nik=s.nik WHERE s.valid=1");
+        // }
         public function detailSuratPengantar($value){
             $this->db->select('*');
             $this->db->from('surat_pengantar');
@@ -93,7 +126,18 @@
             return $this->db->query("SELECT nomor_komplain,w.nik,nama,keluhan,lokasi,tanggal_komplain FROM komplain k JOIN warga w ON w.nik=k.nik");
         }
         public function riwayatSuratPengantar($id_user){
-            return $this->db->query("SELECT u.id_user,s.nomor_surat,s.tanggal_surat,s.keperluan FROM `user` u JOIN warga w ON u.id_user=w.id_user JOIN surat_pengantar s ON w.nik=s.nik WHERE u.id_user='$id_user'");
+            return $this->db->query("SELECT u.id_user,sp.nomor_surat,sp.tanggal_surat,sp.keperluan, ss.status, ss.created_at, ss.pesan
+            FROM `user` u 
+            JOIN warga w ON u.id_user=w.id_user 
+            JOIN surat_pengantar sp ON w.nik=sp.nik 
+            JOIN 
+            (
+                SELECT max(id) AS max_id ,nomor_surat
+                FROM status_surat
+                GROUP by nomor_surat
+            ) sp_max ON (sp_max.nomor_surat = sp.nomor_surat)
+            JOIN status_surat ss ON (ss.id = sp_max.max_id)
+            WHERE u.id_user='$id_user'");
         }
 // =========================================================================
         public function multiple_select_data($table, $where) {

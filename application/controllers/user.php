@@ -55,8 +55,15 @@
                         'nik' => $nik
                     ];
                     $insert_suratnya = $this->m_admin->input_data('surat_pengantar',$data);
+                    $id_surat = $this->m_admin->getNomorSuratPengantar()->row()->nomor_surat;
+                    $data_status_surat = [
+                        'nomor_surat' => $id_surat,
+                        'status' => 'pengajuan' 
+                    ];
+                    $insert_ke_status = $this->m_admin->input_data('status_surat',$data_status_surat);
+                    
 
-                    if ($insert_suratnya) {
+                    if ($insert_suratnya && $insert_ke_status) {
                         ?>
                         <script>
                             alert('Data Berhasil Diinputkan');
@@ -180,8 +187,72 @@
             ];
             $this->load->view('user/index', $data);
         }
-    }
-    
+// ==================================================================================
+        public function editSuratPengantar($id){
+            $this->form_validation->set_rules('keperluan', 'Keperluan', 'trim|required|regex_match[/^[a-zA-Z ]/]');
+            
+            if ($this->input->post()) {
+                $tanggal_surat = $this->input->post('tanggal_surat');
+                $keperluan = $this->input->post('keperluan');
+                
+                
+                if ($this->form_validation->run() == TRUE) {
+                    $data = [
+                        'tanggal_surat' => $tanggal_surat,
+                        'keperluan' => $keperluan
+                    ];
+                    $update_surat_pengantar = $this->m_admin->edit_data('surat_pengantar','nomor_surat',$id,$data);
+                    $data2 = [
+                        'nomor_surat' => $id,
+                        'status' => 'pengajuan'
+                    ];
+                    $update_status_surat = $this->m_admin->input_data('status_surat',$data2);
+
+                    if ($update_status_surat && $update_surat_pengantar) {
+                        ?>
+                        <script>
+                            alert('Surat Pengantar berhasil diupdate');
+                            location = "<?php base_url('user/riwayatSuratPengantar');?>";
+                        </script>
+                        <?php
+                    }else {
+                        ?>
+                        <script>
+                            alert('Surat Pengantar gagal diupdate');
+                            location = "<?php base_url('user/riwayatSuratPengantar');?>";
+                        </script>
+                        <?php
+                    }
+
+                } else {
+                    $table = 'surat_pengantar';
+                    $where = ['nomor_surat' => $id];
+                    $data_surat = $this->m_admin->selectWithWhere($table,$where)->row();
+                    $data = [
+                        'content' => 'user/editSuratPengantar',
+                        'title' => 'Edit Surat Pengantar',
+                        'data_surat' => $data_surat
+                    ];
+                    $this->load->view('user/index', $data);
+                }
+
+            } else {
+                $table = 'surat_pengantar';
+                $where = ['nomor_surat' => $id];
+                $data_surat = $this->m_admin->selectWithWhere($table,$where)->row();
+                $data = [
+                    'content' => 'user/editSuratPengantar',
+                    'title' => 'Edit Surat Pengantar',
+                    'data_surat' => $data_surat
+                ];
+                $this->load->view('user/index', $data);
+                
+            }
+
+        }
+
+}
+
     /* End of file User.php */
     
 ?>

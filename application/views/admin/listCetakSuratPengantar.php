@@ -36,7 +36,7 @@
                         <td><?= $row['keperluan']?></td>
                         <td><?= $row['tanggal_surat']?></td>
                         <td>
-                          <a href="<?= base_url('admin/cetakSuratPengantar/'.$row['nomor_surat'])?>" class="btn btn-success" target="_BLANK">Cetak</a>
+                          <a href="<?= base_url('admin/cetakSuratPengantar/'.$row['nomor_surat'])?>" class="btn btn-success" target="_BLANK"><i class="fas fa-print"></i></a>
                         </td>
                       </tr>
                   <?php } ?>

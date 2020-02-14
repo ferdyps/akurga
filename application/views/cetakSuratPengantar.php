@@ -20,7 +20,7 @@
   <link href="<?= base_url('assets/bootstrap4admin/vendor/datatables/dataTables.bootstrap4.min.css');?>" rel="stylesheet">
 
   <link rel="stylesheet" href="<?= config_item('asset_url') . 'css/main.css'; ?>">
-
+  
 </head>
 
 <body id="page-top">
@@ -28,8 +28,8 @@
 <div class="container-fluid">
 
           <!-- DataTales Example -->
-          <div class="card">
-                <h3 class="text-center font-weight-bold py-3">RUKUN TETANGGA 01</h3>
+          <div class="card border-0" style="height:100%;">
+                <h3 class="text-center font-weight-bold py-3 pt-5">RUKUN TETANGGA 01</h3>
                 <h5 class="text-center font-weight-bold">
                     RUKUN WARGA 01 <br>
                     DESA SUKAPURA KECAMATAN DAYEUHKOLOT <br>
@@ -89,7 +89,7 @@
                     </tr>
                 </table>
                 <p class="mt-5">Adalah benar warga kami.</p>
-                <p class="m-0">Surat Keterangan ini diberikan untuk dipergunakan <?= ucwords($row->keperluan)?>.</p>
+                <p class="m-0" style="height:470px;">Surat Keterangan ini diberikan untuk dipergunakan <?= ucwords($row->keperluan)?>.</p>
                 <p class="text-right mt-5 mb-0">Manggadua, <?= date('d F Y', strtotime($row->tanggal_surat))?></p>
                 
                 <div class="row m-0">
@@ -108,7 +108,7 @@
           </div>
         </div>
         <script>
-            window.print();
+            window.print()
         </script>
 </body>
 

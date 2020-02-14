@@ -1,0 +1,51 @@
+SELECT *
+FROM surat_pengantar
+JOIN
+(
+	SELECT nomor_surat, status, pesan, created_at
+    FROM status_surat
+    GROUP BY nomor_surat
+    ORDER BY 1 DESC
+) xx
+ON xx.nomor_surat = surat_pengantar.nomor_surat
+
+
+SELECT sp.*,
+(
+    SELECT status
+    FROM status_surat ss
+	WHERE ss.nomor_surat = sp.nomor_surat
+    ORDER BY created_at DESC
+    LIMIT 1
+) as validasi_surat
+FROM surat_pengantar sp
+
+SELECT sp.*,
+(
+    SELECT status
+    FROM status_surat ss
+	WHERE ss.nomor_surat = sp.nomor_surat
+    ORDER BY created_at DESC
+    LIMIT 1
+) as status,
+(
+    SELECT pesan
+    FROM status_surat ss
+	WHERE ss.nomor_surat = sp.nomor_surat
+    ORDER BY created_at DESC
+    LIMIT 1
+) as pesan
+FROM surat_pengantar sp
+
+SELECT u.id_user,sp.nomor_surat,sp.tanggal_surat,sp.keperluan, ss.status, ss.created_at, ss.pesan
+FROM `user` u 
+JOIN warga w ON u.id_user=w.id_user 
+JOIN surat_pengantar sp ON w.nik=sp.nik 
+JOIN 
+(
+    SELECT max(id) AS max_id ,nomor_surat
+    FROM status_surat
+    GROUP by nomor_surat
+) sp_max ON (sp_max.nomor_surat = sp.nomor_surat)
+JOIN status_surat ss ON (ss.id = sp_max.max_id)
+WHERE u.id_user=3

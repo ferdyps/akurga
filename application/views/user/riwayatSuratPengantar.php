@@ -6,13 +6,16 @@
           <hr class="divider my-4">
         </div>
         <div class="col-lg-8 align-self-baseline">
-            <table class="table table-striped table-dark">
+            <table class="table table-striped table-bordered table-dark table-hover">
                 <thead>
                     <tr>
                         <th width="5%">No</th>
                         <th>Nomor Surat</th>
                         <th>Tanggal Pengajuan</th>
                         <th>Keperluan</th>
+                        <th>Status</th>
+                        <th>Pesan</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -25,6 +28,11 @@
                         <td><?= $row['nomor_surat']?></td>
                         <td><?= $row['tanggal_surat']?></td>
                         <td><?= $row['keperluan']?></td>
+                        <td><?= $row['status']?></td>
+                        <td><?= $row['pesan']?></td>
+                        <td>
+                            <a class="btn btn-info"  href="<?= base_url('user/editSuratPengantar/'. $row['nomor_surat'])?>" <?php if($row['status'] == 'diterima' || $row['status'] == 'pengajuan') {?> hidden <?php } ?>> Edit</a>
+                        </td>
                     </tr>
                 <?php }?>
                 </tbody>

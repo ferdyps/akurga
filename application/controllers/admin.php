@@ -108,7 +108,7 @@
         }
 // -------------------------------------------------------------------------
         public function daftarSuratPengantar(){
-            $list_surat_pengantar = $this->m_admin->suratJoinWarga()->result_array();
+            $list_surat_pengantar = $this->m_admin->list_surat_pengantar()->result_array();
             $data = [
                 'content' => 'admin/daftarSuratPengantar',
                 'title' => 'List Surat Pengantar',
@@ -134,7 +134,7 @@
             $this->load->view('cetakSuratPengantar', $data);
         }
         public function listCetakSuratPengantar(){
-            $list_cetak_surat_pengantar = $this->m_admin->cetakSuratJoinWarga()->result_array();
+            $list_cetak_surat_pengantar = $this->m_admin->list_cetak_sp()->result_array();
             $data = [
                 'content' => 'admin/listCetakSuratPengantar',
                 'title' => 'List Cetak Surat Pengantar',
@@ -142,6 +142,7 @@
             ];
             $this->load->view('admin/index', $data);
         }
+        
 // -------------------------------------------------------------------------
         public function inputHasilKomplain(){
             $data['content'] = 'admin/inputHasilKomplain';
@@ -748,9 +749,12 @@
         }
 
         public function klik_konfirmasi_surat_pengantar($id){
-            $data['valid'] = 1;
+            $data = [
+                'nomor_surat' => $id,
+                'status' => 'diterima'
+            ];
 
-            $query = $this->m_admin->edit_data('surat_pengantar','nomor_surat',$id,$data);
+            $query = $this->m_admin->input_data('status_surat',$data);
 
             if ($query) {
                 $json['message'] = 'Surat Pengantar Berhasil Diapproval';
@@ -869,9 +873,70 @@
             } else {
                 redirect('admin/editWarga','refresh');
             }
+        }
+        
+        public function declineSuratPengantar($id_surat)
+        {
+            $this->form_validation->set_rules('pesan', 'Pesan', 'regex_match[/^[a-zA-Z ]/]');
+            if ($this->input->post()) {
+                $pesan = $this->input->post('pesan');
+
+                if ($this->form_validation->run() == TRUE) {
+                    $data = [
+                        'nomor_surat' => $id_surat,
+                        'pesan' => $pesan,
+                        'status' => 'ditolak'
+                    ];
+                    $tolak = $this->m_admin->input_data('status_surat',$data);
+                    if($tolak){
+                        ?>
+                        <script>
+                            alert('Penolakan Berhasil');
+                            location = "<?php base_url('admin/daftarSuratPengantar');?>";
+                        </script>
+                        <?php
+                    }else{
+                        ?>
+                        <script>
+                            alert('Penolakan Gagal');
+                            location = "<?php base_url('admin/daftarSuratPengantar');?>";
+                        </script>
+                        <?php
+                    }
+                //     if ($tolak) {
+                //         $url = base_url('admin/daftarSuratPengantar');
+
+                //         $json = [
+                //             'message' => "Surat pengantar berhasil ditolak..",
+                //             'url' => $url
+                //         ];
+                //     } else {
+                //         $json['errors'] = "Surat pengantar gagal ditolak..";
+                //     }
+
+                // } else {
+                //     $no = 0;
+                //     foreach ($this->input->post() as $key => $value) {
+                //         if (form_error($key) != "") {
+                //             $json['form_errors'][$no]['id'] = $key;
+                //             $json['form_errors'][$no]['msg'] = form_error($key, null, null);
+                //             $no++;
+                //         }
+                //     }
+                // }
+                // echo json_encode($json);
+            }else {
+                ?>
+                <script>
+                    location = "<?php base_url('admin/daftarSuratPengantar');?>";
+                </script>
+                <?php
+            }
+            
+        }
     }
 
-        // ================================ Insert Sekretaris =====================================
+// ================================ Insert Sekretaris =====================================
         public function insertUndanganRapat(){
           $this->form_validation->set_rules([
               [
@@ -1359,9 +1424,9 @@
             redirect('admin/index','refresh');
           }
         }
-        // ================================ End of Insert Sekretaris =====================================
+// ================================ End of Insert Sekretaris =====================================
 
-        // ================================ Update Sekretaris =====================================
+// ================================ Update Sekretaris =====================================
         public function editRapat(){
           $this->form_validation->set_rules([
               [

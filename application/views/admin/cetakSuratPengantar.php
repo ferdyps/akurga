@@ -1,3 +1,8 @@
+<style>
+    #tinggi_isi{
+        height: 10000px;
+    }
+</style>
 <div class="container-fluid">
 
           <!-- Page Heading -->
@@ -63,9 +68,10 @@
                         <td>:</td>
                         <td>Jl. <?= ucwords($row->nama_jalan)?>, <?= $row->gang?>, No. <?= $row->no_rumah?>, RT. 01 RW. 01, Babakan Ciamis, Kabupaten bandung</td>
                     </tr>
+                    <tr></tr>
                 </table>
                 <p class="mt-5">Adalah benar warga kami.</p>
-                <p class="m-0">Surat Keterangan ini diberikan untuk dipergunakan <?= ucwords($row->keperluan)?>.</p>
+                <p class="m-0" id="tinggi_isi">Surat Keterangan ini diberikan untuk dipergunakan <?= ucwords($row->keperluan)?>.</p>
                 <p class="text-right mt-5 mb-0">Manggadua, <?= date('d F Y', strtotime($row->tanggal_surat))?></p>
                 
                 <div class="row m-0">
@@ -83,6 +89,4 @@
             </div>
           </div>
         </div>
-        <script>
-            window.print();
-        </script>
+        
