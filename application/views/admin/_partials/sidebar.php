@@ -21,7 +21,8 @@
 
       <!-- Divider -->
       <hr class="sidebar-divider">
-
+      <?php if ($this->session->userdata('role') == 'adminMaster' || $this->session->userdata('role') == 'Ketua RW') { ?>
+      
       <!-- Heading -->
       <div class="sidebar-heading">
         Ketua RW
@@ -45,6 +46,7 @@
       </li>
       <hr class="sidebar-divider">
 
+      <?php } elseif ($this->session->userdata('role') == 'adminMaster' || $this->session->userdata('role') == 'Ketua RT'){ ?>
       <div class="sidebar-heading">
         Ketua RT
       </div>
@@ -87,10 +89,10 @@
         </div>
       </li>
       <hr class="sidebar-divider">
+      <?php } else if ($this->session->userdata('role') == 'adminMaster' || $this->session->userdata('role') == 'Bendahara'){ ?>
       <div class="sidebar-heading">
         Bendahara
       </div>
-
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBendahara" aria-expanded="true" aria-controls="collapseBendahara">
@@ -107,7 +109,7 @@
           </div>
         </div>
       </li>
-
+      <?php }elseif ($this->session->userdata('role') == 'adminMaster' || $this->session->userdata('role') == 'Sekretaris') {?>
       <!-- ================================ SEKRETARIS ========================================== -->
       <hr class="sidebar-divider">
       <div class="sidebar-heading">Sekretaris</div>
@@ -148,6 +150,7 @@
           </div>
         </div>
       </li>
+      <?php }?>
 
       <!-- ================================ END OF SEKRETARIS ========================================== -->
 
