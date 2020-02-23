@@ -46,6 +46,7 @@
       </li>
       <hr class="sidebar-divider">
 
+
       <?php } elseif ($this->session->userdata('role') == 'adminMaster' || $this->session->userdata('role') == 'Ketua RT'){ ?>
       <div class="sidebar-heading">
         Ketua RT
@@ -172,10 +173,12 @@
             <a class="collapse-item" href="<?php echo base_url("admin/usul_pengurus");?>">Form Usulan Rapat</a>
           </div>
         </div>
-      </li>
+      </li>  
       <!-- Sidebar Toggler (Sidebar) -->
       <div class="text-center d-none d-md-inline">
         <button class="rounded-circle border-0" id="sidebarToggle"></button>
       </div>
+
+     
 
     </ul>
