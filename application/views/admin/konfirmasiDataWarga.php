@@ -65,7 +65,8 @@
                             <td><?= $row['nama_jalan']?></td>
                             <td><?= $row['no_rumah']?></td>
                             <td><?= $row['gang']?></td>
-                            <td><button class="btn btn-primary" onclick="konfirmasi_data('<?= base_url('admin/klik_konfirmasi_data_warga/')?>', <?= $row['nik']; ?>)">Aprroval</button></td>
+                            <td><button class="btn btn-primary" onclick="konfirmasi_data('<?= base_url('admin/klik_konfirmasi_data_warga/')?>', <?= $row['nik']; ?>)"><i class="fas fa-check"></i></button></td>
+                            <td><button class="btn btn-danger" data-target="#input-message-warga" data-toggle="modal" <?= $row['nik']; ?>><i class="fas fa-times"></i></button></td>
                           </tr>
                       <?php } ?>
                       </tbody>
@@ -121,7 +122,9 @@
                             <td><?= $row['nama_jalan']?></td>
                             <td><?= $row['no_rumah']?></td>
                             <td><?= $row['gang']?></td>
-                            <td><button class="btn btn-primary" onclick="konfirmasi_data('<?= base_url('admin/klik_konfirmasi_data_warga/')?>', <?= $row['nik']; ?>)">Aprroval</button></td>
+                            <td><button class="btn btn-primary" onclick="konfirmasi_data('<?= base_url('admin/klik_konfirmasi_data_warga/')?>', <?= $row['nik']; ?>)"><i class="fas fa-check"></i></button></td>
+                            <td><button class="btn btn-danger"  data-target="#input-message-warga" data-toggle="modal"  <?= $row['nik']; ?>><i class="fas fa-times"></i></button>
+                            </td>
                           </tr>
                       <?php } ?>
                       </tbody>
@@ -130,3 +133,33 @@
                 </div>
               </div>
           </div>
+
+<div class="modal fade" id="input-message-warga" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editDataWargaModalLabel">Keterangan Penolakan Warga</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <?= form_open('admin/declineWarga/' . $row['nik']);?>
+            <div class="row px-3 my-3">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="pesan">Keterangan</label>
+                        <textarea id="pesan"  class="form-control" name="pesan"></textarea>
+                        <div class="invalid-feedback"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group text-center">
+                    <input type="submit" value="Submit" class="btn btn-primary" >
+                    <input type="reset" value="Reset" class="btn btn-danger">
+                </div>
+            </div>
+        <?= form_close();?>
+    </div>
+  </div>
+</div>

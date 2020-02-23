@@ -30,7 +30,7 @@
                 'jenis_warga' => 'sementara',
                 'valid' => 0
             ];
-            $where2 =[
+            $where2 = [
                 'jenis_warga' => 'tetap',
                 'valid' => 0
             ];
@@ -78,6 +78,7 @@
                 
             }    
         }
+        
         
 // =========================================================================
 
@@ -880,7 +881,8 @@
                         'gang' => $gang,
                         'nokk' => $nokk,
                         'hub_dlm_kel' => $hub_dlm_kel,
-                        'nohp' => $nohp
+                        'nohp' => $nohp,
+                        'valid' => 0
                     ];
 
                     $query = $this->m_admin->edit_data('warga','nik',$nik,$data);
@@ -970,6 +972,48 @@
             }
             
         }
+    }
+
+    public function declineWarga($nik)
+    {
+        $this->form_validation->set_rules('pesan', 'Pesan', 'regex_match[/^[a-zA-Z ]/]');
+        
+        if ($this->input->post()) {
+            $pesan = $this->input->post('pesan');
+            
+            if ($this->form_validation->run() == TRUE) {
+                $data = [
+                    'nik' => $nik,
+                    'pesan'=>$pesan
+                ];
+                
+                $data2['valid'] = 2;
+
+                $insert = $this->m_admin->input_data('decline_warga',$data);
+                $update = $this->m_admin->edit_data('warga','nik',$nik,$data2);
+
+                if ($insert && $update) {
+                    $json['message'] = 'Data Warga Berhasil Dibatalkan';
+                }else {
+                    $json['errors'] = 'Data Warga Gagal Dibatalkan';
+                }
+
+            } else {
+                $no = 0;
+                foreach ($this->input->post() as $key => $value) {
+                    if (form_error($key) != "") {
+                        $json['form_errors'][$no]['id'] = $key;
+                        $json['form_errors'][$no]['msg'] = form_error($key, null, null);
+                        $no++;
+                    }
+                }
+            }
+            echo json_encode($json);
+        }else {
+            redirect('admin/konfirmasiDataWarga','refresh');
+        }
+
+        
     }
 
 // ================================ Insert Sekretaris =====================================

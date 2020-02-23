@@ -187,6 +187,17 @@
             ];
             $this->load->view('user/index', $data);
         }
+
+        public function riwayatKomplain()
+        {
+            $riwayatKomplain = $this->m_admin->riwayatKomplain($this->session->userdata('id_user'))->result_array();
+            $data = [
+                'content' => 'user/riwayatKomplain',
+                'title' => 'List Pengaduan Komplain',
+                'listKomplain' => $riwayatKomplain
+            ];
+            $this->load->view('user/index', $data);
+        }
 // ==================================================================================
         public function editSuratPengantar($id){
             $this->form_validation->set_rules('keperluan', 'Keperluan', 'trim|required|regex_match[/^[a-zA-Z ]/]');

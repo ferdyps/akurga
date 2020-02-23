@@ -53,7 +53,10 @@
                             <td>
                               <?php if ($row['valid'] == 1) {
                                 echo "Sudah Valid";
-                              }else {
+                              }else if ($row['valid'] == 2) {
+                                echo "Validasi Ditolak";
+                              }
+                              else {
                                 echo "Belum Valid";
                               }?>
                             </td>
@@ -105,7 +108,10 @@
                             <td>
                               <?php if ($row['valid'] == 1) {
                                 echo "Sudah Valid";
-                              }else {
+                              }else if ($row['valid'] == 2) {
+                                echo "Validasi Ditolak";
+                              }
+                              else {
                                 echo "Belum Valid";
                               }?>
                             </td>

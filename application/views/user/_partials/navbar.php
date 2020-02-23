@@ -19,6 +19,9 @@
             <a class="nav-link" href="<?= base_url('user/formKomplain')?>">Komplain</a>
           </li> 
           <li class="nav-item">
+            <a class="nav-link" href="<?= base_url('user/riwayatKomplain')?>">Riwayat Pengajuan Komplain</a>
+          </li> 
+          <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="<?= base_url()?>">Notulensi</a>
           </li>
           <li class="nav-item">

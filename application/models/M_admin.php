@@ -146,6 +146,16 @@
             JOIN status_surat ss ON (ss.id = sp_max.max_id)
             WHERE u.id_user='$id_user'");
         }
+        public function riwayatKomplain($id_user)
+        {
+            return $this->db->query("SELECT u.id_user,w.nik,w.nama,k.nomor_komplain,k.keluhan,k.tanggal_komplain,k.lokasi
+            FROM user u
+            JOIN warga w 
+            ON u.id_user=w.id_user
+            JOIN komplain k
+            ON w.nik=k.nik
+            WHERE u.id_user='$id_user'");
+        }
 
         public function list_akun(){
             return $this->db->query("SELECT u.id_user,username,email,nik,nama,role FROM user u JOIN warga w ON w.id_user=u.id_user WHERE u.id_user NOT IN (1,2)");
