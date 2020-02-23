@@ -51,7 +51,7 @@
                 'title' => 'List Akun',
                 'list_akun' => $list_akun
             ];
-            $this->load->view('admin/index', $data);   
+            $this->load->view('admin/index', $data);
         }
         public function edit_role($id_user)
         {
@@ -75,11 +75,11 @@
                     </script>
                     <?php
                 }
-                
-            }    
+
+            }
         }
-        
-        
+
+
 // =========================================================================
 
 // Ketua RT
@@ -179,7 +179,7 @@
             ];
             $this->load->view('admin/index', $data);
         }
-        
+
 // -------------------------------------------------------------------------
         public function inputHasilKomplain(){
             $data['content'] = 'admin/inputHasilKomplain';
@@ -609,9 +609,12 @@
           // setting jenis font yang akan digunakan
           $pdf->SetFont('Arial','B',16);
           // mencetak string
-          $pdf->Cell(190,7,'RUKUN WARGA 01',0,1,'C');
+          $pdf->Cell(190,7,'RUKUN TETANGGA 01',0,1,'C');
           $pdf->SetFont('Arial','B',12);
-          $pdf->Cell(190,7,'DAFTAR SISWA KELAS IX JURUSAN REKAYASA PERANGKAT LUNAK',0,1,'C');
+          $pdf->Cell(190,7,'RUKUN WARGA 01',0,1,'C');
+          $pdf->Cell(190,7,'DESA SUKAPURA KECAMATAN DAYEUHKOLOT',0,1,'C');
+          $pdf->Cell(190,7,'KABUPATEN BANDUNG',0,1,'C');
+          $pdf->Line(120,90,50,50);
 
           $pdf->Output('undangan rapat','I');
         }
@@ -912,7 +915,7 @@
                 redirect('admin/editWarga','refresh');
             }
         }
-        
+
         public function declineSuratPengantar($id_surat)
         {
             $this->form_validation->set_rules('pesan', 'Pesan', 'regex_match[/^[a-zA-Z ]/]');
@@ -970,23 +973,23 @@
                 </script>
                 <?php
             }
-            
+
         }
     }
 
     public function declineWarga($nik)
     {
         $this->form_validation->set_rules('pesan', 'Pesan', 'regex_match[/^[a-zA-Z ]/]');
-        
+
         if ($this->input->post()) {
             $pesan = $this->input->post('pesan');
-            
+
             if ($this->form_validation->run() == TRUE) {
                 $data = [
                     'nik' => $nik,
                     'pesan'=>$pesan
                 ];
-                
+
                 $data2['valid'] = 2;
 
                 $insert = $this->m_admin->input_data('decline_warga',$data);
@@ -1013,7 +1016,7 @@
             redirect('admin/konfirmasiDataWarga','refresh');
         }
 
-        
+
     }
 
 // ================================ Insert Sekretaris =====================================
