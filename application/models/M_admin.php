@@ -195,6 +195,7 @@
             $this->db->select('warga.nik,warga.nama, pembayaran.no_pembayaran, pembayaran.pembayaran_bulan,pembayaran.nominal,pembayaran.tanggal');
             $this->db->from('warga');
             $this->db->join('pembayaran','warga.nik=pembayaran.nik');
+            $this->db->order_by('no_pembayaran','desc');
             // $this->db->where($where);
             return $this->db->get();
         }
