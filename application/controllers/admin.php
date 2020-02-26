@@ -603,6 +603,7 @@
 
         public function cetak_undangan()
         {
+            $test = 'Warga RT 01 as,dbadjbasdb kjasbdkasbd kabsksbak baslasdaab ajlsbdlasn lasn alsn alsn sanlasn d;lasnlasan';
           $pdf = new FPDF('P','mm','A4');
           // membuat halaman baru
           $pdf->AddPage();
@@ -622,16 +623,49 @@
           $pdf->Line(10,46,200,46);
           $pdf->Ln(12);
           $pdf->Cell(20);
-          $pdf->Cell(5,3,'Nomor',0,0,'L');
+          $pdf->Cell(5,5,'Nomor',0,0,'L');
           $pdf->Cell(25);
-          $pdf->Cell(5,3,':',0,0,'L');
+          $pdf->Cell(5,5,':',0,0,'L');
+          $pdf->Cell(5,5,'RT01/RPT/001',0,0,'L');
           $pdf->Cell(60);
-          $pdf->Cell(5,3,'Sukapura,',0,0,'L');
+          $pdf->Cell(5,5,'Sukapura,',0,0,'L');
           $pdf->Cell(15);
-          $pdf->Cell(5,3,'13 November 2020',0,1,'L');
-          $pdf->Ln(1.5);
+          $pdf->Cell(5,5,'13 November 2020',0,1,'L');
+          $pdf->Ln(1);
           $pdf->Cell(20);
-          $pdf->Cell(5,3,'Lampiran',0,0,'L');
+          $pdf->Cell(5,5,'Lampiran',0,0,'L');
+          $pdf->Cell(25);
+          $pdf->Cell(5,5,':',0,0,'L');
+          $pdf->Cell(5,5,'1 lembar',0,1,'L');
+          $pdf->Ln(1);
+          $pdf->Cell(20);
+          $pdf->Cell(5,5,'Sifat',0,0,'L');
+          $pdf->Cell(25);
+          $pdf->Cell(5,5,':',0,0,'L');
+          $pdf->Cell(5,5,'Penting',0,0,'L');
+          $pdf->Cell(60);
+          $pdf->Cell(5,5,'Kepada',0,1,'L');
+          $pdf->Ln(1);
+          $pdf->Cell(20);
+          $pdf->Cell(5,5,'Hal',0,0,'L');
+          $pdf->Cell(25);
+          $pdf->Cell(5,5,':',0,0,'L');
+          $pdf->Cell(5,5,'Undangan Rapat',0,0,'L');
+          $pdf->Cell(60);
+          $pdf->Cell(5,5,'Yth.',0,0,'L');
+          $pdf->Cell(5);
+          $pdf->MultiCell(60,5,'Warga RT 01 as,dbadjbasdb kjasbdkasbd kabsksbak baslasdaab',0,'L');
+          $pdf->Cell(120);
+          $pdf->Cell(5,5,'Di Tempat',0,1,'L');
+          $pdf->Cell(120);
+          $pdf->Ln(14);
+          $pdf->SetFont('Arial','B',12);
+          $pdf->Cell(190,7,'SURAT UNDANGAN',0,1,'C');
+          $pdf->SetFont('Arial','',12);
+          $pdf->Ln(8);
+          $pdf->Cell(20);
+          $pdf->Cell(5,5,'',0,0,'L');
+          $pdf->MultiCell(150,5,'Berdasarkan '.$test,0,'L');
 
           $pdf->Output('Undangan Rapat','I');
         }
