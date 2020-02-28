@@ -21,11 +21,7 @@
               </div>
               <div class="form-group form-input">
                   <label for="sifat">Sifat</label>
-                  <select id="edit-sifat" name="sifat" class="form-control" readonly>
-                     <option selected>Biasa</option>
-                     <option>Penting</option>
-                     <option>Segera</option>
-                   </select>
+                  <input type="text" name="sifat" id="edit-sifat" class="form-control" readonly>
                   <div class="invalid-feedback"></div>
               </div>
 
