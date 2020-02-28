@@ -41,7 +41,7 @@
                       <a href="#" class="d-none d-sm-inline-block btn btn-primary shadow-sm" title="Edit Data" id="detailRapat" data-url="<?= base_url('admin/detailRapat/'); ?>" data-noudg="<?= $row['no_udg']; ?>"
                          data-toggle="modal" data-target="#editDataRapatModal"><i class="fas fa-edit"></i></a>
                       <b>||</b>
-                      <a href="<?= base_url("admin/inputnotulensi");?>" class="d-none d-sm-inline-block btn btn-primary shadow-sm" title="Input Notulensi"><i class="fas fa-clipboard"></i></a>
+                      <a href="<?= base_url("admin/inputnotulensi").'/'.$row['no_udg'];?>" class="d-none d-sm-inline-block btn btn-primary shadow-sm" title="Input Notulensi"><i class="fas fa-clipboard"></i></a>
                       <b>||</b>
                       <a href="<?= base_url("admin/cetak_undangan");?>" class="d-none d-sm-inline-block btn btn-primary shadow-sm" title="cetak laporan"><i class="fas fa-print"></i></a>
                     </td>

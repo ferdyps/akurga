@@ -562,6 +562,7 @@
             $id         = 'notulensi';
             $nama_field = 'no_notulen';
             $nama_tabel = 'notulensi_rpt';
+            $data['key_no_udg'] = $this->uri->segment(3);
             $data['generate_id'] = $this->m_admin->get_id($id,$nama_field,$nama_tabel); //$this->session->userdata('jabatan')
             $data['content'] = 'admin/v_notulensi';
             $data['title'] = 'Input Notulensi Rapat';
@@ -574,7 +575,7 @@
             $nama_tabel = 'arsip_surat';
             $data['generate_id'] = $this->m_admin->get_id($id,$nama_field,$nama_tabel); //$this->session->userdata('jabatan')
             $data['content'] = 'admin/v_arsip_surat';
-            $data['title'] = 'Input Notulensi Rapat';
+            $data['title'] = 'Input Arsip Surat';
             $this->load->view('admin/index', $data);
         }
 
@@ -1354,6 +1355,11 @@
                   'field' => 'uraian_notulen',
                   'label' => 'Uraian Notulensi',
                   'rules' => 'trim|required'
+              ],
+              [
+                  'field' => 'no_udg',
+                  'label' => 'No Undangan',
+                  'rules' => 'trim|required'
               ]
           ]);
 
@@ -1363,14 +1369,16 @@
             $tembusan       = $this->input->post('tembusan');
             $uraian_notulen = $this->input->post('uraian_notulen');
             $date = date("Y/m/d");
+            $no_udg       = $this->input->post('no_udg');
 
             if ($this->form_validation->run() == TRUE) {
               $data = [
-                'no_notulen' => $no_notulen,
-                'lampiran' => $lampiran,
-                'tembusan' => $tembusan,
-                'uraian_notulen' => $uraian_notulen,
-                'tgl_buat' => $date
+                'no_notulen'      => $no_notulen,
+                'lampiran'        => $lampiran,
+                'tembusan'        => $tembusan,
+                'uraian_notulen'  => $uraian_notulen,
+                'tgl_buat'        => $date,
+                'no_udg'          => $no_udg
               ];
 
               $query = $this->m_admin->input_data('notulensi_rpt', $data);
