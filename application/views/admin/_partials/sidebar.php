@@ -53,7 +53,7 @@
       </div>
 
       <!-- Nav Item - Pages Collapse Menu -->
-      
+
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseKetuaRT" aria-expanded="true" aria-controls="collapseKetuaRT">
           <i class="fas fa-fw fa-users"></i>
@@ -277,7 +277,6 @@
 
 
 
-      <!-- ================================ END OF SEKRETARIS ========================================== -->
 
 
       <!-- Divider -->
@@ -297,12 +296,12 @@
             <a class="collapse-item" href="<?php echo base_url("admin/usul_pengurus");?>">Form Usulan Rapat</a>
           </div>
         </div>
-      </li>  
+      </li>
       <!-- Sidebar Toggler (Sidebar) -->
       <div class="text-center d-none d-md-inline">
         <button class="rounded-circle border-0" id="sidebarToggle"></button>
       </div>
 
-     
+
 
     </ul>

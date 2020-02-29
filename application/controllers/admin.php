@@ -51,7 +51,7 @@
                 'title' => 'List Akun',
                 'list_akun' => $list_akun
             ];
-            $this->load->view('admin/index', $data);   
+            $this->load->view('admin/index', $data);
         }
         public function edit_role($id_user)
         {
@@ -75,11 +75,11 @@
                     </script>
                     <?php
                 }
-                
-            }    
+
+            }
         }
-        
-        
+
+
 // =========================================================================
 
 // Ketua RT
@@ -179,7 +179,7 @@
             ];
             $this->load->view('admin/index', $data);
         }
-        
+
 // -------------------------------------------------------------------------
         public function inputHasilKomplain(){
             $data['content'] = 'admin/inputHasilKomplain';
@@ -562,6 +562,7 @@
             $id         = 'notulensi';
             $nama_field = 'no_notulen';
             $nama_tabel = 'notulensi_rpt';
+            $data['key_no_udg'] = $this->uri->segment(3);
             $data['generate_id'] = $this->m_admin->get_id($id,$nama_field,$nama_tabel); //$this->session->userdata('jabatan')
             $data['content'] = 'admin/v_notulensi';
             $data['title'] = 'Input Notulensi Rapat';
@@ -574,7 +575,7 @@
             $nama_tabel = 'arsip_surat';
             $data['generate_id'] = $this->m_admin->get_id($id,$nama_field,$nama_tabel); //$this->session->userdata('jabatan')
             $data['content'] = 'admin/v_arsip_surat';
-            $data['title'] = 'Input Notulensi Rapat';
+            $data['title'] = 'Input Arsip Surat';
             $this->load->view('admin/index', $data);
         }
 
@@ -603,17 +604,111 @@
 
         public function cetak_undangan()
         {
+            $test = 'Warga RT 01 as,dbadjbasdb kjasbdkasbd kabsksbak baslasdaab ajlsbdlasn lasn alsn alsn sanlasn d;lasnlasan';
           $pdf = new FPDF('P','mm','A4');
           // membuat halaman baru
           $pdf->AddPage();
           // setting jenis font yang akan digunakan
           $pdf->SetFont('Arial','B',16);
           // mencetak string
-          $pdf->Cell(190,7,'RUKUN WARGA 01',0,1,'C');
+          $pdf->Cell(190,7,'RUKUN TETANGGA 01',0,1,'C');
           $pdf->SetFont('Arial','B',12);
-          $pdf->Cell(190,7,'DAFTAR SISWA KELAS IX JURUSAN REKAYASA PERANGKAT LUNAK',0,1,'C');
+          $pdf->Cell(190,7,'RUKUN WARGA 01',0,1,'C');
+          $pdf->Cell(190,7,'DESA SUKAPURA KECAMATAN DAYEUHKOLOT',0,1,'C');
+          $pdf->Cell(190,7,'KABUPATEN BANDUNG',0,1,'C');
+          $pdf->Line(10,40,200,40);
+          $pdf->Ln(1.4);
+          $pdf->SetFont('Arial','',12);
+          $pdf->Cell(190,7,'Sekretariat : Manggadua RT. 01 RW. 01 Desa Sukapura Kec. Dayeuhkolot Kab. Bandung -  40267',0,1,'C');
+          $pdf->SetLineWidth(1);
+          $pdf->Line(10,46,200,46);
+          $pdf->Ln(12);
+          $pdf->Cell(17);
+          $pdf->Cell(5,5,'Nomor',0,0,'L');
+          $pdf->Cell(25);
+          $pdf->Cell(5,5,':',0,0,'L');
+          $pdf->Cell(5,5,'RT01/RPT/001',0,0,'L');
+          $pdf->Cell(60);
+          $pdf->Cell(5,5,'Bandung,',0,0,'L');
+          $pdf->Cell(15);
+          $pdf->Cell(5,5,'13 November 2020',0,1,'L');
+          $pdf->Ln(1);
+          $pdf->Cell(17);
+          $pdf->Cell(5,5,'Lampiran',0,0,'L');
+          $pdf->Cell(25);
+          $pdf->Cell(5,5,':',0,0,'L');
+          $pdf->Cell(5,5,'1 lembar',0,1,'L');
+          $pdf->Ln(1);
+          $pdf->Cell(17);
+          $pdf->Cell(5,5,'Sifat',0,0,'L');
+          $pdf->Cell(25);
+          $pdf->Cell(5,5,':',0,0,'L');
+          $pdf->Cell(5,5,'Penting',0,0,'L');
+          $pdf->Cell(60);
+          $pdf->Cell(5,5,'Kepada',0,1,'L');
+          $pdf->Ln(1);
+          $pdf->Cell(17);
+          $pdf->Cell(5,5,'Hal',0,0,'L');
+          $pdf->Cell(25);
+          $pdf->Cell(5,5,':',0,0,'L');
+          $pdf->Cell(5,5,'Undangan Rapat',0,0,'L');
+          $pdf->Cell(60);
+          $pdf->Cell(5,5,'Yth.',0,0,'L');
+          $pdf->Cell(5);
+          $pdf->MultiCell(60,5,'Warga RT 01 as,dbadjbasdb kjasbdkasbd kabsksbak baslasdaab',0,'L');
+          $pdf->Cell(117);
+          $pdf->Cell(5,7,'Di Tempat',0,1,'L');
+          $pdf->Cell(120);
+          $pdf->Ln(6);
+          $pdf->SetFont('Arial','B',12);
+          $pdf->Cell(190,7,'SURAT UNDANGAN',0,1,'C');
+          $pdf->SetFont('Arial','',12);
+          $pdf->Ln(4);
+          $pdf->Cell(17);
+          $pdf->MultiCell(160,7,'Berdasarkan '.$test.', maka dengan ini kami mengundang Saudara/Bapak/Ibu untuk hadir pada',0,'L');
+          $pdf->Ln(6);
+          $pdf->Cell(35);
+          $pdf->Cell(35,7,'Hari tanggal',0,'L');
+          $pdf->Cell(5,7,':',0,'L');
+          $pdf->MultiCell(100,7,'14 november 2019',0,'L');
+          $pdf->Cell(35);
+          $pdf->Cell(35,7,'Waktu',0,'L');
+          $pdf->Cell(5,7,':',0,'L');
+          $pdf->MultiCell(100,7,'Jam '.'19.00'.' s/d selesai',0,'L');
+          $pdf->Cell(35);
+          $pdf->Cell(35,7,'Tempat',0,0,'L');
+          $pdf->Cell(5,7,':',0,0,'L');
+          $pdf->MultiCell(100,7,'Masjid Al-huda',0,'L');
+          $pdf->Cell(35);
+          $pdf->Cell(35,7,'Acara',0,0,'L');
+          $pdf->Cell(5,7,':',0,0,'L');
+          $pdf->MultiCell(100,7,'Penyampaian susunan pengurus RT yang baru',0,'L');
+          $pdf->Ln(6);
+          $pdf->Cell(17);
+          $pdf->MultiCell(160,7,'Demikian disampaikan untuk dapat dimaklumi, atas kehadirannya diucapkan terima kasih agar menjadi maklum yang berkepentingan mengetahuinya.',0,'L');
+          $pdf->Ln(4);
+          $pdf->MultiCell(177,7,'Salam Hormat',0,'R');
+          $pdf->Ln(8);
+          $pdf->Cell(27);
+          $pdf->Cell(35,7,'Sekretaris',0,0,'C');
+          // $pdf->Cell(35,7,'Sekretaris',0,'C');
+          $pdf->Cell(60);
+          $pdf->Cell(35,7,'Ketua RT 01 RW 01',0,0,'C');
+          // $pdf->Cell(35,7,'Ketua RT 01 RW 01',0,'C');
+          $pdf->Ln(40);
+          $pdf->Cell(27);
+          $pdf->Cell(35,7,'Iwan Setiawan ',0,0,'C');
+          $pdf->Cell(60);
+          $pdf->Cell(35,7,'Moch Toha',0,1,'C');
+          $pdf->Ln(8);
+          $pdf->SetFont('Arial','B'.'U',11);
+          $pdf->Cell(19,7,'Tembusan',0,0,'C');
+          $pdf->SetFont('Arial','',11);
+          $pdf->Cell(3,7,':',0,0,'C');
+          $pdf->MultiCell(177,7,'1. Yth. Rukun Warga 01',0,'L');
 
-          $pdf->Output('undangan rapat','I');
+
+          $pdf->Output('Undangan Rapat','I');
         }
 
         // ==========================================================================
@@ -912,7 +1007,7 @@
                 redirect('admin/editWarga','refresh');
             }
         }
-        
+
         public function declineSuratPengantar($id_surat)
         {
             $this->form_validation->set_rules('pesan', 'Pesan', 'regex_match[/^[a-zA-Z ]/]');
@@ -970,23 +1065,23 @@
                 </script>
                 <?php
             }
-            
+
         }
     }
 
     public function declineWarga($nik)
     {
         $this->form_validation->set_rules('pesan', 'Pesan', 'regex_match[/^[a-zA-Z ]/]');
-        
+
         if ($this->input->post()) {
             $pesan = $this->input->post('pesan');
-            
+
             if ($this->form_validation->run() == TRUE) {
                 $data = [
                     'nik' => $nik,
                     'pesan'=>$pesan
                 ];
-                
+
                 $data2['valid'] = 2;
 
                 $insert = $this->m_admin->input_data('decline_warga',$data);
@@ -1017,7 +1112,7 @@
             redirect('admin/konfirmasiDataWarga','refresh');
         }
 
-        
+
     }
 
 // ================================ Insert Sekretaris =====================================
@@ -1264,6 +1359,11 @@
                   'field' => 'uraian_notulen',
                   'label' => 'Uraian Notulensi',
                   'rules' => 'trim|required'
+              ],
+              [
+                  'field' => 'no_udg',
+                  'label' => 'No Undangan',
+                  'rules' => 'trim|required'
               ]
           ]);
 
@@ -1273,14 +1373,16 @@
             $tembusan       = $this->input->post('tembusan');
             $uraian_notulen = $this->input->post('uraian_notulen');
             $date = date("Y/m/d");
+            $no_udg       = $this->input->post('no_udg');
 
             if ($this->form_validation->run() == TRUE) {
               $data = [
-                'no_notulen' => $no_notulen,
-                'lampiran' => $lampiran,
-                'tembusan' => $tembusan,
-                'uraian_notulen' => $uraian_notulen,
-                'tgl_buat' => $date
+                'no_notulen'      => $no_notulen,
+                'lampiran'        => $lampiran,
+                'tembusan'        => $tembusan,
+                'uraian_notulen'  => $uraian_notulen,
+                'tgl_buat'        => $date,
+                'no_udg'          => $no_udg
               ];
 
               $query = $this->m_admin->input_data('notulensi_rpt', $data);

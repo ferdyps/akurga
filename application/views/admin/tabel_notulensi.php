@@ -29,9 +29,9 @@
                     <td><?= $row['tembusan'] ?></td>
                     <td><?= $row['uraian_notulen'] ?></td>
                     <td>
-                      <a href="#" class="d-none d-sm-inline-block btn btn-primary shadow-sm" id="editNotulensi"
+                      <a href="#" class="d-none d-sm-inline-block btn btn-primary shadow-sm" id="editNotulensi" title="Edit Data"
                       data-url="<?= base_url('admin/detailNotulen/'); ?>" data-notulen="<?= $row['no_notulen']; ?>"
-                      data-toggle="modal" data-target="#editDataNotulensiModal">Edit</a>
+                      data-toggle="modal" data-target="#editDataNotulensiModal"><i class="fas fa-edit"></i></a>
                     </td>
                   </tbody>
                 <?php } ?>

@@ -58,6 +58,7 @@
                </div>
            </div>
            <div class="col">
+               <input type="hidden" name="no_udg" id="input-no_udg" value="<?= $key_no_udg  ?>" class="form-control">
                <div class="form-group text-center">
                    <input type="submit" class="btn btn-primary">
                    <input type="reset" value="Reset" class="btn btn-danger">
