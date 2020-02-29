@@ -9,6 +9,28 @@
   <div class="card-header py-3">
     <h6 class="m-0 font-weight-bold text-primary">Tabel Pemasukan</h6>
   </div>
+
+  <div class="row px-3 my-3">
+              <div class="col">
+              <div class="form-group form-input">
+                  <label for="diberikan_kepada">Pilih Bulan</label>
+                  <select name="diberikan_kepada" id="filterPemasukanBulanan" class="form-control">
+                      <option selected disabled>-- Pilih Bulan --</option>
+                      <option value="Januari">Januari</option>
+                      <option value="Februari">Februari</option>
+                      <option value="Maret">Maret</option>
+                      <option value="April">April</option>
+                      <option value="Mei">Mei</option>
+                      <option value="Juni">Juni</option>
+                      <option value="Juli">Juli</option>
+                      <option value="Agustus">Agustus</option>
+                      <option value="September">September</option>
+                      <option value="Oktober">Oktober</option>
+                      <option value="November">November</option>
+                      <option value="Desember">Desember</option>
+                  </select>
+              </div>
+
   <div class="card-body">
     <div class="table-responsive">
       <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -20,46 +42,71 @@
             <th>Pembayaran Bulan</th>
             <th>Nominal</th>
             <th>Tanggal</th>
-            <!-- <th>Aksi</th> -->
-            <!-- <th>Aksi</th> -->
           </tr>
         </thead>
-
-        <tbody>
-        <?php 
-          $no = 1;
-          $sum=0;
-          foreach($dataiuranmsk as $b){ 
-        ?>
-          <tr>
-            <td><?php echo $no++; ?></td>
-            <!-- <?php echo $b['no_pengeluaran']; ?></td>   -->
-            <td><?php echo $b['nik']; ?></td>
-            <td><?php echo $b['nama']; ?></td>
-            <td><?php echo $b['pembayaran_bulan']; ?></td>
-            <td><?php echo $b['nominal'] ?></td>
-            <td><?php echo $b['tanggal'] ?></td>
-            <!-- <td><?php echo $b['gambar'] ?></td> -->
-            <!-- <td><img src="<?php echo base_url('/uploads/gambar/'.$b['gambar']);?>" height="50px" width="50px"></td> -->
-            <td>
-            <?php $sum=$sum+$b['nominal']?>
-               <!-- <?php echo anchor('admin/edit_iuran_keluar/'.$b['no_pembayaran'],'Edit'); ?>    -->
-                 <!-- <?php echo anchor('admin/hapus_iuran_keluar/'.$b['no_pengeluaran'],'Hapus'); ?>     -->
-            </td>
-          </tr>
-        <?php } ?>
-        <tr>
-      <td colspan="2" rospan="4">Total</td>
-      <!-- <td><?php echo $sum;?> </td> -->
-      <td></td>
-      <td></td>
-      <td><?php echo $sum;?> </td>
-      <td></td>
-      <td></td>
-    </tr>
+        <tbody id="dataPemasukan">
         </tbody>
       </table>
 </div>
-  </div>
+</div>
 </div>
 
+<script>
+  $(document).ready(function () {
+    let url = `<?= base_url()?>admin/filterPemasukan`;
+    
+    dataUntukTabel(url)
+  });
+  
+  $('#filterPemasukanBulanan').change(function(){
+    let namaBulan = $('#filterPemasukanBulanan').val();
+    let url = `<?= base_url()?>admin/filterPemasukan/?bulan=${namaBulan}`;
+    dataUntukTabel(url)
+  });
+
+  function formatHarga(harga) {
+    harga = parseInt(harga);
+    return (harga).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')
+  }
+
+  function dataUntukTabel(_url) {
+    $.ajax({
+      method: "GET",
+      url: _url,
+      success: function(res){
+        bikinTabel(JSON.parse(res));
+      }
+    });
+  }
+
+  function bikinTabel(res) {
+    let nomor = 1;
+    let total = 0;
+    $('#dataPemasukan').html('');
+    res.forEach(data => {
+      let html = `
+        <tr>
+          <td>${nomor}</td>
+          <td>${data.nik}</td>
+          <td>${data.nama}</td>
+          <td>${data.pembayaran_bulan}</td>
+          <td>Rp. ${formatHarga(data.nominal)}</td>
+          <td>${data.tanggal}</td>
+        </tr>
+      `;
+      nomor += 1;
+      total += parseInt(data.nominal);
+      $('#dataPemasukan').append(html);
+    });
+    let rowTotal = `
+      <tr>
+        <td colspan="2" rospan="4">Total</td>
+        <td></td>
+        <td></td>
+        <td>Rp. ${formatHarga(total)}</td>
+        <td></td>
+      </tr>
+    `;
+    $('#dataPemasukan').append(rowTotal);
+  }
+</script>

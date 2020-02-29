@@ -191,12 +191,14 @@
         public function isi_data_iuran_masuk($dataiuranmasuk){
             return $this->db->insert('pembayaran',$dataiuranmasuk);
         }
-        public function tampil_iuran_masuk(){
+        public function tampil_iuran_masuk($where = null){
             $this->db->select('warga.nik,warga.nama, pembayaran.no_pembayaran, pembayaran.pembayaran_bulan,pembayaran.nominal,pembayaran.tanggal');
             $this->db->from('warga');
             $this->db->join('pembayaran','warga.nik=pembayaran.nik');
             $this->db->order_by('no_pembayaran','desc');
-            // $this->db->where($where);
+            if ($where) {
+                $this->db->where($where);
+            }
             return $this->db->get();
         }
         public function view_detail_pembayaran($where,$table){

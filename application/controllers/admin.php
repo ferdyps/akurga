@@ -198,6 +198,15 @@
             $data['title'] = 'Tabel Data pengeluaran';
             $this->load->view('admin/index',$data);
         }
+        public function rekapbulan(){
+            // $where = array(
+            // 	'nip' => $this->session->userdata('nip')
+            // );
+            // $data['dataiuran'] = $this->petugas_model->view_data($where,'iuran_masuk')->result();
+            $data['content'] = "admin/rekapbulan";
+            $data['title'] = 'Tabel Data Rekap';
+            $this->load->view('admin/index',$data);
+        }
 
         public function tampilbulan(){
             $data['content'] = "admin/tampilbulan";
@@ -211,6 +220,18 @@
             $data['dataiuranmsk'] = $this->m_admin->tampil_iuran_masuk()->result_array();
             $data['content'] = "admin/tabelpemasukan.php";
             $this->load->view('admin/index',$data);
+        }
+        public function filterPemasukan()
+        {
+            $bulan = $this->input->get('bulan');
+            $where = [
+                'pembayaran_bulan' => $bulan
+            ];
+            if ($bulan == '' || $bulan == null) {
+                echo json_encode($this->m_admin->tampil_iuran_masuk()->result());
+            } else {
+                echo json_encode($this->m_admin->tampil_iuran_masuk($where)->result());
+            }
         }
         public function formpengeluaran(){
             // $where = array(
