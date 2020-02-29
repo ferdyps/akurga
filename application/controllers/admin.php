@@ -993,7 +993,11 @@
                 $update = $this->m_admin->edit_data('warga','nik',$nik,$data2);
 
                 if ($insert && $update) {
-                    $json['message'] = 'Data Warga Berhasil Dibatalkan';
+                    $url = base_url('admin/konfirmasiDataWarga');
+                    $json = [
+                        'message' => 'Data Warga Berhasil Dibatalkan',
+                        'url' => $url  
+                    ];
                 }else {
                     $json['errors'] = 'Data Warga Gagal Dibatalkan';
                 }

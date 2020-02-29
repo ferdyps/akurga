@@ -21,7 +21,7 @@
 
       <!-- Divider -->
       <hr class="sidebar-divider">
-      <?php if ($this->session->userdata('role') == 'adminMaster' || $this->session->userdata('role') == 'Ketua RW') { ?>
+      <?php if ( $this->session->userdata('role') == 'Ketua RW') { ?>
       
       <!-- Heading -->
       <div class="sidebar-heading">
@@ -47,7 +47,7 @@
       <hr class="sidebar-divider">
 
 
-      <?php } elseif ($this->session->userdata('role') == 'adminMaster' || $this->session->userdata('role') == 'Ketua RT'){ ?>
+      <?php } elseif ( $this->session->userdata('role') == 'Ketua RT'){ ?>
       <div class="sidebar-heading">
         Ketua RT
       </div>
@@ -90,7 +90,7 @@
         </div>
       </li>
       <hr class="sidebar-divider">
-      <?php } else if ($this->session->userdata('role') == 'adminMaster' || $this->session->userdata('role') == 'Bendahara'){ ?>
+      <?php } else if ( $this->session->userdata('role') == 'Bendahara'){ ?>
       <div class="sidebar-heading">
         Bendahara
       </div>
@@ -110,7 +110,7 @@
           </div>
         </div>
       </li>
-      <?php }elseif ($this->session->userdata('role') == 'adminMaster' || $this->session->userdata('role') == 'Sekretaris') {?>
+      <?php }elseif ( $this->session->userdata('role') == 'Sekretaris') {?>
       <!-- ================================ SEKRETARIS ========================================== -->
       <hr class="sidebar-divider">
       <div class="sidebar-heading">Sekretaris</div>
@@ -151,7 +151,131 @@
           </div>
         </div>
       </li>
-      <?php }?>
+      <?php } else {?>
+        <div class="sidebar-heading">
+        Ketua RW
+      </div>
+
+      <!-- Nav Item - Pages Collapse Menu -->
+      <li class="nav-item">
+        <a class="nav-link" href="<?= base_url('admin/konfirmasiDataWarga')?>">
+          <i class="fas fa-fw fa-chart-area"></i>
+          <span>Approval Data Warga</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="<?= base_url('admin/listCetakSuratPengantar')?>">
+          <i class="fas fa-fw fa-chart-area"></i>
+          <span>Cetak Surat Pengantar</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="<?= base_url('admin/list_akun')?>">
+          <i class="fas fa-fw fa-chart-area"></i>
+          <span>List Akun Pengguna</span></a>
+      </li>
+      <hr class="sidebar-divider">
+      <div class="sidebar-heading">
+        Ketua RT
+      </div>
+
+      <!-- Nav Item - Pages Collapse Menu -->
+      
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseKetuaRT" aria-expanded="true" aria-controls="collapseKetuaRT">
+          <i class="fas fa-fw fa-users"></i>
+          <span>Data Warga</span>
+        </a>
+        <div id="collapseKetuaRT" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="<?php echo base_url("admin/inputWarga");?>">Input Data Warga</a>
+            <a class="collapse-item" href="<?= base_url('admin/tabelDataWarga')?>">List Data Warga</a>
+          </div>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseKetuaRTsurat" aria-expanded="true" aria-controls="collapseKetuaRTsurat">
+          <i class="fas fa-fw fa-cog"></i>
+          <span>Surat Pengantar</span>
+        </a>
+        <div id="collapseKetuaRTsurat" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="<?php echo base_url('admin/daftarSuratPengantar');?>">List Surat Pengantar</a>
+          </div>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseKetuaRTkomplain" aria-expanded="true" aria-controls="collapseKetuaRTkomplain">
+          <i class="fas fa-fw fa-cog"></i>
+          <span>Komplain</span>
+        </a>
+        <div id="collapseKetuaRTkomplain" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="<?= base_url('admin/daftarKomplain');?>">List Komplain</a>
+            <a class="collapse-item" href="<?= base_url('admin/inputHasilKomplain');?>">Input Hasil Komplain</a>
+          </div>
+        </div>
+      </li>
+      <hr class="sidebar-divider">
+      <div class="sidebar-heading">
+        Bendahara
+      </div>
+      <!-- Nav Item - Pages Collapse Menu -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBendahara" aria-expanded="true" aria-controls="collapseBendahara">
+          <i class="fas fa-fw fa-cog"></i>
+          <span>Keuangan</span>
+        </a>
+        <div id="collapseBendahara" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="<?php echo base_url("admin/formpengeluaran");?>">Form Pengeluaran</a>
+            <a class="collapse-item" href="<?php echo base_url("admin/tabeldataiurankeluar");?>">Tabel Pengeluaran</a>
+            <a class="collapse-item" href="<?php echo base_url("admin/formpemasukan");?>">Form Pemasukan</a>
+            <a class="collapse-item" href="<?php echo base_url("admin/tabelpemasukan");?>">Tabel Pemasukan</a>
+            <a class="collapse-item" href="<?php echo base_url("admin/tampilbulan");?>">Tabel Tampilan Bulan</a>
+          </div>
+        </div>
+      </li>
+      <hr class="sidebar-divider">
+      <div class="sidebar-heading">Sekretaris</div>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSekretarisUndangan" aria-expanded="true" aria-controls="collapseSekretarisUndangan">
+          <i class="fas fa-fw fa-cog"></i>
+          <span>Surat undangan</span>
+        </a>
+        <div id="collapseSekretarisUndangan" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="<?php echo base_url("admin/inputundangan");?>">Input Surat Undangan</a>
+            <a class="collapse-item" href="<?php echo base_url("admin/riwayat_Undangan");?>">Riwayat Surat Undangan</a>
+          </div>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSekretarisNotulensi" aria-expanded="true" aria-controls="collapseSekretarisNotulensi">
+          <i class="fas fa-fw fa-cog"></i>
+          <span>Notulensi Rapat</span>
+        </a>
+        <div id="collapseSekretarisNotulensi" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="<?php echo base_url("admin/inputnotulensi");?>">Input Notulensi Rapat</a>
+            <a class="collapse-item" href="<?php echo base_url("admin/riwayat_notulensi");?>">Riwayat Notulensi Rapat</a>
+          </div>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSekretarisArsip" aria-expanded="true" aria-controls="collapseSekretarisArsip">
+          <i class="fas fa-fw fa-cog"></i>
+          <span>Arsip Surat</span>
+        </a>
+        <div id="collapseSekretarisArsip" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="<?php echo base_url("admin/input_arsipsurat");?>">Input Surat Masuk</a>
+            <a class="collapse-item" href="<?php echo base_url("admin/riwayat_arsip");?>">Riwayat Arsip Surat</a>
+          </div>
+        </div>
+      </li>
+      <?php } ?>
+
+
 
       <!-- ================================ END OF SEKRETARIS ========================================== -->
 
