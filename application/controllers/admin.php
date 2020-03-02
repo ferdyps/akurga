@@ -625,10 +625,17 @@
 
         public function cetak_undangan()
         {
-            $test = 'Warga RT 01 as,dbadjbasdb kjasbdkasbd kabsksbak baslasdaab ajlsbdlasn lasn alsn alsn sanlasn d;lasnlasan';
+          $id     = $this->uri->segment(3);
+          $no     = array('no_udg' => $id );
+          $surat  = $this->m_admin->selectWithWhere('surat_undangan', $no)->result_array();
+
+          setlocale(LC_ALL, 'IND');
+
           $pdf = new FPDF('P','mm','A4');
           // membuat halaman baru
           $pdf->AddPage();
+
+          foreach ($surat as $row) {
           // setting jenis font yang akan digunakan
           $pdf->SetFont('Arial','B',16);
           // mencetak string
@@ -648,23 +655,24 @@
           $pdf->Cell(5,5,'Nomor',0,0,'L');
           $pdf->Cell(25);
           $pdf->Cell(5,5,':',0,0,'L');
-          $pdf->Cell(5,5,'RT01/RPT/001',0,0,'L');
+          $pdf->Cell(5,5,$row['no_udg'],0,0,'L');
           $pdf->Cell(60);
           $pdf->Cell(5,5,'Bandung,',0,0,'L');
           $pdf->Cell(15);
-          $pdf->Cell(5,5,'13 November 2020',0,1,'L');
+          $tgl_buat = strftime("%d %B %Y",strtotime($row['tgl_buat']));
+          $pdf->Cell(5,5,$tgl_buat,0,1,'L');
           $pdf->Ln(1);
           $pdf->Cell(17);
           $pdf->Cell(5,5,'Lampiran',0,0,'L');
           $pdf->Cell(25);
           $pdf->Cell(5,5,':',0,0,'L');
-          $pdf->Cell(5,5,'1 lembar',0,1,'L');
+          $pdf->Cell(5,5,$row['lampiran_udg'],0,1,'L');
           $pdf->Ln(1);
           $pdf->Cell(17);
           $pdf->Cell(5,5,'Sifat',0,0,'L');
           $pdf->Cell(25);
           $pdf->Cell(5,5,':',0,0,'L');
-          $pdf->Cell(5,5,'Penting',0,0,'L');
+          $pdf->Cell(5,5,$row['sifat_udg'],0,0,'L');
           $pdf->Cell(60);
           $pdf->Cell(5,5,'Kepada',0,1,'L');
           $pdf->Ln(1);
@@ -672,11 +680,11 @@
           $pdf->Cell(5,5,'Hal',0,0,'L');
           $pdf->Cell(25);
           $pdf->Cell(5,5,':',0,0,'L');
-          $pdf->Cell(5,5,'Undangan Rapat',0,0,'L');
+          $pdf->Cell(5,5,$row['perihal_udg'],0,0,'L');
           $pdf->Cell(60);
           $pdf->Cell(5,5,'Yth.',0,0,'L');
           $pdf->Cell(5);
-          $pdf->MultiCell(60,5,'Warga RT 01 as,dbadjbasdb kjasbdkasbd kabsksbak baslasdaab',0,'L');
+          $pdf->MultiCell(60,5,$row['tujuan_surat'],0,'L');
           $pdf->Cell(117);
           $pdf->Cell(5,7,'Di Tempat',0,1,'L');
           $pdf->Cell(120);
@@ -686,28 +694,30 @@
           $pdf->SetFont('Arial','',12);
           $pdf->Ln(4);
           $pdf->Cell(17);
-          $pdf->MultiCell(160,7,'Berdasarkan '.$test.', maka dengan ini kami mengundang Saudara/Bapak/Ibu untuk hadir pada',0,'L');
+          $pdf->MultiCell(160,7,$row['isi_surat'],0,'L');
           $pdf->Ln(6);
           $pdf->Cell(35);
           $pdf->Cell(35,7,'Hari tanggal',0,'L');
           $pdf->Cell(5,7,':',0,'L');
-          $pdf->MultiCell(100,7,'14 november 2019',0,'L');
+          $tgl_udg = strftime("%d %B %Y",strtotime($row['tgl_udg']));
+          $pdf->MultiCell(100,7,$tgl_udg,0,'L');
           $pdf->Cell(35);
           $pdf->Cell(35,7,'Waktu',0,'L');
           $pdf->Cell(5,7,':',0,'L');
-          $pdf->MultiCell(100,7,'Jam '.'19.00'.' s/d selesai',0,'L');
+          $jam_udg = strftime("%R",strtotime($row['jam_udg']));
+          $pdf->MultiCell(100,7,'Jam '.$jam_udg.' s/d selesai',0,'L');
           $pdf->Cell(35);
           $pdf->Cell(35,7,'Tempat',0,0,'L');
           $pdf->Cell(5,7,':',0,0,'L');
-          $pdf->MultiCell(100,7,'Masjid Al-huda',0,'L');
+          $pdf->MultiCell(100,7,$row['tempat_udg'],0,'L');
           $pdf->Cell(35);
           $pdf->Cell(35,7,'Acara',0,0,'L');
           $pdf->Cell(5,7,':',0,0,'L');
-          $pdf->MultiCell(100,7,'Penyampaian susunan pengurus RT yang baru',0,'L');
+          $pdf->MultiCell(100,7,$row['acara_udg'],0,'L');
           $pdf->Ln(6);
           $pdf->Cell(17);
           $pdf->MultiCell(160,7,'Demikian disampaikan untuk dapat dimaklumi, atas kehadirannya diucapkan terima kasih agar menjadi maklum yang berkepentingan mengetahuinya.',0,'L');
-          $pdf->Ln(4);
+          $pdf->Ln(8);
           $pdf->MultiCell(177,7,'Salam Hormat',0,'R');
           $pdf->Ln(8);
           $pdf->Cell(27);
@@ -721,13 +731,13 @@
           $pdf->Cell(35,7,'Iwan Setiawan ',0,0,'C');
           $pdf->Cell(60);
           $pdf->Cell(35,7,'Moch Toha',0,1,'C');
-          $pdf->Ln(8);
+          $pdf->Ln(12);
           $pdf->SetFont('Arial','B'.'U',11);
           $pdf->Cell(19,7,'Tembusan',0,0,'C');
           $pdf->SetFont('Arial','',11);
           $pdf->Cell(3,7,':',0,0,'C');
-          $pdf->MultiCell(177,7,'1. Yth. Rukun Warga 01',0,'L');
-
+          $pdf->MultiCell(177,7,$row['tembusan'],0,'L');
+          }
 
           $pdf->Output('Undangan Rapat','I');
         }
@@ -1112,7 +1122,7 @@
                     $url = base_url('admin/konfirmasiDataWarga');
                     $json = [
                         'message' => 'Data Warga Berhasil Dibatalkan',
-                        'url' => $url  
+                        'url' => $url
                     ];
                 }else {
                     $json['errors'] = 'Data Warga Gagal Dibatalkan';

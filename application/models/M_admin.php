@@ -73,7 +73,7 @@
                 ORDER BY created_at DESC
                 LIMIT 1
             ) as pesan
-            FROM surat_pengantar sp 
+            FROM surat_pengantar sp
             JOIN warga w ON w.nik=sp.nik");
         }
 
@@ -134,10 +134,10 @@
 
         public function riwayatSuratPengantar($id_user){
             return $this->db->query("SELECT u.id_user,sp.nomor_surat,sp.tanggal_surat,sp.keperluan, ss.status, ss.created_at, ss.pesan
-            FROM `user` u 
-            JOIN warga w ON u.id_user=w.id_user 
-            JOIN surat_pengantar sp ON w.nik=sp.nik 
-            JOIN 
+            FROM `user` u
+            JOIN warga w ON u.id_user=w.id_user
+            JOIN surat_pengantar sp ON w.nik=sp.nik
+            JOIN
             (
                 SELECT max(id) AS max_id ,nomor_surat
                 FROM status_surat
@@ -150,7 +150,7 @@
         {
             return $this->db->query("SELECT u.id_user,w.nik,w.nama,k.nomor_komplain,k.keluhan,k.tanggal_komplain,k.lokasi
             FROM user u
-            JOIN warga w 
+            JOIN warga w
             ON u.id_user=w.id_user
             JOIN komplain k
             ON w.nik=k.nik

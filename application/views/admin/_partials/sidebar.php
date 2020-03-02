@@ -22,7 +22,7 @@
       <!-- Divider -->
       <hr class="sidebar-divider">
       <?php if ( $this->session->userdata('role') == 'Ketua RW') { ?>
-      
+
       <!-- Heading -->
       <div class="sidebar-heading">
         Ketua RW
@@ -178,7 +178,7 @@
       </div>
 
       <!-- Nav Item - Pages Collapse Menu -->
-      
+
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseKetuaRT" aria-expanded="true" aria-controls="collapseKetuaRT">
           <i class="fas fa-fw fa-users"></i>
@@ -257,7 +257,6 @@
         </a>
         <div id="collapseSekretarisNotulensi" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="<?php echo base_url("admin/inputnotulensi");?>">Input Notulensi Rapat</a>
             <a class="collapse-item" href="<?php echo base_url("admin/riwayat_notulensi");?>">Riwayat Notulensi Rapat</a>
           </div>
         </div>
