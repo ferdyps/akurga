@@ -37,9 +37,9 @@
                         <td><?= $row['keluhan']?></td>
                         <td><?= $row['lokasi']?></td>
                         <td><?= $row['tanggal_komplain']?></td>
-                        <td><button class="btn btn-primary">Tindak Lanjut</button></td>
+                        <td><a class="btn btn-primary" href="<?= base_url('admin/inputHasilKomplain/'. $row['nomor_komplain'])?>" >Tindak Lanjut</a></td>
+                        <td><button class="btn btn-success">Ketua RW</button></td>
                       </tr>
-                      
                   <?php } ?>
                   </tbody>
                 </table>

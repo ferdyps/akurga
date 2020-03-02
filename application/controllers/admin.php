@@ -181,11 +181,48 @@
         }
 
 // -------------------------------------------------------------------------
-        public function inputHasilKomplain(){
-            $data['content'] = 'admin/inputHasilKomplain';
-            $data['title'] = 'Input Hasil Komplain';
+        public function inputHasilKomplain($no_komplen){
+            $data = [
+                'content' => 'admin/inputHasilKomplain',
+                'title' => 'Input Hasil Komplain',
+                'no_komplen' => $no_komplen,
+            ];
             $this->load->view('admin/index', $data);
         }
+// --------------------------------------------------------------------------
+        public function insertHasilkomplain(){
+            $nomor_komplain = $this->input->post('nomor_komplain');
+            $hasil_komplain = $this->input->post('hasil_komplain');
+            $tanggal = date('Y-m-d');
+            if ($this->input->post()) {
+                $data = [
+                    'nomor_komplain' => $nomor_komplain,
+                    'tindak_lanjut' => $hasil_komplain,
+                    'tgl_tindak_lanjut' => $tanggal
+                ];
+                $data2 = [
+                    'status' => 'selesai'
+                ];
+                $input_hasil = $this->m_admin->input_data('hasil_komplain',$data);
+                $update_status = $this->m_admin->edit_data('komplain','nomor_komplain',$nomor_komplain,$data2);
+
+                if ($input_hasil && $update_status) {
+                    $url = base_url('admin/inputHasilKomplain');
+
+                    $json = [
+                        'message' => "Hasil Komplain berhasil diinput..",
+                        'url' => $url
+                    ];
+                }else {
+                    $json['errors'] = "Hasil Komplain gagal diinput..!";
+                }
+
+            }
+            // echo json_encode(['status' => 'success']);
+            echo json_encode($json);
+        }
+
+        
 // ==========================================================================
 // Bendahara
 // ==========================================================================
@@ -1069,12 +1106,13 @@
         }
     }
 
-    public function declineWarga($nik)
+    public function declineWarga()
     {
         $this->form_validation->set_rules('pesan', 'Pesan', 'regex_match[/^[a-zA-Z ]/]');
 
         if ($this->input->post()) {
             $pesan = $this->input->post('pesan');
+            $nik = $this->input->post('nik');
 
             if ($this->form_validation->run() == TRUE) {
                 $data = [

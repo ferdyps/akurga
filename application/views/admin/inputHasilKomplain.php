@@ -9,11 +9,12 @@
 <div class="container">
     <div class="row bg-white rounded shadow border-left-primary">
         <div class="col px-0">
-        <?= form_open('c_halaman_admin/', ['id' => 'default-form', 'log' => 'Input Hasil Komplain']);?>
+        <?= form_open('admin/insertHasilKomplain', ['id' => 'formKomplain', 'log' => 'Input Hasil Komplain']);?>
+            <input type="hidden" name="nomor_komplain" value="<?= $no_komplen ?>" id="nomor_komplain">
             <div class="row px-3 my-3">
                 <div class="col">
                     <div class="form-group form-input">
-                        <textarea name="hasil_komplain" id="" cols="30" rows="10" class="ckeditor"></textarea>
+                        <textarea name="hasil_komplain" id="hasil_komplain" cols="30" rows="10" class="ckeditor"></textarea>
                     </div>
                 </div>
             </div>
@@ -27,8 +28,28 @@
         </div>
     </div>
 </div>
-
 </div>
-<!-- /.container-fluid -->
-
 </div>
+<script>
+$('#formKomplain').submit(function(event){
+    event.preventDefault();
+    console.log("HAI");
+
+    let _data = $('#formKomplain').serialize();
+
+    $.ajax({
+        url: "<?php echo base_url(); ?>/admin/insertHasilKomplain",
+        type: 'POST',
+        data: _data,
+        success: function(data){
+            Swal.fire({
+                title: "Berhasil",
+                text: data.message,
+                icon: "success"
+            }).then(function() {
+                location = data.url
+            });
+        }
+    })
+})
+</script>

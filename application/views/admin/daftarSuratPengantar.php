@@ -71,7 +71,7 @@
             </div>
             <div class="col">
                 <div class="form-group text-center">
-                    <input type="submit" value="Submit" class="btn btn-primary" onclick="return confirm('Apakah anda yakin ingin mengkonfirmasi..?');" >
+                    <input type="submit" value="Submit" class="btn btn-primary">
                     <input type="reset" value="Reset" class="btn btn-danger">
                 </div>
             </div>
