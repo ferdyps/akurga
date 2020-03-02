@@ -7,8 +7,38 @@
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
   <div class="card-header py-3">
-    <h6 class="m-0 font-weight-bold text-primary">Tabel Pengeluaran</h6>
+    <h6 class="m-0 font-weight-bold text-primary">Rekap Bulan</h6>
   </div>
+
+  <div class="row px-3 my-3">
+               <div class="col">
+               <div class="form-group form-input">
+                        <label for="diberikan_kepada">Pilih Bulan</label>
+                        <select name="diberikan_kepada" id="Pendidikan" class="form-control">
+                            <option selected disabled>-- Pilih Bulan --</option>
+                            <option value="Fotocopy">Januari</option>
+                            <option value="Gaji Pegawai">Februari</option>
+                            <option value="Kesehatan">Maret</option>
+                            <option value="Duka Cita">April</option>
+                            <option value="Kebersihan">Mei</option>
+                            <option value="Kebersihan">Juni</option>
+                            <option value="Kebersihan">Juli</option>
+                            <option value="Kebersihan">Agustus</option>
+                            <option value="Kebersihan">September</option>
+                            <option value="Kebersihan">Oktober</option>
+                            <option value="Kebersihan">November</option>
+                            <option value="Kebersihan">Desember</option>
+                            <!-- <option value="DIPLOMA II">DIPLOMA II</option>
+                            <option value="AKADEMI/DIPLOMA III/S. MUDA">AKADEMI/DIPLOMA III/S. MUDA</option>
+                            <option value="DIPLOMA IV/STRATA I">DIPLOMA IV/STRATA I</option>
+                            <option value="STRATA II">STRATA II</option>
+                            <option value="STRATA III">STRATA III</option> -->
+                        </select>
+                    </div>
+                   <?php echo form_error('diberikan_kepada'); ?>
+
+
+
   <div class="card-body">
     <div class="table-responsive">
       <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -26,7 +56,7 @@
         </thead>
 
         <tbody>
-        <?php 
+        <!-- <?php 
           $no = 1;
           $sum=0;
           foreach($dataiurank as $b){ 
@@ -54,7 +84,7 @@
       <td></td>
       <td></td>
       <td></td>
-    </tr>
+    </tr> -->
         </tbody>
       </table>
 </div>
