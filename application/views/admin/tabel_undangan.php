@@ -43,7 +43,7 @@
                       <b>||</b>
                       <a href="<?= base_url("admin/inputnotulensi").'/'.$row['no_udg'];?>" class="d-none d-sm-inline-block btn btn-primary shadow-sm" title="Input Notulensi"><i class="fas fa-clipboard"></i></a>
                       <b>||</b>
-                      <a href="<?= base_url("admin/cetak_undangan");?>" class="d-none d-sm-inline-block btn btn-primary shadow-sm" title="cetak laporan"><i class="fas fa-print"></i></a>
+                      <a href="<?= base_url("admin/cetak_undangan").'/'.$row['no_udg'];?>" class="d-none d-sm-inline-block btn btn-primary shadow-sm" title="Cetak Laporan"><i class="fas fa-print"></i></a>
                     </td>
                     </tr>
                   <?php } ?>
@@ -56,6 +56,7 @@
         <?php $this->load->view('admin/_partials/editrapat_modal')?>
         <?php $this->load->view('admin/_partials/detailrapat_modal')?>
         <script>
+            // Jquery Edit data rapat
             $(document).on('click','#detailRapat',function(){
               var id_rapat = $(this).attr('data-noudg');
               var url = $(this).attr('data-url');
@@ -83,7 +84,7 @@
                   }
               });
             });
-
+            // Jquery detail data rapat
             $(document).on('click','#detailData',function(){
               var id_rapat = $(this).attr('data-noudg');
               var url = $(this).attr('data-url');
@@ -111,4 +112,5 @@
                   }
               });
             });
+
         </script>

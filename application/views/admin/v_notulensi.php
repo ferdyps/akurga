@@ -24,37 +24,34 @@
                        </div>
                    </div>
 
-                   <div class="form-group form-input">
-                       <label for="tembusan">Tembusan</label>
-                       <textarea style="width: 520px;
-                     min-width:520px;
-                     max-width:520px;
-                     height:210px;
-                     min-height:210px;
-                     max-height:210px;"
-                     class="form-control" name="tembusan" id="tembusan"></textarea>
-                       <div class="invalid-feedback">
 
-                     </div>
-                   </div>
 
                </div>
                <!-- ====================Batas ke 2==================== -->
                <div class="col">
-                   <div class="form-group form-input">
-                       <label for="input-uraian_notulen">Uraian Notulensi</label>
-                       <textarea style="width: 530px;
-                     min-width:530px;
-                     max-width:530px;
-                     height:510px;
-                     min-height:510px;
-                     max-height:510px;"
-                     class="form-control" name="uraian_notulen" id="input-uraian_notulen"></textarea>
-                       <div class="invalid-feedback">
+                 <div class="form-group form-input">
+                     <label for="tembusan">Tembusan</label>
+                     <textarea style="width: 520px;
+                   min-width:520px;
+                   max-width:520px;
+                   height:210px;
+                   min-height:210px;
+                   max-height:210px;"
+                   class="form-control" name="tembusan" id="tembusan"></textarea>
+                     <div class="invalid-feedback">
 
-                     </div>
                    </div>
+                 </div>
 
+               </div>
+           </div>
+           <div class="row px-3 my-3">
+               <div class="col">
+                   <div class="form-group form-input">
+                     <label>Uraian Notulensi</label>
+                     <textarea name="uraian_notulen" id="" cols="30" rows="10" class="ckeditor"></textarea>
+                     <div class="invalid-feedback"></div>
+                   </div>
                </div>
            </div>
            <div class="col">
