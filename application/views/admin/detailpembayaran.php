@@ -20,19 +20,19 @@
             <th>Nama</th>
             <th>Pembayaran Bulan</th>
             <!-- <th>Nominal</th> -->
-            <th>Tanggal Bulan januari</th>
-            <th>Tanggal Bulan Februari</th>
-            <th>Tanggal Bulan Maret</th>
-            <th>Tanggal Bulan April</th>
-            <th>Tanggal Bulan Mei</th>
-            <th>Tanggal Bulan juni</th>
-            <th>Tanggal Bulan juli</th>
-            <th>Tanggal Bulan Agustus</th>
-            <th>Tanggal Bulan September</th>
-            <th>Tanggal Bulan Oktober</th>
-            <th>Tanggal Bulan November</th>
-            <th>Tanggal Bulan Desember</th>
-            <!-- <th>Aksi</th> -->
+            <th>Tanggal Pembayaran Bulan januari</th>
+            <th>Tanggal Pembayaran Bulan Februari</th>
+            <th>Tanggal Pembayaran Bulan Maret</th>
+            <th>Tanggal Pembayaran Bulan April</th>
+            <th>Tanggal Pembayaran Bulan Mei</th>
+            <th>Tanggal Pembayaran Bulan juni</th>
+            <th>Tanggal Pembayaran Bulan juli</th>
+            <th>Tanggal Pembayaran Bulan Agustus</th>
+            <th>Tanggal Pembayaran Bulan September</th>
+            <th>Tanggal Pembayaran Bulan Oktober</th>
+            <th>Tanggal Pembayaran Bulan November</th>
+            <th>TanggalPembayaran  Bulan Desember</th>
+            <th>Tagihan</th> 
           </tr>
         </thead>
 
