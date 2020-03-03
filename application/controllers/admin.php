@@ -198,7 +198,8 @@
                 $data = [
                     'nomor_komplain' => $nomor_komplain,
                     'tindak_lanjut' => $hasil_komplain,
-                    'tgl_tindak_lanjut' => $tanggal
+                    'tgl_tindak_lanjut' => $tanggal,
+                    'lingkup' => 'RT'
                 ];
                 $data2 = [
                     'status' => 'selesai'
@@ -1066,15 +1067,16 @@
             }
         }
 
-        public function declineSuratPengantar($id_surat)
+        public function declineSuratPengantar()
         {
             $this->form_validation->set_rules('pesan', 'Pesan', 'regex_match[/^[a-zA-Z ]/]');
             if ($this->input->post()) {
+                $nomor_surat = $this->input->post('nomor_surat');
                 $pesan = $this->input->post('pesan');
 
-                if ($this->form_validation->run() == TRUE) {
+                // if ($this->form_validation->run() == TRUE) {
                     $data = [
-                        'nomor_surat' => $id_surat,
+                        'nomor_surat' => $nomor_surat,
                         'pesan' => $pesan,
                         'status' => 'ditolak'
                     ];
@@ -1083,46 +1085,46 @@
                         ?>
                         <script>
                             alert('Penolakan Berhasil');
-                            location = "<?php base_url('admin/daftarSuratPengantar');?>";
+                            location = "<?php echo base_url('admin/daftarSuratPengantar');?>";
                         </script>
                         <?php
                     }else{
                         ?>
                         <script>
                             alert('Penolakan Gagal');
-                            location = "<?php base_url('admin/daftarSuratPengantar');?>";
+                            location = "<?php echo base_url('admin/daftarSuratPengantar');?>";
                         </script>
                         <?php
                     }
-                //     if ($tolak) {
-                //         $url = base_url('admin/daftarSuratPengantar');
+                    // if ($tolak) {
+                    //     $url = base_url('admin/daftarSuratPengantar');
 
-                //         $json = [
-                //             'message' => "Surat pengantar berhasil ditolak..",
-                //             'url' => $url
-                //         ];
-                //     } else {
-                //         $json['errors'] = "Surat pengantar gagal ditolak..";
-                //     }
+                    //     $json = [
+                    //         'message' => "Surat pengantar berhasil ditolak..",
+                    //         'url' => $url
+                    //     ];
+                    // } else {
+                    //     $json['errors'] = "Surat pengantar gagal ditolak..";
+                    // }
 
                 // } else {
-                //     $no = 0;
-                //     foreach ($this->input->post() as $key => $value) {
-                //         if (form_error($key) != "") {
-                //             $json['form_errors'][$no]['id'] = $key;
-                //             $json['form_errors'][$no]['msg'] = form_error($key, null, null);
-                //             $no++;
-                //         }
-                //     }
+                    // $no = 0;
+                    // foreach ($this->input->post() as $key => $value) {
+                    //     if (form_error($key) != "") {
+                    //         $json['form_errors'][$no]['id'] = $key;
+                    //         $json['form_errors'][$no]['msg'] = form_error($key, null, null);
+                    //         $no++;
+                    //     }
+                    // }
                 // }
                 // echo json_encode($json);
-            }else {
+            /*}else {
                 ?>
                 <script>
                     location = "<?php base_url('admin/daftarSuratPengantar');?>";
                 </script>
                 <?php
-            }
+            }*/
 
         }
     }

@@ -15,7 +15,7 @@
                   <a class="nav-item nav-link" id="nav-tetap-tab" data-toggle="tab" href="#nav-tetap" role="tab" aria-controls="nav-tetap" aria-selected="false">Tetap</a>
                 </div>
               </nav>
-              <div class="tab-content" id="nav-tabContent">
+              <div class="tab-content pt-3" id="nav-tabContent">
                 <div class="tab-pane fade show active" id="nav-sementara" role="tabpanel" aria-labelledby="nav-sementara-tab">
                   <div class="table-responsive">
                     <table class="table table-striped table-hover" id="dataTable" width="100%" cellspacing="0">

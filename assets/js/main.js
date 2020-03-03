@@ -133,5 +133,7 @@ $(document).ready(function () {
         $('input').removeClass('is-invalid');
         $('textarea').removeClass('is-invalid');
     });
+
+    $('#dataTable2').DataTable();
 // =============================================================
 });
