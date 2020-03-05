@@ -9,6 +9,7 @@
             $this->load->model('m_admin');
             $this->load->library('form_validation');
             $this->load->library('pdf');
+            $this->load->library('session');
 
             $this->id_user = $this->session->userdata('id_user');
 
@@ -223,7 +224,7 @@
             echo json_encode($json);
         }
 
-        
+
 // ==========================================================================
 // Bendahara
 // ==========================================================================
@@ -618,14 +619,27 @@
         }
 
         public function inputnotulensi(){
-            $id         = 'notulensi';
-            $nama_field = 'no_notulen';
-            $nama_tabel = 'notulensi_rpt';
-            $data['key_no_udg'] = $this->uri->segment(3);
-            $data['generate_id'] = $this->m_admin->get_id($id,$nama_field,$nama_tabel); //$this->session->userdata('jabatan')
-            $data['content'] = 'admin/v_notulensi';
-            $data['title'] = 'Input Notulensi Rapat';
-            $this->load->view('admin/index', $data);
+            $id           = 'notulensi';
+            $nama_field   = 'no_notulen';
+            $nama_tabel   = 'notulensi_rpt';
+            $key          = $this->uri->segment(3);
+
+            $array_check  = array('no_udg' => $key );
+            $db_check     = $this->m_admin->selectWithWhere($nama_tabel, $array_check);
+            if ($db_check->num_rows() > 0) {
+
+              $this->session->set_flashdata('success','silahkan lihat di Riwayat Notulensi Rapat');
+              redirect('admin/riwayat_Undangan','refresh');
+
+            }else {
+              $data['key_no_udg'] = $key;
+              $data['generate_id'] = $this->m_admin->get_id($id,$nama_field,$nama_tabel); //$this->session->userdata('jabatan')
+              $data['content'] = 'admin/v_notulensi';
+              $data['title'] = 'Input Notulensi Rapat';
+              $this->load->view('admin/index', $data);
+            }
+            echo json_encode($json);
+
         }
 
         public function input_arsipsurat(){
