@@ -2,7 +2,7 @@
   <div class="modal-dialog modal-xl" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="editDataNotulensiModalLabel">Edit Data Rapat</h5>
+        <h5 class="modal-title" id="editDataNotulensiModalLabel">Edit Data Notulensi</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -25,24 +25,42 @@
                   </div>
               </div>
 
-              <div class="form-group form-input">
-                  <label for="edit-tembusan">Tembusan</label>
-                  <textarea class="form-control" name="tembusan" id="edit-tembusan"></textarea>
-                  <div class="invalid-feedback">
 
-                </div>
-              </div>
 
           </div>
-          <!-- ====================Batas ke 2==================== -->
+
+          <div class="col">
+            <div class="form-group form-input">
+                <label for="edit-tembusan">Tembusan</label>
+                <textarea
+                style="width: 520px;
+              min-width:520px;
+              max-width:520px;
+              height:210px;
+              min-height:210px;
+              max-height:210px;"class="form-control" name="tembusan" id="edit-tembusan"></textarea>
+                <div class="invalid-feedback">
+
+              </div>
+            </div>
+          </div>
+      </div>
+      <div class="col">
+          <div class="form-group form-input">
+              <label for="">Uraian Notulensi</label>
+              <textarea class="form-control" name="uraian_notulen" id="edit-uraian_notulen"></textarea>
+              <div class="invalid-feedback"></div>
+          </div>
+      </div>
+      <!-- ====================Batas ke 2==================== -->
+      <div class="row px-3 my-3">
           <div class="col">
               <div class="form-group form-input">
-                  <label for="edit-uraian_notulen">Uraian Notulensi</label>
-                  <textarea class="form-control" name="uraian_notulen" id="edit-uraian_notulen"></textarea>
-                  <div class="invalid-feedback"></div>
+                <label>Uraian Notulensi</label>
+                <textarea name="uraian_notulen" id="edit-uraian_notulen" cols="30" rows="10" class="ckeditor"></textarea>
+                <div class="invalid-feedback"></div>
               </div>
           </div>
-
       </div>
       <div class="col">
           <div class="form-group text-center">
