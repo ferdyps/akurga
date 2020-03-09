@@ -16,7 +16,7 @@
         <a class="nav-item nav-link" id="nav-tetap-tab" data-toggle="tab" href="#nav-tetap" role="tab" aria-controls="nav-tetap" aria-selected="false">Tetap</a>
       </div>
     </nav>
-    <div class="tab-content" id="nav-tabContent">
+    <div class="tab-content pt-3" id="nav-tabContent">
       <div class="tab-pane fade show active" id="nav-sementara" role="tabpanel" aria-labelledby="nav-sementara-tab">
         <div class="table-responsive">
           <table class="table table-striped table-hover" id="dataTable" width="100%" cellspacing="0">
@@ -34,8 +34,6 @@
                 <th>Status</th>
                 <th>Jenis Warga</th>
                 <th>Nomor HP</th>
-                <th>Nomor KK</th>
-                <th>Hubungan Dalam Keluarga</th>
                 <th>Nama Jalan</th>
                 <th>Nomor Rumah</th>
                 <th>Gang</th>
@@ -60,13 +58,11 @@
                   <td><?= $row['status']?></td>
                   <td><?= $row['jenis_warga']?></td>
                   <td><?= $row['nohp']?></td>
-                  <td><?= $row['nokk']?></td>
-                  <td><?= $row['hub_dlm_kel']?></td>
                   <td><?= $row['nama_jalan']?></td>
                   <td><?= $row['no_rumah']?></td>
                   <td><?= $row['gang']?></td>
-                  <td><button class="btn btn-primary" onclick="konfirmasi_data('<?= base_url('admin/klik_konfirmasi_data_warga/')?>', <?= $row['nik']; ?>)"><i class="fas fa-check"></i></button></td>
-                  <td><button class="btn btn-danger" data-target="#input-message-warga" data-toggle="modal" onclick="approve_warga('<?= $row['nik']; ?>')"><i class="fas fa-times"></i></button></td>
+                  <td><button class="btn btn-primary" onclick="konfirmasi_data('<?= base_url('admin/klik_konfirmasi_data_warga/')?>', <?= $row['nik']; ?>)"><i class="fas fa-check"></i></button>
+                  <button class="btn btn-danger" data-target="#input-message-warga" data-toggle="modal" onclick="approve_warga('<?= $row['nik']; ?>')"><i class="fas fa-times"></i></button></td>
                 </tr>
             <?php } ?>
             </tbody>
@@ -76,7 +72,7 @@
     
       <div class="tab-pane fade show" id="nav-tetap" role="tabpanel" aria-labelledby="nav-tetap-tab">
         <div class="table-responsive">
-          <table class="table table-striped table-hover" id="dataTable" width="100%" cellspacing="0">
+          <table class="table table-striped table-hover" id="dataTable2" width="100%" cellspacing="0">
             <thead>
               <tr class="bg-primary text-white text-center">
                 <th width="5%">No</th>
@@ -122,8 +118,8 @@
                   <td><?= $row['nama_jalan']?></td>
                   <td><?= $row['no_rumah']?></td>
                   <td><?= $row['gang']?></td>
-                  <td><button class="btn btn-primary" onclick="konfirmasi_data('<?= base_url('admin/klik_konfirmasi_data_warga/')?>', <?= $row['nik']; ?>)"><i class="fas fa-check"></i></button></td>
-                  <td><button class="btn btn-danger" id="buttonTolakWargaTetap" data-target="#input-message-warga" data-toggle="modal" onclick="approve_warga('<?= $row['nik']; ?>')"><i class="fas fa-times"></i></button>
+                  <td><button class="btn btn-primary" onclick="konfirmasi_data('<?= base_url('admin/klik_konfirmasi_data_warga/')?>', <?= $row['nik']; ?>)"><i class="fas fa-check"></i></button>
+                  <button class="btn btn-danger" id="buttonTolakWargaTetap" data-target="#input-message-warga" data-toggle="modal" onclick="approve_warga('<?= $row['nik']; ?>')"><i class="fas fa-times"></i></button>
                   </td>
                 </tr>
             <?php } ?>

@@ -131,6 +131,7 @@
                         'tanggal_komplain' => $tanggal_komplain,
                         'lokasi' => $lokasi,
                         'keluhan' => $keluhan,
+                        'lingkup' => 'RT',
                         'nik' => $nik
                     ];
 
