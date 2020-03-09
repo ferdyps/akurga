@@ -1,5 +1,5 @@
 <div class="container-fluid">
-
+      <div id="flash-data" data-flashdata="<?= $this->session->flashdata('success'); ?>"></div>
           <!-- Page Heading -->
           <h1 class="h3 mb-2 text-gray-800">Riwayat Surat Undangan</h1>
 
