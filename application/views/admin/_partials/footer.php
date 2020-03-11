@@ -103,7 +103,6 @@
       formatSubmit: 'yyyy-mm-dd',
       hiddenName: true
     });
-
   </script>
 
 

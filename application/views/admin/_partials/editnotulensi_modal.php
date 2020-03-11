@@ -45,19 +45,19 @@
             </div>
           </div>
       </div>
-      <div class="col">
+      <!-- <div class="col">
           <div class="form-group form-input">
               <label for="">Uraian Notulensi</label>
               <textarea class="form-control" name="uraian_notulen" id="edit-uraian_notulen"></textarea>
               <div class="invalid-feedback"></div>
           </div>
-      </div>
+      </div> -->
       <!-- ====================Batas ke 2==================== -->
       <div class="row px-3 my-3">
           <div class="col">
               <div class="form-group form-input">
                 <label>Uraian Notulensi</label>
-                <textarea name="uraian_notulen" id="edit-uraian_notulen" cols="30" rows="10" class="ckeditor"></textarea>
+                <textarea name="uraian_notulen" id="edit-uraian_notulen" cols="30" rows="10"></textarea>
                 <div class="invalid-feedback"></div>
               </div>
           </div>

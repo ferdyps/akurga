@@ -12,6 +12,7 @@
             $this->load->library('session');
 
             $this->id_user = $this->session->userdata('id_user');
+            $this->username = $this->session->userdata('username');
 
             if(!$this->session->has_userdata('status')){
                 redirect('auth/','refresh');
@@ -190,7 +191,7 @@
             $pdf = new FPDF('P','mm','A4');
             // membuat halaman baru
             $pdf->AddPage();
-            
+
             $row = $surat;
             // foreach ($surat as $row) {
             // setting jenis font yang akan digunakan
@@ -708,6 +709,7 @@
               $this->session->set_flashdata('success','silahkan lihat di Riwayat Notulensi Rapat');
               redirect('admin/riwayat_Undangan','refresh');
 
+              echo json_encode($json);
             }else {
               $data['key_no_udg'] = $key;
               $data['generate_id'] = $this->m_admin->get_id($id,$nama_field,$nama_tabel); //$this->session->userdata('jabatan')
@@ -715,7 +717,6 @@
               $data['title'] = 'Input Notulensi Rapat';
               $this->load->view('admin/index', $data);
             }
-            echo json_encode($json);
 
         }
 
@@ -1525,9 +1526,9 @@
               ],
 
               [
-                  'field' => 'lampiran',
-                  'label' => 'lampiran',
-                  'rules' => 'required'
+                  'field' => 'tembusan',
+                  'label' => 'Tembusan',
+                  'rules' => 'trim|required'
               ],
 
               [
@@ -1543,22 +1544,39 @@
           ]);
 
           if ($this->input->post()) {
-            $no_notulen     = $this->input->post('no_notulen');
-            $lampiran       = $this->input->post('lampiran');
-            $tembusan       = $this->input->post('tembusan');
-            $uraian_notulen = $this->input->post('uraian_notulen');
-            $date = date("Y/m/d");
-            $no_udg       = $this->input->post('no_udg');
+            $no_notulen             = $this->input->post('no_notulen');
+            $tembusan               = $this->input->post('tembusan');
+            $uraian_notulen         = $this->input->post('uraian_notulen');
+            $date                   = date("Y/m/d");
+            $no_udg                 = $this->input->post('no_udg');
+
+            $config['upload_path']          = './assets/foto/notulensi';
+            // $config['file_name']            = $this->input->post('gbr_surat');
+            $config['allowed_types']        = 'gif|jpg|png';
+            $config['max_size']             = 1024; // 1MB
+            // $config['max_width']            = 1024;
+            // $config['max_height']           = 768;
+
+            $this->load->library('upload', $config);
 
             if ($this->form_validation->run() == TRUE) {
-              $data = [
-                'no_notulen'      => $no_notulen,
-                'lampiran'        => $lampiran,
-                'tembusan'        => $tembusan,
-                'uraian_notulen'  => $uraian_notulen,
-                'tgl_buat'        => $date,
-                'no_udg'          => $no_udg
-              ];
+              if ($this->upload->do_upload('dokumentasi_rpt')){
+                     // $error = array('error' => $this->upload->display_errors());
+                      $data_upload     = $this->upload->data('file_name');
+                      $data = [
+                        'no_notulen'      => $no_notulen,
+                        'dokumentasi_rpt' => $data_upload,
+                        'tembusan'        => $tembusan,
+                        'uraian_notulen'  => $uraian_notulen,
+                        'tgl_buat'        => $date,
+                        'penulis'         => $this->username,
+                        'status'          => 0,
+                        'no_udg'          => $no_udg
+                      ];
+              }else {
+                redirect('admin/inputnotulensi','refresh');
+              }
+
 
               $query = $this->m_admin->input_data('notulensi_rpt', $data);
               if ($query) {
@@ -1583,7 +1601,7 @@
             }
             echo json_encode($json);
           }else {
-            redirect('admin/v_notulensi','refresh');
+            redirect('admin/inputnotulensi','refresh');
           }
         }
 

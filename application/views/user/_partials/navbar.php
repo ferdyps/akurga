@@ -17,17 +17,17 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="<?= base_url('user/formKomplain')?>">Komplain</a>
-          </li> 
+          </li>
           <li class="nav-item">
             <a class="nav-link" href="<?= base_url('user/riwayatKomplain')?>">Riwayat Pengajuan Komplain</a>
-          </li> 
+          </li>
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="<?= base_url()?>">Notulensi</a>
+            <a class="nav-link js-scroll-trigger" href="<?= base_url('user/notulensidisplay')?>">Notulensi</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" onclick="return confirm('Apakah anda yakin untuk logout..?');" href="<?= site_url('auth/logout')?>">Logout</a>
           </li>
-         
+
         </ul>
       </div>
     </div>

@@ -14,7 +14,6 @@
                   <thead>
                     <tr class="bg-primary text-white text-center">
                       <th>No Notulensi</th>
-                      <th>Lampiran</th>
                       <th>Tembusan</th>
                       <th>Uraian Notulensi</th>
                       <th>Action</th>
@@ -25,7 +24,6 @@
                   ?>
                   <tbody class="text-center">
                     <td><?= $row['no_notulen'] ?></td>
-                    <td><?= $row['lampiran'] ?></td>
                     <td><?= $row['tembusan'] ?></td>
                     <td><?= $row['uraian_notulen'] ?></td>
                     <td>

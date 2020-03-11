@@ -1,10 +1,10 @@
 <?php
-    
+
     defined('BASEPATH') OR exit('No direct script access allowed');
-    
+
     class User extends CI_Controller {
-    
-        
+
+
         public function __construct(){
             parent::__construct();
             $this->load->model('m_admin');
@@ -26,6 +26,17 @@
             ];
             $this->load->view('user/index', $data);
         }
+
+// =========================SEKRETARIS ROLE=======================================
+public function notulensidisplay()
+{
+  $data = [
+      'content' => 'user/v_notulensidisplay',
+      'title' => 'Home'
+  ];
+  $this->load->view('user/index', $data);
+}
+
 // ================================================================================
         public function formSuratPengantar(){
 
@@ -58,10 +69,10 @@
                     $id_surat = $this->m_admin->getNomorSuratPengantar()->row()->nomor_surat;
                     $data_status_surat = [
                         'nomor_surat' => $id_surat,
-                        'status' => 'pengajuan' 
+                        'status' => 'pengajuan'
                     ];
                     $insert_ke_status = $this->m_admin->input_data('status_surat',$data_status_surat);
-                    
+
 
                     if ($insert_suratnya && $insert_ke_status) {
                         ?>
@@ -89,7 +100,7 @@
                         'generate_id' => $generate_id
                     ];
                     $this->load->view('user/index', $data);
-                }   
+                }
             }else {
                 $id         = 'surat_pengantar';
                 $nama_field = 'nomor_surat';
@@ -117,14 +128,14 @@
                     'rules' => 'trim|required|regex_match[/^[a-zA-Z ]/]'
                 ]
             ]);
-            
+
             if ($this->input->post()) {
                 $nomor_komplain = $this->input->post('nomor_komplain');
                 $tanggal_komplain = $this->input->post('tanggal_komplain');
                 $lokasi = $this->input->post('lokasi');
                 $keluhan = $this->input->post('keluhan');
                 $nik = $this->m_admin->userJoinWarga($this->session->userdata('id_user'))->result()[0]->nik;
-                
+
                 if ($this->form_validation->run() == TRUE) {
                     $data = [
                         'nomor_komplain' => $nomor_komplain,
@@ -175,7 +186,7 @@
                     'generate_id' => $generate_id
                 ];
                 $this->load->view('user/index', $data);
-            }            
+            }
         }
 
 // ===============================================================================
@@ -202,12 +213,12 @@
 // ==================================================================================
         public function editSuratPengantar($id){
             $this->form_validation->set_rules('keperluan', 'Keperluan', 'trim|required|regex_match[/^[a-zA-Z ]/]');
-            
+
             if ($this->input->post()) {
                 $tanggal_surat = $this->input->post('tanggal_surat');
                 $keperluan = $this->input->post('keperluan');
-                
-                
+
+
                 if ($this->form_validation->run() == TRUE) {
                     $data = [
                         'tanggal_surat' => $tanggal_surat,
@@ -258,7 +269,7 @@
                     'data_surat' => $data_surat
                 ];
                 $this->load->view('user/index', $data);
-                
+
             }
 
         }
@@ -266,5 +277,5 @@
 }
 
     /* End of file User.php */
-    
+
 ?>

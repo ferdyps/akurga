@@ -17,11 +17,14 @@
                        </div>
                    </div>
                    <div class="form-group form-input">
-                       <label for="input-lampiran">Lampiran</label>
-                       <input type="text" name="lampiran" id="input-lampiran" class="form-control">
+                       <label for="dokumentasi_rpt">Dokumentasi Rapat</label>
+                       <div class="custom-file">
+                         <input type="file" name="dokumentasi_rpt" class="custom-file-input" id="dokumentasi_rpt">
+                         <label class="custom-file-label">Choose file</label>
+                       </div>
                        <div class="invalid-feedback">
 
-                       </div>
+                     </div>
                    </div>
 
 
@@ -35,8 +38,8 @@
                    min-width:520px;
                    max-width:520px;
                    height:210px;
-                   min-height:210px;
-                   max-height:210px;"
+                   min-height:125px;
+                   max-height:125px;"
                    class="form-control" name="tembusan" id="tembusan"></textarea>
                      <div class="invalid-feedback">
 
@@ -49,7 +52,7 @@
                <div class="col">
                    <div class="form-group form-input">
                      <label>Uraian Notulensi</label>
-                     <textarea name="uraian_notulen" id="" cols="30" rows="10" class="ckeditor"></textarea>
+                     <textarea name="uraian_notulen" id="editornotulen1" cols="30" rows="10" class="ckeditor"></textarea>
                      <div class="invalid-feedback"></div>
                    </div>
                </div>
@@ -64,3 +67,9 @@
        <?php echo form_close();?>
        </div>
 </div>
+
+<script>
+              // Replace the <textarea id="editor1"> with a CKEditor
+              // instance, using default configuration.
+              CKEDITOR.replace( 'editornotulen1' );
+          </script>
