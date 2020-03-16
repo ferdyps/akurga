@@ -12,7 +12,7 @@
             $this->load->library('session');
 
             $this->id_user = $this->session->userdata('id_user');
-            $this->username = $this->session->userdata('username');
+            $this->role = $this->session->userdata('role');
 
             if(!$this->session->has_userdata('status')){
                 redirect('auth/','refresh');
@@ -1569,7 +1569,7 @@
                         'tembusan'        => $tembusan,
                         'uraian_notulen'  => $uraian_notulen,
                         'tgl_buat'        => $date,
-                        'penulis'         => $this->username,
+                        'penulis'         => $this->role,
                         'status'          => 0,
                         'no_udg'          => $no_udg
                       ];

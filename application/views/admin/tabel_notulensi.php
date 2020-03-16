@@ -14,8 +14,10 @@
                   <thead>
                     <tr class="bg-primary text-white text-center">
                       <th>No Notulensi</th>
+                      <th>Penulis</th>
+                      <th>Tanggal Input Notulen</th>
                       <th>Tembusan</th>
-                      <th>Uraian Notulensi</th>
+                      <th>gambar</th>
                       <th>Action</th>
                     </tr>
                   </thead>
@@ -24,8 +26,10 @@
                   ?>
                   <tbody class="text-center">
                     <td><?= $row['no_notulen'] ?></td>
+                    <td><?= $row['penulis'] ?></td>
+                    <td><?= $row['tgl_buat'] ?></td>
                     <td><?= $row['tembusan'] ?></td>
-                    <td><?= $row['uraian_notulen'] ?></td>
+                    <td width="10%"><img class="img-thumbnail img-fluid" src="<?= base_url('./assets/foto/arsip/'. $row['dokumentasi_rpt'])?>"></td>
                     <td>
                       <a href="#" class="d-none d-sm-inline-block btn btn-primary shadow-sm" id="editNotulensi" title="Edit Data"
                       data-url="<?= base_url('admin/detailNotulen/'); ?>" data-notulen="<?= $row['no_notulen']; ?>"
