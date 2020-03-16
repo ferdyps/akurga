@@ -14,6 +14,7 @@
                         <th>Tanggal Pengaduan</th>
                         <th>Keluhan</th>
                         <th>Lokasi</th>
+                        <th>Tindak Lanjut</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -27,6 +28,7 @@
                         <td><?= $row['tanggal_komplain']?></td>
                         <td><?= $row['keluhan']?></td>
                         <td><?= $row['lokasi']?></td>
+                        <td><a href="" class="btn btn-primary"></a></td>
                     </tr>
                 <?php }?>
                 </tbody>

@@ -219,7 +219,7 @@
             $pdf->Cell(0,0,'Saya yang bertanda tangan di bawah ini Ketua RT 01/ RW 01, Desa Sukapura Kecamatan',0,1,'J');
             $pdf->Cell(0,13,'Dayeuhkolot Kabupaten Bandung, dengan ini menerangkan bahwa:',0,1,'L');
             $pdf->Ln(10);
-            $pdf->SetFont('Arial','B',12);
+            $pdf->SetFont('Arial','',12);
             $pdf->Cell(15);
             $pdf->Cell(47,0,'Nama',0,0,'L');
             $pdf->Cell(3,0,':',0,0,'L');
@@ -254,6 +254,20 @@
             $pdf->Cell(47,13,ucwords($row->nama_jalan).', '.ucwords($row->gang).', No. '.ucwords($row->no_rumah).', ',0,1,'L');
             $pdf->Cell(65);
             $pdf->Cell(47,2,'RT. 01 RW. 01, Babakan Ciamis, Kabupaten Bandung',0,1,'L');
+            $pdf->Ln(10);
+            $pdf->Cell(0,0,'Adalah benar warga kami.',0,1,'L');
+            $pdf->Ln(7);
+            $pdf->Cell(0,0,'Surat keterangan ini diberikan untuk dipergunakan '.$row->keperluan.'.',0,1,'L');
+            $pdf->Ln(20);
+            $pdf->Cell(0,0,'Manggadua, '.strftime("%d %B %Y",strtotime($row->tanggal_surat)),0,1,'R');
+            $pdf->Ln(7);
+            $pdf->SetFont('Arial','B',12);
+            $pdf->Cell(0,0,'Hormat Kami,',0,1,'R');
+            $pdf->Ln(7);
+            $pdf->Cell(0,0,'Hormat Kami,',0,1,'R');
+
+
+
 
             // }
             $pdf->Output('Surat Pengantar','I');
