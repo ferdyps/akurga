@@ -8,6 +8,7 @@
         public function __construct(){
             parent::__construct();
             $this->load->model('m_admin');
+            $this->load->model('m_user');
             $this->load->library('form_validation');
 
             if(!$this->session->has_userdata('status')){
@@ -210,6 +211,7 @@ public function notulensidisplay()
             ];
             $this->load->view('user/index', $data);
         }
+        
 // ==================================================================================
         public function editSuratPengantar($id){
             $this->form_validation->set_rules('keperluan', 'Keperluan', 'trim|required|regex_match[/^[a-zA-Z ]/]');
@@ -272,8 +274,18 @@ public function notulensidisplay()
 
             }
 
+        
         }
 
+      //  ==============================================================================================================
+
+    public function tampilbulan(){
+        $id_user = $this->session->userdata('id_user');
+        $data['content'] = "user/tampilbulan";
+        $data['title'] = 'Tabel Data Bulan';
+        $data['iuran'] = $this->m_user->tampil_iuran_perbulan($id_user)->result();
+        $this->load->view('user/index',$data);
+    }
 }
 
     /* End of file User.php */
