@@ -9,7 +9,7 @@
 <div class="container">
     <div class="row bg-white rounded shadow border-left-primary">
         <div class="col px-0">
-        <?= form_open('admin/insertHasilKomplain', ['id' => 'formKomplain', 'log' => 'Input Hasil Komplain']);?>
+        <?= form_open('admin/insertHasilKomplain');?>
             <input type="hidden" name="nomor_komplain" value="<?= $no_komplen ?>" id="nomor_komplain">
             <div class="row px-3 my-3">
                 <div class="col">

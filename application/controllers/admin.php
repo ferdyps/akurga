@@ -80,6 +80,15 @@
 
             }
         }
+        public function daftarKomplainRW(){
+            $list_komplain = $this->m_admin->komplainJoinWargaRW()->result_array();
+            $data = [
+                'content' => 'admin/daftarKomplainRW',
+                'title' => 'List Komplain',
+                'list_komplain' => $list_komplain
+            ];
+            $this->load->view('admin/index', $data);
+        }
 
 
 // =========================================================================
@@ -156,7 +165,7 @@
             $this->load->view('admin/index', $data);
         }
         public function daftarKomplain(){
-            $list_komplain = $this->m_admin->komplainJoinWarga()->result_array();
+            $list_komplain = $this->m_admin->komplainJoinWargaRT()->result_array();
             $data = [
                 'content' => 'admin/daftarKomplain',
                 'title' => 'List Komplain',
@@ -286,20 +295,37 @@
                 $input_hasil = $this->m_admin->input_data('hasil_komplain',$data);
                 $update_status = $this->m_admin->edit_data('komplain','nomor_komplain',$nomor_komplain,$data2);
 
-                if ($input_hasil && $update_status) {
-                    $url = base_url('admin/inputHasilKomplain');
-
-                    $json = [
-                        'message' => "Hasil Komplain berhasil diinput..",
-                        'url' => $url
-                    ];
-                }else {
-                    $json['errors'] = "Hasil Komplain gagal diinput..!";
+                if($input_hasil && $update_status){
+                    ?>
+                    <script>
+                        alert('Tindak Lanjut Komplain Berhasil Diinput');
+                        location = "<?php echo base_url('admin/daftarKomplain');?>";
+                    </script>
+                    <?php
+                }else{
+                    ?>
+                    <script>
+                        alert('Tindak Lanjut Komplain Gagal Diinput');
+                        location = "<?php echo base_url('admin/daftarKomplain');?>";
+                    </script>
+                    <?php
                 }
+
+                // if ($input_hasil && $update_status) {
+                //     $url = base_url('admin/inputHasilKomplain');
+
+                //     $json = [
+                //         'message' => "Hasil Komplain berhasil diinput..",
+                //         'url' => $url
+                //     ];
+                // }else {
+                //     $json['errors'] = "Hasil Komplain gagal diinput..!";
+                // }
+
 
             }
             // echo json_encode(['status' => 'success']);
-            echo json_encode($json);
+            // echo json_encode($json);
         }
 
 
@@ -1037,6 +1063,19 @@
                 $json['message'] = 'Data Warga Berhasil Dikonfirmasi';
             }else {
                 $json['errors'] = 'Data Warga Gagal Dikonfirmasi';
+            }
+            echo json_encode($json);
+        }
+
+        public function klik_komplain_RW($id){
+            $data['lingkup'] = 'RW';
+
+            $query = $this->m_admin->edit_data('komplain','nik',$id,$data);
+
+            if ($query) {
+                $json['message'] = 'Komplain Berhasil Diteruskan Kepada RW';
+            }else {
+                $json['errors'] = 'Komplain Gagal Diteruskan Kepada RW';
             }
             echo json_encode($json);
         }

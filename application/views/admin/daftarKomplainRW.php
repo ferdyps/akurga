@@ -37,8 +37,7 @@
                         <td><?= $row['keluhan']?></td>
                         <td><?= $row['lokasi']?></td>
                         <td><?= $row['tanggal_komplain']?></td>
-                        <td><a class="btn btn-primary" href="<?= base_url('admin/inputHasilKomplain/'. $row['nomor_komplain'])?>" <?php if($row['status'] == 'selesai') { ?> hidden <?php } ?>>Tindak Lanjut</a>
-                         <a class="btn btn-success" <?php if($row['status'] == 'selesai') { ?> hidden <?php } ?>>Ketua RW</a></td>
+                        <td><a class="btn btn-primary" href="<?= base_url('admin/inputHasilKomplain/'. $row['nomor_komplain'])?>" <?php if($row['status'] == 'selesai') { ?> hidden <?php } ?>>Tindak Lanjut</a></td>
                       </tr>
                   <?php } ?>
                   </tbody>

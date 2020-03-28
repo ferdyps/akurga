@@ -128,8 +128,14 @@
             return $this->db->get();
         }
 
-        public function komplainJoinWarga(){
-            return $this->db->query("SELECT nomor_komplain,w.nik,nama,keluhan,lokasi,tanggal_komplain FROM komplain k JOIN warga w ON w.nik=k.nik");
+        public function komplainJoinWargaRT(){
+            return $this->db->query("SELECT nomor_komplain,w.nik,nama,keluhan,lokasi,tanggal_komplain,lingkup,k.status FROM komplain k JOIN warga w ON w.nik=k.nik where lingkup='rt'
+            ");
+        }
+
+        public function komplainJoinWargaRW(){
+            return $this->db->query("SELECT nomor_komplain,w.nik,nama,keluhan,lokasi,tanggal_komplain,lingkup,k.status FROM komplain k JOIN warga w ON w.nik=k.nik where lingkup='rw'
+            ");
         }
 
         public function riwayatSuratPengantar($id_user){

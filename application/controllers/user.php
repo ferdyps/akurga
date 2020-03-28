@@ -144,6 +144,7 @@ public function notulensidisplay()
                         'lokasi' => $lokasi,
                         'keluhan' => $keluhan,
                         'lingkup' => 'RT',
+                        'status' => 'proses',
                         'nik' => $nik
                     ];
 
