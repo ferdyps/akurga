@@ -6,7 +6,7 @@
  <div class="container">
      <div class="row bg-white rounded shadow border-left-primary">
        <div class="col px-0">
-       <?php echo form_open('admin/insertNotulen', ['id' => 'default-form', 'log' => 'Input Notulensi']);?>
+       <?php echo form_open_multipart('admin/insertNotulen', ['id' => 'default-form', 'log' => 'Input Notulensi']);?>
            <div class="row px-3 my-3">
                <div class="col">
                    <div class="form-group form-input">
@@ -19,8 +19,8 @@
                    <div class="form-group form-input">
                        <label for="dokumentasi_rpt">Dokumentasi Rapat</label>
                        <div class="custom-file">
-                         <input type="file" name="dokumentasi_rpt" class="custom-file-input" id="dokumentasi_rpt">
-                         <label class="custom-file-label">Choose file</label>
+                         <input type="file" name="dokumentasi_rpt" class="custom-file-input" id="dok_rpt">
+                         <label class="custom-file-label" for="dok_rpt">Choose file</label>
                        </div>
                        <div class="invalid-feedback">
 
@@ -52,7 +52,10 @@
                <div class="col">
                    <div class="form-group form-input">
                      <label>Uraian Notulensi</label>
-                     <textarea name="uraian_notulen" id="editornotulen1" cols="30" rows="10" class="ckeditor"></textarea>
+                     <div class="alert alert-success" role="alert">
+                         Lakukan <b>penulisan uraian notulensi</b> di <b>microsoft word</b> terlebih dahulu. Lalu <b>copy & paste</b> semua tulisan dari file <b>microsoft word</b> anda ke dalam input di bawah ini . . 
+                       </div>
+                     <textarea name="uraian_notulen" id="text_area_notulen" cols="30" rows="10" class=""></textarea>
                      <div class="invalid-feedback"></div>
                    </div>
                </div>
@@ -69,7 +72,19 @@
 </div>
 
 <script>
-              // Replace the <textarea id="editor1"> with a CKEditor
-              // instance, using default configuration.
-              CKEDITOR.replace( 'editornotulen1' );
-          </script>
+tinymce.init({
+  selector: 'textarea#text_area_notulen',
+  plugins: 'a11ychecker advcode casechange formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker',
+  toolbar: 'a11ycheck addcomment showcomments casechange checklist code formatpainter pageembed permanentpen table',
+  toolbar_mode: 'floating',
+  tinycomments_mode: 'embedded',
+  tinycomments_author: 'Author name'
+});
+
+$('#dok_rpt').on('change',function(){
+               //get the file name
+               var fileName = $(this).val();
+               //replace the "Choose a file" label
+               $(this).next('.custom-file-label').html(fileName);
+           })
+</script>
