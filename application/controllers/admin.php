@@ -767,6 +767,17 @@
           $this->load->view('admin/index', $data);
         }
 
+        public function isi_notulensi(){
+
+          $id     = $this->uri->segment(3);
+          $no     = array('no_notulen' => $id );
+          $surat  = $this->m_admin->selectWithWhere('notulensi_rpt', $no)->result_array();
+          $data['fetch'] = $surat;
+          $data['content'] = 'admin/v_edit_notulensi';
+          $data['title'] = 'Edit Data Notulensi Rapat';
+          $this->load->view('admin/index', $data);
+        }
+
         public function riwayat_Undangan(){
             $id = array('status' => 1 );
             $data['list_surat_udg'] = $this->m_admin->selectWithWhere('surat_undangan',$id)->result_array();
