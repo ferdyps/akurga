@@ -50,7 +50,7 @@
 
                         $this->session->set_userdata($array_auth);
 
-                        if ($user_auth->role == 'adminMaster' || $user_auth->role == 'Ketua RT' || $user_auth->role == 'Bendahara') {
+                        if ($user_auth->role == 'adminMaster' || $user_auth->role == 'Ketua RT' || $user_auth->role == 'Bendahara' || $user_auth->role == 'Kolektor Iuran' ) {
                             $url = base_url('admin/index');
 
                             $json = [
@@ -106,6 +106,8 @@
                 }elseif ($this->session->userdata('role') == "Ketua RT") {
                     redirect('admin/','refresh');
                 }elseif ($this->session->userdata('role') == "Bendahara") {
+                    redirect('admin/','refresh');
+                }elseif ($this->session->userdata('role') == "Kolektor Iuran") {
                     redirect('admin/','refresh');
                 }
             }

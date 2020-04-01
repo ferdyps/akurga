@@ -341,6 +341,16 @@
             $data['title'] = 'Tabel Data pengeluaran';
             $this->load->view('admin/index',$data);
         }
+
+        public function tabelpengeluaranuser(){
+            // $where = array(
+            // 	'nip' => $this->session->userdata('nip')
+            // );
+            // $data['dataiuran'] = $this->petugas_model->view_data($where,'iuran_masuk')->result();
+            $data['content'] = "admin/tabelpengeluaranuser";
+            $data['title'] = 'Tabel Data pengeluaran';
+            $this->load->view('admin/index',$data);
+        }
         public function rekapbulan(){
             // $where = array(
             // 	'nip' => $this->session->userdata('nip')
@@ -405,6 +415,12 @@
             $data['title'] = 'Tabel Data Keluar';
             $data['dataiurank'] = $this->m_admin->tampil_iuran_keluar()->result_array();
             $data['content'] = "admin/tabelpengeluaran.php";
+             $this->load->view('admin/index',$data);
+        }
+        public function tabeldataiurankeluaruser(){
+            $data['title'] = 'Tabel Data Keluar';
+            $data['dataiurank'] = $this->m_admin->tampil_iuran_keluar()->result_array();
+            $data['content'] = "admin/tabelpengeluaranuser.php";
              $this->load->view('admin/index',$data);
         }
 
