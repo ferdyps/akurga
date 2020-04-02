@@ -357,6 +357,16 @@
             $data['title'] = 'Tabel Data pengeluaran';
             $this->load->view('admin/index',$data);
         }
+
+        public function tabelpengeluaranuser(){
+            // $where = array(
+            // 	'nip' => $this->session->userdata('nip')
+            // );
+            // $data['dataiuran'] = $this->petugas_model->view_data($where,'iuran_masuk')->result();
+            $data['content'] = "admin/tabelpengeluaranuser";
+            $data['title'] = 'Tabel Data pengeluaran';
+            $this->load->view('admin/index',$data);
+        }
         public function rekapbulan(){
             // $where = array(
             // 	'nip' => $this->session->userdata('nip')
@@ -421,6 +431,12 @@
             $data['title'] = 'Tabel Data Keluar';
             $data['dataiurank'] = $this->m_admin->tampil_iuran_keluar()->result_array();
             $data['content'] = "admin/tabelpengeluaran.php";
+             $this->load->view('admin/index',$data);
+        }
+        public function tabeldataiurankeluaruser(){
+            $data['title'] = 'Tabel Data Keluar';
+            $data['dataiurank'] = $this->m_admin->tampil_iuran_keluar()->result_array();
+            $data['content'] = "admin/tabelpengeluaranuser.php";
              $this->load->view('admin/index',$data);
         }
 
@@ -772,6 +788,28 @@
             $this->load->view('admin/index', $data);
         }
 
+        public function editData_Notulensi(){
+
+          $id     = $this->uri->segment(3);
+          $no     = array('no_notulen' => $id );
+          $surat  = $this->m_admin->selectWithWhere('notulensi_rpt', $no)->result_array();
+          $data['fetch'] = $surat;
+          $data['content'] = 'admin/v_edit_notulensi';
+          $data['title'] = 'Edit Data Notulensi Rapat';
+          $this->load->view('admin/index', $data);
+        }
+
+        public function isi_notulensi(){
+
+          $id     = $this->uri->segment(3);
+          $no     = array('no_notulen' => $id );
+          $surat  = $this->m_admin->selectWithWhere('notulensi_rpt', $no)->result_array();
+          $data['fetch'] = $surat;
+          $data['content'] = 'admin/v_edit_notulensi';
+          $data['title'] = 'Edit Data Notulensi Rapat';
+          $this->load->view('admin/index', $data);
+        }
+
         public function riwayat_Undangan(){
             $id = array('status' => 1 );
             $data['list_surat_udg'] = $this->m_admin->selectWithWhere('surat_undangan',$id)->result_array();
@@ -795,6 +833,15 @@
 
         }
 
+        public function dokumentasi_rapat()
+        {
+          $id     = $this->uri->segment(3);
+          $no     = array('no_notulen' => $id );
+          $surat  = $this->m_admin->selectWithWhere('notulensi_rpt', $no)->result_array();
+          $data['fetch'] = $surat;
+          $data['title'] = 'Detail Dokumentasi Rapat';
+          $this->load->view('admin/v_dokumentasi_rapat', $data);
+        }
         public function cetak_undangan()
         {
           $id     = $this->uri->segment(3);
@@ -1451,7 +1498,6 @@
                   }
               }
             }
-
             echo json_encode($json);
           } else {
             redirect('admin/v_rapat','refresh');
@@ -1988,32 +2034,43 @@
               ],
 
               [
-                  'field' => 'lampiran',
-                  'label' => 'lampiran',
-                  'rules' => 'required'
-              ],
-
-              [
-                  'field' => 'uraian_notulen',
-                  'label' => 'Uraian Notulensi',
+                  'field' => 'tembusan',
+                  'label' => 'Tembusan',
                   'rules' => 'trim|required'
               ]
           ]);
 
           if ($this->input->post()) {
             $no_notulen     = $this->input->post('no_notulen');
-            $lampiran       = $this->input->post('lampiran');
             $tembusan       = $this->input->post('tembusan');
-            $uraian_notulen = $this->input->post('uraian_notulen');
+
+            $config['upload_path']          = './assets/foto/notulensi';
+            // $config['file_name']            = $this->input->post('gbr_surat');
+            $config['allowed_types']        = 'gif|jpg|png';
+            $config['max_size']             = 1024; // 1MB
+            // $config['max_width']            = 1024;
+            // $config['max_height']           = 768;
+
+            $this->load->library('upload', $config);
 
 
             if ($this->form_validation->run() == TRUE) {
-              $data = [
-                'no_notulen' => $no_notulen,
-                'lampiran' => $lampiran,
-                'tembusan' => $tembusan,
-                'uraian_notulen' => $uraian_notulen
-              ];
+
+              if ($this->upload->do_upload('dokumentasi_rpt')){
+                     // $error = array('error' => $this->upload->display_errors());
+                      $data_upload     = $this->upload->data('file_name');
+                      $data = [
+                        'no_notulen'      => $no_notulen,
+                        'tembusan'        => $tembusan,
+                        'dokumentasi_rpt' => $data_upload
+                      ];
+              }else {
+                $data = [
+                  'no_notulen' => $no_notulen,
+                  'tembusan' => $tembusan
+                ];
+              }
+
 
               $query = $this->m_admin->edit_data('notulensi_rpt','no_notulen', $no_notulen, $data);
               if ($query) {
@@ -2039,6 +2096,58 @@
             echo json_encode($json);
           }else {
             redirect('admin/editNotulen','refresh');
+          }
+        }
+
+        public function editUraianNotulen(){
+          $this->form_validation->set_rules([
+              [
+                  'field' => 'no_notulen',
+                  'label' => 'Nomor Notulensi',
+                  'rules' => 'trim|required'
+              ],
+
+              [
+                  'field' => 'uraian_notulen',
+                  'label' => 'Uraian Notulensi',
+                  'rules' => 'required'
+              ]
+          ]);
+
+          if ($this->input->post()) {
+            $no_notulen     = $this->input->post('no_notulen');
+            $uraian         = $this->input->post('uraian_notulen');
+
+
+            if ($this->form_validation->run() == TRUE) {
+                $data = [
+                  'uraian_notulen' => $uraian
+                ];
+
+              $query = $this->m_admin->edit_data('notulensi_rpt','no_notulen', $no_notulen, $data);
+              if ($query) {
+                $url = base_url('admin/riwayat_notulensi');
+
+                $json = [
+                    'message' => "Data Notulensi berhasil diubah..",
+                    'url' => $url
+                ];
+              }else {
+                $json['errors'] = "Data Notulensi gagal diubah..!";
+              }
+            }else {
+              $no = 0;
+              foreach ($this->input->post() as $key => $value) {
+                  if (form_error($key) != "") {
+                      $json['form_errors'][$no]['id'] = $key;
+                      $json['form_errors'][$no]['msg'] = form_error($key, null, null);
+                      $no++;
+                  }
+              }
+            }
+            echo json_encode($json);
+          }else {
+            redirect('admin/editData_Notulensi','refresh');
           }
         }
 

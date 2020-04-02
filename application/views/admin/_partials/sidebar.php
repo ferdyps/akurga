@@ -114,6 +114,26 @@
           </div>
         </div>
       </li>
+      <hr class="sidebar-divider">
+      <?php } else if ( $this->session->userdata('role') == 'Kolektor Iuran'){ ?>
+      <div class="sidebar-heading">
+        Kolektor Iuran
+      </div>
+      <!-- Nav Item - Pages Collapse Menu -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBendahara" aria-expanded="true" aria-controls="collapseBendahara">
+          <i class="fas fa-fw fa-cog"></i>
+          <span>Keuangan</span>
+        </a>
+        <div id="collapseBendahara" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="<?php echo base_url("admin/tabeldataiurankeluaruser");?>">Tabel Pengeluaran</a> 
+            <a class="collapse-item" href="<?php echo base_url("admin/formpemasukan");?>">Form Pemasukan</a>
+            <a class="collapse-item" href="<?php echo base_url("admin/tabelpemasukan");?>">Tabel Pemasukan</a>
+            <a class="collapse-item" href="<?php echo base_url("admin/tampilbulan");?>">Tabel Tampilan Bulan</a>
+          </div> 
+        </div>
+      </li>
       <?php }elseif ( $this->session->userdata('role') == 'Sekretaris') {?>
       <!-- ================================ SEKRETARIS ========================================== -->
       <hr class="sidebar-divider">

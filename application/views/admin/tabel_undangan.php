@@ -43,7 +43,7 @@
                       <b>||</b>
                       <a href="<?= base_url("admin/inputnotulensi").'/'.$row['no_udg'];?>" class="d-none d-sm-inline-block btn btn-primary shadow-sm" title="Input Notulensi"><i class="fas fa-clipboard"></i></a>
                       <b>||</b>
-                      <a href="<?= base_url("admin/cetak_undangan").'/'.$row['no_udg'];?>" class="d-none d-sm-inline-block btn btn-primary shadow-sm" title="Cetak Laporan"><i class="fas fa-print"></i></a>
+                      <a href="<?= base_url("admin/cetak_undangan").'/'.$row['no_udg'];?>" target="_blank" class="d-none d-sm-inline-block btn btn-primary shadow-sm" title="Cetak Surat Undangan"><i class="fas fa-print"></i></a>
                     </td>
                     </tr>
                   <?php } ?>

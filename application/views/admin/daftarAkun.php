@@ -67,6 +67,7 @@
                             <option value="Bendahara">Bendahara</option>
                             <option value="Sekretaris">Sekretaris</option>
                             <option value="Warga">Warga</option>
+                            <option value="Kolektor Iuran">Kolektor Iuran</option>
                         </select>
                     </div>
                 </div>

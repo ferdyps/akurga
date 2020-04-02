@@ -17,7 +17,7 @@
                       <th>Penulis</th>
                       <th>Tanggal Input Notulen</th>
                       <th>Tembusan</th>
-                      <th>gambar</th>
+                      <th width="10%">Dokumentasi Rapat</th>
                       <th>Action</th>
                     </tr>
                   </thead>
@@ -29,12 +29,20 @@
                     <td><?= $row['penulis'] ?></td>
                     <td><?= $row['tgl_buat'] ?></td>
                     <td><?= $row['tembusan'] ?></td>
-                    <td width="10%"><img class="img-thumbnail img-fluid" src="<?= base_url('./assets/foto/arsip/'. $row['dokumentasi_rpt'])?>"></td>
                     <td>
-                      <a href="#" class="d-none d-sm-inline-block btn btn-primary shadow-sm" id="editNotulensi" title="Edit Data"
-                      data-url="<?= base_url('admin/detailNotulen/'); ?>" data-notulen="<?= $row['no_notulen']; ?>"
-                      data-toggle="modal" data-target="#editDataNotulensiModal"><i class="fas fa-edit"></i></a>
+                      <a href="<?= base_url("admin/dokumentasi_rapat").'/'.$row['no_notulen'];?>" target="_blank" class="d-none d-sm-inline-block btn btn-primary shadow-sm" title="Detail Dokumentasi Rapat"><i class="fas fa-image"></i></a>
                     </td>
+                    <td>
+
+                      <a href="<?= base_url("admin/editData_Notulensi").'/'.$row['no_notulen'];?>" class="d-none d-sm-inline-block btn btn-primary shadow-sm" title="Edit Data Notulensi"><i class="fas fa-edit"></i></a>
+
+                      <a href="<?= base_url("admin/isi_notulensi").'/'.$row['no_notulen'];?>" target="_blank" class="d-none d-sm-inline-block btn btn-primary shadow-sm" title="Lihat Isi Uraian Notulensi"><i class="fas fa-upload"></i></a>
+
+                      <a href="#" class="d-none d-sm-inline-block btn btn-primary shadow-sm" id="editUraianNotulensi" title="Edit Uraian Notulensi"
+                      data-url="<?= base_url('admin/detailNotulen/'); ?>" data-notulensi="<?= $row['no_notulen']; ?>"
+                      data-toggle="modal" data-target="#editUraianNotulensiModal"><i class="fas fa-file-import"></i></a>
+                    </td>
+
                   </tbody>
                 <?php } ?>
                 </table>
@@ -43,11 +51,11 @@
           </div>
         </div>
 
-        <?php $this->load->view('admin/_partials/editnotulensi_modal')?>
+        <?php $this->load->view('admin/_partials/edituraian_notulensi')?>
 
         <script>
-            $(document).on('click','#editNotulensi',function(){
-              var id_notulen = $(this).attr('data-notulen');
+            $(document).on('click','#editUraianNotulensi',function(){
+              var id_notulen = $(this).attr('data-notulensi');
               var url = $(this).attr('data-url');
               $.ajax({
                 url: url + id_notulen,
@@ -56,14 +64,13 @@
                 dataType: 'json',
                   success:function(data) {
                     console.log(data);
-                    $('#editDataNotulensiModal #edit-no_notulen').val(data.no_notulen);
-                    $('#editDataNotulensiModal #edit-lampiran').val(data.lampiran);
-                    $('#editDataNotulensiModal #edit-tembusan').val(data.tembusan);
-                    $('#editDataNotulensiModal #edit-uraian_notulen').val(data.uraian_notulen);
+                    $('#editUraianNotulensiModal #edit-no_notulen').val(data.no_notulen);
+                    $('#editUraianNotulensiModal #edit-uraian_notulen').val(data.uraian_notulen);
                   },
                   error:function() {
                     alert('Error di System..!');
                   }
               });
             });
+
         </script>
