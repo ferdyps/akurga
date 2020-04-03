@@ -26,15 +26,43 @@
   <link rel="stylesheet" href="<?= config_item('asset_url') . 'css/main.css'; ?>">
 
   <?php $this->load->view('admin/_partials/js_core');?>
-
+  <style>
+    .notulensi-text{
+      color: #000000;
+    }
+  </style>
 </head>
 
   <body id="page-top">
 
     <div class="container-fluid">
       <?php foreach ($fetch as $row) { ?>
+        <div class="row">
+          <div class="col-md-2"></div>
+          <div class="col-md-8">
+            <div class="jumbotron jumbotron-fluid border border-dark">
+              <div class="container-fluid">
+                <div class="card notulensi-text">
+                  <div class="card-body ">
+                    <div class="container-fluid">
+                      <h2 class="display-4 notulensi-text">Notulensi Rapat <?= $row['no_notulen']  ?></h2>
+                      <h6 class="lead notulensi-text">By <?= $row['penulis']; ?></h6>
+                      <h6 class="lead notulensi-text">Diunggah pada tanggal <?= $row['tgl_acc']; ?></h6>
+                      <img width="1000px" height="800px" class="img-thumbnail img-fluid mx-auto d-block" src="<?= base_url('./assets/foto/notulensi/'. $row['dokumentasi_rpt'])?>">
+                    </div><br>
+                    <?= $row['uraian_notulen']; ?>
+                    <hr class="my-4 border-dark">
+                    <h6>Tembusan : <?= $row['tembusan'];?> </h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-2"></div>
+        </div>
+
+
       <?php } ?>
-      <img width="1000px" height="800px" class="img-thumbnail img-fluid mx-auto d-block" src="<?= base_url('./assets/foto/notulensi/'. $row['dokumentasi_rpt'])?>">
     </div>
 
   <script src="<?= base_url('assets/sweetalert2-9.3.6/dist/sweetalert2.all.min.js'); ?>"></script>

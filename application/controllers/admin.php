@@ -799,15 +799,14 @@
           $this->load->view('admin/index', $data);
         }
 
-        public function isi_notulensi(){
+        public function notulensi_rapat(){
 
           $id     = $this->uri->segment(3);
           $no     = array('no_notulen' => $id );
           $surat  = $this->m_admin->selectWithWhere('notulensi_rpt', $no)->result_array();
           $data['fetch'] = $surat;
-          $data['content'] = 'admin/v_edit_notulensi';
-          $data['title'] = 'Edit Data Notulensi Rapat';
-          $this->load->view('admin/index', $data);
+          $data['title'] = 'Notulensi Rapat';
+          $this->load->view('admin/v_notulensi_rapat', $data);
         }
 
         public function riwayat_Undangan(){

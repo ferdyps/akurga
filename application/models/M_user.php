@@ -1,12 +1,16 @@
 <?php
-    
+
     defined('BASEPATH') OR exit('No direct script access allowed');
-    
+
     class M_user extends CI_Model {
-    
+
         public function cek_user($data){
             $sql = "SELECT * FROM user WHERE (username = ? OR email = ?) AND password = ?";
             return $this->db->query($sql,array($data['username_email'],$data['username_email'],$data['password']));
+        }
+
+        public function selectAllData($table){
+            return $this->db->get($table);
         }
 // ==================================================================================================================
         public function input_data($table, $data){
@@ -22,7 +26,7 @@
             $this->db->where($pk_field, $id);
             return $this->db->update($table, $data);
         }
-        
+
         public function tampil_iuran_perbulan($id_user){
             $query = "
             SELECT
@@ -52,7 +56,7 @@
             ";
             return $this->db->query($query);
         }
-    
+
     }
-    
+
     /* End of file M_user.php */

@@ -31,9 +31,11 @@
 // =========================SEKRETARIS ROLE=======================================
 public function notulensidisplay()
 {
+  $db = $this->m_user->selectAllData('notulensi_rpt',)->result_array();
   $data = [
+      'fetch'   => $db,
       'content' => 'user/v_notulensidisplay',
-      'title' => 'Home'
+      'title'   => 'Home'
   ];
   $this->load->view('user/index', $data);
 }
@@ -212,7 +214,7 @@ public function notulensidisplay()
             ];
             $this->load->view('user/index', $data);
         }
-        
+
 // ==================================================================================
         public function editSuratPengantar($id){
             $this->form_validation->set_rules('keperluan', 'Keperluan', 'trim|required|regex_match[/^[a-zA-Z ]/]');
@@ -275,7 +277,7 @@ public function notulensidisplay()
 
             }
 
-        
+
         }
 
       //  ==============================================================================================================
