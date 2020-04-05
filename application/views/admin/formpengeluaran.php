@@ -9,9 +9,9 @@
      <div class="row bg-white rounded shadow border-left-primary">
        <div class="col px-0">
        <!-- <?php if(!empty(validation_errors())) :
-        ?>
-  <?php echo validation_errors() ?>
-<?php endif; ?> -->
+        // ?>
+  <!-- <?php echo validation_errors() ?> -->
+<!-- <?php endif; ?>  -->
        <?=form_open_multipart("admin/iurankeluar");
         $tanggal = date("d-m-Y");?>
       
@@ -33,7 +33,7 @@
                             <option value="STRATA III">STRATA III</option> -->
                         </select>
                     </div>
-                   <?php echo form_error('diberikan_kepada'); ?>
+                   <?php echo form_error('diberikan_kepada','<small class="text-danger">','</small>'); ?>
 
                    <div class="form-group form-input">
                        <label for="input-tanggal">Tanggal</label>
@@ -49,7 +49,7 @@
                        <div class="invalid-feedback">
                        </div>
                    </div>
-                   <?php echo form_error('nominal'); ?>
+                   <?php echo form_error('nominal','<small class="text-danger">','</small>'); ?>
                    
                    <div class="form-group form-input">
                        <label for="input-digunakan_untuk">Keterangan</label>
@@ -57,7 +57,7 @@
                        <div class="invalid-feedback">
                      </div>
                    </div>
-                   <?php echo form_error('digunakan_untuk'); ?>
+                   <?php echo form_error('digunakan_untuk','<small class="text-danger">','</small>'); ?>
 
                    <div class="form-group form-input">
                        <label for="input-gambar">Gambar</label>
@@ -72,6 +72,6 @@
                    <input type="reset" value="Reset" class="btn btn-danger">
                </div>
            </div>
-       <!-- <?php=form_close();?> -->
+        <?= form_close();?> 
        </div>
 </div>
