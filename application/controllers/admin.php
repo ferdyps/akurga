@@ -1652,7 +1652,7 @@
 
             $config['upload_path']          = './assets/foto/notulensi';
             // $config['file_name']            = $this->input->post('gbr_surat');
-            $config['allowed_types']        = 'gif|jpg|png';
+            $config['allowed_types']        = 'jpg|png';
             $config['max_size']             = 1024; // 1MB
             // $config['max_width']            = 1024;
             // $config['max_height']           = 768;

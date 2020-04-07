@@ -29,16 +29,33 @@
         }
 
 // =========================SEKRETARIS ROLE=======================================
-public function notulensidisplay()
-{
-  $db = $this->m_user->selectAllData('notulensi_rpt',)->result_array();
-  $data = [
-      'fetch'   => $db,
-      'content' => 'user/v_notulensidisplay',
-      'title'   => 'Home'
-  ];
-  $this->load->view('user/index', $data);
-}
+        public function notulensidisplay()
+        {
+          $db = $this->m_user->get_notulensi()->result_array();
+          // setlocale(LC_ALL, 'IND');
+          
+          // $array = array();
+          // foreach ($db as $raw) {
+          //   $acara_udg        = $raw['acara_udg'];
+          //   $no_notulen       = $raw['no_notulen'];
+          //   $dokumentasi_rpt  = $raw['dokumentasi_rpt'];
+          //   $penulis          = $raw['penulis'];
+          //   $tgl_acc          = strftime("%d %B %Y",strtotime($raw['tgl_acc']));
+          // }
+
+          $data = [
+              // 'acara_udg'            => $acara_udg,
+              // 'no_notulen'           => $no_notulen,
+              // 'dokumentasi_rpt'      => $dokumentasi_rpt,
+              // 'penulis'              => $penulis,
+              // 'tgl_acc'              => $tgl_acc,
+
+              'fetch'                => $db,
+              'content'              => 'user/v_notulensidisplay',
+              'title'                => 'Daftar Notulensi Rapat'
+          ];
+          $this->load->view('user/index', $data);
+        }
 
 // ================================================================================
         public function formSuratPengantar(){

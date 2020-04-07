@@ -27,6 +27,16 @@
             return $this->db->update($table, $data);
         }
 
+        public function get_notulensi()
+        {
+          // $this->db->query("SET lc_time_names = 'id_ID'");
+          $this->db->select('acara_udg, no_notulen, dokumentasi_rpt, penulis, notulensi_rpt.tgl_acc');
+          $this->db->from('surat_undangan');
+          $this->db->join('notulensi_rpt', 'surat_undangan.no_udg = notulensi_rpt.no_udg');
+          $this->db->where('notulensi_rpt.status', 0);
+          return $this->db->get();
+        }
+
         public function tampil_iuran_perbulan($id_user){
             $query = "
             SELECT
