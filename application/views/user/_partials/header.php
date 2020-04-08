@@ -28,4 +28,10 @@
 
   <link rel="stylesheet" href="<?= config_item('asset_url') . 'css/main.css'; ?>">
   <?php $this->load->view('user/_partials/js_core');?>
+
+  <style>
+    .notulensi-text{
+      color: #000000;
+    }
+  </style>
 </head>

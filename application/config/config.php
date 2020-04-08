@@ -23,7 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['setlocal']       = setlocale(LC_ALL, 'IND');
+$config['setlocal']   = setlocale(LC_ALL, 'IND');
 $config['base_url']   = 'http://localhost/akurga/';
 $config['asset_url']  = $config['base_url'] . 'assets/';
 $config['web_title']	= "AKURGA - Aplikasi Rukun Warga";
@@ -227,7 +227,7 @@ $config['allow_get_array'] = TRUE;
 | your log files will fill up very fast.
 |
 */
-$config['log_threshold'] = 4;
+$config['log_threshold'] = 0;
 
 /*
 |--------------------------------------------------------------------------

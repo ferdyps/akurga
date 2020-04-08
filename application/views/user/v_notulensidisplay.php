@@ -21,10 +21,9 @@
                         <?php config_item('setlocal'); ?>
                         <h6 class="card-title text-right">Diunggah <?= strftime("%d %B %Y",strtotime($row['tgl_acc'])); ?> </h6>
                         <h2 class="card-title text-left">Notulensi Rapat <?= $row['no_notulen']; ?> </h2>
-                        <p class="card-text text-left bg-primary mr-10"><?= $row['acara_udg']; ?></p>
+                        <p class="card-text text-left"><?= $row['acara_udg']; ?></p>
                         <p class="card-text text-right"><?= $row['penulis']; ?></p>
-                        <a href="#" class="stretched-link">Go somewhere</a>
-
+                        <a href="<?= base_url("user/notulensi_rapat").'/'.$row['no_notulen'];?>" class="stretched-link text-right">Selengkapnya</a>
                       </div>
                     </div>
                   </div>

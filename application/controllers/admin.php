@@ -802,8 +802,7 @@
         public function notulensi_rapat(){
 
           $id     = $this->uri->segment(3);
-          $no     = array('no_notulen' => $id );
-          $surat  = $this->m_admin->selectWithWhere('notulensi_rpt', $no)->result_array();
+          $surat  = $this->m_admin->get_detail_notulensi($id)->result_array();
           $data['fetch'] = $surat;
           $data['title'] = 'Notulensi Rapat';
           $this->load->view('admin/v_notulensi_rapat', $data);
