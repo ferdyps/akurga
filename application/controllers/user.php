@@ -301,6 +301,12 @@
         $data['iuran'] = $this->m_user->tampil_iuran_perbulan($id_user)->result();
         $this->load->view('user/index',$data);
     }
+    public function tabeldataiurankeluaruser(){
+        $data['title'] = 'Tabel Data Keluar';
+        $data['dataiurank'] = $this->m_user->tampil_iuran_keluar()->result_array();
+        $data['content'] = "user/tabelpengeluaranuser.php";
+        $this->load->view('user/index',$data);
+    } 
 }
 
     /* End of file User.php */
