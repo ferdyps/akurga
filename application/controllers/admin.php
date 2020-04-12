@@ -21,6 +21,8 @@
                     redirect('user/','refresh');
                 }else if ($this->session->userdata('role') == 'Ketua RT') {
                     redirect('ketuaRT/','refresh');
+                }else if ($this->session->userdata('role') == 'Ketua RW') {
+                    redirect('ketuaRW/','refresh');
                 }
             }
         }

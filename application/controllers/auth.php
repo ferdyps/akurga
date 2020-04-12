@@ -50,18 +50,33 @@
 
                         $this->session->set_userdata($array_auth);
 
-                        if ($user_auth->role == 'adminMaster' || $user_auth->role == 'Ketua RT' || $user_auth->role == 'Bendahara' || $user_auth->role == 'Kolektor Iuran' ) {
+                        if ($user_auth->role == 'adminMaster' || $user_auth->role == 'Bendahara' || $user_auth->role == 'Kolektor Iuran' ) {
                             $url = base_url('admin/index');
 
                             $json = [
-                                'message' => "Registrasi Akun Berhasil",
+                                'message' => "Login Akun Berhasil",
                                 'url' => $url
                             ];
                         } elseif ($user_auth->role == 'Warga') {
                             $url = base_url('user/index');
 
                             $json = [
-                                'message' => "Registrasi Akun Berhasil",
+                                'message' => "Login Akun Berhasil",
+                                'url' => $url
+                            ];
+                        }
+                        elseif ($user_auth->role == 'Ketua RW') {
+                            $url = base_url('ketuaRW/index');
+
+                            $json = [
+                                'message' => "Login Akun Berhasil",
+                                'url' => $url
+                            ];
+                        }elseif ($user_auth->role == 'Ketua RT') {
+                            $url = base_url('ketuaRT/index');
+
+                            $json = [
+                                'message' => "Login Akun Berhasil",
                                 'url' => $url
                             ];
                         }
