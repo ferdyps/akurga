@@ -6,7 +6,7 @@
  <div class="container">
      <div class="row bg-white rounded shadow border-left-primary">
        <div class="col px-0">
-       <?php echo form_open_multipart("admin/iuranmasuk");
+       <?php echo form_open_multipart("bendahara/iuranmasuk");
        ?>
            <div class="row px-3 my-3">
                <div class="col">

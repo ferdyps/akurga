@@ -100,20 +100,37 @@
       </div>
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBendahara" aria-expanded="true" aria-controls="collapseBendahara">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBendaharaPengeluaran" aria-expanded="true" aria-controls="collapseBendahara">
           <i class="fas fa-fw fa-cog"></i>
-          <span>Keuangan</span>
+          <span>Pengeluaran</span>
         </a>
-        <div id="collapseBendahara" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="collapseBendaharaPengeluaran" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="<?php echo base_url("admin/formpengeluaran");?>">Form Pengeluaran</a>
-            <a class="collapse-item" href="<?php echo base_url("admin/tabeldataiurankeluar");?>">Tabel Pengeluaran</a>
-            <a class="collapse-item" href="<?php echo base_url("admin/formpemasukan");?>">Form Pemasukan</a>
-            <a class="collapse-item" href="<?php echo base_url("admin/tabelpemasukan");?>">Tabel Pemasukan</a>
-            <a class="collapse-item" href="<?php echo base_url("admin/tampilbulan");?>">Tabel Tampilan Bulan</a>
+            <a class="collapse-item" href="<?php echo base_url("Bendahara/formpengeluaran");?>">Form Pengeluaran</a>
+            <a class="collapse-item" href="<?php echo base_url("Bendahara/tabeldataiurankeluar");?>">Tabel Pengeluaran</a>
+            <!-- <a class="collapse-item" href="<?php echo base_url("Bendahara/formpemasukan");?>">Form Pemasukan</a>
+            <a class="collapse-item" href="<?php echo base_url("Bendahara/tabelpemasukan");?>">Tabel Pemasukan</a>
+            <a class="collapse-item" href="<?php echo base_url("Bendahara/tampilbulan");?>">Tabel Tampilan Bulan</a> -->
           </div>
         </div>
       </li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBendaharaPembayaran" aria-expanded="true" aria-controls="collapseBendahara">
+          <i class="fas fa-fw fa-cog"></i>
+          <span>Pembayaran</span>
+        </a>
+        <div id="collapseBendaharaPembayaran" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <!-- <a class="collapse-item" href="<?php echo base_url("Bendahara/formpengeluaran");?>">Form Pengeluaran</a>
+            <a class="collapse-item" href="<?php echo base_url("Bendahara/tabeldataiurankeluar");?>">Tabel Pengeluaran</a> -->
+            <a class="collapse-item" href="<?php echo base_url("Bendahara/formpemasukan");?>">Form Pemasukan</a>
+            <a class="collapse-item" href="<?php echo base_url("Bendahara/tabelpemasukan");?>">Tabel Pemasukan</a>
+            <a class="collapse-item" href="<?php echo base_url("Bendahara/tampilbulan");?>">Tabel Tampilan Bulan</a> 
+          </div>
+        </div>
+      </li>
+
       <hr class="sidebar-divider">
       <?php } else if ( $this->session->userdata('role') == 'Kolektor Iuran'){ ?>
       <div class="sidebar-heading">
