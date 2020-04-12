@@ -55,6 +55,14 @@
             return $this->db->get($table);
         }
 
+        public function get_detail_notulensi($id)
+        {
+          $this->db->select('surat_undangan.acara_udg, notulensi_rpt.no_notulen, notulensi_rpt.dokumentasi_rpt,  notulensi_rpt.uraian_notulen, notulensi_rpt.penulis, notulensi_rpt.tgl_acc, notulensi_rpt.tembusan');
+          $this->db->from('surat_undangan');
+          $this->db->join('notulensi_rpt', 'surat_undangan.no_udg = notulensi_rpt.no_udg');
+          $this->db->where('notulensi_rpt.no_notulen', $id);
+          return $this->db->get();
+        }
         // ============================================================
         public function list_surat_pengantar()
         {

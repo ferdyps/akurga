@@ -23,8 +23,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://localhost/akurga/';
-$config['asset_url'] = $config['base_url'] . 'assets/';
+$config['setlocal']   = setlocale(LC_ALL, 'IND');
+$config['base_url']   = 'http://localhost/akurga/';
+$config['asset_url']  = $config['base_url'] . 'assets/';
 $config['web_title']	= "AKURGA - Aplikasi Rukun Warga";
 $config['web_footer']	= $config['web_title'] . " &copy; " . date('Y') . ". Version 1.0";
 

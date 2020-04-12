@@ -822,15 +822,13 @@
           $this->load->view('admin/index', $data);
         }
 
-        public function isi_notulensi(){
+        public function notulensi_rapat(){
 
           $id     = $this->uri->segment(3);
-          $no     = array('no_notulen' => $id );
-          $surat  = $this->m_admin->selectWithWhere('notulensi_rpt', $no)->result_array();
+          $surat  = $this->m_admin->get_detail_notulensi($id)->result_array();
           $data['fetch'] = $surat;
-          $data['content'] = 'admin/v_edit_notulensi';
-          $data['title'] = 'Edit Data Notulensi Rapat';
-          $this->load->view('admin/index', $data);
+          $data['title'] = 'Notulensi Rapat';
+          $this->load->view('admin/v_notulensi_rapat', $data);
         }
 
         public function riwayat_Undangan(){
@@ -1677,7 +1675,7 @@
 
             $config['upload_path']          = './assets/foto/notulensi';
             // $config['file_name']            = $this->input->post('gbr_surat');
-            $config['allowed_types']        = 'gif|jpg|png';
+            $config['allowed_types']        = 'jpg|png';
             $config['max_size']             = 1024; // 1MB
             // $config['max_width']            = 1024;
             // $config['max_height']           = 768;

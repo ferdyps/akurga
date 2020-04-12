@@ -29,14 +29,28 @@
         }
 
 // =========================SEKRETARIS ROLE=======================================
-public function notulensidisplay()
-{
-  $data = [
-      'content' => 'user/v_notulensidisplay',
-      'title' => 'Home'
-  ];
-  $this->load->view('user/index', $data);
-}
+        public function notulensidisplay()
+        {
+          $db = $this->m_user->get_notulensi()->result_array();
+          $data = [
+
+              'fetch'                => $db,
+              'content'              => 'user/v_notulensidisplay',
+              'title'                => 'Daftar Notulensi Rapat'
+          ];
+          $this->load->view('user/index', $data);
+        }
+
+        public function notulensi_rapat(){
+
+          $id     = $this->uri->segment(3);
+          $no     = array($id);
+          $surat  = $this->m_user->get_detail_notulensi($id)->result_array();
+          $data['fetch'] = $surat;
+          $data['title'] = 'Notulensi Rapat';
+          $data['content'] = 'user/v_notulensi_rapat';
+          $this->load->view('user/index', $data);
+        }
 
 // ================================================================================
         public function formSuratPengantar(){
@@ -225,7 +239,7 @@ public function notulensidisplay()
             ];
             $this->load->view('user/index', $data);
         }
-        
+
 // ==================================================================================
         public function editSuratPengantar($id){
             $this->form_validation->set_rules('keperluan', 'Keperluan', 'trim|required|regex_match[/^[a-zA-Z ]/]');
@@ -288,7 +302,7 @@ public function notulensidisplay()
 
             }
 
-        
+
         }
 
       //  ==============================================================================================================
@@ -300,6 +314,12 @@ public function notulensidisplay()
         $data['iuran'] = $this->m_user->tampil_iuran_perbulan($id_user)->result();
         $this->load->view('user/index',$data);
     }
+    public function tabeldataiurankeluaruser(){
+        $data['title'] = 'Tabel Data Keluar';
+        $data['dataiurank'] = $this->m_user->tampil_iuran_keluar()->result_array();
+        $data['content'] = "user/tabelpengeluaranuser.php";
+        $this->load->view('user/index',$data);
+    } 
 }
 
     /* End of file User.php */

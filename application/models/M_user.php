@@ -1,12 +1,16 @@
 <?php
-    
+
     defined('BASEPATH') OR exit('No direct script access allowed');
-    
+
     class M_user extends CI_Model {
-    
+
         public function cek_user($data){
             $sql = "SELECT * FROM user WHERE (username = ? OR email = ?) AND password = ?";
             return $this->db->query($sql,array($data['username_email'],$data['username_email'],$data['password']));
+        }
+
+        public function selectAllData($table){
+            return $this->db->get($table);
         }
 // ==================================================================================================================
         public function input_data($table, $data){
@@ -35,7 +39,24 @@
             $this->db->where($pk_field, $id);
             return $this->db->update($table, $data);
         }
-        
+
+        public function get_notulensi()
+        {
+          $this->db->select('surat_undangan.acara_udg, notulensi_rpt.no_notulen, notulensi_rpt.dokumentasi_rpt, notulensi_rpt.penulis, notulensi_rpt.tgl_acc');
+          $this->db->from('surat_undangan');
+          $this->db->join('notulensi_rpt', 'surat_undangan.no_udg = notulensi_rpt.no_udg');
+          return $this->db->get();
+        }
+
+        public function get_detail_notulensi($id)
+        {
+          $this->db->select('surat_undangan.acara_udg, notulensi_rpt.no_notulen, notulensi_rpt.dokumentasi_rpt, notulensi_rpt.uraian_notulen, notulensi_rpt.penulis, notulensi_rpt.tgl_acc, notulensi_rpt.tembusan');
+          $this->db->from('surat_undangan');
+          $this->db->join('notulensi_rpt', 'surat_undangan.no_udg = notulensi_rpt.no_udg');
+          $this->db->where('notulensi_rpt.no_notulen', $id);
+          return $this->db->get();
+        }
+
         public function tampil_iuran_perbulan($id_user){
             $query = "
             SELECT
@@ -65,7 +86,13 @@
             ";
             return $this->db->query($query);
         }
-    
+        public function tampil_iuran_keluar(){
+            // return $this->db->get('pengeluaran');
+            $this->db->from('pengeluaran');
+            $this->db->order_by('no_pengeluaran', 'desc');
+            return $this->db->get();
+        }
+
     }
-    
+
     /* End of file M_user.php */

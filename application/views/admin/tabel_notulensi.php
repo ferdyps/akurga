@@ -36,7 +36,7 @@
 
                       <a href="<?= base_url("admin/editData_Notulensi").'/'.$row['no_notulen'];?>" class="d-none d-sm-inline-block btn btn-primary shadow-sm" title="Edit Data Notulensi"><i class="fas fa-edit"></i></a>
 
-                      <a href="<?= base_url("admin/isi_notulensi").'/'.$row['no_notulen'];?>" target="_blank" class="d-none d-sm-inline-block btn btn-primary shadow-sm" title="Lihat Isi Uraian Notulensi"><i class="fas fa-upload"></i></a>
+                      <a href="<?= base_url("admin/notulensi_rapat").'/'.$row['no_notulen'];?>" target="_blank" class="d-none d-sm-inline-block btn btn-primary shadow-sm" title="Lihat Isi Uraian Notulensi"><i class="fas fa-upload"></i></a>
 
                       <a href="#" class="d-none d-sm-inline-block btn btn-primary shadow-sm" id="editUraianNotulensi" title="Edit Uraian Notulensi"
                       data-url="<?= base_url('admin/detailNotulen/'); ?>" data-notulensi="<?= $row['no_notulen']; ?>"

@@ -16,7 +16,7 @@
                        <div class="invalid-feedback">
                        </div>
                    </div>
-                   <?php echo form_error('nik'); ?>
+                   <?php echo form_error('nik','<small class="text-danger">','</small>'); ?>
 
                    <div class="form-group">
                        <label for="PembayaranBulan">Pembayaran Bulan</label>
