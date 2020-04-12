@@ -57,7 +57,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <?= form_open('admin/edit_role/'.$row['id_user']);?>
+      <?= form_open('ketuaRW/edit_role/'.$row['id_user']);?>
             <div class="row px-3 my-3">
                 <div class="col">
                     <div class="form-group">

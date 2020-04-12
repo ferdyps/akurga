@@ -9,7 +9,7 @@
 <div class="container">
     <div class="row bg-white rounded shadow border-left-primary">
         <div class="col px-0">
-        <?= form_open('ketuaRT/insertHasilKomplain');?>
+        <?= form_open('ketuaRW/insertHasilKomplainRW');?>
             <input type="hidden" name="nomor_komplain" value="<?= $no_komplen ?>" id="nomor_komplain">
             <div class="row px-3 my-3">
                 <div class="col">
@@ -38,7 +38,7 @@ $('#formKomplain').submit(function(event){
     let _data = $('#formKomplain').serialize();
 
     $.ajax({
-        url: "<?php echo base_url(); ?>/ketuaRT/insertHasilKomplain",
+        url: "<?php echo base_url(); ?>/ketuaRW/insertHasilKomplainRW",
         type: 'POST',
         data: _data,
         success: function(data){

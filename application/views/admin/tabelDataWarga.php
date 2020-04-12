@@ -61,7 +61,7 @@
                               }?>
                             </td>
                             <td>
-                              <a href="#" class="d-none d-sm-inline-block btn btn-primary shadow-sm" id="detailWarga" data-url="<?= base_url('admin/detailWarga/'); ?>" data-nik="<?= $row['nik']; ?>" data-toggle="modal" data-target="#editDataWargaModal">Detail</a>
+                              <a href="#" class="d-none d-sm-inline-block btn btn-primary shadow-sm" id="detailWarga" data-url="<?= base_url('ketuaRT/detailWarga/'); ?>" data-nik="<?= $row['nik']; ?>" data-toggle="modal" data-target="#editDataWargaModal">Detail</a>
                             </td>
                           </tr>
                           
@@ -116,7 +116,7 @@
                               }?>
                             </td>
                             <td>
-                              <a href="#" class="d-none d-sm-inline-block btn btn-primary shadow-sm" id="detailWarga" data-url="<?= base_url('admin/detailWarga/'); ?>" data-nik="<?= $row['nik']; ?>" data-toggle="modal" data-target="#editDataWargaModal">Detail</a>
+                              <a href="#" class="d-none d-sm-inline-block btn btn-primary shadow-sm" id="detailWarga" data-url="<?= base_url('ketuaRT/detailWarga/'); ?>" data-nik="<?= $row['nik']; ?>" data-toggle="modal" data-target="#editDataWargaModal">Detail</a>
                             </td>
                           </tr>
                           

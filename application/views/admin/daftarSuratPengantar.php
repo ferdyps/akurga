@@ -38,7 +38,7 @@
                         <td><?= $row['tanggal_surat']?></td>
                         <td><?= $row['status']?></td>
                         <td>
-                          <button class="btn btn-primary" onclick="konfirmasi_data('<?= base_url('admin/klik_konfirmasi_surat_pengantar/')?>', '<?= $row['nomor_surat']; ?>')" <?php if($row['status'] == 'diterima' || $row['status'] == 'ditolak') { ?> hidden <?php } ?>><i class="fas fa-check"></i></button>
+                          <button class="btn btn-primary" onclick="konfirmasi_data('<?= base_url('ketuaRT/klik_konfirmasi_surat_pengantar/')?>', '<?= $row['nomor_surat']; ?>')" <?php if($row['status'] == 'diterima' || $row['status'] == 'ditolak') { ?> hidden <?php } ?>><i class="fas fa-check"></i></button>
                           <button class="btn btn-danger" data-target="#input-message" data-toggle="modal" onclick="decline_surat('<?= $row['nomor_surat']; ?>')" <?php if($row['status'] == 'diterima' || $row['status'] == 'ditolak') { ?> hidden <?php } ?> <?= $row['nomor_surat']; ?>><i class="fas fa-times"></i></button>
                         </td>
                       </tr>
@@ -59,7 +59,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <?= form_open('admin/declineSuratPengantar')?>
+      <?= form_open('ketuaRT/declineSuratPengantar')?>
       <input type="hidden" name="nomor_surat" id="nomor_surat_hidden" value="">
             <div class="row px-3 my-3">
                 <div class="col">

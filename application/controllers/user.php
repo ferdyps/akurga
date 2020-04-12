@@ -79,14 +79,14 @@ public function notulensidisplay()
                         ?>
                         <script>
                             alert('Data Berhasil Diinputkan');
-                            location = "<?php base_url('user/formSuratPengantar');?>";
+                            location = "<?php base_url('user/riwayatSuratPengantar');?>";
                         </script>
                         <?php
                     }else {
                         ?>
                         <script>
                             alert('Data Gagal Diinputkan');
-                            location = "<?php base_url('user/formSuratPengantar');?>";
+                            location = "<?php base_url('user/riwayatSuratPengantar');?>";
                         </script>
                         <?php
                     }
@@ -154,14 +154,14 @@ public function notulensidisplay()
                         ?>
                         <script>
                             alert('Komplain Berhasil Diinputkan');
-                            location = "<?php base_url('user/formKomplain');?>";
+                            location = "<?php base_url('user/riwayatKomplain');?>";
                         </script>
                         <?php
                     }else {
                         ?>
                         <script>
                             alert('Komplain Gagal Diinputkan');
-                            location = "<?php base_url('user/formKomplain');?>";
+                            location = "<?php base_url('user/riwayatKomplain');?>";
                         </script>
                         <?php
                     }
@@ -204,11 +204,24 @@ public function notulensidisplay()
 
         public function riwayatKomplain()
         {
-            $riwayatKomplain = $this->m_admin->riwayatKomplain($this->session->userdata('id_user'))->result_array();
+            $riwayatKomplain = $this->m_user->riwayatKomplain($this->session->userdata('id_user'))->result_array();
             $data = [
                 'content' => 'user/riwayatKomplain',
                 'title' => 'List Pengaduan Komplain',
                 'listKomplain' => $riwayatKomplain
+            ];
+            $this->load->view('user/index', $data);
+        
+        }
+        public function hasilKomplain($nomor_komplain)
+        {
+            $table = 'hasil_komplain';
+            $where = ['nomor_komplain' => $nomor_komplain];
+            $hasilKomplain = $this->m_user->selectWithWhere($table,$where)->row();
+            $data = [
+                'content' => 'user/hasilKomplain',
+                'title' => 'Hasil Komplain',
+                'hasilKomplain' => $hasilKomplain
             ];
             $this->load->view('user/index', $data);
         }

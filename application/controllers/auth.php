@@ -104,11 +104,13 @@
                 }elseif ($this->session->userdata('role') == "Warga") {
                     redirect('user/','refresh');
                 }elseif ($this->session->userdata('role') == "Ketua RT") {
-                    redirect('admin/','refresh');
+                    redirect('ketuaRT/','refresh');
                 }elseif ($this->session->userdata('role') == "Bendahara") {
                     redirect('admin/','refresh');
                 }elseif ($this->session->userdata('role') == "Kolektor Iuran") {
                     redirect('admin/','refresh');
+                }elseif ($this->session->userdata('role') == "Ketua RW") {
+                    redirect('ketuaRW/','refresh');
                 }
             }
         }

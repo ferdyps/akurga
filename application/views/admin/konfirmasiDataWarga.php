@@ -61,7 +61,7 @@
                   <td><?= $row['nama_jalan']?></td>
                   <td><?= $row['no_rumah']?></td>
                   <td><?= $row['gang']?></td>
-                  <td><button class="btn btn-primary" onclick="konfirmasi_data('<?= base_url('admin/klik_konfirmasi_data_warga/')?>', <?= $row['nik']; ?>)"><i class="fas fa-check"></i></button>
+                  <td><button class="btn btn-primary" onclick="konfirmasi_data('<?= base_url('ketuaRW/klik_konfirmasi_data_warga/')?>', <?= $row['nik']; ?>)"><i class="fas fa-check"></i></button>
                   <button class="btn btn-danger" data-target="#input-message-warga" data-toggle="modal" onclick="approve_warga('<?= $row['nik']; ?>')"><i class="fas fa-times"></i></button></td>
                 </tr>
             <?php } ?>
@@ -118,7 +118,7 @@
                   <td><?= $row['nama_jalan']?></td>
                   <td><?= $row['no_rumah']?></td>
                   <td><?= $row['gang']?></td>
-                  <td><button class="btn btn-primary" onclick="konfirmasi_data('<?= base_url('admin/klik_konfirmasi_data_warga/')?>', <?= $row['nik']; ?>)"><i class="fas fa-check"></i></button>
+                  <td><button class="btn btn-primary" onclick="konfirmasi_data('<?= base_url('ketuaRW/klik_konfirmasi_data_warga/')?>', <?= $row['nik']; ?>)"><i class="fas fa-check"></i></button>
                   <button class="btn btn-danger" id="buttonTolakWargaTetap" data-target="#input-message-warga" data-toggle="modal" onclick="approve_warga('<?= $row['nik']; ?>')"><i class="fas fa-times"></i></button>
                   </td>
                 </tr>
@@ -139,7 +139,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <?= form_open('admin/declineWarga');?>
+      <?= form_open('ketuaRW/declineWarga');?>
             <input type="hidden" name="nik" id="nikHiddenForm" value="">
             <div class="row px-3 my-3">
                 <div class="col">

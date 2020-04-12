@@ -17,6 +17,19 @@
             $this->db->where($where);
             return $this->db->get($table);
         }
+        public function selectWithWhere($table,$where){
+            return $this->db->get_where($table,$where);
+        }
+        public function riwayatKomplain($id_user)
+        {
+            return $this->db->query("SELECT u.id_user,w.nik,w.nama,k.nomor_komplain,k.keluhan,k.tanggal_komplain,k.lokasi,k.lingkup,k.status
+            FROM user u
+            JOIN warga w
+            ON u.id_user=w.id_user
+            JOIN komplain k
+            ON w.nik=k.nik
+            WHERE u.id_user='$id_user'");
+        }
 // ====================================================================================================================
         public function update_data($table, $pk_field, $id, $data) {
             $this->db->where($pk_field, $id);

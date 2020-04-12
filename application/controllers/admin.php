@@ -19,6 +19,8 @@
             } else {
                 if ($this->session->userdata('role') == 'Warga') {
                     redirect('user/','refresh');
+                }else if ($this->session->userdata('role') == 'Ketua RT') {
+                    redirect('ketuaRT/','refresh');
                 }
             }
         }
@@ -133,13 +135,12 @@
             ];
             $this->load->view('admin/index', $data);
         }
-// -------------------------------------------------------------------------
+
         public function inputWarga(){
             $data['content'] = 'admin/inputWarga';
             $data['title'] = 'Input Data Warga';
             $this->load->view('admin/index', $data);
         }
-// -------------------------------------------------------------------------
         public function tabelDataWarga(){
             $table = 'warga';
             $where = ['jenis_warga' => 'sementara'];
@@ -154,7 +155,6 @@
             ];
             $this->load->view('admin/index', $data);
         }
-// -------------------------------------------------------------------------
         public function daftarSuratPengantar(){
             $list_surat_pengantar = $this->m_admin->list_surat_pengantar()->result_array();
             $data = [
@@ -285,7 +285,6 @@
             $pdf->Output('Surat Pengantar','I');
         }
 
-// -------------------------------------------------------------------------
         public function inputHasilKomplain($no_komplen){
             $data = [
                 'content' => 'admin/inputHasilKomplain',
@@ -294,8 +293,8 @@
             ];
             $this->load->view('admin/index', $data);
         }
-// --------------------------------------------------------------------------
-        public function insertHasilkomplain(){
+
+        public function insertHasilKomplain(){
             $nomor_komplain = $this->input->post('nomor_komplain');
             $hasil_komplain = $this->input->post('hasil_komplain');
             $tanggal = date('Y-m-d');
@@ -327,21 +326,45 @@
                     <?php
                 }
 
-                // if ($input_hasil && $update_status) {
-                //     $url = base_url('admin/inputHasilKomplain');
+            }
+            
+        }
 
-                //     $json = [
-                //         'message' => "Hasil Komplain berhasil diinput..",
-                //         'url' => $url
-                //     ];
-                // }else {
-                //     $json['errors'] = "Hasil Komplain gagal diinput..!";
-                // }
+//------------------------------------------------------------------------------------------
+        public function insertHasilKomplainRW(){
+            $nomor_komplain = $this->input->post('nomor_komplain');
+            $hasil_komplain = $this->input->post('hasil_komplain');
+            $tanggal = date('Y-m-d');
+            if ($this->input->post()) {
+                $data = [
+                    'nomor_komplain' => $nomor_komplain,
+                    'tindak_lanjut' => $hasil_komplain,
+                    'tgl_tindak_lanjut' => $tanggal
+                ];
+                $data2 = [
+                    'status' => 'selesai'
+                ];
+                $input_hasil = $this->m_admin->input_data('hasil_komplain',$data);
+                $update_status = $this->m_admin->edit_data('komplain','nomor_komplain',$nomor_komplain,$data2);
 
+                if($input_hasil && $update_status){
+                    ?>
+                    <script>
+                        alert('Tindak Lanjut Komplain Berhasil Diinput');
+                        location = "<?php echo base_url('admin/daftarKomplainRW');?>";
+                    </script>
+                    <?php
+                }else{
+                    ?>
+                    <script>
+                        alert('Tindak Lanjut Komplain Gagal Diinput');
+                        location = "<?php echo base_url('admin/daftarKomplainRW');?>";
+                    </script>
+                    <?php
+                }
 
             }
-            // echo json_encode(['status' => 'success']);
-            // echo json_encode($json);
+            
         }
 
 
@@ -1133,7 +1156,9 @@
         public function klik_komplain_RW($id){
             $data['lingkup'] = 'RW';
 
-            $query = $this->m_admin->edit_data('komplain','nik',$id,$data);
+            $query = $this->m_admin->edit_data('komplain','nomor_komplain',$id,$data);
+
+            
 
             if ($query) {
                 $json['message'] = 'Komplain Berhasil Diteruskan Kepada RW';
@@ -1271,8 +1296,7 @@
             }
         }
 
-        public function declineSuratPengantar()
-        {
+        public function declineSuratPengantar() {
             $this->form_validation->set_rules('pesan', 'Pesan', 'regex_match[/^[a-zA-Z ]/]');
             if ($this->input->post()) {
                 $nomor_surat = $this->input->post('nomor_surat');

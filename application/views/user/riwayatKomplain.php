@@ -14,6 +14,9 @@
                         <th>Tanggal Pengaduan</th>
                         <th>Keluhan</th>
                         <th>Lokasi</th>
+                        <th>Lingkup</th>
+                        <th>Status</th>
+                        <th>Hasil</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -27,6 +30,9 @@
                         <td><?= $row['tanggal_komplain']?></td>
                         <td><?= $row['keluhan']?></td>
                         <td><?= $row['lokasi']?></td>
+                        <td><?= $row['lingkup']?></td>
+                        <td><?= $row['status']?></td>
+                        <td><a class='btn btn-primary' href="<?= base_url('user/hasilKomplain/'.$row['nomor_komplain'])?>" <?php if($row['status'] != 'selesai') { ?> hidden <?php } ?>>Hasil</a></td>
                     </tr>
                 <?php }?>
                 </tbody>

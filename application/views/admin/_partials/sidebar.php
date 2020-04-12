@@ -66,8 +66,8 @@
         </a>
         <div id="collapseKetuaRT" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="<?php echo base_url("admin/inputWarga");?>">Input Data Warga</a>
-            <a class="collapse-item" href="<?= base_url('admin/tabelDataWarga')?>">List Data Warga</a>
+            <a class="collapse-item" href="<?php echo base_url("ketuaRT/inputWarga");?>">Input Data Warga</a>
+            <a class="collapse-item" href="<?= base_url('ketuaRT/tabelDataWarga')?>">List Data Warga</a>
           </div>
         </div>
       </li>
@@ -78,7 +78,7 @@
         </a>
         <div id="collapseKetuaRTsurat" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="<?php echo base_url('admin/daftarSuratPengantar');?>">List Surat Pengantar</a>
+            <a class="collapse-item" href="<?php echo base_url('ketuaRT/daftarSuratPengantar');?>">List Surat Pengantar</a>
           </div>
         </div>
       </li>
@@ -89,7 +89,7 @@
         </a>
         <div id="collapseKetuaRTkomplain" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="<?= base_url('admin/daftarKomplain');?>">List Komplain</a>
+            <a class="collapse-item" href="<?= base_url('ketuaRT/daftarKomplain');?>">List Komplain</a>
           </div>
         </div>
       </li>

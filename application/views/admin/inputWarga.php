@@ -9,7 +9,7 @@
 <div class="container">
     <div class="row bg-white rounded shadow border-left-primary">
         <div class="col px-0">
-        <?= form_open('admin/insertWarga', ['id' => 'default-form', 'log' => 'Input Warga']);?>
+        <?= form_open('ketuaRT/insertWarga', ['id' => 'default-form', 'log' => 'Input Warga']);?>
             <div class="row px-3 my-3">
                 <div class="col">
                     <div class="form-group form-input">
