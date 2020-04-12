@@ -20,6 +20,7 @@
           <div class="tab-pane fade show active bg-white rounded shadow border-left-primary" id="pills-rapat" role="tabpanel" aria-labelledby="pills-rapat-tab">
             <div class="col px-0 mt-3 pt-1">
             <?php echo form_open('admin/insertUndanganRapat', ['id' => 'default-form', 'log' => 'Input Kegiatan']);?>
+            <?php foreach ($fetch as $row){ ?>
                 <div class="row px-3 my-3">
                     <div class="col-6">
                         <div class="form-group form-input">
@@ -50,12 +51,12 @@
 
                         <div class="form-group form-input">
                             <label for="input-tujuan_surat">Pihak Yang Diundang</label>
-                            <input type="text" name="tujuan_surat" id="input-tujuan_surat" class="form-control">
+                            <input type="text" name="tujuan_surat" id="input-tujuan_surat" class="form-control" value="<?= $row['tujuan_surat'] ?>">
                             <div class="invalid-feedback"></div>
                         </div>
                         <div class="form-group form-input">
                             <label for="input-tempat_udg">Tempat Rapat</label>
-                            <input type="text" name="tempat_udg" id="input-tempat_udg" class="form-control">
+                            <input type="text" name="tempat_udg" id="input-tempat_udg" class="form-control" value="<?= $row['tempat_udg'] ?>">
                             <div class="invalid-feedback"></div>
                         </div>
 
@@ -88,13 +89,13 @@
 
                         <div class="form-group form-input">
                             <label for="input-tgl_surat">Tanggal Surat</label>
-                            <input type="text" name="tgl_surat" id="input-tgl_surat" class="form-control datepicker">
+                            <input type="text" name="tgl_surat" id="input-tgl_surat" class="form-control datepicker" value="<?= $row['tgl_udg'] ?>">
                             <div class="invalid-feedback"></div>
                         </div>
 
                         <div class="form-group form-input">
                             <label for="input-jam_udg">Jam Rapat</label>
-                            <input type="text" name="jam_udg" id="input-jam_udg" class="form-control timepicker">
+                            <input type="text" name="jam_udg" id="input-jam_udg" class="form-control timepicker" value="<?= $row['jam_udg'] ?>">
                             <div class="invalid-feedback"></div>
                         </div>
 
@@ -153,13 +154,13 @@
 
                         <div class="form-group">
                             <label for="input-tujuan_surat_kgt">Pihak yang Diundang</label>
-                            <input type="text" name="tujuan_surat_kgt" id="input-tujuan_surat_kgt" class="form-control">
+                            <input type="text" name="tujuan_surat_kgt" id="input-tujuan_surat_kgt" class="form-control" value="<?= $row['tujuan_surat'] ?>">
                             <div class="invalid-feedback">
                           </div>
                         </div>
                         <div class="form-group">
                             <label for="input-tempat_udg_kgt">Tempat Kegiatan</label>
-                            <input type="text" name="tempat_udg_kgt" id="input-tempat_udg_kgt" class="form-control">
+                            <input type="text" name="tempat_udg_kgt" id="input-tempat_udg_kgt" class="form-control" value="<?= $row['tempat_udg'] ?>">
                             <div class="invalid-feedback">
                           </div>
                         </div>
@@ -186,13 +187,13 @@
                         </div>
                         <div class="form-group">
                             <label for="input-tgl_surat_kgt">Tanggal Surat</label>
-                            <input type="text" name="tgl_surat_kgt" id="input-tgl_surat_kgt" class="form-control datepicker">
+                            <input type="text" name="tgl_surat_kgt" id="input-tgl_surat_kgt" class="form-control datepicker" value="<?= $row['tgl_udg'] ?>">
                             <div class="invalid-feedback">
                           </div>
                         </div>
                         <div class="form-group">
                             <label for="input-jam_udg_kgt">Jam Kegiatan</label>
-                            <input type="text" name="jam_udg_kgt" id="input-jam_udg_kgt" class="form-control timepicker">
+                            <input type="text" name="jam_udg_kgt" id="input-jam_udg_kgt" class="form-control timepicker" value="<?= $row['jam_udg'] ?>">
                             <div class="invalid-feedback">
                           </div>
                         </div>
@@ -217,6 +218,7 @@
                         </div>
                     </div>
                 </div>
+                <?php } ?>
                 <div class="col">
                     <div class="form-group text-center">
                         <input type="submit" class="btn btn-primary">

@@ -46,6 +46,7 @@
                   <div class="card-body ">
                     <div class="container-fluid">
                       <h2 class="display-4 notulensi-text">Notulensi Rapat <?= $row['no_notulen']  ?></h2>
+                      <h4 class="notulensi-text">Agenda : <?= $row['acara_udg']; ?></h4>
                       <h6 class="lead notulensi-text">By <?= $row['penulis']; ?></h6>
                       <h6 class="lead notulensi-text">Diunggah pada tanggal <?= $row['tgl_acc']; ?></h6>
                       <img width="1000px" height="800px" class="img-thumbnail img-fluid mx-auto d-block" src="<?= base_url('./assets/foto/notulensi/'. $row['dokumentasi_rpt'])?>">

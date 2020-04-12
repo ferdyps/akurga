@@ -64,6 +64,13 @@
                                 'message' => "Registrasi Akun Berhasil",
                                 'url' => $url
                             ];
+                        }elseif ($user_auth->role == 'Sekretaris') {
+                          $url = base_url('sekretaris/index');
+
+                          $json = [
+                              'message' => "Registrasi Akun Berhasil",
+                              'url' => $url
+                          ];
                         }
                     } else {
                         $json['errors'] = "Akun Tidak Ditemukan";
@@ -112,6 +119,9 @@
                 }elseif ($this->session->userdata('role') == "Ketua RW") {
                     redirect('ketuaRW/','refresh');
                 }
+              }elseif ($this->session->userdata('role') == "Sekretaris") {
+                  redirect('sekretaris/','refresh');
+              }
             }
         }
 //===============================================================================================
