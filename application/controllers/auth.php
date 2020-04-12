@@ -64,8 +64,7 @@
                                 'message' => "Login Akun Berhasil",
                                 'url' => $url
                             ];
-                        }
-                        elseif ($user_auth->role == 'Ketua RW') {
+                        }elseif ($user_auth->role == 'Ketua RW') {
                             $url = base_url('ketuaRW/index');
 
                             $json = [
@@ -87,7 +86,6 @@
                                 'message' => "Login Akun Berhasil",
                                 'url' => $url
                             ];
-                        }
 
                         }elseif ($user_auth->role == 'Sekretaris') {
                             $url = base_url('sekretaris/index');
