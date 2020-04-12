@@ -79,6 +79,7 @@
                                 'message' => "Login Akun Berhasil",
                                 'url' => $url
                             ];
+
                         }elseif ( $user_auth->role == 'Bendahara' ) {
                             $url = base_url('Bendahara/index');
 
@@ -87,6 +88,16 @@
                                 'url' => $url
                             ];
                         }
+
+                        }elseif ($user_auth->role == 'Sekretaris') {
+                            $url = base_url('sekretaris/index');
+  
+                            $json = [
+                                'message' => "Registrasi Akun Berhasil",
+                                'url' => $url
+                            ];
+                          }
+
                     } else {
                         $json['errors'] = "Akun Tidak Ditemukan";
                     }
@@ -133,6 +144,8 @@
                     redirect('admin/','refresh');
                 }elseif ($this->session->userdata('role') == "Ketua RW") {
                     redirect('ketuaRW/','refresh');
+                }elseif ($this->session->userdata('role') == "Sekretaris") {
+                    redirect('sekretaris/','refresh');
                 }
             }
         }
