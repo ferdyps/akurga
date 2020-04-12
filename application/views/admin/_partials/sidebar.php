@@ -127,11 +127,11 @@
         </a>
         <div id="collapseBendahara" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="<?php echo base_url("admin/tabeldataiurankeluaruser");?>">Tabel Pengeluaran</a> 
+            <a class="collapse-item" href="<?php echo base_url("admin/tabeldataiurankeluaruser");?>">Tabel Pengeluaran</a>
             <a class="collapse-item" href="<?php echo base_url("admin/formpemasukan");?>">Form Pemasukan</a>
             <a class="collapse-item" href="<?php echo base_url("admin/tabelpemasukan");?>">Tabel Pemasukan</a>
             <a class="collapse-item" href="<?php echo base_url("admin/tampilbulan");?>">Tabel Tampilan Bulan</a>
-          </div> 
+          </div>
         </div>
       </li>
       <?php }elseif ( $this->session->userdata('role') == 'Sekretaris') {?>
@@ -146,7 +146,7 @@
         </a>
         <div id="collapseSekretarisUndangan" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="<?php echo base_url("admin/inputundangan");?>">Input Surat Undangan</a>
+            <a class="collapse-item" href="<?php echo base_url("admin/pembuatan_undangan");?>">Pembuatan Surat <br>Undangan</a>
             <a class="collapse-item" href="<?php echo base_url("admin/riwayat_Undangan");?>">Riwayat Surat Undangan</a>
           </div>
         </div>
@@ -273,7 +273,7 @@
         </a>
         <div id="collapseSekretarisUndangan" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="<?php echo base_url("admin/inputundangan");?>">Input Surat Undangan</a>
+            hijau <a class="collapse-item" href="<?php echo base_url("admin/pembuatan_undangan");?>">Pembuatan  Surat <br>Undangan</a>
             <a class="collapse-item" href="<?php echo base_url("admin/riwayat_Undangan");?>">Riwayat Surat Undangan</a>
           </div>
         </div>
