@@ -33,7 +33,7 @@
 
     <div class="container-fluid">
       <?php foreach ($fetch as $row) { ?>
-        <img width="1000px" height="800px" class="img-thumbnail img-fluid mx-auto d-block" src="<?= base_url('./assets/foto/notulensi/'. $row['dokumentasi_rpt'])?>">
+        <img width="1000px" height="800px" class="img-thumbnail img-fluid mx-auto d-block" src="<?= base_url('./assets/foto/arsip/'. $row['gambar_srt'])?>">
       <?php } ?>
     </div>
 

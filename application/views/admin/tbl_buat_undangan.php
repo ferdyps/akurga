@@ -14,8 +14,9 @@
                   <thead>
                     <tr class="bg-primary text-white text-center">
                       <th width="5%">No</th>
+                      <th>Jenis Surat</th>
                       <th>Isi Usulan</th>
-                      <th>Ditujuan Kepada</th>
+                      <th>Pihak Yang Diundang</th>
                       <th>Tanggal Rapat</th>
                       <th>Tempat Rapat</th>
                       <th>Jam Rapat</th>
@@ -28,13 +29,19 @@
                   ?>
                   <tbody class="text-center">
                     <td><?= $i++ ?></td>
+                    <?php $set = substr($row['no_udg'],5,3); ?>
+                    <?php if ($set == 'RPT') { ?>
+                      <td><?php echo "Surat Undangan Rapat"; ?></td>
+                    <?php }else { ?>
+                      <td><?php echo "Surat Undangan Kegiatan"; ?></td>
+                    <?php } ?>
                     <td><?= $row['usulan_rpt'] ?></td>
                     <td><?= $row['tujuan_surat'] ?></td>
                     <td><?= $row['tgl_udg'] ?></td>
                     <td><?= $row['tempat_udg'] ?></td>
                     <td><?= $row['jam_udg'] ?></td>
                     <td>
-                      <a href="<?= base_url("admin/inputundangan").'/'.$row['no_udg'];?>" target="_blank" class="d-none d-sm-inline-block btn btn-primary shadow-sm" title="Tambah Surat Undangan"><i class="fas fa-plus-circle"></i></a>
+                      <a href="<?= base_url("sekretaris/inputundangan").'/'.$row['no_udg'];?>" class="d-none d-sm-inline-block btn btn-primary shadow-sm" title="Buat Surat Undangan"><i class="fas fa-plus-circle"></i></a>
                     </td>
                   </tbody>
                 <?php } ?>

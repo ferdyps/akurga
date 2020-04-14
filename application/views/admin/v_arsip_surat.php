@@ -4,8 +4,9 @@
      <h1 class="h3 mb-0 text-gray-800">Input Arsip Surat Masuk</h1>
  </div>
  <div class="container">
-   <?php echo form_open_multipart('admin/insertArsipMasuk', ['id' => 'default-form', 'log' => 'Arsip Surat']);?>
+   <?php echo form_open_multipart('sekretaris/insertArsipMasuk', ['id' => 'default-form', 'log' => 'Arsip Surat']);?>
        <div class="row bg-white rounded shadow border-left-primary">
+         <!-- <div id="flash-data2" data-flashdata="<?= $this->session->flashdata('msg'); ?>"></div> -->
          <div class="col px-0">
              <div class="row px-3 my-3">
                  <div class="col">

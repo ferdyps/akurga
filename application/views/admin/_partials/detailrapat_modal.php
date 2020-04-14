@@ -10,7 +10,7 @@
       <div class="row px-3 my-3">
           <div class="col">
               <div class="form-group form-input">
-                  <label for="edit-no_udg">No Surat Rapat</label>
+                  <label for="edit-no_udg">No Surat Undangan</label>
                   <input type="text" name="no_udg" id="edit-no_udg" class="form-control" readonly>
                   <div class="invalid-feedback"></div>
               </div>
@@ -32,7 +32,7 @@
               </div>
 
               <div class="form-group form-input">
-                  <label for="edit-tujuan_surat">Tujuan Surat</label>
+                  <label for="edit-tujuan_surat">Pihak Yang Diundang</label>
                   <input type="text" name="tujuan_surat" id="edit-tujuan_surat" class="form-control" readonly>
                   <div class="invalid-feedback"></div>
               </div>
@@ -71,7 +71,7 @@
 
               <div class="form-group form-input">
                   <label for="edit-acara_udg">Acara Rapat</label>
-                  <input type="input" name="acara_udg" id="edit-acara_udg" class="form-control" readonly>
+                  <textarea class="form-control" name="acara_udg" id="edit-acara_udg" readonly></textarea>
                   <div class="invalid-feedback"></div>
               </div>
           </div>

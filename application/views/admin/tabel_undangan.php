@@ -13,12 +13,11 @@
                 <table class="table table-striped table-hover" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr class="bg-primary text-white text-center">
-                      <th>No Surat Rapat</th>
-                      <th>Tujuan Surat</th>
+                      <th>No Surat Undangan</th>
+                      <th>Pihak Yang Diundang</th>
                       <th>Tempat Rapat</th>
                       <th>Tanggal Surat</th>
                       <th>Jam Rapat</th>
-                      <th>Acara Rapat</th>
                       <th>Action</th>
                     </tr>
                   </thead>
@@ -32,18 +31,17 @@
                     <td><?= $row['tempat_udg'] ?></td>
                     <td><?= $row['tgl_udg'] ?></td>
                     <td><?= $row['jam_udg'] ?></td>
-                    <td><?= $row['acara_udg'] ?></td>
                     <td>
                       <a href="#" class="d-none d-sm-inline-block btn btn-primary shadow-sm" title="Detail Data"
-                        id="detailData" data-url="<?= base_url('admin/detailRapat/'); ?>" data-noudg="<?= $row['no_udg']; ?>"
+                        id="detailData" data-url="<?= base_url('sekretaris/detailRapat/'); ?>" data-noudg="<?= $row['no_udg']; ?>"
                         data-toggle="modal" data-target="#detailDataModal"><i class="fas fa-folder-open"></i></a>
                       <b>||</b>
-                      <a href="#" class="d-none d-sm-inline-block btn btn-primary shadow-sm" title="Edit Data" id="detailRapat" data-url="<?= base_url('admin/detailRapat/'); ?>" data-noudg="<?= $row['no_udg']; ?>"
+                      <a href="#" class="d-none d-sm-inline-block btn btn-primary shadow-sm" title="Edit Data" id="detailRapat" data-url="<?= base_url('sekretaris/detailRapat/'); ?>" data-noudg="<?= $row['no_udg']; ?>"
                          data-toggle="modal" data-target="#editDataRapatModal"><i class="fas fa-edit"></i></a>
                       <b>||</b>
-                      <a href="<?= base_url("admin/inputnotulensi").'/'.$row['no_udg'];?>" class="d-none d-sm-inline-block btn btn-primary shadow-sm" title="Input Notulensi"><i class="fas fa-clipboard"></i></a>
+                      <a href="<?= base_url("sekretaris/inputnotulensi").'/'.$row['no_udg'];?>" class="d-none d-sm-inline-block btn btn-primary shadow-sm" title="Input Notulensi"><i class="fas fa-clipboard"></i></a>
                       <b>||</b>
-                      <a href="<?= base_url("admin/cetak_undangan").'/'.$row['no_udg'];?>" target="_blank" class="d-none d-sm-inline-block btn btn-primary shadow-sm" title="Cetak Surat Undangan"><i class="fas fa-print"></i></a>
+                      <a href="<?= base_url("sekretaris/cetak_undangan").'/'.$row['no_udg'];?>" target="_blank" class="d-none d-sm-inline-block btn btn-primary shadow-sm" title="Cetak Surat Undangan"><i class="fas fa-print"></i></a>
                     </td>
                     </tr>
                   <?php } ?>

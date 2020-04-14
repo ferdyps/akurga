@@ -6,11 +6,20 @@
  <div class="container">
      <div class="row bg-white rounded shadow border-left-primary">
        <div class="col px-0">
-       <?php echo form_open('admin/insertUsulanPengurus', ['id' => 'default-form', 'log' => 'Input Kegiatan']);?>
+       <?php echo form_open('sekretaris/insertUsulanPengurus', ['id' => 'default-form', 'log' => 'Usulan Surat Undangan']);?>
            <div class="row px-3 my-3">
                <div class="col">
 
-                 <input type="hidden" value="<?= $generate_id  ?>" name="no_udg" id="input-no_udg" class="form-control">
+
+                 <div class="form-group form-input">
+                     <label for="No_Udg">Jenis Surat</label>
+                     <select id="No_Udg" name="no_udg" class="form-control">
+                        <option selected  disabled>-- PILIH JENIS SURAT --</option>
+                        <option value="<?= $generate_id; ?>">  Surat Undangan Rapat</option>
+                        <option value="<?= $generate_id2; ?>"> Surat Undangan Kegiatan</option>
+                      </select>
+                     <div class="invalid-feedback"></div>
+                 </div>
                  <div class="form-group form-input">
                      <label for="input-usul_surat">Usulan Rapat</label>
                      <textarea style="width: 530px;
@@ -24,24 +33,22 @@
                    </div>
                  </div>
 
-
-                   <div class="form-group form-input">
-                       <label for="input-tgl_rpt">Tanggal rapat</label>
-                       <input type="text" name="tgl_rpt" id="input-tgl_rpt" class="form-control datepicker">
-                       <div class="invalid-feedback"></div>
-                   </div>
-
                </div>
                <!-- ====================Batas ke 2==================== -->
                <div class="col">
                  <div class="form-group form-input">
-                     <label for="input-tujuan_surat">Tujuan Surat</label>
+                     <label for="input-tujuan_surat">Pihak Yang Diundang</label>
                      <input type="text" name="tujuan_surat" id="input-tujuan_surat" class="form-control">
                      <div class="invalid-feedback"></div>
                  </div>
                  <div class="form-group form-input">
                      <label for="input-tempat_udg">Tempat Rapat</label>
                      <input type="text" name="tempat_udg" id="input-tempat_udg" class="form-control">
+                     <div class="invalid-feedback"></div>
+                 </div>
+                 <div class="form-group form-input">
+                     <label for="input-tgl_rpt">Tanggal rapat</label>
+                     <input type="text" name="tgl_rpt" id="input-tgl_rpt" class="form-control datepicker">
                      <div class="invalid-feedback"></div>
                  </div>
                  <div class="form-group form-input">

@@ -18,7 +18,7 @@
                       <th>Pengirim</th>
                       <th>Tanggal Terima surat</th>
                       <th>Tanggal Surat</th>
-                      <th>Gambar Surat</th>
+                      <th width="10%">Gambar Surat</th>
                       <th>Keterangan</th>
                       <th>action</th>
                     </tr>
@@ -30,12 +30,13 @@
                     <td><?= $row['pengirim'] ?></td>
                     <td><?= $row['tgl_terima'] ?></td>
                     <td><?= $row['tgl_surat'] ?></td>
-                    <td width="10%"><img class="img-thumbnail img-fluid" src="<?= base_url('./assets/foto/arsip/'. $row['gambar_srt'])?>"></td>
+                    <td><a href="<?= base_url("sekretaris/gambar_arsip").'/'.$row['kd_surat'];?>" target="_blank" class="d-none d-sm-inline-block btn btn-primary shadow-sm" title="Detail Gambar Arsip"><i class="fas fa-image"></i></a></td>
+                    <!-- <img class="img-thumbnail img-fluid" src="<?= base_url('./assets/foto/arsip/'. $row['gambar_srt'])?>"> -->
                     <td><?= $row['keterangan'] ?></td>
                     <td>
                       <a href="#" class="d-none d-sm-inline-block btn btn-primary shadow-sm" id="editArsip"
-                      data-url="<?= base_url('admin/detailArsip/'); ?>" data-arsip="<?= $row['kd_surat']; ?>" values="<?= $row['gambar_srt']; ?>"
-                      data-toggle="modal" data-target="#editDataArsipModal">Edit</a>
+                      data-url="<?= base_url('sekretaris/detailArsip/'); ?>" data-arsip="<?= $row['kd_surat']; ?>"
+                      data-toggle="modal" data-target="#editDataArsipModal" title="Edit Data"><i class="fas fa-edit"></i></a>
                     </td>
                   </tbody>
                 <?php } ?>
@@ -63,7 +64,6 @@
                     $('#editDataArsipModal #edit-no_surat').val(data.no_surat);
                     $('#editDataArsipModal #edit-pengirim').val(data.pengirim);
                     $('#editDataArsipModal #edit-keterangan').val(data.keterangan);
-                    $('#editDataArsipModal #gbr_surat').val(data.gambar_srt);
                     $('#editDataArsipModal #edit-tgl_terima').val(data.tgl_terima);
                     $('#editDataArsipModal #edit-tgl_surat').val(data.tgl_surat);
                   },
