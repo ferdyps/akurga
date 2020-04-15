@@ -41,11 +41,11 @@
                     $user_auth = $this->m_user->cek_user($auth_data)->row();
                     if (!empty($user_auth)) {
                         $array_auth = [
-                            'id_user' => $user_auth->id_user,
-                            'username' => $user_auth->username,
-                            'role' => $user_auth->role,
-                            // 'jabatan' => $user_auth->jabatan, //Opsi
-                            'status' => 'berhasil'
+                            'id_user'   => $user_auth->id_user,
+                            'username'  => $user_auth->username,
+                            'role'      => $user_auth->role,
+                            'rt'        => $user_auth->rt,
+                            'status'    => 'berhasil'
                         ];
 
                         $this->session->set_userdata($array_auth);
@@ -87,9 +87,9 @@
                                 'url' => $url
                             ];
 
-                        }elseif ($user_auth->role == 'Sekretaris') {
+                        }elseif ($user_auth->role == 'Sekretaris RT') {
                             $url = base_url('sekretaris/index');
-  
+
                             $json = [
                                 'message' => "Registrasi Akun Berhasil",
                                 'url' => $url

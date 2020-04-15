@@ -151,7 +151,7 @@
           </div>
         </div>
       </li>
-      <?php }elseif ( $this->session->userdata('role') == 'Sekretaris') {?>
+    <?php }elseif ( $this->session->userdata('role') == 'Sekretaris RT') {?>
       <!-- ================================ SEKRETARIS ========================================== -->
       <hr class="sidebar-divider">
       <div class="sidebar-heading">Sekretaris</div>
