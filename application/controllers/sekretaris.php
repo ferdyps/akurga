@@ -61,7 +61,7 @@
             $list_data = $this->m_admin->selectWithWhere($tabel,$where)->result_array();
             $data = [
                 'content'   => 'admin/tbl_usul_ketua',
-                'title'     => 'Input Usulan Rapat',
+                'title'     => 'Riwayat Usulan Ketua RT/RW',
                 'list_data' => $list_data
             ];
             $this->load->view('admin/index', $data);
@@ -82,8 +82,6 @@
             $valid      = array('no_udg' => $key );
 
             $fetch      = $this->m_admin->selectWithWhere('surat_undangan', $valid)->result_array();
-            $data['generate_id'] = $this->m_admin->get_id($id,$nama_field,$nama_tabel); //$this->session->userdata('jabatan')
-            $data['generate_id2'] = $this->m_admin->get_id($id2,$nama_field,$nama_tabel); //$this->session->userdata('jabatan')
             $data['fetch'] = $fetch;
             $data['content'] = 'admin/v_undangan';
             $data['title'] = 'Input Surat Undangan Kegiatan';
@@ -101,7 +99,7 @@
             if ($db_check->num_rows() > 0) {
 
               $this->session->set_flashdata('success','silahkan lihat di Riwayat Notulensi Rapat');
-              redirect('admin/riwayat_Undangan','refresh');
+              redirect('sekretaris/riwayat_Undangan','refresh');
 
               echo json_encode($json);
             }else {
@@ -122,6 +120,16 @@
             $data['content'] = 'admin/v_arsip_surat';
             $data['title'] = 'Input Arsip Surat';
             $this->load->view('admin/index', $data);
+        }
+
+        public function gambar_arsip()
+        {
+          $id     = $this->uri->segment(3);
+          $no     = array('kd_surat' => $id );
+          $surat  = $this->m_admin->selectWithWhere('arsip_surat', $no)->result_array();
+          $data['fetch'] = $surat;
+          $data['title'] = 'Detail Gambar Surat';
+          $this->load->view('admin/v_gambar_arsip', $data);
         }
 
         public function editData_Notulensi(){
@@ -253,7 +261,7 @@
           $pdf->Cell(35);
           $pdf->Cell(35,7,'Hari tanggal',0,'L');
           $pdf->Cell(5,7,':',0,'L');
-          $tgl_udg = strftime("%d %B %Y",strtotime($row['tgl_udg']));
+          $tgl_udg = strftime("%A, %d %B %Y",strtotime($row['tgl_udg']));
           $pdf->MultiCell(100,7,$tgl_udg,0,'L');
           $pdf->Cell(35);
           $pdf->Cell(35,7,'Waktu',0,'L');
@@ -298,7 +306,7 @@
 
         public function pembuatan_undangan()
         {
-          $valid     = array('status' => 1 );
+          $valid     = array('status' => 0 );
           $query  = $this->m_admin->selectWithWhere('surat_undangan', $valid)->result_array();
           $data['fetch'] = $query;
           $data['content'] = 'admin/tbl_buat_undangan';
@@ -317,13 +325,17 @@
 
         public function usul_pengurus(){
             $id         = 'rapat';
+            $id_2        = 'kegiatan';
             $nama_field = 'no_udg';
             $nama_tabel = 'surat_undangan';
+
             $generate_id = $this->m_admin->get_id($id,$nama_field,$nama_tabel); //$this->session->userdata('jabatan')
+            $generate_id2 = $this->m_admin->get_id($id_2,$nama_field,$nama_tabel);
             $content = 'admin/form_usulan';
             $title = 'Form Usulan Rapat';
             $data = [
               'generate_id' => $generate_id,
+              'generate_id2' => $generate_id2,
               'content'     => $content,
               'title'       => $title
             ];
@@ -338,138 +350,14 @@
 
 // Untuk Back-end
 // ==========================================================================
-        public function insertWarga(){
-            $this->form_validation->set_rules([
-                [
-                    'field' => 'nik',
-                    'label' => 'NIK',
-                    'rules' => 'trim|required|is_unique[warga.nik]|numeric'
-                ],
-                [
-                    'field' => 'nama',
-                    'label' => 'Nama Lengkap',
-                    'rules' => 'trim|required|regex_match[/^[a-zA-Z ]/]'
-                ],
-                [
-                    'field' => 'tempat_lahir',
-                    'label' => 'Tempat Lahir',
-                    'rules' => 'trim|required|regex_match[/^[a-zA-Z ]/]'
-                ],
-                [
-                    'field' => 'tanggal_lahir',
-                    'label' => 'Tanggal Lahir',
-                    'rules' => 'required'
-                ],
-                [
-                    'field' => 'nama_jalan',
-                    'label' => 'Nama Jalan',
-                    'rules' => 'trim|required|regex_match[/^[a-zA-Z ]/]'
-                ],
-                [
-                    'field' => 'no_rumah',
-                    'label' => 'No Rumah',
-                    'rules' => 'trim|numeric|required'
-                ]
-            ]);
+        public function klik_hapus_usulan_rapat($id2){
+            $id = array('no_udg' => $id2);
+            $query = $this->m_admin->delete_data($id , 'surat_undangan');
 
-            if ($this->input->post()) {
-                $jenis_warga = $this->input->post('jenis_warga');
-                $nik = $this->input->post('nik');
-                $nama = $this->input->post('nama');
-                $tempat_lahir = $this->input->post('tempat_lahir');
-                $tanggal_lahir = $this->input->post('tanggal_lahir_submit');
-                $pendidikan = $this->input->post('pendidikan');
-                $pekerjaan = $this->input->post('pekerjaan');
-                $agama = $this->input->post('agama');
-                $jk = $this->input->post('jk');
-                $status = $this->input->post('status');
-                $nama_jalan = $this->input->post('nama_jalan');
-                $no_rumah = $this->input->post('no_rumah');
-                $gang = $this->input->post('gang');
-
-                $nokk = $this->input->post('nokk');
-                $hub_dlm_kel = $this->input->post('hub_dlm_kel');
-                $nohp = $this->input->post('nohp');
-
-                if ($jenis_warga == "Tetap") {
-                    $this->form_validation->set_rules([
-                        [
-                            'field' => 'nokk',
-                            'label' => 'Nomor KK',
-                            'rules' => 'trim|required|numeric'
-                        ]
-                    ]);
-                } else {
-                    $this->form_validation->set_rules([
-                        [
-                            'field' => 'nohp',
-                            'label' => 'Nomor HP',
-                            'rules' => 'trim|required|numeric|is_unique[warga.nohp]'
-                        ]
-                    ]);
-                }
-
-                if ($this->form_validation->run() == TRUE) {
-                    $data = [
-                        'jenis_warga' => $jenis_warga,
-                        'nik' => $nik,
-                        'nama' => $nama,
-                        'tempat_lahir' => $tempat_lahir,
-                        'tanggal_lahir' => $tanggal_lahir,
-                        'pendidikan' => $pendidikan,
-                        'pekerjaan' => $pekerjaan,
-                        'agama' => $agama,
-                        'jk' => $jk,
-                        'status' => $status,
-                        'nama_jalan' => $nama_jalan,
-                        'no_rumah' => $no_rumah,
-                        'gang' => $gang
-                    ];
-
-                    if($jenis_warga == "Tetap") {
-                        $data['hub_dlm_kel'] = $hub_dlm_kel;
-                        $data['nokk'] = $nokk;
-                    } else {
-                        $data['nohp'] = $nohp;
-                    }
-
-                    $query = $this->m_admin->input_data('warga', $data);
-
-                    if ($query) {
-                        $url = base_url('admin/inputWarga');
-
-                        $json = [
-                            'message' => "Data Warga berhasil diinput..",
-                            'url' => $url
-                        ];
-                    }else {
-                        $json['errors'] = "Data Warga gagal diinput..!";
-                    }
-                } else {
-                    $no = 0;
-                    foreach ($this->input->post() as $key => $value) {
-                        if (form_error($key) != "") {
-                            $json['form_errors'][$no]['id'] = $key;
-                            $json['form_errors'][$no]['msg'] = form_error($key, null, null);
-                            $no++;
-                        }
-                    }
-                }
-            echo json_encode($json);
-            } else {
-                redirect('admin/inputWarga','refresh');
-            }
-        }
-
-
-        public function klik_konfirmasi_usulan_rapat($id2){
-            $data['status'] = 1;
-            $query = $this->m_admin->edit_data('surat_undangan','no_udg',$id2,$data);
-
-            if ($query) {
-                $json['message'] = 'Data Usulan Rapat Berhasil Dikonfirmasi';
+            if (!$query) {
+                $json['message'] = 'Data Usulan Rapat Berhasil Dihapus';
             }else {
-                $json['errors'] = 'Data Usulan Rapat Dikonfirmasi';
+                $json['errors'] = 'Data Usulan Rapat Dihapus';
             }
             echo json_encode($json);
         }
@@ -547,22 +435,22 @@
 
             if ($this->form_validation->run() == TRUE) {
               $data = [
-                'no_udg' => $no_udg,
-                'lampiran_udg' => $lampiran,
-                'sifat_udg' => $sifat,
-                'perihal_udg' => $hal,
-                'tujuan_surat' => $tujuan_srt,
-                'tempat_udg' => $tempat_udg,
-                'tembusan' => $tembusan,
-                'isi_surat' => $isi_surat,
-                'tgl_udg' => $tgl_srt,
-                'jam_udg' => $jam_udg,
-                'acara_udg' => $acara_udg,
-                'tgl_buat' => $date,
-                'id_user' => $this->id_user
+                'lampiran_udg'    => $lampiran,
+                'sifat_udg'       => $sifat,
+                'perihal_udg'     => $hal,
+                'tujuan_surat'    => $tujuan_srt,
+                'tempat_udg'      => $tempat_udg,
+                'tembusan'        => $tembusan,
+                'isi_surat'       => $isi_surat,
+                'tgl_udg'         => $tgl_srt,
+                'jam_udg'         => $jam_udg,
+                'acara_udg'       => $acara_udg,
+                'tgl_buat'        => $date,
+                'id_user'         => $this->id_user,
+                'status'          => 1
               ];
 
-              $query = $this->m_admin->input_data('surat_undangan', $data);
+              $query = $this->m_admin->edit_data('surat_undangan', 'no_udg', $no_udg, $data);
 
               if ($query) {
                 $url = base_url('admin/riwayat_Undangan');
@@ -879,7 +767,7 @@
 
               $query = $this->m_admin->input_data('arsip_surat', $data);
               if ($query) {
-                $url = base_url('admin/riwayat_arsip');
+                $url = base_url('sekretaris/riwayat_arsip');
 
                 $json = [
                     'message' => "Data arsip berhasil diinput..",
@@ -900,7 +788,7 @@
             }
             echo json_encode($json);
           }else {
-             redirect('admin/riwayat_arsip','refresh');
+             redirect('sekretaris/input_arsipsurat','refresh');
           }
 
         }
@@ -909,9 +797,10 @@
           $this->form_validation->set_rules([
               [
                   'field' => 'no_udg',
-                  'label' => 'Nomor Surat',
+                  'label' => 'Jenis Surat',
                   'rules' => 'trim|required'
               ],
+
               [
                   'field' => 'tujuan_surat',
                   'label' => 'tujuan surat',
@@ -944,12 +833,12 @@
           ]);
 
           if ($this->input->post()) {
-            $no_udg = $this->input->post('no_udg');
-            $tujuan_srt = $this->input->post('tujuan_surat');
-            $tempat_udg = $this->input->post('tempat_udg');
-            $usul_surat  = $this->input->post('usul_surat');
-            $tgl_rpt    = $this->input->post('tgl_rpt');
-            $jam_udg    = $this->input->post('jam_udg');
+            $no_udg       = $this->input->post('no_udg');
+            $tujuan_srt   = $this->input->post('tujuan_surat');
+            $tempat_udg   = $this->input->post('tempat_udg');
+            $usul_surat   = $this->input->post('usul_surat');
+            $tgl_rpt      = $this->input->post('tgl_rpt');
+            $jam_udg      = $this->input->post('jam_udg');
 
             if ($this->form_validation->run() == TRUE) {
               $data = [
@@ -965,7 +854,7 @@
               $query = $this->m_admin->input_data('surat_undangan', $data);
 
               if ($query) {
-                $url = base_url('admin/index');
+                $url = base_url('sekretaris/tbl_usulan_ketua');
 
                 $json = [
                     'message' => "Data Usulan Rapat berhasil diinput..",
@@ -1268,19 +1157,6 @@
               ],
 
               [
-                  'field' => 'tgl_terima',
-                  'label' => 'Tanggal Terima Surat',
-                  'rules' => 'required'
-              ],
-
-
-              // [
-              //     'field' => 'tgl_surat',
-              //     'label' => 'Tanggal Surat',
-              //     'rules' => 'required'
-              // ],
-
-              [
                   'field' => 'keterangan',
                   'label' => 'keterangan',
                   'rules' => 'required'
@@ -1334,7 +1210,7 @@
 
               $query = $this->m_admin->edit_data('arsip_surat','kd_surat', $kd_surat, $data);
               if ($query) {
-                $url = base_url('admin/riwayat_arsip');
+                $url = base_url('sekretaris/riwayat_arsip');
 
                 $json = [
                     'message' => "Data arsip berhasil diubah..",
@@ -1355,7 +1231,7 @@
             }
             echo json_encode($json);
           }else {
-             redirect('admin/riwayat_arsip','refresh');
+             redirect('sekretaris/riwayat_arsip','refresh');
           }
 
         }

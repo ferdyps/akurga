@@ -50,7 +50,7 @@
 
                         $this->session->set_userdata($array_auth);
 
-                        if ($user_auth->role == 'adminMaster' || $user_auth->role == 'Bendahara' || $user_auth->role == 'Kolektor Iuran' ) {
+                        if ($user_auth->role == 'adminMaster' || $user_auth->role == 'Kolektor Iuran' ) {
                             $url = base_url('admin/index');
 
                             $json = [
@@ -64,8 +64,7 @@
                                 'message' => "Login Akun Berhasil",
                                 'url' => $url
                             ];
-                        }
-                        elseif ($user_auth->role == 'Ketua RW') {
+                        }elseif ($user_auth->role == 'Ketua RW') {
                             $url = base_url('ketuaRW/index');
 
                             $json = [
@@ -79,6 +78,15 @@
                                 'message' => "Login Akun Berhasil",
                                 'url' => $url
                             ];
+
+                        }elseif ( $user_auth->role == 'Bendahara' ) {
+                            $url = base_url('Bendahara/index');
+
+                            $json = [
+                                'message' => "Login Akun Berhasil",
+                                'url' => $url
+                            ];
+
                         }elseif ($user_auth->role == 'Sekretaris') {
                             $url = base_url('sekretaris/index');
   
@@ -87,6 +95,7 @@
                                 'url' => $url
                             ];
                           }
+
                     } else {
                         $json['errors'] = "Akun Tidak Ditemukan";
                     }
@@ -128,7 +137,7 @@
                 }elseif ($this->session->userdata('role') == "Ketua RT") {
                     redirect('ketuaRT/','refresh');
                 }elseif ($this->session->userdata('role') == "Bendahara") {
-                    redirect('admin/','refresh');
+                    redirect('Bendahara/','refresh');
                 }elseif ($this->session->userdata('role') == "Kolektor Iuran") {
                     redirect('admin/','refresh');
                 }elseif ($this->session->userdata('role') == "Ketua RW") {

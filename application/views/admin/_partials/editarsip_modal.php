@@ -1,5 +1,5 @@
 <div class="modal fade" id="editDataArsipModal" tabindex="-1" role="dialog" aria-labelledby="editDataArsipModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-xl" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="editDataArsipModalLabel">Edit Data Arsip Surat</h5>
@@ -7,7 +7,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <?= form_open_multipart('admin/editArsipMasuk', ['id' => 'default-form', 'log' => 'Edit Arsip Surat Masuk']);?>
+      <?= form_open_multipart('sekretaris/editArsipMasuk', ['id' => 'default-form', 'log' => 'Edit Arsip Surat Masuk']);?>
                 <div class="row px-3 my-3">
                     <div class="col">
                         <div class="form-group form-input">

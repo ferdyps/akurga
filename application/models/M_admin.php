@@ -50,6 +50,11 @@
             return $this->db->get_where($table,$where);
         }
 
+        public function delete_data($where, $table){
+           $this->db->where($where);
+           $this->db->delete($table);
+       }
+
         public function CountData($table, $where, $valueNumber){
             $this->db->select('COUNT(*) AS total');
             $this->db->where($where, $valueNumber);

@@ -23,6 +23,8 @@
                     redirect('ketuaRT/','refresh');
                 }else if ($this->session->userdata('role') == 'Ketua RW') {
                     redirect('ketuaRW/','refresh');
+                }else if ($this->session->userdata('role') == 'Bendahara') {
+                    redirect('Bendahara/','refresh');
                 }
             }
         }
@@ -807,7 +809,7 @@
               $this->session->set_flashdata('success','silahkan lihat di Riwayat Notulensi Rapat');
               redirect('admin/riwayat_Undangan','refresh');
 
-              echo json_encode($json);
+            //   echo json_encode($json);
             }else {
               $data['key_no_udg'] = $key;
               $data['generate_id'] = $this->m_admin->get_id($id,$nama_field,$nama_tabel); //$this->session->userdata('jabatan')

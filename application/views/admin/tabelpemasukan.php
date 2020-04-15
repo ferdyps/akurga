@@ -53,14 +53,14 @@
 
 <script>
   $(document).ready(function () {
-    let url = `<?= base_url()?>admin/filterPemasukan`;
+    let url = `<?= base_url()?>Bendahara/filterPemasukan`;
     
     dataUntukTabel(url)
   });
   
   $('#filterPemasukanBulanan').change(function(){
     let namaBulan = $('#filterPemasukanBulanan').val();
-    let url = `<?= base_url()?>admin/filterPemasukan/?bulan=${namaBulan}`;
+    let url = `<?= base_url()?>Bendahara/filterPemasukan/?bulan=${namaBulan}`;
     dataUntukTabel(url)
   });
 

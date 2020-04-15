@@ -12,7 +12,7 @@
         // ?>
   <!-- <?php echo validation_errors() ?> -->
 <!-- <?php endif; ?>  -->
-       <?=form_open_multipart("admin/iurankeluar");
+       <?=form_open_multipart("Bendahara/iurankeluar");
         $tanggal = date("d-m-Y");?>
       
            <div class="row px-3 my-3">

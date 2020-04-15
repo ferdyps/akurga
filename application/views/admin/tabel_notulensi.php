@@ -30,16 +30,16 @@
                     <td><?= $row['tgl_buat'] ?></td>
                     <td><?= $row['tembusan'] ?></td>
                     <td>
-                      <a href="<?= base_url("admin/dokumentasi_rapat").'/'.$row['no_notulen'];?>" target="_blank" class="d-none d-sm-inline-block btn btn-primary shadow-sm" title="Detail Dokumentasi Rapat"><i class="fas fa-image"></i></a>
+                      <a href="<?= base_url("sekretaris/dokumentasi_rapat").'/'.$row['no_notulen'];?>" target="_blank" class="d-none d-sm-inline-block btn btn-primary shadow-sm" title="Detail Dokumentasi Rapat"><i class="fas fa-image"></i></a>
                     </td>
                     <td>
 
-                      <a href="<?= base_url("admin/editData_Notulensi").'/'.$row['no_notulen'];?>" class="d-none d-sm-inline-block btn btn-primary shadow-sm" title="Edit Data Notulensi"><i class="fas fa-edit"></i></a>
+                      <a href="<?= base_url("sekretaris/editData_Notulensi").'/'.$row['no_notulen'];?>" class="d-none d-sm-inline-block btn btn-primary shadow-sm" title="Edit Data Notulensi"><i class="fas fa-edit"></i></a>
 
-                      <a href="<?= base_url("admin/notulensi_rapat").'/'.$row['no_notulen'];?>" target="_blank" class="d-none d-sm-inline-block btn btn-primary shadow-sm" title="Lihat Isi Uraian Notulensi"><i class="fas fa-upload"></i></a>
+                      <a href="<?= base_url("sekretaris/notulensi_rapat").'/'.$row['no_notulen'];?>" target="_blank" class="d-none d-sm-inline-block btn btn-primary shadow-sm" title="Lihat Isi Uraian Notulensi"><i class="fas fa-upload"></i></a>
 
                       <a href="#" class="d-none d-sm-inline-block btn btn-primary shadow-sm" id="editUraianNotulensi" title="Edit Uraian Notulensi"
-                      data-url="<?= base_url('admin/detailNotulen/'); ?>" data-notulensi="<?= $row['no_notulen']; ?>"
+                      data-url="<?= base_url('sekretaris/detailNotulen/'); ?>" data-notulensi="<?= $row['no_notulen']; ?>"
                       data-toggle="modal" data-target="#editUraianNotulensiModal"><i class="fas fa-file-import"></i></a>
                     </td>
 
