@@ -1,12 +1,12 @@
 <div class="container-fluid">
 
           <!-- Page Heading -->
-          <h1 class="h3 mb-2 text-gray-800">Warga</h1>
+          <h1 class="h3 mb-2 text-gray-800">Akun</h1>
 
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Data Warga</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Daftar Akun</h6>
             </div>
             <div class="card-body">
               <div class="table-responsive">

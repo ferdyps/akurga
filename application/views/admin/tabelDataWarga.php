@@ -31,6 +31,7 @@
                           <th>Status</th>
                           <th>Jenis Warga</th>
                           <th>Validasi</th>
+                          <th>Pesan</th>
                           <th>Action</th>
                         </tr>
                       </thead>
@@ -60,6 +61,7 @@
                                 echo "Belum Valid";
                               }?>
                             </td>
+                            <td><?= $row['pesan']?></td>
                             <td>
                               <a href="#" class="d-none d-sm-inline-block btn btn-primary shadow-sm" id="detailWarga" data-url="<?= base_url('ketuaRT/detailWarga/'); ?>" data-nik="<?= $row['nik']; ?>" data-toggle="modal" data-target="#editDataWargaModal">Detail</a>
                             </td>
@@ -86,6 +88,7 @@
                           <th>Status</th>
                           <th>Jenis Warga</th>
                           <th>Validasi</th>
+                          <th>Pesan</th>
                           <th>Action</th>
                         </tr>
                       </thead>
@@ -115,6 +118,7 @@
                                 echo "Belum Valid";
                               }?>
                             </td>
+                            <td><?= $row['pesan']?></td>
                             <td>
                               <a href="#" class="d-none d-sm-inline-block btn btn-primary shadow-sm" id="detailWarga" data-url="<?= base_url('ketuaRT/detailWarga/'); ?>" data-nik="<?= $row['nik']; ?>" data-toggle="modal" data-target="#editDataWargaModal">Detail</a>
                             </td>

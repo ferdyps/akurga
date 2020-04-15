@@ -29,8 +29,7 @@
         }
 
 // =========================SEKRETARIS ROLE=======================================
-        public function notulensidisplay()
-        {
+        public function notulensidisplay(){
           $db = $this->m_user->get_notulensi()->result_array();
           $data = [
 
@@ -216,8 +215,7 @@
             $this->load->view('user/index', $data);
         }
 
-        public function riwayatKomplain()
-        {
+        public function riwayatKomplain(){
             $riwayatKomplain = $this->m_user->riwayatKomplain($this->session->userdata('id_user'))->result_array();
             $data = [
                 'content' => 'user/riwayatKomplain',
@@ -227,9 +225,9 @@
             $this->load->view('user/index', $data);
         
         }
-        public function hasilKomplain($nomor_komplain)
-        {
-            $table = 'hasil_komplain';
+
+        public function hasilKomplain($nomor_komplain){
+            $table = 'tindak_lanjut';
             $where = ['nomor_komplain' => $nomor_komplain];
             $hasilKomplain = $this->m_user->selectWithWhere($table,$where)->row();
             $data = [

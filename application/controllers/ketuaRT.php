@@ -24,6 +24,8 @@
                     redirect('admin/','refresh');
                 }else if ($this->session->userdata('role') == 'Ketua RW') {
                     redirect('ketuaRW/','refresh');
+                }else if ($this->session->userdata('role') == 'Sekretaris') {
+                    redirect('sekretaris/','refresh');
                 }
             }
         }
@@ -196,7 +198,6 @@
             }
         }
 
-
         public function tabelDataWarga(){
             $table = 'warga';
             $where = ['jenis_warga' => 'sementara'];
@@ -211,6 +212,7 @@
             ];
             $this->load->view('admin/index', $data);
         }
+
         public function daftarSuratPengantar(){
             $list_surat_pengantar = $this->m_admin->list_surat_pengantar()->result_array();
             $data = [
@@ -220,29 +222,13 @@
             ];
             $this->load->view('admin/index', $data);
         }
+
         public function daftarKomplain(){
             $list_komplain = $this->m_admin->komplainJoinWargaRT()->result_array();
             $data = [
                 'content' => 'admin/daftarKomplain',
                 'title' => 'List Komplain',
                 'list_komplain' => $list_komplain
-            ];
-            $this->load->view('admin/index', $data);
-        }
-        public function cetakSuratPengantar($id){
-            $cetak_surat_pengantar = $this->m_admin->detailSuratPengantar($id)->row();
-            $data = [
-                'title' => 'Cetak Surat Pengantar',
-                'cetak_surat_pengantar' => $cetak_surat_pengantar
-            ];
-            $this->load->view('cetakSuratPengantar', $data);
-        }
-        public function listCetakSuratPengantar(){
-            $list_cetak_surat_pengantar = $this->m_admin->list_cetak_sp()->result_array();
-            $data = [
-                'content' => 'admin/listCetakSuratPengantar',
-                'title' => 'List Cetak Surat Pengantar',
-                'list_cetak_surat_pengantar' => $list_cetak_surat_pengantar
             ];
             $this->load->view('admin/index', $data);
         }
@@ -263,13 +249,13 @@
             if ($this->input->post()) {
                 $data = [
                     'nomor_komplain' => $nomor_komplain,
-                    'tindak_lanjut' => $hasil_komplain,
+                    'hasil_tindak_lanjut' => $hasil_komplain,
                     'tgl_tindak_lanjut' => $tanggal
                 ];
                 $data2 = [
                     'status' => 'selesai'
                 ];
-                $input_hasil = $this->m_admin->input_data('hasil_komplain',$data);
+                $input_hasil = $this->m_admin->input_data('tindak_lanjut',$data);
                 $update_status = $this->m_admin->edit_data('komplain','nomor_komplain',$nomor_komplain,$data2);
 
                 if($input_hasil && $update_status){
@@ -377,7 +363,8 @@
                         'nokk' => $nokk,
                         'hub_dlm_kel' => $hub_dlm_kel,
                         'nohp' => $nohp,
-                        'valid' => 0
+                        'valid' => 0,
+                        'pesan' => ''
                     ];
 
                     $query = $this->m_admin->edit_data('warga','nik',$nik,$data);

@@ -24,6 +24,8 @@
                     redirect('admin/','refresh');
                 }else if ($this->session->userdata('role') == 'ketuaRT') {
                     redirect('ketuaRT/','refresh');
+                }else if ($this->session->userdata('role') == 'Sekretaris') {
+                    redirect('sekretaris/','refresh');
                 }
             }
         }
@@ -53,8 +55,7 @@
             $this->load->view('admin/index', $data);
         }
 
-        public function konfirmasiDataWarga()
-        {
+        public function konfirmasiDataWarga(){
             $table = 'warga';
             $where = [
                 'jenis_warga' => 'sementara',
@@ -74,7 +75,8 @@
             ];
             $this->load->view('admin/index', $data);
         }
-        function list_akun(){
+
+        public function list_akun(){
             $list_akun = $this->m_admin->list_akun()->result_array();
             $data = [
                 'content' => 'admin/daftarAkun',
@@ -83,6 +85,7 @@
             ];
             $this->load->view('admin/index', $data);
         }
+
         public function edit_role($id_user){
             if ($this->input->post()) {
                 $role = $this->input->post('role');
@@ -107,6 +110,7 @@
 
             }
         }
+
         public function daftarKomplainRW(){
             $list_komplain = $this->m_admin->komplainJoinWargaRW()->result_array();
             $data = [
@@ -133,13 +137,13 @@
             if ($this->input->post()) {
                 $data = [
                     'nomor_komplain' => $nomor_komplain,
-                    'tindak_lanjut' => $hasil_komplain,
+                    'hasil_tindak_lanjut' => $hasil_komplain,
                     'tgl_tindak_lanjut' => $tanggal
                 ];
                 $data2 = [
                     'status' => 'selesai'
                 ];
-                $input_hasil = $this->m_admin->input_data('hasil_komplain',$data);
+                $input_hasil = $this->m_admin->input_data('tindak_lanjut',$data);
                 $update_status = $this->m_admin->edit_data('komplain','nomor_komplain',$nomor_komplain,$data2);
 
                 if($input_hasil && $update_status){
@@ -163,7 +167,11 @@
         }
 
         public function klik_konfirmasi_data_warga($id){
-            $data['valid'] = 1;
+            // $data['valid'] = 1;
+            $data = [
+                'valid' => 1,
+                'pesan' => ''
+            ];
 
             $query = $this->m_admin->edit_data('warga','nik',$id,$data);
 
@@ -191,61 +199,64 @@
         }
 
         public function declineWarga(){
-        $this->form_validation->set_rules('pesan', 'Pesan', 'regex_match[/^[a-zA-Z ]/]');
 
-        if ($this->input->post()) {
-            $pesan = $this->input->post('pesan');
-            $nik = $this->input->post('nik');
+            // $this->form_validation->set_rules('pesan', 'Pesan', 'regex_match[/^[a-zA-Z ]/]');
 
-            // if ($this->form_validation->run() == TRUE) {
-                $data = [
-                    'nik' => $nik,
-                    'pesan'=>$pesan
-                ];
+            if ($this->input->post()) {
+                $pesan = $this->input->post('pesan');
+                $nik = $this->input->post('nik');
 
-                $data2['valid'] = 2;
+                // if ($this->form_validation->run() == TRUE) {
+                    $data = [
+                        // 'nik' => $nik,
+                        'valid' => 2,
+                        'pesan'=>$pesan
+                    ];
 
-                $insert = $this->m_admin->input_data('decline_warga',$data);
-                $update = $this->m_admin->edit_data('warga','nik',$nik,$data2);
+                    // $data2['valid'] = 2;
 
-                if ($insert && $update) {
-                    ?>
-                    <script>
-                        alert('Berhasil Ditolak');
-                        location = "<?php echo base_url('ketuaRW/konfirmasiDataWarga');?>";
-                    </script>
-                    <?php
-                }else{
-                    ?>
-                    <script>
-                        alert('Gagal Ditolak');
-                        location = "<?php echo base_url('ketuaRW/konfirmasiDataWarga');?>";
-                    </script>
-                    <?php
-                }
-        //             $url = base_url('admin/konfirmasiDataWarga');
-        //             $json = [
-        //                 'message' => 'Data Warga Berhasil Dibatalkan',
-        //                 'url' => $url
-        //             ];
-        //         }else {
-        //             $json['errors'] = 'Data Warga Gagal Dibatalkan';
-        //         }
+                    // $insert = $this->m_admin->input_data('decline_warga',$data);
+                    // $update = $this->m_admin->edit_data('warga','nik',$nik,$data2);
+                    $update = $this->m_admin->edit_data('warga','nik',$nik,$data);
 
-        //     } else {
-        //         $no = 0;
-        //         foreach ($this->input->post() as $key => $value) {
-        //             if (form_error($key) != "") {
-        //                 $json['form_errors'][$no]['id'] = $key;
-        //                 $json['form_errors'][$no]['msg'] = form_error($key, null, null);
-        //                 $no++;
-        //             }
-        //         }
-        //     }
-        //     echo json_encode($json);
-        // }else {
-        //     redirect('admin/konfirmasiDataWarga','refresh');
-        // }
+                    if ($update) {
+                        ?>
+                        <script>
+                            alert('Berhasil Ditolak');
+                            location = "<?php echo base_url('ketuaRW/konfirmasiDataWarga');?>";
+                        </script>
+                        <?php
+                    }else{
+                        ?>
+                        <script>
+                            alert('Gagal Ditolak');
+                            location = "<?php echo base_url('ketuaRW/konfirmasiDataWarga');?>";
+                        </script>
+                        <?php
+                    }
+            //             $url = base_url('admin/konfirmasiDataWarga');
+            //             $json = [
+            //                 'message' => 'Data Warga Berhasil Dibatalkan',
+            //                 'url' => $url
+            //             ];
+            //         }else {
+            //             $json['errors'] = 'Data Warga Gagal Dibatalkan';
+            //         }
+
+            //     } else {
+            //         $no = 0;
+            //         foreach ($this->input->post() as $key => $value) {
+            //             if (form_error($key) != "") {
+            //                 $json['form_errors'][$no]['id'] = $key;
+            //                 $json['form_errors'][$no]['msg'] = form_error($key, null, null);
+            //                 $no++;
+            //             }
+            //         }
+            //     }
+            //     echo json_encode($json);
+            // }else {
+            //     redirect('admin/konfirmasiDataWarga','refresh');
+            // }
             }
         }
         
@@ -281,7 +292,7 @@
             $pdf->SetLineWidth(0.5);
             $pdf->Line(77,64,133,64);
             $pdf->SetFont('Arial','B',12);
-            $pdf->Cell(0,1,'No :'.$row->nomor_surat.'...... / 20.....',0,1,'C');
+            $pdf->Cell(0,1,'No :'.str_replace('-','/',$row->nomor_surat).'...... / 20.....',0,1,'C');
             $pdf->Ln(15);
             $pdf->SetFont('Arial','',12);
             $pdf->Cell(0,0,'Saya yang bertanda tangan di bawah ini Ketua RT 01/ RW 01, Desa Sukapura Kecamatan',0,1,'J');
@@ -341,6 +352,16 @@
 
             // }
             $pdf->Output('Surat Pengantar','I');
+        }
+
+        public function listCetakSuratPengantar(){
+            $list_cetak_surat_pengantar = $this->m_admin->list_cetak_sp()->result_array();
+            $data = [
+                'content' => 'admin/listCetakSuratPengantar',
+                'title' => 'List Cetak Surat Pengantar',
+                'list_cetak_surat_pengantar' => $list_cetak_surat_pengantar
+            ];
+            $this->load->view('admin/index', $data);
         }
     
     }

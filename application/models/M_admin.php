@@ -38,6 +38,7 @@
         public function input_data($table, $data){
             return $this->db->insert($table, $data);
         }
+
         public function edit_data($table, $pk_field, $id, $data) {
             $this->db->where($pk_field, $id);
             return $this->db->update($table, $data);

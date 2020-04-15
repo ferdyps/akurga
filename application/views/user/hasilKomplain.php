@@ -8,7 +8,7 @@
         </div>
         <div class="col-lg-8 align-self-baseline"><div class="col">
             <h6 class="text-uppercase text-white font-weight-bold">Tanggal Ditindak Lanjuti <?= $row->tgl_tindak_lanjut?></h6>
-            <textarea name="hasil_komplain" id="hasil_komplain" cols="30" rows="10" class="ckeditor" disabled><?= $row->tindak_lanjut?></textarea>        
+            <textarea name="hasil_komplain" id="hasil_komplain" cols="30" rows="10" class="ckeditor" disabled><?= $row->hasil_tindak_lanjut?></textarea>        
         </div>
       </div>
     </div>

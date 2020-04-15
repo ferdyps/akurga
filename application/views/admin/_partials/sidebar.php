@@ -30,22 +30,22 @@
 
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
-        <a class="nav-link" href="<?= base_url('admin/konfirmasiDataWarga')?>">
+        <a class="nav-link" href="<?= base_url('ketuaRW/konfirmasiDataWarga')?>">
           <i class="fas fa-fw fa-chart-area"></i>
           <span>Approval Data Warga</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="<?= base_url('admin/listCetakSuratPengantar')?>">
+        <a class="nav-link" href="<?= base_url('ketuaRW/listCetakSuratPengantar')?>">
           <i class="fas fa-fw fa-chart-area"></i>
           <span>Cetak Surat Pengantar</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="<?= base_url('admin/list_akun')?>">
+        <a class="nav-link" href="<?= base_url('ketuaRW/list_akun')?>">
           <i class="fas fa-fw fa-chart-area"></i>
           <span>List Akun Pengguna</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="<?= base_url('admin/daftarKomplainRW')?>">
+        <a class="nav-link" href="<?= base_url('ketuaRW/daftarKomplainRW')?>">
           <i class="fas fa-fw fa-chart-area"></i>
           <span>Daftar Komplain</span></a>
       </li>
