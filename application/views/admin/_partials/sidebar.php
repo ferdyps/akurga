@@ -93,7 +93,21 @@
           </div>
         </div>
       </li>
-      <hr class="sidebar-divider">
+
+      <!-- Nav Item - Pages Collapse Menu -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePengurus" aria-expanded="true" aria-controls="collapsePengurus">
+          <i class="fas fa-fw fa-cog"></i>
+          <span>Usulan Surat Undangan</span>
+        </a>
+        <div id="collapsePengurus" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="<?php echo base_url("ketuaRT/usul_pembuatan");?>">Usulan Pembuatan Surat</a>
+            <a class="collapse-item" href="<?php echo base_url("ketuaRT/tbl_usulan_ketua");?>">Riwayat Usulan Surat</a>
+          </div>
+        </div>
+      </li>
+          <hr class="sidebar-divider">
       <?php } else if ( $this->session->userdata('role') == 'Bendahara'){ ?>
       <div class="sidebar-heading">
         Bendahara
@@ -151,7 +165,7 @@
           </div>
         </div>
       </li>
-    <?php }elseif ( $this->session->userdata('role') == 'Sekretaris RT') {?>
+    <?php }elseif ( $this->session->userdata('role') == 'Sekretaris RT' || $this->session->userdata('role') == 'Sekretaris RW' ) {?>
       <!-- ================================ SEKRETARIS ========================================== -->
       <hr class="sidebar-divider">
       <div class="sidebar-heading">Sekretaris</div>
@@ -319,28 +333,6 @@
       </li>
       <?php } ?>
 
-
-
-
-
-      <!-- Divider -->
-      <hr class="sidebar-divider d-none d-md-block">
-      <div class="sidebar-heading">
-        Pengurus RT/RW
-      </div>
-
-      <!-- Nav Item - Pages Collapse Menu -->
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePengurus" aria-expanded="true" aria-controls="collapsePengurus">
-          <i class="fas fa-fw fa-cog"></i>
-          <span>Usulan Rapat</span>
-        </a>
-        <div id="collapsePengurus" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="<?php echo base_url("sekretaris/usul_pengurus");?>">Form Usulan Rapat</a>
-          </div>
-        </div>
-      </li>
       <!-- Sidebar Toggler (Sidebar) -->
       <div class="text-center d-none d-md-inline">
         <button class="rounded-circle border-0" id="sidebarToggle"></button>

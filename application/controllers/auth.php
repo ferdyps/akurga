@@ -87,7 +87,7 @@
                                 'url' => $url
                             ];
 
-                        }elseif ($user_auth->role == 'Sekretaris RT') {
+                        }elseif ($user_auth->role == 'Sekretaris RT' || $user_auth->role == 'Sekretaris RW') {
                             $url = base_url('sekretaris/index');
 
                             $json = [

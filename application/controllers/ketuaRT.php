@@ -1,10 +1,12 @@
 <?php
-    
+
     defined('BASEPATH') OR exit('No direct script access allowed');
-    
+
     class KetuaRT extends CI_Controller {
-    
+
         public $id_user;
+        public $role;
+        public $rt;
         public function __construct(){
             parent::__construct();
             $this->load->model('m_admin');
@@ -14,6 +16,7 @@
 
             $this->id_user = $this->session->userdata('id_user');
             $this->role = $this->session->userdata('role');
+            $this->rt = $this->session->userdata('rt');
 
             if(!$this->session->has_userdata('status')){
                 redirect('auth/','refresh');
@@ -55,19 +58,6 @@
             $this->load->view('admin/index', $data);
         }
 
-        public function tbl_usulan_ketua(){
-            $tabel = 'surat_undangan';
-            $where = [
-                'status' => 0
-            ];
-            $list_data = $this->m_admin->selectWithWhere($tabel,$where)->result_array();
-            $data = [
-                'content'   => 'admin/tbl_usul_ketua',
-                'title'     => 'Input Usulan Rapat',
-                'list_data' => $list_data
-            ];
-            $this->load->view('admin/index', $data);
-        }
 
         public function inputWarga(){
             $data['content'] = 'admin/inputWarga';
@@ -275,7 +265,7 @@
                 }
 
             }
-            
+
         }
 
         public function klik_konfirmasi_surat_pengantar($id){
@@ -456,13 +446,162 @@
             }
         }
 
-    
+        public function tbl_usulan_ketua(){
+            $tabel = 'surat_undangan';
+            if ($this->role == 'Ketua RT') {
+              $set_rt = 'RT '.$this->rt;
+            }elseif ($this->role == 'Ketua RW') {
+              $set_rt = 'RW 01';
+            }
+            $where = [
+                'status' => 0,
+                'rt'     => $set_rt
+            ];
+            $list_data = $this->m_admin->selectWithWhere($tabel,$where)->result_array();
+            $data = [
+                'content'   => 'admin/tbl_usul_ketua',
+                'title'     => 'Riwayat Usulan Ketua RT/RW',
+                'list_data' => $list_data
+            ];
+            $this->load->view('admin/index', $data);
+        }
+
+        public function usul_pembuatan(){
+            $id           = 'rapat';
+            $id_2         = 'kegiatan';
+            $nama_field   = 'no_udg';
+            $nama_tabel   = 'surat_undangan';
+
+            if ($this->role == 'Ketua RT') {
+              $set_rt = 'RT '.$this->rt;
+            }elseif ($this->role == 'Ketua RW') {
+              $set_rt = 'RW 01';
+            }
+
+            $generate_id = $this->m_admin->get_id($id,$nama_field,$nama_tabel,$set_rt);
+            $generate_id2 = $this->m_admin->get_id($id_2,$nama_field,$nama_tabel,$set_rt);
+            $content = 'admin/form_usulan';
+            $title = 'Form Usulan Rapat';
+            $data = [
+              'generate_id' => $generate_id,
+              'generate_id2' => $generate_id2,
+              'content'     => $content,
+              'title'       => $title
+            ];
+            $this->load->view('admin/index', $data);
+
+        }
+
+        public function klik_hapus_usulan_rapat($id2){
+            $id = array('no_udg' => $id2);
+            $query = $this->m_admin->delete_data($id , 'surat_undangan');
+
+            if (!$query) {
+                $json['message'] = 'Data Usulan Rapat Berhasil Dihapus';
+            }else {
+                $json['errors'] = 'Data Usulan Rapat Dihapus';
+            }
+            echo json_encode($json);
+        }
+
+        public function insertUsulanPengurus(){
+          $this->form_validation->set_rules([
+              [
+                  'field' => 'no_udg',
+                  'label' => 'Jenis Surat',
+                  'rules' => 'trim|required'
+              ],
+
+              [
+                  'field' => 'tujuan_surat',
+                  'label' => 'tujuan surat',
+                  'rules' => 'trim|required'
+              ],
+
+              [
+                  'field' => 'tempat_udg',
+                  'label' => 'tempat Undangan',
+                  'rules' => 'trim|required'
+              ],
+
+              [
+                  'field' => 'usul_surat',
+                  'label' => 'Isi Surat',
+                  'rules' => 'trim|required'
+              ],
+
+              [
+                  'field' => 'tgl_rpt',
+                  'label' => 'Tanggal Surat ',
+                  'rules' => 'required'
+              ],
+
+              [
+                  'field' => 'jam_udg',
+                  'label' => 'Jam Undangan ',
+                  'rules' => 'trim|required'
+              ]
+          ]);
+
+          if ($this->input->post()) {
+            $no_udg       = $this->input->post('no_udg');
+            $tujuan_srt   = $this->input->post('tujuan_surat');
+            $tempat_udg   = $this->input->post('tempat_udg');
+            $usul_surat   = $this->input->post('usul_surat');
+            $tgl_rpt      = $this->input->post('tgl_rpt');
+            $jam_udg      = $this->input->post('jam_udg');
+
+            if ($this->role == 'Ketua RT') {
+              $set_rt = 'RT '.$this->rt;
+            }elseif ($this->role == 'Ketua RW') {
+              $set_rt = 'RW 01';
+            }
+
+
+            if ($this->form_validation->run() == TRUE) {
+              $data = [
+                'no_udg'        => $no_udg,
+                'tujuan_surat'  => $tujuan_srt,
+                'tempat_udg'    => $tempat_udg,
+                'usulan_rpt'    => $usul_surat,
+                'tgl_udg'       => $tgl_rpt,
+                'jam_udg'       => $jam_udg,
+                'rt'            => $set_rt,
+                'id_user'       => $this->id_user
+              ];
+
+              $query = $this->m_admin->input_data('surat_undangan', $data);
+
+              if ($query) {
+                $url = base_url('ketuaRT/tbl_usulan_ketua');
+
+                $json = [
+                    'message' => "Data Usulan Pembuatan Surat Undangan berhasil diinput..",
+                    'url' => $url
+                ];
+              } else {
+                $json['errors'] = "Data Usulan Pembuatan Surat Undangan gagal diinput..!";
+              }
+            } else {
+              $no = 0;
+              foreach ($this->input->post() as $key => $value) {
+                  if (form_error($key) != "") {
+                      $json['form_errors'][$no]['id'] = $key;
+                      $json['form_errors'][$no]['msg'] = form_error($key, null, null);
+                      $no++;
+                  }
+              }
+            }
+
+            echo json_encode($json);
+          } else {
+            redirect('admin/index','refresh');
+          }
+        }
+
+
     }
-    
+
     /* End of file ketuaRT.php */
-    
+
 ?>
-
-
-
-

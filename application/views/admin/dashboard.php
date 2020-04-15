@@ -36,7 +36,7 @@
           <div class="col mr-2">
             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Usulan Rapat yang belum approval</div>
             <div class="h5 mb-0 font-weight-bold text-gray-800"><?php foreach($usulan_points as $row){echo $row['total'];}?></div><br>
-            <a href="<?php echo base_url('admin/tbl_usulan_ketua'); ?>" class="btn btn-primary">Lihat Usulan</a>
+            <a href="<?php echo base_url('ketuaRT/tbl_usulan_ketua'); ?>" class="btn btn-primary">Lihat Usulan</a>
           </div>
           <div class="col-auto">
             <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
@@ -55,11 +55,11 @@
             <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Total Pengeluaran</div>
             <div class="row no-gutters align-items-center">
               <div class="col-auto">
-                <?php 
+                <?php
                 $sum = 0;
                 foreach($dataiurank as $b) {
                   $sum += $b['nominal'];
-                } 
+                }
                 ?>
                 <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><?= $sum ?></div>
               </div>

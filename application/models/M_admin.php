@@ -5,25 +5,37 @@
     class M_admin extends CI_Model {
 
       // ======================== GET ID otomatis ================================
-      public function get_id($input,$no,$table) { //$jabatan
+      public function get_id($input,$no,$table,$rt) {
         $this->db->select("MAX($no) as maxId");
+        if ($rt == 'RT 01') {
+          $romawi = 'I';
+        }elseif ($rt == 'RT 02') {
+          $romawi = 'II';
+        }elseif ($rt == 'RT 03') {
+          $romawi = 'III';
+        }elseif ($rt == 'RT 04') {
+          $romawi = 'IV';
+        }elseif ($rt == 'RT 05') {
+          $romawi = 'V';
+        }elseif ($rt == 'RW 01') {
+          $romawi = 'I';
+        }
         $query = $this->db->get($table)->row();
         $Kode=$query->maxId;
-          // $rtnya = substr($jabatan, 11, 6);
           $noUrut=(int)substr($Kode, 1, 4);
           $noUrut++;
           if ($input == 'rapat') {
-            $Char = "-RPT-";
+            $Char = "-RPT-".$romawi.'-'.date("Y");
           }elseif ($input == 'kegiatan') {
-            $Char = "-KGT-";
+            $Char = "-KGT-".$romawi.'-'.date("Y");
           }elseif ($input == 'notulensi') {
-            $Char = "-NOT-";
+            $Char = "-NOT-".$romawi.'-'.date("Y");
           }elseif ($input == 'arsip') {
-            $Char = "-ASM-";
+            $Char = "-ASM-".$romawi.'-'.date("Y");
           }elseif ($input == 'surat_pengantar') {
-            $Char = '-SK-I-';
+            $Char = '-SK-I-'.$romawi.'-'.date("Y");
           }elseif ($input == 'komplain') {
-            $Char = "-KOMPLAIN";
+            $Char = "-KOMPLAIN".$romawi.'-'.date("Y");
           }else {
             echo "Erorr id";
           }

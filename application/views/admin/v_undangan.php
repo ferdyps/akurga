@@ -136,7 +136,7 @@
 
           <div class="tab-pane fade bg-white rounded shadow border-left-primary" id="pills-kegiatan" role="tabpanel" aria-labelledby="pills-kegiatan-tab">
             <div class="col px-0 mt-3 pt-1">
-            <?php echo form_open('admin/insertUndanganKegiatan', ['id' => 'default-form', 'log' => 'Input Rapat']);?>
+            <?php echo form_open('admin/insertUndanganKegiatan', ['id' => 'default-form', 'log' => 'Input Surat Undangan Kegiatan']);?>
             <!-- 'admin/insertUndanganKegiatan', ['id' => 'default-form', 'log' => 'Input Kegiatan'] -->
                 <div class="row px-3 my-3">
                     <div class="col">
