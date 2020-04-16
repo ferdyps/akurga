@@ -182,7 +182,7 @@
 
     <?php }elseif ( $this->session->userdata('role') == 'Sekretaris RT' || $this->session->userdata('role') == 'Sekretaris RW' ) {?>
       <!-- ================================ SEKRETARIS ========================================== -->
-      <hr class="sidebar-divider">
+
       <div class="sidebar-heading">Sekretaris</div>
 
       <li class="nav-item">
@@ -220,6 +220,7 @@
           </div>
         </div>
       </li>
+          <hr class="sidebar-divider">
       <?php } else {?>
         <div class="sidebar-heading">
         Ketua RW

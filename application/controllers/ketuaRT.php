@@ -595,7 +595,7 @@
 
             echo json_encode($json);
           } else {
-            redirect('admin/index','refresh');
+            redirect('KetuaRT/usul_pembuatan','refresh');
           }
         }
 

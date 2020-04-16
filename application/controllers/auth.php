@@ -45,6 +45,7 @@
                             'username'  => $user_auth->username,
                             'role'      => $user_auth->role,
                             'rt'        => $user_auth->rt,
+                            'nama'      => $user_auth->nama,
                             'status'    => 'berhasil'
                         ];
 
