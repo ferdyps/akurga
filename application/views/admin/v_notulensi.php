@@ -6,7 +6,7 @@
  <div class="container">
      <div class="row bg-white rounded shadow border-left-primary">
        <div class="col px-0">
-       <?php echo form_open_multipart('admin/insertNotulen', ['id' => 'default-form', 'log' => 'Input Notulensi']);?>
+       <?php echo form_open_multipart('sekretaris/insertNotulen', ['id' => 'default-form', 'log' => 'Input Notulensi']);?>
            <div class="row px-3 my-3">
                <div class="col">
                    <div class="form-group form-input">
@@ -53,7 +53,7 @@
                    <div class="form-group form-input">
                      <label>Uraian Notulensi</label>
                      <div class="alert alert-success" role="alert">
-                         Lakukan <b>penulisan uraian notulensi</b> di <b>microsoft word</b> terlebih dahulu. Lalu <b>copy & paste</b> semua tulisan dari file <b>microsoft word</b> anda ke dalam input di bawah ini . . 
+                         Lakukan <b>penulisan uraian notulensi</b> di <b>microsoft word</b> terlebih dahulu. Lalu <b>copy & paste</b> semua tulisan dari file <b>microsoft word</b> anda ke dalam input di bawah ini . .
                        </div>
                      <textarea name="uraian_notulen" id="text_area_notulen" cols="30" rows="10" class=""></textarea>
                      <div class="invalid-feedback"></div>

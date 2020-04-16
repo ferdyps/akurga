@@ -5,6 +5,7 @@
       public $id_user;
       public $role;
       public $rt;
+      public $nama;
         public function __construct(){
             parent::__construct();
             $this->load->model('m_admin');
@@ -15,6 +16,7 @@
             $this->id_user = $this->session->userdata('id_user');
             $this->role = $this->session->userdata('role');
             $this->rt = $this->session->userdata('rt');
+            $this->nama = $this->session->userdata('nama');
 
             if(!$this->session->has_userdata('status')){
                 redirect('auth/','refresh');
@@ -103,8 +105,14 @@
 
               echo json_encode($json);
             }else {
+              if ($this->role == 'Sekretaris RT') {
+                $set_rt = 'RT '.$this->rt;
+              }elseif ($this->role == 'Sekretaris RW') {
+                $set_rt = 'RW 01';
+              }
+
               $data['key_no_udg'] = $key;
-              $data['generate_id'] = $this->m_admin->get_id($id,$nama_field,$nama_tabel); //$this->session->userdata('jabatan')
+              $data['generate_id'] = $this->m_admin->get_id($id,$nama_field,$nama_tabel,$set_rt); //$this->session->userdata('jabatan')
               $data['content'] = 'admin/v_notulensi';
               $data['title'] = 'Input Notulensi Rapat';
               $this->load->view('admin/index', $data);
@@ -116,7 +124,14 @@
             $id         = 'arsip';
             $nama_field = 'kd_surat';
             $nama_tabel = 'arsip_surat';
-            $data['generate_id'] = $this->m_admin->get_id($id,$nama_field,$nama_tabel); //$this->session->userdata('jabatan')
+
+            if ($this->role == 'Sekretaris RT') {
+              $set_rt = 'RT '.$this->rt;
+            }elseif ($this->role == 'Sekretaris RW') {
+              $set_rt = 'RW 01';
+            }
+
+            $data['generate_id'] = $this->m_admin->get_id($id,$nama_field,$nama_tabel,$set_rt); //$this->session->userdata('jabatan')
             $data['content'] = 'admin/v_arsip_surat';
             $data['title'] = 'Input Arsip Surat';
             $this->load->view('admin/index', $data);
@@ -189,7 +204,20 @@
         {
           $id     = $this->uri->segment(3);
           $no     = array('no_udg' => $id );
+          $ketua  = array(
+                            'role' => 'Ketua RT',
+                            'rt'   => $this->rt
+                          );
           $surat  = $this->m_admin->selectWithWhere('surat_undangan', $no)->result_array();
+          $ketua_rt  = $this->m_admin->cek_ketua($ketua)->result_array();
+
+          if ($this->role == 'Sekretaris RT') {
+            $set_rt   = 'tetangga '.$this->rt;
+            $set_rt2  = 'rt '.$this->rt;
+          }elseif ($this->role == 'Sekretaris RW') {
+            $set_rt = 'warga 01';
+            $set_rt2  = 'rw '.$this->rt;
+          }
 
           setlocale(LC_ALL, 'IND');
 
@@ -201,15 +229,20 @@
           // setting jenis font yang akan digunakan
           $pdf->SetFont('Arial','B',16);
           // mencetak string
-          $pdf->Cell(190,7,'RUKUN TETANGGA 01',0,1,'C');
+          $pdf->Cell(190,7,'RUKUN '.strtoupper($set_rt),0,1,'C');
           $pdf->SetFont('Arial','B',12);
-          $pdf->Cell(190,7,'RUKUN WARGA 01',0,1,'C');
+          if ($this->role == 'Sekretaris RT') {
+            $pdf->Cell(190,7,'RUKUN WARGA 01',0,1,'C');
+          }elseif ($this->role == 'Sekretaris RW') {
+
+          }
+
           $pdf->Cell(190,7,'DESA SUKAPURA KECAMATAN DAYEUHKOLOT',0,1,'C');
           $pdf->Cell(190,7,'KABUPATEN BANDUNG',0,1,'C');
           $pdf->Line(10,40,200,40);
           $pdf->Ln(1.4);
           $pdf->SetFont('Arial','',12);
-          $pdf->Cell(190,7,'Sekretariat : Manggadua RT. 01 RW. 01 Desa Sukapura Kec. Dayeuhkolot Kab. Bandung -  40267',0,1,'C');
+          $pdf->Cell(190,7,'Sekretariat : Manggadua RT. 04 RW. 01 Desa Sukapura Kec. Dayeuhkolot Kab. Bandung -  40267',0,1,'C');
           $pdf->SetLineWidth(1);
           $pdf->Line(10,46,200,46);
           $pdf->Ln(12);
@@ -217,7 +250,7 @@
           $pdf->Cell(5,5,'Nomor',0,0,'L');
           $pdf->Cell(25);
           $pdf->Cell(5,5,':',0,0,'L');
-          $pdf->Cell(5,5,$row['no_udg'],0,0,'L');
+          $pdf->Cell(5,5,str_replace('-','/',$row['no_udg']),0,0,'L');
           $pdf->Cell(60);
           $pdf->Cell(5,5,'Bandung,',0,0,'L');
           $pdf->Cell(15);
@@ -283,16 +316,19 @@
           $pdf->MultiCell(177,7,'Salam Hormat',0,'R');
           $pdf->Ln(8);
           $pdf->Cell(27);
-          $pdf->Cell(35,7,'Sekretaris',0,0,'C');
+          $pdf->Cell(35,7,'Sekretaris '.strtoupper($set_rt2),0,0,'C');
           // $pdf->Cell(35,7,'Sekretaris',0,'C');
           $pdf->Cell(60);
-          $pdf->Cell(35,7,'Ketua RT 01 RW 01',0,0,'C');
+          $pdf->Cell(35,7,'Ketua '.strtoupper($set_rt2),0,0,'C');
           // $pdf->Cell(35,7,'Ketua RT 01 RW 01',0,'C');
           $pdf->Ln(40);
           $pdf->Cell(27);
-          $pdf->Cell(35,7,'Iwan Setiawan ',0,0,'C');
+          // $pdf->MultiCell(35,7,$this->nama,0,'l');
+          $pdf->Cell(35,7,$this->nama,0,0,'C');
           $pdf->Cell(60);
-          $pdf->Cell(35,7,'Moch Toha',0,1,'C');
+          foreach ($ketua_rt as $key) {
+          $pdf->Cell(35,7,$key['nama'],0,1,'C');
+          }
           $pdf->Ln(12);
           $pdf->SetFont('Arial','B'.'U',11);
           $pdf->Cell(19,7,'Tembusan',0,0,'C');
@@ -322,31 +358,10 @@
           $data['title'] = 'Tabel Pembuatan Surat Undangan';
           $this->load->view('admin/index', $data);
         }
-        // ==========================================================================
-        // ==========================================================================
-        // END OF SEKRETARIS
-        // ==========================================================================
-
-        // ==========================================================================
-        // ==========================================================================
-        // Pengurus
-        // ==========================================================================
-
-
-
-        // ==========================================================================
-        // ==========================================================================
-        // END OF Pengurus
-        // ==========================================================================
+  
 
 // Untuk Back-end
 // ==========================================================================
-
-
-        public function detailWarga($id){
-            $data  = $this->m_admin->detailWargaById($id)->row();
-            echo json_encode($data);
-        }
 
 // ================================ Insert Sekretaris =====================================
         public function insertUndanganRapat(){
@@ -607,6 +622,12 @@
             $date                   = date("Y/m/d");
             $no_udg                 = $this->input->post('no_udg');
 
+            if ($this->role == 'Sekretaris RT') {
+              $set_rt = 'RT '.$this->rt;
+            }elseif ($this->role == 'Sekretaris RW') {
+              $set_rt = 'RW 01';
+            }
+
             $config['upload_path']          = './assets/foto/notulensi';
             // $config['file_name']            = $this->input->post('gbr_surat');
             $config['allowed_types']        = 'jpg|png';
@@ -627,17 +648,18 @@
                         'uraian_notulen'  => $uraian_notulen,
                         'tgl_buat'        => $date,
                         'penulis'         => $this->role,
+                        'rt'              => $set_rt,
                         'status'          => 0,
                         'no_udg'          => $no_udg
                       ];
               }else {
-                redirect('admin/inputnotulensi','refresh');
+                redirect('sekretaris/inputnotulensi','refresh');
               }
 
 
               $query = $this->m_admin->input_data('notulensi_rpt', $data);
               if ($query) {
-                $url = base_url('admin/riwayat_notulensi');
+                $url = base_url('sekretaris/riwayat_notulensi');
 
                 $json = [
                     'message' => "Data Notulensi berhasil diinput..",
@@ -658,7 +680,7 @@
             }
             echo json_encode($json);
           }else {
-            redirect('admin/inputnotulensi','refresh');
+            redirect('sekretaris/inputnotulensi','refresh');
           }
         }
 
@@ -709,6 +731,11 @@
             $tgl_terima      = $this->input->post('tgl_terima');
             $tgl_surat       = $this->input->post('tgl_surat');
             $keterangan      = $this->input->post('keterangan');
+            if ($this->role == 'Sekretaris RT') {
+              $set_rt = 'RT '.$this->rt;
+            }elseif ($this->role == 'Sekretaris RW') {
+              $set_rt = 'RW 01';
+            }
 
             $config['upload_path']          = './assets/foto/arsip';
             // $config['file_name']            = $this->input->post('gbr_surat');
@@ -725,14 +752,15 @@
   			             // $error = array('error' => $this->upload->display_errors());
                       $data_upload     = $this->upload->data('file_name');
                       $data = [
-                        'kd_surat' => $kd_surat,
-                        'no_surat' => $no_surat,
-                        'pengirim' => $pengirim,
+                        'kd_surat'   => $kd_surat,
+                        'no_surat'   => $no_surat,
+                        'pengirim'   => $pengirim,
                         'keterangan' => $keterangan,
                         'gambar_srt' => $data_upload,
                         'tgl_terima' => $tgl_terima,
-                        'tgl_surat' => $tgl_surat,
-                        'id_user' => $this->id_user
+                        'tgl_surat'  => $tgl_surat,
+                        'rt'         => $set_rt,
+                        'id_user'    => $this->id_user
                       ];
   		        }else {
                 $data = [
@@ -742,6 +770,7 @@
                   'keterangan' => $keterangan,
                   'tgl_terima' => $tgl_terima,
                   'tgl_surat' => $tgl_surat,
+                  'rt'         => $set_rt,
                   'id_user' => $this->id_user
                 ];
               }
@@ -844,20 +873,36 @@
             $acara_udg  = $this->input->post('acara_udg');
 
             if ($this->form_validation->run() == TRUE) {
-              $data = [
-                'no_udg' => $no_udg,
-                'lampiran_udg' => $lampiran,
-                'sifat_udg' => $sifat,
-                'perihal_udg' => $hal,
-                'tujuan_surat' => $tujuan_srt,
-                'tempat_udg' => $tempat_udg,
-                'tembusan' => $tembusan,
-                'isi_surat' => $isi_surat,
-                'tgl_udg' => $tgl_srt,
-                'jam_udg' => $jam_udg,
-                'acara_udg' => $acara_udg,
-                'id_user' => $this->id_user
-              ];
+              if ($tgl_srt == '' && $jam_udg == '') {
+                $data = [
+                  'no_udg' => $no_udg,
+                  'lampiran_udg' => $lampiran,
+                  'sifat_udg' => $sifat,
+                  'perihal_udg' => $hal,
+                  'tujuan_surat' => $tujuan_srt,
+                  'tempat_udg' => $tempat_udg,
+                  'tembusan' => $tembusan,
+                  'isi_surat' => $isi_surat,
+                  'acara_udg' => $acara_udg,
+                  'id_user' => $this->id_user
+                ];
+              }else {
+                $data = [
+                  'no_udg' => $no_udg,
+                  'lampiran_udg' => $lampiran,
+                  'sifat_udg' => $sifat,
+                  'perihal_udg' => $hal,
+                  'tujuan_surat' => $tujuan_srt,
+                  'tempat_udg' => $tempat_udg,
+                  'tembusan' => $tembusan,
+                  'isi_surat' => $isi_surat,
+                  'tgl_udg' => $tgl_srt,
+                  'jam_udg' => $jam_udg,
+                  'acara_udg' => $acara_udg,
+                  'id_user' => $this->id_user
+                ];
+              }
+
 
               $query = $this->m_admin->edit_data('surat_undangan','no_udg', $no_udg,$data);
 
@@ -1079,30 +1124,58 @@
 
 
             if ($this->form_validation->run() == TRUE) {
-              if ($this->upload->do_upload('gbr_surat')){
-                      $data_upload     = $this->upload->data('file_name');
-                      // $error = array('error' => $this->upload->display_errors());
-                      $data = [
-                        'kd_surat' => $kd_surat,
-                        'no_surat' => $no_surat,
-                        'pengirim' => $pengirim,
-                        'keterangan' => $keterangan,
-                        'gambar_srt' => $data_upload,
-                        'tgl_terima' => $tgl_terima,
-                        'tgl_surat' => $tgl_surat,
-                        'id_user' => $this->id_user
-                      ];
-              }else{
-                $data = [
-                  'kd_surat' => $kd_surat,
-                  'no_surat' => $no_surat,
-                  'pengirim' => $pengirim,
-                  'keterangan' => $keterangan,
-                  'tgl_terima' => $tgl_terima,
-                  'tgl_surat' => $tgl_surat,
-                  'id_user' => $this->id_user
-                ];
+              if ($tgl_surat == '' && $tgl_terima == '') {
+                if ($this->upload->do_upload('gbr_surat')){
+                        $data_upload     = $this->upload->data('file_name');
+                        // $error = array('error' => $this->upload->display_errors());
+                        $data = [
+                          'kd_surat' => $kd_surat,
+                          'no_surat' => $no_surat,
+                          'pengirim' => $pengirim,
+                          'keterangan' => $keterangan,
+                          'gambar_srt' => $data_upload,
+                          // 'tgl_terima' => $tgl_terima,
+                          // 'tgl_surat' => $tgl_surat,
+                          'id_user' => $this->id_user
+                        ];
+                }else{
+                  $data = [
+                    'kd_surat' => $kd_surat,
+                    'no_surat' => $no_surat,
+                    'pengirim' => $pengirim,
+                    'keterangan' => $keterangan,
+                    // 'tgl_terima' => $tgl_terima,
+                    // 'tgl_surat' => $tgl_surat,
+                    'id_user' => $this->id_user
+                  ];
+                }
+              }else {
+                if ($this->upload->do_upload('gbr_surat')){
+                        $data_upload     = $this->upload->data('file_name');
+                        // $error = array('error' => $this->upload->display_errors());
+                        $data = [
+                          'kd_surat' => $kd_surat,
+                          'no_surat' => $no_surat,
+                          'pengirim' => $pengirim,
+                          'keterangan' => $keterangan,
+                          'gambar_srt' => $data_upload,
+                          'tgl_terima' => $tgl_terima,
+                          'tgl_surat' => $tgl_surat,
+                          'id_user' => $this->id_user
+                        ];
+                }else{
+                  $data = [
+                    'kd_surat' => $kd_surat,
+                    'no_surat' => $no_surat,
+                    'pengirim' => $pengirim,
+                    'keterangan' => $keterangan,
+                    'tgl_terima' => $tgl_terima,
+                    'tgl_surat' => $tgl_surat,
+                    'id_user' => $this->id_user
+                  ];
+                }
               }
+
 
 
               $query = $this->m_admin->edit_data('arsip_surat','kd_surat', $kd_surat, $data);

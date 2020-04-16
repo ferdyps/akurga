@@ -5,7 +5,7 @@
     class M_user extends CI_Model {
 
         public function cek_user($data){
-            $sql = "SELECT user.id_user, user.username, user.role, warga.rt FROM user JOIN warga ON user.id_user = warga.id_user  WHERE (username = ? OR email = ?) AND password = ?";
+            $sql = "SELECT user.id_user, user.username, user.role, warga.rt, warga.nama FROM user JOIN warga ON user.id_user = warga.id_user  WHERE (username = ? OR email = ?) AND password = ?";
             return $this->db->query($sql,array($data['username_email'],$data['username_email'],$data['password']));
         }
 

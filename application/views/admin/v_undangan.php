@@ -9,19 +9,18 @@
          <?php $set = substr($row['no_udg'],5,3); ?>
          <?php if ($set == 'RPT') { ?>
          <li class="nav-item col-sm-6">
-           <a class="nav-link active" id="pills-rapat-tab" data-toggle="pill" href="#pills-rapat" role="tab" aria-controls="pills-rapat" aria-selected="true">Surat Rapat</a>
+           <a class="nav-link" id="pills-rapat-tab" data-toggle="pill" href="#pills-rapat" role="tab" aria-controls="pills-rapat" aria-selected="true">Surat Rapat</a>
          </li>
        <?php }else { ?>
          <li class="nav-item col-sm-6">
-           <a class="nav-link active" id="pills-kegiatan-tab" data-toggle="pill" href="#pills-kegiatan" role="tab" aria-controls="pills-kegiatan" aria-selected="false">Surat Kegiatan</a>
+           <a class="nav-link" id="pills-kegiatan-tab" data-toggle="pill" href="#pills-kegiatan" role="tab" aria-controls="pills-kegiatan" aria-selected="false">Surat Kegiatan</a>
          </li>
        <?php } ?>
        </ul>
 
      <!-- <div class="row bg-white rounded shadow border-left-primary"> -->
         <div class="tab-content" id="pills-tabContent">
-
-          <div class="tab-pane fade show active bg-white rounded shadow border-left-primary" id="pills-rapat" role="tabpanel" aria-labelledby="pills-rapat-tab">
+          <div class="tab-pane fade show bg-white rounded shadow border-left-primary" id="pills-rapat" role="tabpanel" aria-labelledby="pills-rapat-tab">
             <div class="col px-0 mt-3 pt-1">
             <?php echo form_open('sekretaris/insertUndanganRapat', ['id' => 'default-form', 'log' => 'Input Surat Undangan']);?>
               <br>
@@ -134,10 +133,19 @@
             </div>
           </div>
 
-          <div class="tab-pane fade bg-white rounded shadow border-left-primary" id="pills-kegiatan" role="tabpanel" aria-labelledby="pills-kegiatan-tab">
-            <div class="col px-0 mt-3 pt-1">
+          <div class="tab-pane fade show bg-white rounded shadow border-left-primary" id="pills-kegiatan" role="tabpanel" aria-labelledby="pills-kegiatan-tab">
             <?php echo form_open('admin/insertUndanganKegiatan', ['id' => 'default-form', 'log' => 'Input Surat Undangan Kegiatan']);?>
+            <br>
+            <div class="col">
+                <div class="form-group">
+                  <label for="input-tembusan">Isi Usulan Rapat</label>
+                  <textarea
+                  class="form-control" name="usulan_rpt" id="input-tembusan" readonly><?= $row['usulan_rpt'] ?></textarea>
+                </div>
+              </div>
+            <div class="col px-0 mt-3 pt-1">
             <!-- 'admin/insertUndanganKegiatan', ['id' => 'default-form', 'log' => 'Input Kegiatan'] -->
+
                 <div class="row px-3 my-3">
                     <div class="col">
                         <div class="form-group">
@@ -236,13 +244,14 @@
                         </div>
                     </div>
                 </div>
-                <?php } ?>
+
                 <div class="col">
                     <div class="form-group text-center">
                         <input type="submit" class="btn btn-primary">
                         <input type="reset" value="Reset" class="btn btn-danger">
                     </div>
                 </div>
+              <?php } ?>
             <?php echo form_close();?>
             </div>
           </div>
