@@ -7,7 +7,7 @@
      <div class="row bg-white rounded shadow border-left-primary">
        <div class="col px-0">
        <?php foreach($pengeluaran as $b){?> 
-       <?=form_open_multipart("admin/update_data_iuran_keluar");?>
+       <?=form_open_multipart("Bendahara/update_data_iuran_keluar");?>
            <div class="row px-3 my-3">
                <div class="col">
                <div class="form-group form-input">

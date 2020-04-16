@@ -318,6 +318,16 @@
         $data['content'] = "user/tabelpengeluaranuser.php";
         $this->load->view('user/index',$data);
     } 
+    public function detail_iuran_masuk($nik){
+        $where = array(
+            'nik' => $nik
+        );
+
+        $data['detailpembayaran'] = $this->m_user->detail($where)->result();
+        // var_dump($this->m_admin->detail($where)->result());
+        $data['content']="user/detailpembayaranuser.php";
+        $this->load->view('user/index',$data);
+    }
 }
 
     /* End of file User.php */

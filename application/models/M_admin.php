@@ -329,6 +329,36 @@
             ";
             return $this->db->query($query);
         }
+        public function getJumlahPembayaran()
+    {
+                        // $this->db->from('data_barang d');
+                        // $this->db->join('aktivitas_barang b', 'd.kodebarang=b.kodebarang');
+                        // $this->db->join('data_supplier t', 'b.kodesupplier=t.kodesupplier');
+
+        // $query = $this->db->get();
+        // return $query = $this->db->get('aktivitas_barang',$number,$offset)->result();
+                        //  $query = $this->db->get();
+                        //     return $query->result();
+        // print_r($pengadaan);die();
+        $from=$this->input->post('from');
+        $end=$this->input->post('end');
+        
+        $hasil=$this->db->query("SELECT 
+        warga.nik,
+        warga.nama,
+        pembayaran.no_pembayaran,
+        pembayaran.pembayaran_bulan,
+        pembayaran.nominal,
+        pembayaran.tanggal 
+        FROM
+        warga JOIN pembayaran ON
+        warga.nik=pembayaran.nik
+        WHERE(pembayaran.tanggal BETWEEN '$from' AND '$end')
+        ORDER BY no_pembayaran
+        ")->result();
+
+        return $hasil;
+    }
 
 
     }
@@ -336,3 +366,4 @@
     /* End of file M_admin.php */
 
 ?>
+

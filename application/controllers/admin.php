@@ -546,6 +546,7 @@
                 redirect(base_url('admin/editiurankeluar'),'refresh');
             }
         }
+
 	function update_data_iuran_keluar(){
 		if($this->input->post('edit_keluar')){
 			$no_pengeluaran = $this->session->userdata('no_pengeluaran');

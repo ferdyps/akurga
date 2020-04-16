@@ -68,7 +68,7 @@
                                 ?>
                             </td>
                             <td>
-                                <?php echo anchor('admin/detail_iuran_masuk/'.$row->nik,'Detail');?>
+                                <?php echo anchor('Bendahara/detail_iuran_masuk/'.$row->nik,'Detail');?>
                             </td>
                         </tr>
                         <?php
