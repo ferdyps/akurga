@@ -41,7 +41,7 @@
                     <td><?= $row['tempat_udg'] ?></td>
                     <td><?= $row['jam_udg'] ?></td>
                     <td>
-                      <button class="btn btn-primary" onclick="konfirmasi_data('<?= base_url('sekretaris/klik_hapus_usulan_rapat/')?>', '<?= $row['no_udg']; ?>' )">Hapus Data</button>
+                      <button class="btn btn-primary" onclick="konfirmasi_data('<?= base_url('ketuaRT/klik_hapus_usulan_rapat/')?>', '<?= $row['no_udg']; ?>' )">Hapus Data</button>
                     </td>
                   </tbody>
                 <?php } ?>
