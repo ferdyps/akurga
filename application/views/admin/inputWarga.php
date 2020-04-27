@@ -9,7 +9,7 @@
 <div class="container">
     <div class="row bg-white rounded shadow border-left-primary">
         <div class="col px-0">
-        <?= form_open('ketuaRT/insertWarga', ['id' => 'default-form', 'log' => 'Input Warga']);?>
+        <?= form_open_multipart('ketuaRT/insertWarga', ['id' => 'default-form', 'log' => 'Input Warga']);?>
             <div class="row px-3 my-3">
                 <div class="col">
                     <div class="form-group form-input">
@@ -143,6 +143,25 @@
                             <option value="Bbk.Ciamis V">Bbk.Ciamis V</option>
                         </select>
                     </div>    
+                    <div class="form-group form-input">
+                        <label for="RT">RT</label>
+                        <select name="rt" id="RT" class="form-control">
+                            <option selected disabled>-- Pilih Rt --</option>
+                            <option value="01">01</option>
+                            <option value="02">02</option>
+                            <option value="03">03</option>
+                            <option value="04">04</option>
+                            <option value="05">05</option>
+                        </select>
+                    </div>
+                    <div class="form-group form-input">
+                        <label for="input-gambar">Gambar</label>
+                        <div class="custom-file">
+                            <input type="file" name="gambar" class="custom-file-input" id="input-gambar">
+                            <label class="custom-file-label">Choose file</label>
+                            <div class="invalid-feedback"></div>   
+                        </div>
+                    </div>   
                 </div>
             </div>
             <div class="col">

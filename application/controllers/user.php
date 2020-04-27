@@ -4,12 +4,19 @@
 
     class User extends CI_Controller {
 
+        public $id_user;
+        public $role;
+        public $rt;
 
         public function __construct(){
             parent::__construct();
             $this->load->model('m_admin');
             $this->load->model('m_user');
             $this->load->library('form_validation');
+
+            $this->id_user = $this->session->userdata('id_user');
+            $this->role = $this->session->userdata('role');
+            $this->rt = $this->session->userdata('rt');
 
             if(!$this->session->has_userdata('status')){
                 redirect('auth/','refresh');
@@ -56,11 +63,6 @@
 
             $this->form_validation->set_rules([
                 [
-                    'field' => 'tanggal_surat',
-                    'label' => 'Tanggal Surat',
-                    'rules' => 'trim|required'
-                ],
-                [
                     'field' => 'keperluan',
                     'label' => 'Keperluan',
                     'rules' => 'trim|required|regex_match[/^[a-zA-Z ]/]'
@@ -68,14 +70,12 @@
             ]);
             if ($this->input->post()) {
                 $nomor_surat = $this->input->post('nomor_surat');
-                $tanggal_surat = $this->input->post('tanggal_surat');
                 $keperluan = $this->input->post('keperluan');
                 $nik = $this->m_admin->userJoinWarga($this->session->userdata('id_user'))->result()[0]->nik;
 
                 if ($this->form_validation->run() == TRUE) {
                     $data = [
                         'nomor_surat' => $nomor_surat,
-                        'tanggal_surat' => $tanggal_surat,
                         'keperluan' => $keperluan,
                         'nik' => $nik
                     ];
@@ -107,7 +107,9 @@
                     $id         = 'surat_pengantar';
                     $nama_field = 'nomor_surat';
                     $nama_tabel = 'surat_pengantar';
-                    $generate_id = $this->m_admin->get_id($id,$nama_field,$nama_tabel);
+                    $set_rt = 'RT '.$this->rt;
+
+                    $generate_id = $this->m_admin->get_id($id,$nama_field,$nama_tabel,$set_rt);
                     $data = [
                         'content' => 'user/formSuratPengantar',
                         'title' => 'Surat Pengantar',
@@ -119,7 +121,10 @@
                 $id         = 'surat_pengantar';
                 $nama_field = 'nomor_surat';
                 $nama_tabel = 'surat_pengantar';
-                $generate_id = $this->m_admin->get_id($id,$nama_field,$nama_tabel);
+                $set_rt = 'RT '.$this->rt;
+
+                $generate_id = $this->m_admin->get_id($id,$nama_field,$nama_tabel,$set_rt);
+
                 $data = [
                     'content' => 'user/formSuratPengantar',
                     'title' => 'Surat Pengantar',
@@ -133,12 +138,12 @@
             $this->form_validation->set_rules([
                 [
                     'field' => 'lokasi',
-                    'rules' => 'Lokasi',
-                    'rules' => 'trim|regex_match[/^[a-zA-Z ]/]'
+                    'label' => 'Lokasi',
+                    'rules' => 'trim|regex_match[/^[a-zA-Z0-9 ]/]'
                 ],
                 [
                     'field' => 'keluhan',
-                    'rules' => 'Keluhan',
+                    'label' => 'Keluhan',
                     'rules' => 'trim|required|regex_match[/^[a-zA-Z ]/]'
                 ]
             ]);
@@ -150,16 +155,30 @@
                 $keluhan = $this->input->post('keluhan');
                 $nik = $this->m_admin->userJoinWarga($this->session->userdata('id_user'))->result()[0]->nik;
 
+                $config['upload_path']          = './assets/foto/komplain';
+                // $config['file_name']            = $this->input->post('gbr_surat');
+                $config['allowed_types']        = 'jpg|png|jpeg';
+                $config['max_size']             = 2000; // 1MB
+
+                $this->load->library('upload', $config);
+
                 if ($this->form_validation->run() == TRUE) {
-                    $data = [
-                        'nomor_komplain' => $nomor_komplain,
-                        'tanggal_komplain' => $tanggal_komplain,
-                        'lokasi' => $lokasi,
-                        'keluhan' => $keluhan,
-                        'lingkup' => 'RT',
-                        'status' => 'proses',
-                        'nik' => $nik
-                    ];
+                    if ($this->upload->do_upload('gambar')) {
+                        $data_upload = $this->upload->data('file_name');
+                        $data = [
+                            'nomor_komplain' => $nomor_komplain,
+                            'tanggal_komplain' => $tanggal_komplain,
+                            'lokasi' => $lokasi,
+                            'keluhan' => $keluhan,
+                            'lingkup' => 'RT',
+                            'status' => 'proses',
+                            'nik' => $nik,
+                            'gambar' => $data_upload
+                        ];
+                    } else {
+                        echo "gagal";
+                        // redirect('user/formkomplain','refresh');
+                    }
 
                     $insertKomplain = $this->m_admin->input_data('komplain', $data);
 
@@ -182,7 +201,9 @@
                     $id = 'komplain';
                     $nama_field = 'nomor_komplain';
                     $nama_tabel = 'komplain';
-                    $generate_id = $this->m_admin->get_id($id,$nama_field,$nama_tabel);
+                    $set_rt = 'RT '.$this->rt;
+
+                    $generate_id = $this->m_admin->get_id($id,$nama_field,$nama_tabel,$set_rt);
                     $data = [
                         'content' => 'user/formKomplain',
                         'title' => 'Komplain',
@@ -194,7 +215,9 @@
                 $id = 'komplain';
                 $nama_field = 'nomor_komplain';
                 $nama_tabel = 'komplain';
-                $generate_id = $this->m_admin->get_id($id,$nama_field,$nama_tabel);
+                $set_rt = 'RT '.$this->rt;
+
+                $generate_id = $this->m_admin->get_id($id,$nama_field,$nama_tabel,$set_rt);
                 $data = [
                     'content' => 'user/formKomplain',
                     'title' => 'Komplain',
@@ -243,13 +266,11 @@
             $this->form_validation->set_rules('keperluan', 'Keperluan', 'trim|required|regex_match[/^[a-zA-Z ]/]');
 
             if ($this->input->post()) {
-                $tanggal_surat = $this->input->post('tanggal_surat');
                 $keperluan = $this->input->post('keperluan');
 
 
                 if ($this->form_validation->run() == TRUE) {
                     $data = [
-                        'tanggal_surat' => $tanggal_surat,
                         'keperluan' => $keperluan
                     ];
                     $update_surat_pengantar = $this->m_admin->edit_data('surat_pengantar','nomor_surat',$id,$data);

@@ -11,7 +11,6 @@
                     <tr>
                         <th width="5%">No</th>
                         <th>Nomor Surat</th>
-                        <th>Tanggal Pengajuan</th>
                         <th>Keperluan</th>
                         <th>Status</th>
                         <th>Pesan</th>
@@ -26,7 +25,6 @@
                     <tr>
                         <th><?= $i++?></th>
                         <td><?= $row['nomor_surat']?></td>
-                        <td><?= $row['tanggal_surat']?></td>
                         <td><?= $row['keperluan']?></td>
                         <td><?= $row['status']?></td>
                         <td><?= $row['pesan']?></td>

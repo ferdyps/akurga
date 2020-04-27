@@ -30,8 +30,9 @@
                           <th>Jenis Kelamin</th>
                           <th>Status</th>
                           <th>Jenis Warga</th>
+                          <th>RT</th>
+                          <th>Gambar</th>
                           <th>Validasi</th>
-                          <th>Pesan</th>
                           <th>Action</th>
                         </tr>
                       </thead>
@@ -51,6 +52,8 @@
                             <td><?= $row['jk']?></td>
                             <td><?= $row['status']?></td>
                             <td><?= $row['jenis_warga']?></td>
+                            <td><?= $row['rt']?></td>
+                            <td><img width="100%" src="<?= base_url('./assets/foto/warga/'.$row['gambar']) ?>"></td>
                             <td>
                               <?php if ($row['valid'] == 1) {
                                 echo "Sudah Valid";
@@ -61,7 +64,6 @@
                                 echo "Belum Valid";
                               }?>
                             </td>
-                            <td><?= $row['pesan']?></td>
                             <td>
                               <a href="#" class="d-none d-sm-inline-block btn btn-primary shadow-sm" id="detailWarga" data-url="<?= base_url('ketuaRT/detailWarga/'); ?>" data-nik="<?= $row['nik']; ?>" data-toggle="modal" data-target="#editDataWargaModal">Detail</a>
                             </td>
@@ -87,8 +89,9 @@
                           <th>Jenis Kelamin</th>
                           <th>Status</th>
                           <th>Jenis Warga</th>
+                          <th>RT</th>
+                          <th>Gambar</th>
                           <th>Validasi</th>
-                          <th>Pesan</th>
                           <th>Action</th>
                         </tr>
                       </thead>
@@ -108,6 +111,8 @@
                             <td><?= $row['jk']?></td>
                             <td><?= $row['status']?></td>
                             <td><?= $row['jenis_warga']?></td>
+                            <td><?= $row['rt']?></td>
+                            <td><img width="100%" src="<?= base_url('./assets/foto/warga/'.$row['gambar']) ?>"></td>
                             <td>
                               <?php if ($row['valid'] == 1) {
                                 echo "Sudah Valid";
@@ -118,7 +123,6 @@
                                 echo "Belum Valid";
                               }?>
                             </td>
-                            <td><?= $row['pesan']?></td>
                             <td>
                               <a href="#" class="d-none d-sm-inline-block btn btn-primary shadow-sm" id="detailWarga" data-url="<?= base_url('ketuaRT/detailWarga/'); ?>" data-nik="<?= $row['nik']; ?>" data-toggle="modal" data-target="#editDataWargaModal">Detail</a>
                             </td>
@@ -161,6 +165,8 @@
             $('#editDataWargaModal #input-nama_jalan').val(data.nama_jalan);
             $('#editDataWargaModal #input-no_rumah').val(data.no_rumah);
             $('#editDataWargaModal #input-Gang').val(data.gang);
+            $('#editDataWargaModal #input-RT').val(data.rt);
+            $('#editDataWargaModal #input-pesan').val(data.pesan);
           },
           error:function() {
             alert('Error di System..!');

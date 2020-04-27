@@ -122,12 +122,82 @@
         }
 
         public function inputHasilKomplainRW($no_komplen){
-            $data = [
-                'content' => 'admin/inputHasilKomplainRW',
-                'title' => 'Input Hasil Komplain RW',
-                'no_komplen' => $no_komplen,
-            ];
-            $this->load->view('admin/index', $data);
+            $this->form_validation->set_rules([
+                [
+                    'field' => 'hasil_komplain',
+                    'label' => 'Tindak lanjut',
+                    'rules' => 'trim|required'
+                ]
+
+            ]);
+            
+            if ($this->input->post()) {
+                $nomor_komplain = $no_komplen;
+                $hasil_komplain = $this->input->post('hasil_komplain');
+                $tanggal = date('Y-m-d');
+
+                $config['upload_path']          = './assets/foto/tindak_lanjut';
+                // $config['file_name']            = $this->input->post('gbr_surat');
+                $config['allowed_types']        = 'jpg|png|jpeg';
+                $config['max_size']             = 2000; // 1MB
+
+                $this->load->library('upload', $config);
+                
+                if ($this->form_validation->run() == TRUE) {
+                    if ($this->upload->do_upload('gambar')) {
+                        $data_upload = $this->upload->data('file_name');
+                        $data = [
+                            'nomor_komplain' => $nomor_komplain,
+                            'hasil_tindak_lanjut' => $hasil_komplain,
+                            'tgl_tindak_lanjut' => $tanggal,
+                            'gambar' => $data_upload
+                        ];
+                        $data2 = [
+                            'status' => 'selesai'
+                        ];
+                    
+                    } else {
+                        redirect('ketuaRW/inputHasilKomplainRW/'.$no_komplen,'refresh');
+                    }
+
+                    $input_hasil = $this->m_admin->input_data('tindak_lanjut',$data);
+                    $update_status = $this->m_admin->edit_data('komplain','nomor_komplain',$nomor_komplain,$data2);
+
+                    if($input_hasil && $update_status){
+                        ?>
+                        <script>
+                            alert('Tindak Lanjut Komplain Berhasil Diinput');
+                            location = "<?php echo base_url('ketuaRW/daftarKomplainRW');?>";
+                        </script>
+                        <?php
+                    }else{
+                        ?>
+                        <script>
+                            alert('Tindak Lanjut Komplain Gagal Diinput');
+                            location = "<?php echo base_url('ketuaRW/daftarKomplainRW');?>";
+                        </script>
+                        <?php
+                    }
+
+                } else {
+                    $data = [
+                        'content' => 'admin/inputHasilKomplainRW',
+                        'title' => 'Input Hasil Komplain RW',
+                        'no_komplen' => $no_komplen,
+                    ];
+                    $this->load->view('admin/index', $data);
+                }
+                
+            }else {
+
+                $data = [
+                    'content' => 'admin/inputHasilKomplainRW',
+                    'title' => 'Input Hasil Komplain RW',
+                    'no_komplen' => $no_komplen,
+                ];
+                $this->load->view('admin/index', $data);
+            }
+
         }
 
         public function insertHasilKomplainRW(){
@@ -292,7 +362,7 @@
             $pdf->SetLineWidth(0.5);
             $pdf->Line(77,64,133,64);
             $pdf->SetFont('Arial','B',12);
-            $pdf->Cell(0,1,'No :'.str_replace('-','/',$row->nomor_surat).'...... / 20.....',0,1,'C');
+            $pdf->Cell(0,1,'No :'.str_replace('-','/',$row->nomor_surat),0,1,'C');
             $pdf->Ln(15);
             $pdf->SetFont('Arial','',12);
             $pdf->Cell(0,0,'Saya yang bertanda tangan di bawah ini Ketua RT 01/ RW 01, Desa Sukapura Kecamatan',0,1,'J');
@@ -338,7 +408,7 @@
             $pdf->Ln(7);
             $pdf->Cell(0,0,'Surat keterangan ini diberikan untuk dipergunakan '.$row->keperluan.'.',0,1,'L');
             $pdf->Ln(20);
-            $pdf->Cell(0,0,'Manggadua, '.strftime("%d %B %Y",strtotime($row->tanggal_surat)),0,1,'R');
+            $pdf->Cell(0,0,'Manggadua, '.strftime("%d %B %Y",strtotime(date("d-m-Y"))),0,1,'R');
             $pdf->Ln(7);
             $pdf->SetFont('Arial','B',12);
             $pdf->Cell(0,0,'Hormat Kami,',0,1,'R');
@@ -347,7 +417,7 @@
             $pdf->Cell(-100,20,'KETUA RW. 01',0,1,'R');
             $pdf->Ln(20);
             $pdf->SetFont('Arial','B',12);
-            $pdf->Cell(0,20,'KETUA RW. 01',0,1,'L');
+            // $pdf->Cell(0,20,'KETUA RW. 01',0,1,'L');
 
 
             // }

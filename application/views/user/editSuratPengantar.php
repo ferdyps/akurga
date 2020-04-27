@@ -12,13 +12,6 @@
                 <input type="text" value="<?= $data_surat->nomor_surat?>" name="nomor_surat" id="input-nomor_surat" class="form-control" readonly>
             </div>
             <div class='form-group'>
-                <label for="input-tanggal_surat" class="text-white">Tanggal Diperlukan</label>
-                <input type="date" name="tanggal_surat" id="input-tanggal_surat" class="form-control <?php if(form_error('tanggal_surat')) { echo 'is-invalid'; } ?> datepickerSurat" value="<?= set_value('tanggal_surat'); ?>">
-                <div class="invalid-feedback">
-                  <?= form_error('tanggal_surat'); ?>
-                </div>
-            </div>
-            <div class='form-group'>
                 <label for="input-keperluan" class="text-white">Keperluan</label>
                 <input value="<?= $data_surat->keperluan?>" type="text" name="keperluan" id="input-keperluan" class="form-control <?php if(form_error('keperluan')) { echo 'is-invalid'; } ?>" placeholder="Keperluan"">
                 <div class="invalid-feedback">

@@ -20,6 +20,7 @@
                       <th>Keluhan</th>
                       <th>Lokasi</th>
                       <th>Tanggal Komplain</th>
+                      <th>Gambar</th>
                       <th>Action</th>
                     </tr>
                   </thead>
@@ -37,6 +38,7 @@
                         <td><?= $row['keluhan']?></td>
                         <td><?= $row['lokasi']?></td>
                         <td><?= $row['tanggal_komplain']?></td>
+                        <td><img width="30%" src="<?= base_url('./assets/foto/komplain/'.$row['gambar'])?>"></td>
                         <td><a class="btn btn-primary" href="<?= base_url('ketuaRW/inputHasilKomplainRW/'. $row['nomor_komplain'])?>" <?php if($row['status'] == 'selesai') { ?> hidden <?php } ?>>Tindak Lanjut</a></td>
                       </tr>
                   <?php } ?>

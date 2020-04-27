@@ -33,9 +33,9 @@
           }elseif ($input == 'arsip') {
             $Char = "-ASM-".$romawi.'-'.date("Y");
           }elseif ($input == 'surat_pengantar') {
-            $Char = '-SK-I-'.$romawi.'-'.date("Y");
+            $Char = '-SK-'.$romawi.'-'.date("Y");
           }elseif ($input == 'komplain') {
-            $Char = "-KOMPLAIN".$romawi.'-'.date("Y");
+            $Char = "-KOMPLAIN-".$romawi."-".date("Y");
           }else {
             echo "Erorr id";
           }
@@ -155,12 +155,12 @@
         }
 
         public function komplainJoinWargaRT(){
-            return $this->db->query("SELECT nomor_komplain,w.nik,nama,keluhan,lokasi,tanggal_komplain,lingkup,k.status FROM komplain k JOIN warga w ON w.nik=k.nik where lingkup='rt'
+            return $this->db->query("SELECT nomor_komplain,w.nik,nama,keluhan,lokasi,tanggal_komplain,lingkup,k.status,k.gambar FROM komplain k JOIN warga w ON w.nik=k.nik where lingkup='rt'
             ");
         }
 
         public function komplainJoinWargaRW(){
-            return $this->db->query("SELECT nomor_komplain,w.nik,nama,keluhan,lokasi,tanggal_komplain,lingkup,k.status FROM komplain k JOIN warga w ON w.nik=k.nik where lingkup='rw'
+            return $this->db->query("SELECT nomor_komplain,w.nik,nama,keluhan,lokasi,tanggal_komplain,lingkup,k.status,k.gambar FROM komplain k JOIN warga w ON w.nik=k.nik where lingkup='rw'
             ");
         }
 

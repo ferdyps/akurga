@@ -66,11 +66,13 @@
         }
 
         public function insertWarga(){
+
+
             $this->form_validation->set_rules([
                 [
                     'field' => 'nik',
                     'label' => 'NIK',
-                    'rules' => 'trim|required|is_unique[warga.nik]|numeric'
+                    'rules' => 'trim|required|is_unique[warga.nik]|numeric|min_length[16]|max_length[16]'
                 ],
                 [
                     'field' => 'nama',
@@ -90,7 +92,7 @@
                 [
                     'field' => 'nama_jalan',
                     'label' => 'Nama Jalan',
-                    'rules' => 'trim|required|regex_match[/^[a-zA-Z ]/]'
+                    'rules' => 'trim|required|regex_match[/^[a-zA-Z0-9 ]/]'
                 ],
                 [
                     'field' => 'no_rumah',
@@ -113,10 +115,18 @@
                 $nama_jalan = $this->input->post('nama_jalan');
                 $no_rumah = $this->input->post('no_rumah');
                 $gang = $this->input->post('gang');
+                $rt = $this->input->post('rt');
 
                 $nokk = $this->input->post('nokk');
                 $hub_dlm_kel = $this->input->post('hub_dlm_kel');
                 $nohp = $this->input->post('nohp');
+
+                $config['upload_path']          = './assets/foto/warga';
+                // $config['file_name']            = $this->input->post('gbr_surat');
+                $config['allowed_types']        = 'jpg|png|jpeg';
+                $config['max_size']             = 2000; // 1MB
+
+                $this->load->library('upload', $config);
 
                 if ($jenis_warga == "Tetap") {
                     $this->form_validation->set_rules([
@@ -137,21 +147,28 @@
                 }
 
                 if ($this->form_validation->run() == TRUE) {
-                    $data = [
-                        'jenis_warga' => $jenis_warga,
-                        'nik' => $nik,
-                        'nama' => $nama,
-                        'tempat_lahir' => $tempat_lahir,
-                        'tanggal_lahir' => $tanggal_lahir,
-                        'pendidikan' => $pendidikan,
-                        'pekerjaan' => $pekerjaan,
-                        'agama' => $agama,
-                        'jk' => $jk,
-                        'status' => $status,
-                        'nama_jalan' => $nama_jalan,
-                        'no_rumah' => $no_rumah,
-                        'gang' => $gang
-                    ];
+                    if ($this->upload->do_upload('gambar')) {
+                        $data_upload = $this->upload->data('file_name');
+                        $data = [
+                            'jenis_warga' => $jenis_warga,
+                            'nik' => $nik,
+                            'nama' => $nama,
+                            'tempat_lahir' => $tempat_lahir,
+                            'tanggal_lahir' => $tanggal_lahir,
+                            'pendidikan' => $pendidikan,
+                            'pekerjaan' => $pekerjaan,
+                            'agama' => $agama,
+                            'jk' => $jk,
+                            'status' => $status,
+                            'nama_jalan' => $nama_jalan,
+                            'no_rumah' => $no_rumah,
+                            'gang' => $gang,
+                            'rt' => $rt,
+                            'gambar' => $data_upload
+                        ];
+                    }else {
+                        redirect('ketuaRT/inputWarga','refresh');
+                    }
 
                     if($jenis_warga == "Tetap") {
                         $data['hub_dlm_kel'] = $hub_dlm_kel;
@@ -224,49 +241,85 @@
         }
 
         public function inputHasilKomplain($no_komplen){
-            $data = [
-                'content' => 'admin/inputHasilKomplain',
-                'title' => 'Input Hasil Komplain',
-                'no_komplen' => $no_komplen,
-            ];
-            $this->load->view('admin/index', $data);
-        }
+            $this->form_validation->set_rules([
+                [
+                    'field' => 'hasil_komplain',
+                    'label' => 'Tindak lanjut',
+                    'rules' => 'trim|required'
+                ]
 
-        public function insertHasilKomplain(){
-            $nomor_komplain = $this->input->post('nomor_komplain');
-            $hasil_komplain = $this->input->post('hasil_komplain');
-            $tanggal = date('Y-m-d');
+            ]);
+            
             if ($this->input->post()) {
-                $data = [
-                    'nomor_komplain' => $nomor_komplain,
-                    'hasil_tindak_lanjut' => $hasil_komplain,
-                    'tgl_tindak_lanjut' => $tanggal
-                ];
-                $data2 = [
-                    'status' => 'selesai'
-                ];
-                $input_hasil = $this->m_admin->input_data('tindak_lanjut',$data);
-                $update_status = $this->m_admin->edit_data('komplain','nomor_komplain',$nomor_komplain,$data2);
+                $nomor_komplain = $no_komplen;
+                $hasil_komplain = $this->input->post('hasil_komplain');
+                $tanggal = date('Y-m-d');
 
-                if($input_hasil && $update_status){
-                    ?>
-                    <script>
-                        alert('Tindak Lanjut Komplain Berhasil Diinput');
-                        location = "<?php echo base_url('ketuaRT/daftarKomplain');?>";
-                    </script>
-                    <?php
-                }else{
-                    ?>
-                    <script>
-                        alert('Tindak Lanjut Komplain Gagal Diinput');
-                        location = "<?php echo base_url('ketuaRT/daftarKomplain');?>";
-                    </script>
-                    <?php
+                $config['upload_path']          = './assets/foto/tindak_lanjut';
+                // $config['file_name']            = $this->input->post('gbr_surat');
+                $config['allowed_types']        = 'jpg|png|jpeg';
+                $config['max_size']             = 2000; // 1MB
+
+                $this->load->library('upload', $config);
+                
+                
+                if ($this->form_validation->run() == TRUE) {
+                    if ($this->upload->do_upload('gambar')) {
+                        $data_upload = $this->upload->data('file_name');
+                        $data = [
+                            'nomor_komplain' => $nomor_komplain,
+                            'hasil_tindak_lanjut' => $hasil_komplain,
+                            'tgl_tindak_lanjut' => $tanggal,
+                            'gambar' => $data_upload
+                        ];
+                        $data2 = [
+                            'status' => 'selesai'
+                        ];
+                    
+                    } else {
+                        redirect('ketuaRT/inputHasilKomplain/'.$no_komplen,'refresh');
+                    }
+                    
+                    $input_hasil = $this->m_admin->input_data('tindak_lanjut',$data);
+                    $update_status = $this->m_admin->edit_data('komplain','nomor_komplain',$nomor_komplain,$data2);
+
+                    if($input_hasil && $update_status){
+                        ?>
+                        <script>
+                            alert('Tindak Lanjut Komplain Berhasil Diinput');
+                            location = "<?php echo base_url('ketuaRT/daftarKomplain');?>";
+                        </script>
+                        <?php
+                    }else{
+                        ?>
+                        <script>
+                            alert('Tindak Lanjut Komplain Gagal Diinput');
+                            location = "<?php echo base_url('ketuaRT/daftarKomplain');?>";
+                        </script>
+                        <?php
+                    }
+
+                } else {
+                    $data = [
+                        'content' => 'admin/inputHasilKomplain',
+                        'title' => 'Input Hasil Komplain',
+                        'no_komplen' => $no_komplen,
+                    ];
+                    $this->load->view('admin/index', $data); 
                 }
-
+                
+            } else {
+                $data = [
+                    'content' => 'admin/inputHasilKomplain',
+                    'title' => 'Input Hasil Komplain',
+                    'no_komplen' => $no_komplen,
+                ];
+                $this->load->view('admin/index', $data);    
             }
+            
 
         }
+
 
         public function klik_konfirmasi_surat_pengantar($id){
             $data = [

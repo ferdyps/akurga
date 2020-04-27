@@ -140,7 +140,26 @@
                             <option value="Bbk.Ciamis IV">Bbk.Ciamis IV</option>
                             <option value="Bbk.Ciamis V">Bbk.Ciamis V</option>
                         </select>
-                    </div>    
+                    </div>
+                    <div class="form-group form-input">
+                        <label for="input-RT">RT</label>
+                        <select name="rt" id="input-RT" class="form-control">
+                            <option selected disabled>-- Pilih Rt --</option>
+                            <option value="01">01</option>
+                            <option value="02">02</option>
+                            <option value="03">03</option>
+                            <option value="04">04</option>
+                            <option value="05">05</option>
+                        </select>
+                    </div>       
+                </div>
+            </div>
+            <div class="row px-3 my-3">
+                <div class="col">
+                    <div class="form-group text-center">
+                        <label for="input-pesan">Pesan</label>
+                        <textarea name="pesan" id="input-pesan" class="form-control" readonly></textarea>
+                    </div>
                 </div>
             </div>
             <div class="col">
