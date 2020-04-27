@@ -45,12 +45,13 @@
                             'username'  => $user_auth->username,
                             'role'      => $user_auth->role,
                             'rt'        => $user_auth->rt,
+                            'nama'      => $user_auth->nama,
                             'status'    => 'berhasil'
                         ];
 
                         $this->session->set_userdata($array_auth);
 
-                        if ($user_auth->role == 'adminMaster' || $user_auth->role == 'Kolektor Iuran' ) {
+                        if ($user_auth->role == 'adminMaster' ) {
                             $url = base_url('admin/index');
 
                             $json = [
@@ -86,6 +87,13 @@
                                 'message' => "Login Akun Berhasil",
                                 'url' => $url
                             ];
+                        }elseif ( $user_auth->role == 'Kolektor Iuran' ) {
+                            $url = base_url('Bendahara/index');
+
+                            $json = [
+                                'message' => "Login Akun Berhasil",
+                                'url' => $url
+                            ]; 
 
                         }elseif ($user_auth->role == 'Sekretaris RT' || $user_auth->role == 'Sekretaris RW') {
                             $url = base_url('sekretaris/index');
@@ -139,7 +147,7 @@
                 }elseif ($this->session->userdata('role') == "Bendahara") {
                     redirect('Bendahara/','refresh');
                 }elseif ($this->session->userdata('role') == "Kolektor Iuran") {
-                    redirect('admin/','refresh');
+                    redirect('Bendahara/','refresh');
                 }elseif ($this->session->userdata('role') == "Ketua RW") {
                     redirect('ketuaRW/','refresh');
                 }elseif ($this->session->userdata('role') == "Sekretaris") {

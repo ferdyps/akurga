@@ -55,9 +55,11 @@
             $this->db->where($pk_field, $id);
             return $this->db->update($table, $data);
         }
+
         public function selectAllData($table){
             return $this->db->get($table);
         }
+        
         public function selectWithWhere($table,$where){
             return $this->db->get_where($table,$where);
         }
@@ -75,10 +77,18 @@
 
         public function get_detail_notulensi($id)
         {
-          $this->db->select('surat_undangan.acara_udg, notulensi_rpt.no_notulen, notulensi_rpt.dokumentasi_rpt,  notulensi_rpt.uraian_notulen, notulensi_rpt.penulis, notulensi_rpt.tgl_acc, notulensi_rpt.tembusan');
+          $this->db->select('surat_undangan.acara_udg, notulensi_rpt.no_notulen, notulensi_rpt.dokumentasi_rpt,  notulensi_rpt.uraian_notulen, notulensi_rpt.penulis, notulensi_rpt.tgl_acc, notulensi_rpt.rt, notulensi_rpt.tembusan');
           $this->db->from('surat_undangan');
           $this->db->join('notulensi_rpt', 'surat_undangan.no_udg = notulensi_rpt.no_udg');
           $this->db->where('notulensi_rpt.no_notulen', $id);
+          return $this->db->get();
+        }
+        // ================================ sekretaris khusus ==============================
+        public function cek_ketua($data){
+          $this->db->select('warga.nama');
+          $this->db->from('user');
+          $this->db->join('warga', 'user.id_user = warga.id_user');
+          $this->db->where($data);
           return $this->db->get();
         }
         // ============================================================
@@ -329,6 +339,36 @@
             ";
             return $this->db->query($query);
         }
+        public function getJumlahPembayaran()
+    {
+                        // $this->db->from('data_barang d');
+                        // $this->db->join('aktivitas_barang b', 'd.kodebarang=b.kodebarang');
+                        // $this->db->join('data_supplier t', 'b.kodesupplier=t.kodesupplier');
+
+        // $query = $this->db->get();
+        // return $query = $this->db->get('aktivitas_barang',$number,$offset)->result();
+                        //  $query = $this->db->get();
+                        //     return $query->result();
+        // print_r($pengadaan);die();
+        $from=$this->input->post('from');
+        $end=$this->input->post('end');
+        
+        $hasil=$this->db->query("SELECT 
+        warga.nik,
+        warga.nama,
+        pembayaran.no_pembayaran,
+        pembayaran.pembayaran_bulan,
+        pembayaran.nominal,
+        pembayaran.tanggal 
+        FROM
+        warga JOIN pembayaran ON
+        warga.nik=pembayaran.nik
+        WHERE(pembayaran.tanggal BETWEEN '$from' AND '$end')
+        ORDER BY no_pembayaran
+        ")->result();
+
+        return $hasil;
+    }
 
 
     }
@@ -336,3 +376,4 @@
     /* End of file M_admin.php */
 
 ?>
+

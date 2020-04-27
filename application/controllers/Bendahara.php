@@ -207,14 +207,14 @@
             $this->load->view('admin/index',$data);
         }
         function update_data_iuran_masuk(){
-            if($this->input->post('edit_masuk')){
-                $no_pengeluaran = $this->session->userdata('no_pemasukan');
+            if($this->input->post('edit_keluar')){
+                $no_pengeluaran = $this->session->userdata('no_pengeluaran');
                 $diberikan_kepada = $this->input->post('diberikan_kepada');
                 $tanggal = $this->input->post('tanggal');
                 $nominal = $this->input->post('nominal');
                 $digunakan_untuk = $this->input->post('digunakan_untuk');
                 $gambar = $this->input->post('gambar');
-
+    
                 $dataiurankeluar = array(
                     'no_pengeluaran' => $no_pengeluaran,
                     'diberikan_kepada' => $diberikan_kepada,
@@ -222,13 +222,13 @@
                     'nominal' => $nominal,
                     'digunakan_untuk' => $digunakan_untuk,
                     'gambar' => $gambar
-
+    
                 );
-
+    
                 $where = array(
                     'no_pengeluaran' => $no_pengeluaran
                 );
-
+    
                 $this->m_admin->update_data($where,$dataiurankeluar,'pengeluaran');
                 redirect(base_url('Bendahara/tabeldataiurankeluar'),'refresh');
             } else {

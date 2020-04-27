@@ -7,7 +7,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <?= form_open('admin/editRapat', ['id' => 'default-form', 'log' => 'Input Rapat']);?>
+      <?= form_open('sekretaris/editRapat', ['id' => 'default-form', 'log' => 'Edit Surat Undangan']);?>
       <div class="row px-3 my-3">
           <div class="col">
               <div class="form-group form-input">
@@ -37,7 +37,7 @@
               </div>
 
               <div class="form-group form-input">
-                  <label for="edit-tujuan_surat">Tujuan Surat</label>
+                  <label for="edit-tujuan_surat">Pihak Yang Diundang</label>
                   <input type="text" name="tujuan_surat" id="edit-tujuan_surat" class="form-control">
                   <div class="invalid-feedback"></div>
               </div>
