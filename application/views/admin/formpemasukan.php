@@ -40,6 +40,23 @@
                    </div>
                    <?php echo form_error('pembayaran_bulan'); ?>
 
+                    <div class="form-group form-input">
+                        <label for="tahun">Tahun</label>
+                        <select name="tahun" id="Tahun" class="form-control">
+                            <option selected disabled>-- Pilih Tahun--</option>
+                            <option value="2019">2019</option>
+                            <option value="2020">2020</option>
+                            <!-- <option value="Kesehatan">Kesehatan</option>
+                            <option value="Duka Cita">Duka Cita</option>
+                            <option value="Kebersihan">Kebersihan</option> -->
+                            <!-- <option value="DIPLOMA II">DIPLOMA II</option>
+                            <option value="AKADEMI/DIPLOMA III/S. MUDA">AKADEMI/DIPLOMA III/S. MUDA</option>
+                            <option value="DIPLOMA IV/STRATA I">DIPLOMA IV/STRATA I</option>
+                            <option value="STRATA II">STRATA II</option>
+                            <option value="STRATA III">STRATA III</option> -->
+                        </select>
+                    </div>
+
                 <div class ="form-group">
                     <label class="control-label col-md-3">Jenis Iuran</label>
                     <div class="col-md-8">

@@ -270,6 +270,7 @@
 
             $this->form_validation->set_rules('nik','Nik','required');
             $this->form_validation->set_rules('pembayaran_bulan', 'Pembayaran Bulan', 'required');
+            // $this->form_validation->set_rules('tahun', 'Tahun', 'required');
             $this->form_validation->set_rules('nominal', 'Nominal', 'required');
             $this->form_validation->set_rules('tanggal', 'Tanggal', 'required');
             // $id_iuran_keluar = $this->input->post('id_iuran_keluar');
@@ -283,6 +284,7 @@
             } else {
                 $nik = $this->input->post('nik');
                 $pembayaran_bulan = $this->input->post('pembayaran_bulan');
+                $tahun = $this->input->post('tahun');
                 $nominal = $this->input->post('nominal');
                 $bulan = $this->m_admin->tampil_bulan_iuran($nik)->result();
                 // print_r($bulan);
@@ -328,6 +330,7 @@
                 $dataiuranmasuk = array(
                     'nik' => $nik,
                     'pembayaran_bulan'=> $pembayaran_bulan,
+                    'tahun' => $tahun,
                     'nominal' => $nominal,
                     'tanggal' => $tanggal,
 
