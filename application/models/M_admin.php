@@ -253,6 +253,7 @@
             $this->db->where('nik', $nik);
             return $this->db->get('pembayaran');
         }
+
         public function tampil_iuran_perbulan(){
           return $this->db->query("SELECT
               `no_pembayaran`,
@@ -277,6 +278,18 @@
           FROM `pembayaran` p
           JOIN warga w ON w.nik = p.nik
           GROUP BY p.nik");
+        }
+
+        public function tampilDataWarga($where){
+            $query = "
+            select * from warga where nik = $where";
+            return $this->db->query($query);
+        }
+
+        public function tampilTarif($where){
+            $query = "
+            select * from tarif where jenis_iuran = '".$where."'";
+            return $this->db->query($query);
         }
 
         public function tampilTahunPembayaran(){

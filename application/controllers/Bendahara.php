@@ -95,15 +95,17 @@
 
         public function tampilbulan(){
 
-            $tahun = addslashes($this->input->get('tahun'));
+
 
             $data['content'] = "admin/tampilbulan";
             $data['title'] = 'Tabel Data Bulan';
             $data['iuran'] = $this->m_admin->tampil_iuran_perbulan()->result();
 
+            $filtertahun = addslashes($this->input->get('tahun'));
+
             $data['tahun'] = $this->m_admin->tampilTahunPembayaran()->result();
-            if(!empty($tahun)){
-                $data['iuranTahun'] = $this->m_admin->tampil_iuran_perbulan_pertahun($tahun)->result();
+            if(!empty($filtertahun)){
+                $data['iuranTahun'] = $this->m_admin->tampil_iuran_perbulan_pertahun($filtertahun)->result();
             }
 
 
@@ -147,10 +149,18 @@
             // 	'nip' => $this->session->userdata('nip')
             // );
            // $data['dataiuran'] = $this->petugas_model->view_data($where,'iuran_masuk')->result();
+
             $data['title'] = 'Input Pemasukan';
             $data['tanggal'] = date('Y-m-d');
             $data['content'] = "admin/formpemasukan";
             $data['bulan'] = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+
+            $filternik = addslashes($this->input->get('filternik'));
+
+            if(!empty($filternik)){
+                $data['datawarga'] = $this->m_admin->tampilDataWarga($filternik)->result();
+            }
+
             $this->load->view('admin/index',$data);
         }
         public function tabeldataiurankeluar(){
@@ -275,6 +285,7 @@
 		}
     }
     public function iuranmasuk(){
+      $data['title'] = 'Tabel Data Keluar';
         $tanggal = date("Y-m-d");
         if($this->input->post('submit_masuk')){
 
@@ -298,8 +309,8 @@
                 $nominal = $this->input->post('nominal');
                 $bulan = $this->m_admin->tampil_bulan_iuran($nik)->result();
                 // print_r($bulan);
-                foreach ($bulan as $bulan) {
-                    if ($pembayaran_bulan == $bulan->pembayaran_bulan) {
+                foreach ($bulan as $value) {
+                    if (($pembayaran_bulan == $value->pembayaran_bulan) && ($tahun == $value->tahun)){
                         $this->session->set_flashdata('pembayaran', 'maaf user sudah membayar');
                         redirect("Bendahara/formpemasukan");
                     } else {

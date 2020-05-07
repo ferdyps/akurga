@@ -78,24 +78,23 @@
                                   <?php
                                   $no = 1;
                                   foreach ($iuranTahun as $row) {
-                                  $bulan = date('m');
                                   ?>
                                   <tr>
                                       <td><?= $no ?></td>
                                       <!-- <td>NIK</td> -->
                                       <td><?= $row->nama_warga ?></td>
-                                      <td><?= $bulan >= 1 ? $row->bulan_januari : null ?></td>
-                                      <td><?= $bulan >= 2 ? $row->bulan_februari : null ?></td>
-                                      <td><?= $bulan >= 3 ? $row->bulan_maret : null ?></td>
-                                      <td><?= $bulan >= 4 ? $row->bulan_april : null ?></td>
-                                      <td><?= $bulan >= 5 ? $row->bulan_mei : null ?></td>
-                                      <td><?= $bulan >= 6 ? $row->bulan_juni : null ?></td>
-                                      <td><?= $bulan >= 7 ? $row->bulan_juli : null ?></td>
-                                      <td><?= $bulan >= 8 ? $row->bulan_agustus : null ?></td>
-                                      <td><?= $bulan >= 9 ? $row->bulan_september : null ?></td>
-                                      <td><?= $bulan >= 10 ? $row->bulan_oktober : null ?></td>
-                                      <td><?= $bulan >= 11 ? $row->bulan_november : null ?></td>
-                                      <td><?= $bulan >= 12 ? $row->bulan_desember : null ?></td>
+                                      <td><?= $row->bulan_januari?></td>
+                                      <td><?= $row->bulan_februari?></td>
+                                      <td><?= $row->bulan_maret?></td>
+                                      <td><?= $row->bulan_april?></td>
+                                      <td><?= $row->bulan_mei?></td>
+                                      <td><?= $row->bulan_juni?></td>
+                                      <td><?= $row->bulan_juli?></td>
+                                      <td><?= $row->bulan_agustus?></td>
+                                      <td><?= $row->bulan_september?></td>
+                                      <td><?= $row->bulan_oktober?></td>
+                                      <td><?= $row->bulan_november?></td>
+                                      <td><?= $row->bulan_desember?></td>
                                       <td>
                                           <?php
                                           if($row->jenis_warga == "Tetap"){
@@ -118,24 +117,23 @@
                                   ini_set( "display_errors", 0);
                                   $no = 1;
                                   foreach ($iuran as $row) {
-                                  $bulan = date('m');
                                   ?>
                                   <tr>
                                       <td><?= $no ?></td>
                                       <!-- <td>NIK</td> -->
                                       <td><?= $row->nama_warga ?></td>
-                                      <td><?= $bulan >= 1 ? $row->bulan_januari : null ?></td>
-                                      <td><?= $bulan >= 2 ? $row->bulan_februari : null ?></td>
-                                      <td><?= $bulan >= 3 ? $row->bulan_maret : null ?></td>
-                                      <td><?= $bulan >= 4 ? $row->bulan_april : null ?></td>
-                                      <td><?= $bulan >= 5 ? $row->bulan_mei : null ?></td>
-                                      <td><?= $bulan >= 6 ? $row->bulan_juni : null ?></td>
-                                      <td><?= $bulan >= 7 ? $row->bulan_juli : null ?></td>
-                                      <td><?= $bulan >= 8 ? $row->bulan_agustus : null ?></td>
-                                      <td><?= $bulan >= 9 ? $row->bulan_september : null ?></td>
-                                      <td><?= $bulan >= 10 ? $row->bulan_oktober : null ?></td>
-                                      <td><?= $bulan >= 11 ? $row->bulan_november : null ?></td>
-                                      <td><?= $bulan >= 12 ? $row->bulan_desember : null ?></td>
+                                      <td><?= $row->bulan_januari?></td>
+                                      <td><?= $row->bulan_februari?></td>
+                                      <td><?= $row->bulan_maret?></td>
+                                      <td><?= $row->bulan_april?></td>
+                                      <td><?= $row->bulan_mei?></td>
+                                      <td><?= $row->bulan_juni?></td>
+                                      <td><?= $row->bulan_juli?></td>
+                                      <td><?= $row->bulan_agustus?></td>
+                                      <td><?= $row->bulan_september?></td>
+                                      <td><?= $row->bulan_oktober?></td>
+                                      <td><?= $row->bulan_november?></td>
+                                      <td><?= $row->bulan_desember?></td>
                                       <td>
                                           <?php
                                           if($row->jenis_warga == "Tetap"){
