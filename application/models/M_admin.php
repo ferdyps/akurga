@@ -280,9 +280,14 @@
           GROUP BY p.nik");
         }
 
-        public function tampilDataWarga($where){
+        public function tampilDataWarga($where=''){
+          if($where!=null){
             $query = "
             select * from warga where nik = $where";
+          }else{
+            $query = "
+            select * from warga";
+          }
             return $this->db->query($query);
         }
 

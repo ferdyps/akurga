@@ -159,6 +159,13 @@
 
             if(!empty($filternik)){
                 $data['datawarga'] = $this->m_admin->tampilDataWarga($filternik)->result();
+
+                  if($data['datawarga']==null){
+                    $this->session->set_flashdata("pesan", "<div class=\"alert alert-danger\" id=\"alert\"><i class=\"glyphicon glyphicon-remove\"></i>NIK Tidak Terdaftar</div>");
+                    redirect('Bendahara/formpemasukan');
+                  }else{
+                    $this->session->set_flashdata("pesan", "<div class=\"alert alert-success\" id=\"alert\"><i class=\"glyphicon glyphicon-remove\"></i>NIK Terdaftar</div>");
+                  }
             }
 
             $this->load->view('admin/index',$data);

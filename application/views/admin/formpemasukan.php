@@ -3,6 +3,11 @@
  <div class="d-sm-flex align-items-center justify-content-between mb-4">
      <h1 class="h3 mb-0 text-gray-800">Input Iuran Masuk</h1>
  </div>
+
+ <div class="wrapper">
+   <p><?php echo $this->session->flashdata('pesan'); ?> </p>
+ </div>
+ 
  <div class="container">
      <div class="row bg-white rounded shadow border-left-primary">
        <div class="col px-0">
@@ -17,9 +22,9 @@
                      <?php
                         if(isset($_GET['filternik'])){
                      ?>
-                     <input class="form-control" type="text" name="filternik" required placeholder="<?php echo $_GET['filternik'] ?>">
+                     <input class="form-control" type="number" name="filternik" required placeholder="<?php echo $_GET['filternik'] ?>">
                    <?php }else{ ?>
-                     <input class="form-control" type="text" name="filternik" required placeholder="Masukkan NIK">
+                     <input class="form-control" type="number" name="filternik" required placeholder="Masukkan NIK">
                    <?php } ?>
                    </td>
                    <td>
