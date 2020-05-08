@@ -7,6 +7,7 @@
         public $id_user;
         public $role;
         public $rt;
+        public $nama;
 
         public function __construct(){
             parent::__construct();
@@ -17,6 +18,7 @@
             $this->id_user = $this->session->userdata('id_user');
             $this->role = $this->session->userdata('role');
             $this->rt = $this->session->userdata('rt');
+            $this->nama = $this->session->userdata('nama');
 
             if(!$this->session->has_userdata('status')){
                 redirect('auth/','refresh');
@@ -37,7 +39,13 @@
 
 // =========================SEKRETARIS ROLE=======================================
         public function notulensidisplay(){
-          $db = $this->m_user->get_notulensi()->result_array();
+          if ($this->role == 'Warga') {
+            $set_rt = 'RT '.$this->rt;
+          }else {
+            site_url('auth/logout');
+          }
+
+          $db = $this->m_user->get_notulensi($set_rt)->result_array();
           $data = [
 
               'fetch'                => $db,
@@ -48,10 +56,18 @@
         }
 
         public function notulensi_rapat(){
+          if ($this->role == 'Warga') {
+            $set_rt = 'RT '.$this->rt;
+          }else {
+            site_url('auth/logout');
+          }
 
-          $id     = $this->uri->segment(3);
-          $no     = array($id);
-          $surat  = $this->m_user->get_detail_notulensi($id)->result_array();
+          $array_data = array(
+                                'notulensi_rpt.no_notulen' => $id,
+                                'notulensi_rpt.rt'         => $set_rt
+                              );
+
+          $surat  = $this->m_user->get_detail_notulensi($array_data)->result_array();
           $data['fetch'] = $surat;
           $data['title'] = 'Notulensi Rapat';
           $data['content'] = 'user/v_notulensi_rapat';
@@ -246,7 +262,7 @@
                 'listKomplain' => $riwayatKomplain
             ];
             $this->load->view('user/index', $data);
-        
+
         }
 
         public function hasilKomplain($nomor_komplain){
@@ -338,7 +354,7 @@
         $data['dataiurank'] = $this->m_user->tampil_iuran_keluar()->result_array();
         $data['content'] = "user/tabelpengeluaranuser.php";
         $this->load->view('user/index',$data);
-    } 
+    }
     public function detail_iuran_masuk($nik){
         $where = array(
             'nik' => $nik

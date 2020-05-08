@@ -6,7 +6,7 @@
  <div class="container">
    <?php echo form_open_multipart('sekretaris/insertArsipMasuk', ['id' => 'default-form', 'log' => 'Arsip Surat']);?>
        <div class="row bg-white rounded shadow border-left-primary">
-         <!-- <div id="flash-data2" data-flashdata="<?= $this->session->flashdata('msg'); ?>"></div> -->
+         <!-- <div id="flash-data2" data-flashdata2="<?= $this->session->flashdata('error'); ?>"></div> -->
          <div class="col px-0">
              <div class="row px-3 my-3">
                  <div class="col">
@@ -48,6 +48,7 @@
                                <input type="file" name="gbr_surat" class="custom-file-input" id="gbr_surat">
                                <label class="custom-file-label">Choose file</label>
                              </div>
+                             <p class="text-mute">*Ukuran file Maksimal 2 MB <br> *file yang di izinkan .jpg .jpeg, atau .png</p>
                              <div class="invalid-feedback">
 
                            </div>
@@ -86,3 +87,12 @@
          </div>
           <?php echo form_close();?>
    </div>
+
+<script>
+$('#gbr_surat').on('change',function(){
+               //get the file name
+               var fileName = $(this).val();
+               //replace the "Choose a file" label
+               $(this).next('.custom-file-label').html(fileName);
+           })
+</script>

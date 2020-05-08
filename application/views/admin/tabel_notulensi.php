@@ -41,6 +41,8 @@
                       <a href="#" class="d-none d-sm-inline-block btn btn-primary shadow-sm" id="editUraianNotulensi" title="Edit Uraian Notulensi"
                       data-url="<?= base_url('sekretaris/detailNotulen/'); ?>" data-notulensi="<?= $row['no_notulen']; ?>"
                       data-toggle="modal" data-target="#editUraianNotulensiModal"><i class="fas fa-file-import"></i></a>
+
+                      <a href="<?= base_url("sekretaris/cetak_notulensi").'/'.$row['no_notulen'];?>" target="_blank" class="d-none d-sm-inline-block btn btn-primary shadow-sm" title="Cetak Notulensi Rapat"><i class="fas fa-print"></i></a>
                     </td>
 
                   </tbody>
