@@ -60,8 +60,14 @@
 
 
         public function inputWarga(){
-            $data['content'] = 'admin/inputWarga';
-            $data['title'] = 'Input Data Warga';
+            $rt = $this->rt;
+            $data = [
+                'content' => 'admin/inputWarga',
+                'title' => 'Input Data Warga',
+                'set_rt' => $rt
+            ];
+            // $data['content'] = 'admin/inputWarga';
+            // $data['title'] = 'Input Data Warga';
             $this->load->view('admin/index', $data);
         }
 
@@ -206,9 +212,10 @@
         }
 
         public function tabelDataWarga(){
+            $set_rt = $this->rt;
             $table = 'warga';
-            $where = ['jenis_warga' => 'sementara'];
-            $where2 = ['jenis_warga' => 'tetap'];
+            $where = ['jenis_warga' => 'sementara','rt' => $set_rt];
+            $where2 = ['jenis_warga' => 'tetap','rt' => $set_rt];
             $list_warga_sementara = $this->m_admin->selectWithWhere($table,$where)->result_array();
             $list_warga_tetap = $this->m_admin->selectWithWhere($table,$where2)->result_array();
             $data = [
@@ -221,7 +228,8 @@
         }
 
         public function daftarSuratPengantar(){
-            $list_surat_pengantar = $this->m_admin->list_surat_pengantar()->result_array();
+            $rt = $this->rt;
+            $list_surat_pengantar = $this->m_admin->list_surat_pengantar($rt)->result_array();
             $data = [
                 'content' => 'admin/daftarSuratPengantar',
                 'title' => 'List Surat Pengantar',
@@ -231,7 +239,8 @@
         }
 
         public function daftarKomplain(){
-            $list_komplain = $this->m_admin->komplainJoinWargaRT()->result_array();
+            $rt = $this->rt;
+            $list_komplain = $this->m_admin->komplainJoinWargaRT($rt)->result_array();
             $data = [
                 'content' => 'admin/daftarKomplain',
                 'title' => 'List Komplain',
@@ -390,25 +399,38 @@
                 $hub_dlm_kel = $this->input->post('hub_dlm_kel');
                 $nohp = $this->input->post('nohp');
 
+                $config['upload_path']          = './assets/foto/warga';
+                // $config['file_name']            = $this->input->post('gbr_surat');
+                $config['allowed_types']        = 'jpg|png|jpeg';
+                $config['max_size']             = 2000; // 1MB
+
+                $this->load->library('upload', $config);
+
                 if ($this->form_validation->run() == TRUE) {
-                    $data = [
-                        'nama' => $nama,
-                        'tempat_lahir' => $tempat_lahir,
-                        'tanggal_lahir' => $tanggal_lahir,
-                        'pendidikan' => $pendidikan,
-                        'pekerjaan' => $pekerjaan,
-                        'agama' => $agama,
-                        'jk' => $jk,
-                        'status' => $status,
-                        'nama_jalan' => $nama_jalan,
-                        'no_rumah' => $no_rumah,
-                        'gang' => $gang,
-                        'nokk' => $nokk,
-                        'hub_dlm_kel' => $hub_dlm_kel,
-                        'nohp' => $nohp,
-                        'valid' => 0,
-                        'pesan' => ''
-                    ];
+                    if ($this->upload->do_upload('gambar')) {
+                        $data_upload = $this->upload->data('file_name');
+                        $data = [
+                            'nama' => $nama,
+                            'tempat_lahir' => $tempat_lahir,
+                            'tanggal_lahir' => $tanggal_lahir,
+                            'pendidikan' => $pendidikan,
+                            'pekerjaan' => $pekerjaan,
+                            'agama' => $agama,
+                            'jk' => $jk,
+                            'status' => $status,
+                            'nama_jalan' => $nama_jalan,
+                            'no_rumah' => $no_rumah,
+                            'gang' => $gang,
+                            'nokk' => $nokk,
+                            'hub_dlm_kel' => $hub_dlm_kel,
+                            'nohp' => $nohp,
+                            'valid' => 0,
+                            'pesan' => '',
+                            'gambar' => $data_upload
+                        ];
+                    }else {
+                        redirect('ketuaRT/tabelDataWarga','refresh');
+                    }
 
                     $query = $this->m_admin->edit_data('warga','nik',$nik,$data);
 

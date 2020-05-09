@@ -92,9 +92,9 @@
           return $this->db->get();
         }
         // ============================================================
-        public function list_surat_pengantar()
+        public function list_surat_pengantar($rt)
         {
-            return $this->db->query("SELECT sp.*,nama,
+            return $this->db->query("SELECT sp.*,w.nama,w.rt,
             (
                 SELECT status
                 FROM status_surat ss
@@ -110,7 +110,8 @@
                 LIMIT 1
             ) as pesan
             FROM surat_pengantar sp
-            JOIN warga w ON w.nik=sp.nik");
+            JOIN warga w ON w.nik=sp.nik
+            WHERE w.rt='$rt'");
         }
 
         public function list_cetak_sp()
@@ -164,8 +165,8 @@
             return $this->db->get();
         }
 
-        public function komplainJoinWargaRT(){
-            return $this->db->query("SELECT nomor_komplain,w.nik,nama,keluhan,lokasi,tanggal_komplain,lingkup,k.status,k.gambar FROM komplain k JOIN warga w ON w.nik=k.nik where lingkup='rt'
+        public function komplainJoinWargaRT($rt){
+            return $this->db->query("SELECT nomor_komplain,w.nik,nama,rt,keluhan,lokasi,tanggal_komplain,lingkup,k.status,k.gambar FROM komplain k JOIN warga w ON w.nik=k.nik where lingkup='rt' and rt='$rt'
             ");
         }
 

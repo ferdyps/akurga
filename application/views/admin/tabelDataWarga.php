@@ -165,7 +165,7 @@
             $('#editDataWargaModal #input-nama_jalan').val(data.nama_jalan);
             $('#editDataWargaModal #input-no_rumah').val(data.no_rumah);
             $('#editDataWargaModal #input-Gang').val(data.gang);
-            $('#editDataWargaModal #input-RT').val(data.rt);
+            $('#editDataWargaModal #input-rt').val(data.rt);
             $('#editDataWargaModal #input-pesan').val(data.pesan);
           },
           error:function() {

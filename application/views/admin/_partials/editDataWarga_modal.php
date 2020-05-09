@@ -142,6 +142,11 @@
                         </select>
                     </div>
                     <div class="form-group form-input">
+                        <label for="input-rt">RT</label>
+                        <input type="text" name="rt" id="input-rt" class="form-control" readonly>
+                        <div class="invalid-feedback"></div>
+                    </div>    
+                    <!-- <div class="form-group form-input">
                         <label for="input-RT">RT</label>
                         <select name="rt" id="input-RT" class="form-control">
                             <option selected disabled>-- Pilih Rt --</option>
@@ -151,6 +156,14 @@
                             <option value="04">04</option>
                             <option value="05">05</option>
                         </select>
+                    </div>  -->
+                    <div class="form-group form-input">
+                        <label for="input-gambar">Gambar</label>
+                        <div class="custom-file">
+                            <input type="file" name="gambar" class="custom-file-input" id="input-gambar">
+                            <label class="custom-file-label">Choose file</label>
+                            <div class="invalid-feedback"></div>   
+                        </div>
                     </div>       
                 </div>
             </div>
@@ -228,4 +241,6 @@
     $('#editDataWargaModal').on('shown.bs.modal', function () {
         startup();
     });
+
+    
 </script>
