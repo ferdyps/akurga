@@ -41,7 +41,16 @@
                     <td><?= $row['tempat_udg'] ?></td>
                     <td><?= $row['jam_udg'] ?></td>
                     <td>
-                      <a href="<?= base_url("sekretaris/inputundangan").'/'.$row['no_udg'];?>" class="d-none d-sm-inline-block btn btn-primary shadow-sm" title="Buat Surat Undangan"><i class="fas fa-plus-circle"></i></a>
+
+                      <a
+                      <?php if ($set == 'RPT') { ?>
+                       href="<?= base_url("sekretaris/inputundanganrapat").'/'.$row['no_udg'];?>"
+                      <?php }else { ?>
+                       href="<?= base_url("sekretaris/inputundangankegiatan").'/'.$row['no_udg'];?>" 
+                      <?php } ?>
+                       class="d-none d-sm-inline-block btn btn-primary shadow-sm" title="Buat Surat Undangan">
+                       <i class="fas fa-plus-circle"></i>
+                     </a>
                     </td>
                   </tbody>
                 <?php } ?>

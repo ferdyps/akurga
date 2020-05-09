@@ -1,11 +1,12 @@
 <div class="container-fluid">
   <!-- Page Heading -->
   <div class="d-sm-flex align-items-center justify-content-between mb-4">
-      <h1 class="h3 mb-0 text-gray-800">Input Notulensi Rapat</h1>
+      <h1 class="h3 mb-0 text-gray-800">Edit Notulensi Rapat</h1>
   </div>
   <div class="container">
     <div class="row bg-white rounded shadow border-left-primary">
-      <?= form_open_multipart('admin/editNotulen', ['id' => 'default-form', 'log' => 'Edit Notulensi']);?>
+      <?= form_open_multipart('sekretaris/editNotulen', ['id' => 'default-form', 'log' => 'Edit Notulensi']);?>
+      <div id="flash-data2" data-flashdata2="<?= $this->session->flashdata('error'); ?>"></div>
       <?php foreach ($fetch as $row) { ?>
       <div class="row px-3 my-3">
           <div class="col">
@@ -22,6 +23,7 @@
                     <input type="file" name="dokumentasi_rpt" class="custom-file-input" id="dok_rpt">
                     <label class="custom-file-label" for="dok_rpt">Choose file</label>
                   </div>
+                  <p class="text-mute">*Ukuran file Maksimal 2 MB <br> *file yang di izinkan .jpg .jpeg, atau .png</p>
                   <div class="invalid-feedback">
 
                 </div>
@@ -52,6 +54,8 @@
           </div>
       </div>
         <?= form_close();?>
+    </div>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
     </div>
 
     <script>

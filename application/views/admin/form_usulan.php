@@ -14,7 +14,7 @@
                  <div class="form-group form-input">
                      <label for="No_Udg">Jenis Surat</label>
                      <select id="No_Udg" name="no_udg" class="form-control">
-                        <option selected  disabled>-- PILIH JENIS SURAT --</option>
+                        <option class="text-muted" selected  disabled>-- PILIH JENIS SURAT --</option>
                         <option value="<?= $generate_id; ?>">  Surat Undangan Rapat</option>
                         <option value="<?= $generate_id2; ?>"> Surat Undangan Kegiatan</option>
                       </select>

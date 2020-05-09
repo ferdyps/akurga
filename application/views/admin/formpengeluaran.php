@@ -45,7 +45,7 @@
 
                    <div class="form-group form-input">
                        <label for="input-nominal">Nominal</label>
-                       <input type="text" name="nominal" id="input-nominal" class="form-control" >
+                       <input type="number" name="nominal" id="input-nominal" class="form-control" >
                        <div class="invalid-feedback">
                        </div>
                    </div>

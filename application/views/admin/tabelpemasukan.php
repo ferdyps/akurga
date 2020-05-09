@@ -9,7 +9,7 @@
   <div class="card-header py-3">
     <h6 class="m-0 font-weight-bold text-primary">Tabel Pemasukan</h6>
   </div>
- 
+
 
   <div class="row px-3 my-3">
               <div class="col">
@@ -35,7 +35,7 @@
                     <!-- <a href="<?= base_url(); ?>pengadaan/printpengadaan/ " target="_BLANK" class="container btn-primary btn-sm">Cetak Laporan</a> -->
 
                     <a class="" href="#" data-toggle="modal"  data-target="#cetakLaporanPengadaan" target="_BLANK" class="container btn-primary btn-sm">
-                                    
+
                                     Cetak Laporan
                                 </a>
                 </div>
@@ -58,15 +58,14 @@
       </table>
 </div>
 </div>
-</div>
 
 <script>
   $(document).ready(function () {
     let url = `<?= base_url()?>Bendahara/filterPemasukan`;
-    
+
     dataUntukTabel(url)
   });
-  
+
   $('#filterPemasukanBulanan').change(function(){
     let namaBulan = $('#filterPemasukanBulanan').val();
     let url = `<?= base_url()?>Bendahara/filterPemasukan/?bulan=${namaBulan}`;
@@ -119,3 +118,7 @@
     $('#dataPemasukan').append(rowTotal);
   }
 </script>
+</div>
+</div>
+</div>
+</div>

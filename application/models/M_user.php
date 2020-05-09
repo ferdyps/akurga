@@ -40,20 +40,21 @@
             return $this->db->update($table, $data);
         }
 
-        public function get_notulensi()
+        public function get_notulensi($rt)
         {
-          $this->db->select('surat_undangan.acara_udg, notulensi_rpt.no_notulen, notulensi_rpt.dokumentasi_rpt, notulensi_rpt.penulis, notulensi_rpt.tgl_acc');
+          $this->db->select('surat_undangan.acara_udg, surat_undangan.tgl_udg, notulensi_rpt.no_notulen, notulensi_rpt.no_udg, notulensi_rpt.dokumentasi_rpt, notulensi_rpt.tgl_buat, notulensi_rpt.rt,');
           $this->db->from('surat_undangan');
           $this->db->join('notulensi_rpt', 'surat_undangan.no_udg = notulensi_rpt.no_udg');
+          $this->db->where('notulensi_rpt.rt',$rt);
           return $this->db->get();
         }
 
-        public function get_detail_notulensi($id)
+        public function get_detail_notulensi($array_data)
         {
-          $this->db->select('surat_undangan.acara_udg, notulensi_rpt.no_notulen, notulensi_rpt.dokumentasi_rpt, notulensi_rpt.uraian_notulen, notulensi_rpt.penulis, notulensi_rpt.tgl_acc, notulensi_rpt.tembusan');
+          $this->db->select('surat_undangan.acara_udg, surat_undangan.tujuan_surat, surat_undangan.tgl_udg, surat_undangan.jam_udg, surat_undangan.tempat_udg, notulensi_rpt.no_notulen, notulensi_rpt.no_udg, notulensi_rpt.dokumentasi_rpt,  notulensi_rpt.uraian_notulen, notulensi_rpt.penulis, notulensi_rpt.rt, notulensi_rpt.tembusan, notulensi_rpt.tgl_buat');
           $this->db->from('surat_undangan');
           $this->db->join('notulensi_rpt', 'surat_undangan.no_udg = notulensi_rpt.no_udg');
-          $this->db->where('notulensi_rpt.no_notulen', $id);
+          $this->db->where($array_data);
           return $this->db->get();
         }
 

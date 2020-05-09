@@ -70,7 +70,7 @@
               </div>
 
               <div class="form-group form-input">
-                  <label for="edit-acara_udg">Acara Rapat</label>
+                  <label for="edit-acara_udg">Agenda Rapat</label>
                   <textarea class="form-control" name="acara_udg" id="edit-acara_udg" readonly></textarea>
                   <div class="invalid-feedback"></div>
               </div>

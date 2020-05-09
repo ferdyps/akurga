@@ -29,19 +29,20 @@
   <script type="text/javascript">
   //kodingan buat input notulensi yang telah ada
   const flashData = $('#flash-data').data('flashdata');
+
   if (flashData) {
     Swal.fire({
       icon: 'info',
       title: 'Data Notulensi Telah Di Input !',
       text: 'Silahkan Cek di Riwayat Notulensi Rapat'
   })
-  }
+}
+
     $(document).ready(function() {
       var tgl_dipilih;
       var bool;
 
       $('.timepicker').pickatime({
-
         format: 'HH:i',
         formatSubmit: 'H:i',
         hiddenName: true,
@@ -68,8 +69,8 @@
           if (tgl_dipilih == tgl_sekarang) {
             picker.set('min', true);
           } else {
-            picker.set('min', [6,0]);
-            picker.set('max', [22,0]);
+            picker.set('min', [8,0]);
+            picker.set('max', [20,0]);
           }
           $('.datepicker').parents('.form-input').find('.invalid-feedback').html('');
           $('.datepicker').parents('.form-input').find('.form-control').removeClass('is-invalid');

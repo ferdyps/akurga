@@ -49,7 +49,7 @@
             <a class="nav-link js-scroll-trigger" href="<?= base_url('user/tabeldataiurankeluaruser')?>">Lihat Pengeluaran</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" onclick="return confirm('Apakah anda yakin untuk logout..?');" href="<?= site_url('auth/logout')?>">Logout</a>
+            <a class="nav-link" onclick="return confirm('Apakah anda yakin untuk logout..?');" href="<?= site_url('auth/logout'); ?>">Logout</a>
           </li>
 
         </ul>

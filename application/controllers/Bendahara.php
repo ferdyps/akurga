@@ -1,9 +1,9 @@
 <?php
-    
+
     defined('BASEPATH') OR exit('No direct script access allowed');
-    
+
     class Bendahara extends CI_Controller {
-    
+
         public $id_user;
         public function __construct(){
             parent::__construct();
@@ -94,9 +94,21 @@
         }
 
         public function tampilbulan(){
+
+
+
             $data['content'] = "admin/tampilbulan";
             $data['title'] = 'Tabel Data Bulan';
             $data['iuran'] = $this->m_admin->tampil_iuran_perbulan()->result();
+
+            $filtertahun = addslashes($this->input->get('tahun'));
+
+            $data['tahun'] = $this->m_admin->tampilTahunPembayaran()->result();
+            if(!empty($filtertahun)){
+                $data['iuranTahun'] = $this->m_admin->tampil_iuran_perbulan_pertahun($filtertahun)->result();
+            }
+
+
             $this->load->view('admin/index',$data);
         }
 
@@ -137,10 +149,25 @@
             // 	'nip' => $this->session->userdata('nip')
             // );
            // $data['dataiuran'] = $this->petugas_model->view_data($where,'iuran_masuk')->result();
+
             $data['title'] = 'Input Pemasukan';
             $data['tanggal'] = date('Y-m-d');
             $data['content'] = "admin/formpemasukan";
             $data['bulan'] = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+
+            $filternik = addslashes($this->input->get('filternik'));
+
+            if(!empty($filternik)){
+                $data['datawarga'] = $this->m_admin->tampilDataWarga($filternik)->result();
+
+                  if($data['datawarga']==null){
+                    $this->session->set_flashdata("pesan", "<div class=\"alert alert-danger\" id=\"alert\"><i class=\"glyphicon glyphicon-remove\"></i>NIK Tidak Terdaftar</div>");
+                    redirect('Bendahara/formpemasukan');
+                  }else{
+                    $this->session->set_flashdata("pesan", "<div class=\"alert alert-success\" id=\"alert\"><i class=\"glyphicon glyphicon-remove\"></i>NIK Terdaftar</div>");
+                  }
+            }
+
             $this->load->view('admin/index',$data);
         }
         public function tabeldataiurankeluar(){
@@ -214,7 +241,7 @@
                 $nominal = $this->input->post('nominal');
                 $digunakan_untuk = $this->input->post('digunakan_untuk');
                 $gambar = $this->input->post('gambar');
-    
+
                 $dataiurankeluar = array(
                     'no_pengeluaran' => $no_pengeluaran,
                     'diberikan_kepada' => $diberikan_kepada,
@@ -222,13 +249,13 @@
                     'nominal' => $nominal,
                     'digunakan_untuk' => $digunakan_untuk,
                     'gambar' => $gambar
-    
+
                 );
-    
+
                 $where = array(
                     'no_pengeluaran' => $no_pengeluaran
                 );
-    
+
                 $this->m_admin->update_data($where,$dataiurankeluar,'pengeluaran');
                 redirect(base_url('Bendahara/tabeldataiurankeluar'),'refresh');
             } else {
@@ -265,11 +292,13 @@
 		}
     }
     public function iuranmasuk(){
+      $data['title'] = 'Tabel Data Keluar';
         $tanggal = date("Y-m-d");
         if($this->input->post('submit_masuk')){
 
             $this->form_validation->set_rules('nik','Nik','required');
             $this->form_validation->set_rules('pembayaran_bulan', 'Pembayaran Bulan', 'required');
+            // $this->form_validation->set_rules('tahun', 'Tahun', 'required');
             $this->form_validation->set_rules('nominal', 'Nominal', 'required');
             $this->form_validation->set_rules('tanggal', 'Tanggal', 'required');
             // $id_iuran_keluar = $this->input->post('id_iuran_keluar');
@@ -283,11 +312,12 @@
             } else {
                 $nik = $this->input->post('nik');
                 $pembayaran_bulan = $this->input->post('pembayaran_bulan');
+                $tahun = $this->input->post('tahun');
                 $nominal = $this->input->post('nominal');
                 $bulan = $this->m_admin->tampil_bulan_iuran($nik)->result();
                 // print_r($bulan);
-                foreach ($bulan as $bulan) {
-                    if ($pembayaran_bulan == $bulan->pembayaran_bulan) {
+                foreach ($bulan as $value) {
+                    if (($pembayaran_bulan == $value->pembayaran_bulan) && ($tahun == $value->tahun)){
                         $this->session->set_flashdata('pembayaran', 'maaf user sudah membayar');
                         redirect("Bendahara/formpemasukan");
                     } else {
@@ -328,6 +358,7 @@
                 $dataiuranmasuk = array(
                     'nik' => $nik,
                     'pembayaran_bulan'=> $pembayaran_bulan,
+                    'tahun' => $tahun,
                     'nominal' => $nominal,
                     'tanggal' => $tanggal,
 
@@ -451,5 +482,5 @@
             }
         }
     }
-    
+
     ?>
