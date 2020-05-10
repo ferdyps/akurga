@@ -7,8 +7,44 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">Tabel Rekap Bulan  </h6>
+          
         </div>
         <div class="card-body">
+        <center>
+            <div class="form-group form-input">
+                    <form action="" method="GET">
+                      <table>
+                        <tr>
+                          <td>
+
+                            <select name="tahun" id="Tahun" class="form-control">
+                              <option disabled='' selected=''> Tahun </option>
+                              <?php
+                                $realtimeYear = date('Y');
+                                for ($i = $realtimeYear; $i >= 2018; $i--) {
+                                ?>
+                                    <option value="<?php echo $i ?>"><?php echo $i ?></option>
+                                <?php
+                                }
+                              ?>
+                            </select>
+                          </td>
+                          <td>
+                            <input class='btn btn-primary' type="submit" value="Find">
+                          </td>
+                          <td>
+                            <a class='btn btn-warning' href='<?php echo base_url(); ?>user/tampilbulan'> Show All </a>
+                          </td>
+                        </tr>
+                      </table>
+                    </form>
+                    <?php
+                      if(isset($_GET['tahun'])){
+                        echo "<br><h3>Tahun ".$_GET['tahun']. "</h3>";
+                      }
+                    ?>
+            </div>
+          </center> 
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
