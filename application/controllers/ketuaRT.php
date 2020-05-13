@@ -258,7 +258,7 @@
                 ]
 
             ]);
-            
+
             if ($this->input->post()) {
                 $nomor_komplain = $no_komplen;
                 $hasil_komplain = $this->input->post('hasil_komplain');
@@ -270,8 +270,8 @@
                 $config['max_size']             = 2000; // 1MB
 
                 $this->load->library('upload', $config);
-                
-                
+
+
                 if ($this->form_validation->run() == TRUE) {
                     if ($this->upload->do_upload('gambar')) {
                         $data_upload = $this->upload->data('file_name');
@@ -284,11 +284,11 @@
                         $data2 = [
                             'status' => 'selesai'
                         ];
-                    
+
                     } else {
                         redirect('ketuaRT/inputHasilKomplain/'.$no_komplen,'refresh');
                     }
-                    
+
                     $input_hasil = $this->m_admin->input_data('tindak_lanjut',$data);
                     $update_status = $this->m_admin->edit_data('komplain','nomor_komplain',$nomor_komplain,$data2);
 
@@ -314,18 +314,18 @@
                         'title' => 'Input Hasil Komplain',
                         'no_komplen' => $no_komplen,
                     ];
-                    $this->load->view('admin/index', $data); 
+                    $this->load->view('admin/index', $data);
                 }
-                
+
             } else {
                 $data = [
                     'content' => 'admin/inputHasilKomplain',
                     'title' => 'Input Hasil Komplain',
                     'no_komplen' => $no_komplen,
                 ];
-                $this->load->view('admin/index', $data);    
+                $this->load->view('admin/index', $data);
             }
-            
+
 
         }
 
@@ -553,8 +553,8 @@
               $set_rt = 'RW 01';
             }
 
-            $generate_id = $this->m_admin->get_id($id,$nama_field,$nama_tabel,$set_rt);
-            $generate_id2 = $this->m_admin->get_id($id_2,$nama_field,$nama_tabel,$set_rt);
+            $generate_id = $this->m_admin->get_id_adapt($id,$nama_tabel,$set_rt);
+            $generate_id2 = $this->m_admin->get_id_adapt($id_2,$nama_tabel,$set_rt);
             $content = 'admin/form_usulan';
             $title = 'Form Usulan Rapat';
             $data = [

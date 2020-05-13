@@ -50,12 +50,13 @@
 
               'fetch'                => $db,
               'content'              => 'user/v_notulensidisplay',
-              'title'                => 'Daftar Notulensi Rapat'
+              'title'                => 'Riwayat Notulensi Rapat'
           ];
           $this->load->view('user/index', $data);
         }
 
         public function notulensi_rapat(){
+          $id     = $this->uri->segment(3);
           if ($this->role == 'Warga') {
             $set_rt = 'RT '.$this->rt;
           }else {
@@ -74,6 +75,49 @@
           $this->load->view('user/index', $data);
         }
 
+        public function rapatdisplay(){
+          if ($this->role == 'Warga') {
+            $set_rt = 'RT '.$this->rt;
+          }else {
+            site_url('auth/logout');
+          }
+          $rt_found = array('rt' => $set_rt );
+
+          $db = $this->m_user->selectWithWhere('surat_undangan', $rt_found)->result_array();
+          $data = [
+
+              'fetch'                => $db,
+              'content'              => 'user/v_rapatdisplay',
+              'title'                => 'Riwayat Surat Undangan Rapat'
+          ];
+          $this->load->view('user/index', $data);
+        }
+
+        public function rapat_detail(){
+          $id     = $this->uri->segment(3);
+
+          if ($this->role == 'Warga') {
+            $set_rt = 'RT '.$this->rt;
+            $ketua  = array(
+              'role' => 'Ketua RT',
+              'rt'   => $this->rt
+            );
+            $array_data = array(
+                                  'no_udg'     => $id,
+                                  'rt'         => $set_rt
+                                );
+          }else {
+            site_url('auth/logout');
+          }
+
+          $ketua_rt  = $this->m_user->cek_ketua($ketua)->result_array();
+          $db = $this->m_user->selectWithWhere('surat_undangan', $array_data)->result_array();
+          $data['fetch'] = $db;
+          $data['fetch_ketua'] = $ketua_rt;
+          $data['title'] = 'Detail Surat Undangan Rapat';
+          $data['content'] = 'user/v_detailrpt';
+          $this->load->view('user/index', $data);
+        }
 // ================================================================================
         public function formSuratPengantar(){
 

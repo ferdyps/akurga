@@ -45,6 +45,58 @@
 
       }
 
+      public function get_id_adapt($input,$table,$rt) {
+        if ($rt == 'RT 01') {
+          $romawi = 'I';
+        }elseif ($rt == 'RT 02') {
+          $romawi = 'II';
+        }elseif ($rt == 'RT 03') {
+          $romawi = 'III';
+        }elseif ($rt == 'RT 04') {
+          $romawi = 'IV';
+        }elseif ($rt == 'RT 05') {
+          $romawi = 'V';
+        }elseif ($rt == 'RW 01') {
+          $romawi = 'I';
+        }
+
+        if ($input == 'rapat') {
+          $Char = "-RPT-".$romawi.'-'.date("Y");
+          $Char2 = '-RPT-'.$romawi;
+          $atr = 'no_udg';
+        }elseif ($input == 'kegiatan') {
+          $Char = "-KGT-".$romawi.'-'.date("Y");
+          $Char2 = '-KGT-'.$romawi;
+          $atr = 'no_udg';
+        }elseif ($input == 'notulensi') {
+          $Char = "-NOT-".$romawi.'-'.date("Y");
+          $Char2 = '-NOT-'.$romawi;
+          $atr = 'no_notulen';
+        }elseif ($input == 'arsip') {
+          $Char = "-ASM-".$romawi.'-'.date("Y");
+          $Char2 = '-ASM-'.$romawi;
+          $atr = 'kd_surat';
+        }elseif ($input == 'surat_pengantar') {
+          $Char = '-SK-'.$romawi.'-'.date("Y");
+          $Char2 = '-SK-'.$romawi;
+        }elseif ($input == 'komplain') {
+          $Char = "-KOMPLAIN-".$romawi."-".date("Y");
+          $Char2 = '-KOMPLAIN-'.$romawi;
+        }else {
+          echo "Erorr id";
+        }
+
+        $this->db->where('rt', $rt);
+        $this->db->like( $atr, $Char2, 'both');
+        $query = $this->db->get($table)->num_rows();
+        // $Kode= $query->num_rows();
+          // $noUrut=(int)substr($Kode, 1, 4);
+          $query++;
+
+          $newID = sprintf("%03s", $query) . $Char; //. $rtnya
+          return $newID;
+
+      }
       // ======================== END GET ID otomatis ================================
 
         public function input_data($table, $data){

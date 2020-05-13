@@ -9,6 +9,14 @@
             return $this->db->query($sql,array($data['username_email'],$data['username_email'],$data['password']));
         }
 
+        public function cek_ketua($data){
+          $this->db->select('warga.nama, warga.jk');
+          $this->db->from('user');
+          $this->db->join('warga', 'user.id_user = warga.id_user');
+          $this->db->where($data);
+          return $this->db->get();
+        }
+
         public function selectAllData($table){
             return $this->db->get($table);
         }

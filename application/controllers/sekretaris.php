@@ -137,7 +137,7 @@ class sekretaris extends CI_Controller {
       }
 
       $data['key_no_udg'] = $key;
-      $data['generate_id'] = $this->m_admin->get_id($id,$nama_field,$nama_tabel,$set_rt); //$this->session->userdata('jabatan')
+      $data['generate_id'] = $this->m_admin->get_id_adapt($id,$nama_tabel,$set_rt); //$this->session->userdata('jabatan')
       $data['content'] = 'admin/v_notulensi';
       $data['title'] = 'Input Notulensi Rapat';
       $this->load->view('admin/index', $data);
@@ -156,7 +156,7 @@ class sekretaris extends CI_Controller {
       $set_rt = 'RW 01';
     }
 
-    $data['generate_id'] = $this->m_admin->get_id($id,$nama_field,$nama_tabel,$set_rt); //$this->session->userdata('jabatan')
+    $data['generate_id'] = $this->m_admin->get_id_adapt($id,$nama_tabel,$set_rt); //$this->session->userdata('jabatan')
     $data['content'] = 'admin/v_arsip_surat';
     $data['title'] = 'Input Arsip Surat';
     $this->load->view('admin/index', $data);
@@ -341,7 +341,7 @@ class sekretaris extends CI_Controller {
       $pdf->MultiCell(160,7,$row['isi_surat'],0,'J');
       $pdf->Ln(6);
       $pdf->Cell(35);
-      $pdf->Cell(35,7,'Hari tanggal',0,'L');
+      $pdf->Cell(35,7,'Hari, tanggal',0,'L');
       $pdf->Cell(5,7,':',0,'L');
       $tgl_udg = strftime("%A, %d %B %Y",strtotime($row['tgl_udg']));
       $pdf->MultiCell(100,7,$tgl_udg,0,'L');
@@ -974,6 +974,7 @@ class sekretaris extends CI_Controller {
       $tgl_terima      = $this->input->post('tgl_terima');
       $tgl_surat       = $this->input->post('tgl_surat');
       $keterangan      = $this->input->post('keterangan');
+      $date = date("Y/m/d");
       if ($this->role == 'Sekretaris RT') {
         $set_rt = 'RT '.$this->rt;
       }elseif ($this->role == 'Sekretaris RW') {
@@ -1000,6 +1001,7 @@ class sekretaris extends CI_Controller {
             'gambar_srt' => $data_upload,
             'tgl_terima' => $tgl_terima,
             'tgl_surat'  => $tgl_surat,
+            'tgl_buat'  => $date,
             'rt'         => $set_rt,
             'id_user'    => $this->id_user
           ];
@@ -1031,6 +1033,7 @@ class sekretaris extends CI_Controller {
               'keterangan' => $keterangan,
               'tgl_terima' => $tgl_terima,
               'tgl_surat'  => $tgl_surat,
+              'tgl_buat'  => $date,
               'rt'         => $set_rt,
               'id_user'    => $this->id_user
             ];
@@ -1148,6 +1151,34 @@ class sekretaris extends CI_Controller {
             'acara_udg' => $acara_udg,
             'id_user' => $this->id_user
           ];
+        }elseif ($tgl_srt == '') {
+          $data = [
+            'no_udg' => $no_udg,
+            'lampiran_udg' => $lampiran,
+            'sifat_udg' => $sifat,
+            'perihal_udg' => $hal,
+            'tujuan_surat' => $tujuan_srt,
+            'tempat_udg' => $tempat_udg,
+            'tembusan' => $tembusan,
+            'isi_surat' => $isi_surat,
+            'jam_udg' => $jam_udg,
+            'acara_udg' => $acara_udg,
+            'id_user' => $this->id_user
+          ];
+        }elseif ($jam_udg == '') {
+          $data = [
+            'no_udg' => $no_udg,
+            'lampiran_udg' => $lampiran,
+            'sifat_udg' => $sifat,
+            'perihal_udg' => $hal,
+            'tujuan_surat' => $tujuan_srt,
+            'tempat_udg' => $tempat_udg,
+            'tembusan' => $tembusan,
+            'isi_surat' => $isi_surat,
+            'tgl_udg' => $tgl_srt,
+            'acara_udg' => $acara_udg,
+            'id_user' => $this->id_user
+          ];
         }else {
           $data = [
             'no_udg' => $no_udg,
@@ -1164,6 +1195,7 @@ class sekretaris extends CI_Controller {
             'id_user' => $this->id_user
           ];
         }
+
 
 
         $query = $this->m_admin->edit_data('surat_undangan','no_udg', $no_udg,$data);
@@ -1470,7 +1502,7 @@ class sekretaris extends CI_Controller {
           }
 
         }else{
-          if ($this->upload->display_errors('', '') == 'You did not select a file to upload.') {  
+          if ($this->upload->display_errors('', '') == 'You did not select a file to upload.') {
             if ($tgl_surat == '' && $tgl_terima == '') {
               $data = [
                 'kd_surat' => $kd_surat,
