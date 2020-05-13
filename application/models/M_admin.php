@@ -116,7 +116,7 @@
 
         public function list_cetak_sp()
         {
-            return $this->db->query("SELECT w.nik, nama, sp.nomor_surat, keperluan, tanggal_surat, ss.STATUS
+            return $this->db->query("SELECT w.nik, nama, sp.nomor_surat, keperluan, ss.STATUS
             FROM surat_pengantar sp
             JOIN warga w ON w.nik=sp.nik
             JOIN status_surat ss ON sp.nomor_surat = ss.nomor_surat
@@ -176,7 +176,7 @@
         }
 
         public function riwayatSuratPengantar($id_user){
-            return $this->db->query("SELECT u.id_user,sp.nomor_surat,sp.tanggal_surat,sp.keperluan, ss.status, ss.created_at, ss.pesan
+            return $this->db->query("SELECT u.id_user,sp.nomor_surat,sp.keperluan, ss.status, ss.created_at, ss.pesan
             FROM `user` u
             JOIN warga w ON u.id_user=w.id_user
             JOIN surat_pengantar sp ON w.nik=sp.nik

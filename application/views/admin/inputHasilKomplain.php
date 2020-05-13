@@ -9,31 +9,32 @@
 <div class="container">
     <div class="row bg-white rounded shadow border-left-primary">
         <div class="col px-0">
-        <?= form_open_multipart();?>
+        <?= form_open_multipart('ketuaRT/insertHasilKomplain', ['id' => 'default-form', 'log' => 'Input Hasil Komplain']);?>
             <div class="row px-3 my-3">
                 <div class="col">
-                    <input type="text" name="nomor_komplain" value="<?= $no_komplen ?>" id="nomor_komplain" readonly>
                     <div class="form-group form-input">
-                        <textarea name="hasil_komplain" id="hasil_komplain" cols="30" rows="10" class="form-control <?php if(form_error('hasil_komplain')) { echo 'is-invalid'; } ?>" value="<?= set_value('hasil_komplain'); ?>"></textarea>
-                        <div class="invalid-feedback">
-                            <?= form_error('hasil_komplain'); ?>
-                        </div>
+                        <label for="input-nomor_komplain">Nomor Pengaduan</label>
+                        <input type="text" name="nomor_komplain" value="<?= $no_komplen ?>" id="input-nomor_komplain" readonly class="form-control">
                     </div>
+                    <div class="form-group form-input">
+                        <label for="input-hasil_komplain">Tindak Lanjut</label>
+                        <textarea name="hasil_komplain" id="input-hasil_komplain" cols="30" rows="10" class="form-control" placeholder="Tindak Lanjut"></textarea>
+                        <div class="invalid-feedback"></div>
+                    </div>
+                    <div class="form-group form-input">
+                        <label for="input-gambar">Gambar</label>
+                        <div class="custom-file">
+                            <input type="file" name="gambar" class="custom-file-input" id="input-gambar">
+                            <label class="custom-file-label">Choose file</label>
+                            <div class="invalid-feedback"></div>  
+                        </div>
+                    </div> 
                 </div>
             </div>
-            <div class="form-group form-input">
-                <label for="input-gambar">Gambar</label>
-                <div class="custom-file">
-                    <input type="file" name="gambar" class="custom-file-input <?php if(form_error('gambar')) { echo 'is-invalid'; } ?>" value="<?= set_value('gambar'); ?>" id="input-gambar">
-                    <label class="custom-file-label">Choose file</label>
-                    <div class="invalid-feedback">
-                        <?= form_error('gambar'); ?>
-                  </div>  
-                </div>
-            </div> 
             <div class="col">
                 <div class="form-group text-center">
                     <input type="submit" value="Submit" class="btn btn-primary">
+                    <input type="reset" value="Reset" class="btn btn-danger">
                     <!-- <input type="reset" value="Reset" class="btn btn-danger"> -->
                 </div>
             </div>

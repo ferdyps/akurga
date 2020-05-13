@@ -6,17 +6,15 @@
           <hr class="divider my-4">
         </div>
         <div class="col-lg-8 align-self-baseline">
-        <?= form_open('user/formSuratPengantar');?>
-            <div class='form-group'>
+        <?= form_open('user/insertSuratPengantar', ['id' => 'default-form', 'log' => 'Input Surat Pengantar']);?>
+            <div class="form-group form-input">
                 <label for="input-nomor_surat" class="text-white">Nomor Surat</label>
-                <input type="text" value="<?= $generate_id;?>" name="nomor_surat" id="input-nomor_surat" class="form-control" readonly>
+                <input type="text" value="<?= $generate_id;?>" name="nomor_surat" id="input-nomor_surat" class="form-control" readonly placeholder="Nomor Surat">
             </div>
-            <div class='form-group'>
+            <div class="form-group form-input">
                 <label for="input-keperluan" class="text-white">Keperluan</label>
-                <input type="text" name="keperluan" id="input-keperluan" class="form-control <?php if(form_error('keperluan')) { echo 'is-invalid'; } ?>" placeholder="Keperluan" value="<?= set_value('keperluan'); ?>">
-                <div class="invalid-feedback">
-                  <?= form_error('keperluan'); ?>
-                </div>
+                <input type="text" name="keperluan" id="input-keperluan" class="form-control" placeholder="Keperluan">
+                <div class="invalid-feedback"></div>
             </div>
             <input type="submit" value="Submit" class="btn btn-primary">
         <?= form_close();?>

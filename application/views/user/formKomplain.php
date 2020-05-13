@@ -6,37 +6,31 @@
           <hr class="divider my-4">
         </div>
         <div class="col-lg-8 align-self-baseline">
-        <?= form_open_multipart();?>
-            <div class='form-group'>
+        <?= form_open_multipart('user/insertKomplain', ['id' => 'default-form', 'log' => 'Input Komplain']);?>
+            <div class="form-group form-input">
                 <label for="input-nomor_komplain" class="text-white">Nomor Komplain</label>
                 <input type="text" name="nomor_komplain" value="<?= $generate_id?>" id="input-nomor_komplain" class="form-control" readonly>
             </div>
-            <div class='form-group'>
+            <div class="form-group form-input">
                 <label for="input-tanggal_komplain" class="text-white">Tanggal Komplain</label>
                 <input type="date" name="tanggal_komplain" value="<?= date("Y-m-d")?>" id="input-tanggal_komplain" class="form-control" readonly>
             </div>
-            <div class='form-group'>
-                <label for="input-keperluan" class="text-white">Lokasi (Opsional)</label>
-                <input type="text" name="lokasi" id="input-keperluan" class="form-control <?php if(form_error('lokasi')) { echo 'is-invalid'; } ?>" value="<?= set_value('lokasi'); ?>" placeholder="Lokasi">
-                <div class="invalid-feedback">
-                  <?= form_error('lokasi'); ?>
-                </div>
+            <div class="form-group form-input">
+                <label for="input-lokasi" class="text-white">Lokasi (Opsional)</label>
+                <input type="text" name="lokasi" id="input-lokasi" class="form-control" placeholder="Lokasi">
+                <div class="invalid-feedback"></div>
             </div>
-            <div class='form-group'>
-                <label for="Keluhan" class="text-white">Keluhan</label>
-                <textarea name="keluhan" id="Keluhan" rows="3" class="form-control <?php if(form_error('keluhan')) { echo 'is-invalid'; } ?>" value="<?= set_value('keluhan'); ?>"></textarea>
-                <div class="invalid-feedback">
-                  <?= form_error('keluhan'); ?>
-                </div>
+            <div class="form-group form-input">
+                <label for="input-keluhan" class="text-white">Keluhan</label>
+                <textarea name="keluhan" id="input-keluhan" rows="3" class="form-control" placeholder="Keluhan"></textarea>
+                <div class="invalid-feedback"></div>
             </div>
-            <div class='form-group'>
-                <label for="gambar" class="text-white">Gambar</label>
+            <div class="form-group form-input">
+                <label for="input-gambar" class="text-white">Gambar</label>
                 <div class="custom-file">
-                  <input name="gambar" id="gambar" type="file" class="custom-file-input  <?php if(form_error('gambar')) { echo 'is-invalid'; } ?>" value="<?= set_value('gambar'); ?>">
+                  <input name="gambar" id="input-gambar" type="file" class="custom-file-input ">
                   <label class="custom-file-label">Choose file</label>
-                  <div class="invalid-feedback">
-                    <?= form_error('gambar'); ?>
-                  </div>
+                  <div class="invalid-feedback"></div>
                 </div>
             </div>
             <input type="submit" value="Submit" class="btn btn-primary">

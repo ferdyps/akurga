@@ -122,6 +122,17 @@
         }
 
         public function inputHasilKomplainRW($no_komplen){
+            
+            $data = [
+                'content' => 'admin/inputHasilKomplainRW',
+                'title' => 'Input Hasil Komplain RW',
+                'no_komplen' => $no_komplen,
+            ];
+            $this->load->view('admin/index', $data);
+
+        }
+
+        public function insertHasilKomplain(){
             $this->form_validation->set_rules([
                 [
                     'field' => 'hasil_komplain',
@@ -132,7 +143,7 @@
             ]);
             
             if ($this->input->post()) {
-                $nomor_komplain = $no_komplen;
+                $nomor_komplain = $this->input->post('nomor_komplain');
                 $hasil_komplain = $this->input->post('hasil_komplain');
                 $tanggal = date('Y-m-d');
 
@@ -156,48 +167,44 @@
                             'status' => 'selesai'
                         ];
                     
+                        $input_hasil = $this->m_admin->input_data('tindak_lanjut',$data);
+                        $update_status = $this->m_admin->edit_data('komplain','nomor_komplain',$nomor_komplain,$data2);
+                        
+                        if ($input_hasil && $update_status) {
+                            $url = base_url('ketuaRW/daftarKomplainRW');
+    
+                            $json = [
+                                'message' => "Hasil Tindak Lanjut Berhasil Diinput..",
+                                'url' => $url
+                            ];
+
+                        } else {
+                            $json['errors'] = "Hasil Tindak Lanjut Gagal Diinput..!";
+                        }
+
                     } else {
-                        redirect('ketuaRW/inputHasilKomplainRW/'.$no_komplen,'refresh');
-                    }
+                        $gambar_prob = $this->upload->display_errors('', '');
 
-                    $input_hasil = $this->m_admin->input_data('tindak_lanjut',$data);
-                    $update_status = $this->m_admin->edit_data('komplain','nomor_komplain',$nomor_komplain,$data2);
-
-                    if($input_hasil && $update_status){
-                        ?>
-                        <script>
-                            alert('Tindak Lanjut Komplain Berhasil Diinput');
-                            location = "<?php echo base_url('ketuaRW/daftarKomplainRW');?>";
-                        </script>
-                        <?php
-                    }else{
-                        ?>
-                        <script>
-                            alert('Tindak Lanjut Komplain Gagal Diinput');
-                            location = "<?php echo base_url('ketuaRW/daftarKomplainRW');?>";
-                        </script>
-                        <?php
+                        $json = [
+                        'pict' => $gambar_prob,
+                        ];
+                        // redirect('ketuaRW/inputHasilKomplainRW/'.$no_komplen,'refresh');
                     }
 
                 } else {
-                    $data = [
-                        'content' => 'admin/inputHasilKomplainRW',
-                        'title' => 'Input Hasil Komplain RW',
-                        'no_komplen' => $no_komplen,
-                    ];
-                    $this->load->view('admin/index', $data);
+                    $no = 0;
+                    foreach ($this->input->post() as $key => $value) {
+                        if (form_error($key) != "") {
+                            $json['form_errors'][$no]['id'] = $key;
+                            $json['form_errors'][$no]['msg'] = form_error($key, null, null);
+                            $no++;
+                        }
+                    }
                 }
-                
-            }else {
-
-                $data = [
-                    'content' => 'admin/inputHasilKomplainRW',
-                    'title' => 'Input Hasil Komplain RW',
-                    'no_komplen' => $no_komplen,
-                ];
-                $this->load->view('admin/index', $data);
+                echo json_encode($json);
+            } else {
+                redirect('ketuaRW/inputHasilkomplainRW','refresh');
             }
-
         }
 
         public function insertHasilKomplainRW(){

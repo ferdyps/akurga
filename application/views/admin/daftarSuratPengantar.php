@@ -18,7 +18,6 @@
                       <th>NIK</th>
                       <th>Nama Lengkap</th>
                       <th>Keperluan</th>
-                      <th>Tanggal Diperlukan</th>
                       <th>Status</th>
                       <th>Action</th>
                     </tr>
@@ -35,7 +34,6 @@
                         <td><?= $row['nik']?></td>
                         <td><?= $row['nama']?></td>
                         <td><?= $row['keperluan']?></td>
-                        <td><?= $row['tanggal_surat']?></td>
                         <td><?= $row['status']?></td>
                         <td>
                           <button class="btn btn-primary" onclick="konfirmasi_data('<?= base_url('ketuaRT/klik_konfirmasi_surat_pengantar/')?>', '<?= $row['nomor_surat']; ?>')" <?php if($row['status'] == 'diterima' || $row['status'] == 'ditolak') { ?> hidden <?php } ?>><i class="fas fa-check"></i></button>
@@ -59,13 +57,17 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <?= form_open('ketuaRT/declineSuratPengantar')?>
-      <input type="hidden" name="nomor_surat" id="nomor_surat_hidden" value="">
+      <?= form_open('ketuaRT/declineSuratPengantar', ['id' => 'default-form', 'log' => 'Input Pesan Surat Pengantar'])?>
+      
             <div class="row px-3 my-3">
                 <div class="col">
-                    <div class="form-group">
-                        <label for="pesan">Keterangan</label>
-                        <textarea id="pesan"  class="form-control" name="pesan"></textarea>
+                    <div class="form-group form-input">
+                      <label for="input-nomor_surat"></label>
+                      <input type="text" name="nomor_surat" id="input-nomor_surat" value=""  readonly class="form-control">
+                    </div>
+                    <div class="form-group form-input">
+                        <label for="input-pesan">Keterangan</label>
+                        <textarea id="input-pesan"  class="form-control" name="pesan" placeholder="Pesan..."></textarea>
                         <div class="invalid-feedback"></div>
                     </div>
                 </div>
@@ -84,9 +86,9 @@
 <script>
   function decline_surat(nomor_surat) {
     console.log(nomor_surat);
-    console.log($('#nomor_surat_hidden'));
+    console.log($('#input-nomor_surat'));
 
-    $('#nomor_surat_hidden').val(nomor_surat);
+    $('#input-nomor_surat').val(nomor_surat);
 
   }
 </script>

@@ -172,28 +172,34 @@
                             'rt' => $rt,
                             'gambar' => $data_upload
                         ];
+
+                        if($jenis_warga == "Tetap") {
+                            $data['hub_dlm_kel'] = $hub_dlm_kel;
+                            $data['nokk'] = $nokk;
+                        } else {
+                            $data['nohp'] = $nohp;
+                        }
+    
+                        $query = $this->m_admin->input_data('warga', $data);
+    
+                        if ($query) {
+                            $url = base_url('ketuaRT/inputWarga');
+    
+                            $json = [
+                                'message' => "Data Warga berhasil diinput..",
+                                'url' => $url
+                            ];
+                        }else {
+                            $json['errors'] = "Data Warga gagal diinput..!";
+                        }    
+
                     }else {
-                        redirect('ketuaRT/inputWarga','refresh');
-                    }
-
-                    if($jenis_warga == "Tetap") {
-                        $data['hub_dlm_kel'] = $hub_dlm_kel;
-                        $data['nokk'] = $nokk;
-                    } else {
-                        $data['nohp'] = $nohp;
-                    }
-
-                    $query = $this->m_admin->input_data('warga', $data);
-
-                    if ($query) {
-                        $url = base_url('ketuaRT/inputWarga');
+                        $gambar_prob = $this->upload->display_errors('', '');
 
                         $json = [
-                            'message' => "Data Warga berhasil diinput..",
-                            'url' => $url
+                        'pict' => $gambar_prob,
                         ];
-                    }else {
-                        $json['errors'] = "Data Warga gagal diinput..!";
+                        
                     }
                 } else {
                     $no = 0;
@@ -250,6 +256,16 @@
         }
 
         public function inputHasilKomplain($no_komplen){
+            $data = [
+                'content' => 'admin/inputHasilKomplain',
+                'title' => 'Input Hasil Komplain',
+                'no_komplen' => $no_komplen,
+            ];
+            $this->load->view('admin/index', $data);    
+
+        }
+
+        public function insertHasilKomplain(){
             $this->form_validation->set_rules([
                 [
                     'field' => 'hasil_komplain',
@@ -260,7 +276,7 @@
             ]);
             
             if ($this->input->post()) {
-                $nomor_komplain = $no_komplen;
+                $nomor_komplain = $this->input->post('nomor_komplain');
                 $hasil_komplain = $this->input->post('hasil_komplain');
                 $tanggal = date('Y-m-d');
 
@@ -285,50 +301,42 @@
                             'status' => 'selesai'
                         ];
                     
+                        $input_hasil = $this->m_admin->input_data('tindak_lanjut',$data);
+                        $update_status = $this->m_admin->edit_data('komplain','nomor_komplain',$nomor_komplain,$data2);
+    
+                        if ($input_hasil && $update_status) {
+                            $url = base_url('ketuaRT/daftarKomplain');
+    
+                            $json = [
+                                'message' => "Hasil Tindak Lanjut Berhasil Diinput..",
+                                'url' => $url
+                            ];
+                        }else {
+                            $json['errors'] = "Hasil Tindak Lanjut Gagal Diinput..!";
+                        }
                     } else {
-                        redirect('ketuaRT/inputHasilKomplain/'.$no_komplen,'refresh');
-                    }
-                    
-                    $input_hasil = $this->m_admin->input_data('tindak_lanjut',$data);
-                    $update_status = $this->m_admin->edit_data('komplain','nomor_komplain',$nomor_komplain,$data2);
+                        $gambar_prob = $this->upload->display_errors('', '');
 
-                    if($input_hasil && $update_status){
-                        ?>
-                        <script>
-                            alert('Tindak Lanjut Komplain Berhasil Diinput');
-                            location = "<?php echo base_url('ketuaRT/daftarKomplain');?>";
-                        </script>
-                        <?php
-                    }else{
-                        ?>
-                        <script>
-                            alert('Tindak Lanjut Komplain Gagal Diinput');
-                            location = "<?php echo base_url('ketuaRT/daftarKomplain');?>";
-                        </script>
-                        <?php
+                        $json = [
+                        'pict' => $gambar_prob,
+                        ];
+                        // redirect('ketuaRT/inputHasilKomplain/'.$no_komplen,'refresh');
                     }
-
                 } else {
-                    $data = [
-                        'content' => 'admin/inputHasilKomplain',
-                        'title' => 'Input Hasil Komplain',
-                        'no_komplen' => $no_komplen,
-                    ];
-                    $this->load->view('admin/index', $data); 
+                    $no = 0;
+                    foreach ($this->input->post() as $key => $value) {
+                        if (form_error($key) != "") {
+                            $json['form_errors'][$no]['id'] = $key;
+                            $json['form_errors'][$no]['msg'] = form_error($key, null, null);
+                            $no++;
+                        }
+                    }
                 }
-                
+                echo json_encode($json);
             } else {
-                $data = [
-                    'content' => 'admin/inputHasilKomplain',
-                    'title' => 'Input Hasil Komplain',
-                    'no_komplen' => $no_komplen,
-                ];
-                $this->load->view('admin/index', $data);    
+                redirect('ketuaRT/inputHasilkomplain','refresh');
             }
-            
-
         }
-
 
         public function klik_konfirmasi_surat_pengantar($id){
             $data = [
@@ -428,22 +436,40 @@
                             'pesan' => '',
                             'gambar' => $data_upload
                         ];
+                        $query = $this->m_admin->edit_data('warga','nik',$nik,$data);
+
+                        if ($query) {
+                            $url = base_url('ketuaRT/tabelDataWarga');
+
+                            $json = [
+                                'message' => "Data Warga berhasil diubah..",
+                                'url' => $url
+                            ];
+                        }else {
+                            $json['errors'] = "Data Warga Gagal Diubah";
+                        }
+                        
                     }else {
-                        redirect('ketuaRT/tabelDataWarga','refresh');
-                    }
-
-                    $query = $this->m_admin->edit_data('warga','nik',$nik,$data);
-
-                    if ($query) {
-                        $url = base_url('ketuaRT/tabelDataWarga');
+                        $gambar_prob = $this->upload->display_errors('', '');
 
                         $json = [
-                            'message' => "Data Warga berhasil diubah..",
-                            'url' => $url
+                        'pict' => $gambar_prob,
                         ];
-                    }else {
-                        $json['errors'] = "Data Warga Gagal Diubah";
+                        // redirect('ketuaRT/tabelDataWarga','refresh');
                     }
+
+                    // $query = $this->m_admin->edit_data('warga','nik',$nik,$data);
+
+                    // if ($query) {
+                    //     $url = base_url('ketuaRT/tabelDataWarga');
+
+                    //     $json = [
+                    //         'message' => "Data Warga berhasil diubah..",
+                    //         'url' => $url
+                    //     ];
+                    // }else {
+                    //     $json['errors'] = "Data Warga Gagal Diubah";
+                    // }
                 } else {
                     $no = 0;
                     foreach ($this->input->post() as $key => $value) {
@@ -461,63 +487,50 @@
         }
 
         public function declineSuratPengantar() {
-            $this->form_validation->set_rules('pesan', 'Pesan', 'regex_match[/^[a-zA-Z ]/]');
+            $this->form_validation->set_rules([
+                [
+                    'field' => 'pesan',
+                    'label' => 'Pesan',
+                    'rules' => 'trim|required|regex_match[/^[a-zA-Z ]/]'
+                ]
+            ]);
+
             if ($this->input->post()) {
                 $nomor_surat = $this->input->post('nomor_surat');
                 $pesan = $this->input->post('pesan');
 
-                // if ($this->form_validation->run() == TRUE) {
+                if ($this->form_validation->run() == TRUE) {
                     $data = [
                         'nomor_surat' => $nomor_surat,
                         'pesan' => $pesan,
                         'status' => 'ditolak'
                     ];
                     $tolak = $this->m_admin->input_data('status_surat',$data);
-                    if($tolak){
-                        ?>
-                        <script>
-                            alert('Surat Pengantar Ditolak');
-                            location = "<?php echo base_url('ketuaRT/daftarSuratPengantar');?>";
-                        </script>
-                        <?php
-                    }else{
-                        ?>
-                        <script>
-                            alert('Surat Pengantar Gagal Ditolak');
-                            location = "<?php echo base_url('ketuaRT/daftarSuratPengantar');?>";
-                        </script>
-                        <?php
+                    
+                    if ($tolak) {
+                        $url = base_url('ketuaRT/daftarSuratPengantar');
+
+                        $json = [
+                            'message' => "Surat pengantar berhasil ditolak..",
+                            'url' => $url
+                        ];
+                    } else {
+                        $json['errors'] = "Surat pengantar gagal ditolak..";
                     }
-                    // if ($tolak) {
-                    //     $url = base_url('admin/daftarSuratPengantar');
 
-                    //     $json = [
-                    //         'message' => "Surat pengantar berhasil ditolak..",
-                    //         'url' => $url
-                    //     ];
-                    // } else {
-                    //     $json['errors'] = "Surat pengantar gagal ditolak..";
-                    // }
-
-                // } else {
-                    // $no = 0;
-                    // foreach ($this->input->post() as $key => $value) {
-                    //     if (form_error($key) != "") {
-                    //         $json['form_errors'][$no]['id'] = $key;
-                    //         $json['form_errors'][$no]['msg'] = form_error($key, null, null);
-                    //         $no++;
-                    //     }
-                    // }
-                // }
-                // echo json_encode($json);
-            /*}else {
-                ?>
-                <script>
-                    location = "<?php base_url('admin/daftarSuratPengantar');?>";
-                </script>
-                <?php
-            }*/
-
+                } else {
+                    $no = 0;
+                    foreach ($this->input->post() as $key => $value) {
+                        if (form_error($key) != "") {
+                            $json['form_errors'][$no]['id'] = $key;
+                            $json['form_errors'][$no]['msg'] = form_error($key, null, null);
+                            $no++;
+                        }
+                    }
+                }
+                echo json_encode($json);
+            } else {
+                redirect('ketuaRT/daftarSuratPengantar','refresh');
             }
         }
 

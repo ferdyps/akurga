@@ -76,7 +76,22 @@
 
 // ================================================================================
         public function formSuratPengantar(){
+            $id         = 'surat_pengantar';
+            $nama_field = 'nomor_surat';
+            $nama_tabel = 'surat_pengantar';
+            $set_rt = 'RT '.$this->rt;
 
+            $generate_id = $this->m_admin->get_id($id,$nama_field,$nama_tabel,$set_rt);
+
+            $data = [
+                'content' => 'user/formSuratPengantar',
+                'title' => 'Surat Pengantar',
+                'generate_id' => $generate_id
+            ];
+            $this->load->view('user/index', $data);
+        }
+// ================================================================================
+        public function insertSuratPengantar(){
             $this->form_validation->set_rules([
                 [
                     'field' => 'keperluan',
@@ -84,6 +99,7 @@
                     'rules' => 'trim|required|regex_match[/^[a-zA-Z ]/]'
                 ]
             ]);
+
             if ($this->input->post()) {
                 $nomor_surat = $this->input->post('nomor_surat');
                 $keperluan = $this->input->post('keperluan');
@@ -103,54 +119,48 @@
                     ];
                     $insert_ke_status = $this->m_admin->input_data('status_surat',$data_status_surat);
 
+                    if ($insert_ke_status) {
+                        $url = base_url('user/riwayatSuratPengantar');
 
-                    if ($insert_suratnya && $insert_ke_status) {
-                        ?>
-                        <script>
-                            alert('Data Berhasil Diinputkan');
-                            location = "<?php base_url('user/riwayatSuratPengantar');?>";
-                        </script>
-                        <?php
+                        $json = [
+                            'message' => "Pengajuan Surat Pengantar Berhasil Diinput..",
+                            'url' => $url
+                        ];
                     }else {
-                        ?>
-                        <script>
-                            alert('Data Gagal Diinputkan');
-                            location = "<?php base_url('user/riwayatSuratPengantar');?>";
-                        </script>
-                        <?php
-                    }
+                        $json['errors'] = "Pengajuan Surat Pengantar Gagal Diinput..!";
+                    }   
                 } else {
-                    $id         = 'surat_pengantar';
-                    $nama_field = 'nomor_surat';
-                    $nama_tabel = 'surat_pengantar';
-                    $set_rt = 'RT '.$this->rt;
-
-                    $generate_id = $this->m_admin->get_id($id,$nama_field,$nama_tabel,$set_rt);
-                    $data = [
-                        'content' => 'user/formSuratPengantar',
-                        'title' => 'Surat Pengantar',
-                        'generate_id' => $generate_id
-                    ];
-                    $this->load->view('user/index', $data);
+                    $no = 0;
+                    foreach ($this->input->post() as $key => $value) {
+                        if (form_error($key) != "") {
+                            $json['form_errors'][$no]['id'] = $key;
+                            $json['form_errors'][$no]['msg'] = form_error($key, null, null);
+                            $no++;
+                        }
+                    }
                 }
-            }else {
-                $id         = 'surat_pengantar';
-                $nama_field = 'nomor_surat';
-                $nama_tabel = 'surat_pengantar';
-                $set_rt = 'RT '.$this->rt;
-
-                $generate_id = $this->m_admin->get_id($id,$nama_field,$nama_tabel,$set_rt);
-
-                $data = [
-                    'content' => 'user/formSuratPengantar',
-                    'title' => 'Surat Pengantar',
-                    'generate_id' => $generate_id
-                ];
-                $this->load->view('user/index', $data);
+                echo json_encode($json);
+            } else {
+                redirect('user/formSuratPengantar','refresh');
             }
         }
 // ================================================================================
         public function formKomplain(){
+            $id = 'komplain';
+            $nama_field = 'nomor_komplain';
+            $nama_tabel = 'komplain';
+            $set_rt = 'RT '.$this->rt;
+
+            $generate_id = $this->m_admin->get_id($id,$nama_field,$nama_tabel,$set_rt);
+            $data = [
+                'content' => 'user/formKomplain',
+                'title' => 'Komplain',
+                'generate_id' => $generate_id
+            ];
+            $this->load->view('user/index', $data);
+        }
+// ================================================================================
+        public function insertKomplain(){
             $this->form_validation->set_rules([
                 [
                     'field' => 'lokasi',
@@ -191,58 +201,43 @@
                             'nik' => $nik,
                             'gambar' => $data_upload
                         ];
+
+                        $insertKomplain = $this->m_admin->input_data('komplain', $data);
+    
+                        if ($insertKomplain) {
+                            $url = base_url('user/riwayatKomplain');
+    
+                            $json = [
+                                'message' => "Pengaduan berhasil diinput..",
+                                'url' => $url
+                            ];
+                        }else {
+                            $json['errors'] = "Pengaduan gagal diinput..!";
+                        }
+
                     } else {
-                        echo "gagal";
-                        // redirect('user/formkomplain','refresh');
+                        $gambar_prob = $this->upload->display_errors('', '');
+
+                        $json = [
+                        'pict' => $gambar_prob,
+                        ];
                     }
 
-                    $insertKomplain = $this->m_admin->input_data('komplain', $data);
-
-                    if ($insertKomplain) {
-                        ?>
-                        <script>
-                            alert('Komplain Berhasil Diinputkan');
-                            location = "<?php base_url('user/riwayatKomplain');?>";
-                        </script>
-                        <?php
-                    }else {
-                        ?>
-                        <script>
-                            alert('Komplain Gagal Diinputkan');
-                            location = "<?php base_url('user/riwayatKomplain');?>";
-                        </script>
-                        <?php
-                    }
                 } else {
-                    $id = 'komplain';
-                    $nama_field = 'nomor_komplain';
-                    $nama_tabel = 'komplain';
-                    $set_rt = 'RT '.$this->rt;
-
-                    $generate_id = $this->m_admin->get_id($id,$nama_field,$nama_tabel,$set_rt);
-                    $data = [
-                        'content' => 'user/formKomplain',
-                        'title' => 'Komplain',
-                        'generate_id' => $generate_id
-                    ];
-                    $this->load->view('user/index', $data);
+                    $no = 0;
+                    foreach ($this->input->post() as $key => $value) {
+                        if (form_error($key) != "") {
+                            $json['form_errors'][$no]['id'] = $key;
+                            $json['form_errors'][$no]['msg'] = form_error($key, null, null);
+                            $no++;
+                        }
+                    }
                 }
+                echo json_encode($json);
             } else {
-                $id = 'komplain';
-                $nama_field = 'nomor_komplain';
-                $nama_tabel = 'komplain';
-                $set_rt = 'RT '.$this->rt;
-
-                $generate_id = $this->m_admin->get_id($id,$nama_field,$nama_tabel,$set_rt);
-                $data = [
-                    'content' => 'user/formKomplain',
-                    'title' => 'Komplain',
-                    'generate_id' => $generate_id
-                ];
-                $this->load->view('user/index', $data);
+                redirect('user/formKomplain','refresh');
             }
         }
-
 // ===============================================================================
         public function riwayatSuratPengantar(){
             $riwayatSurat = $this->m_admin->riwayatSuratPengantar($this->session->userdata('id_user'))->result_array();
@@ -279,52 +274,7 @@
 
 // ==================================================================================
         public function editSuratPengantar($id){
-            $this->form_validation->set_rules('keperluan', 'Keperluan', 'trim|required|regex_match[/^[a-zA-Z ]/]');
-
-            if ($this->input->post()) {
-                $keperluan = $this->input->post('keperluan');
-
-
-                if ($this->form_validation->run() == TRUE) {
-                    $data = [
-                        'keperluan' => $keperluan
-                    ];
-                    $update_surat_pengantar = $this->m_admin->edit_data('surat_pengantar','nomor_surat',$id,$data);
-                    $data2 = [
-                        'nomor_surat' => $id,
-                        'status' => 'pengajuan'
-                    ];
-                    $update_status_surat = $this->m_admin->input_data('status_surat',$data2);
-
-                    if ($update_status_surat && $update_surat_pengantar) {
-                        ?>
-                        <script>
-                            alert('Surat Pengantar berhasil diupdate');
-                            location = "<?php base_url('user/riwayatSuratPengantar');?>";
-                        </script>
-                        <?php
-                    }else {
-                        ?>
-                        <script>
-                            alert('Surat Pengantar gagal diupdate');
-                            location = "<?php base_url('user/riwayatSuratPengantar');?>";
-                        </script>
-                        <?php
-                    }
-
-                } else {
-                    $table = 'surat_pengantar';
-                    $where = ['nomor_surat' => $id];
-                    $data_surat = $this->m_admin->selectWithWhere($table,$where)->row();
-                    $data = [
-                        'content' => 'user/editSuratPengantar',
-                        'title' => 'Edit Surat Pengantar',
-                        'data_surat' => $data_surat
-                    ];
-                    $this->load->view('user/index', $data);
-                }
-
-            } else {
+            
                 $table = 'surat_pengantar';
                 $where = ['nomor_surat' => $id];
                 $data_surat = $this->m_admin->selectWithWhere($table,$where)->row();
@@ -334,12 +284,58 @@
                     'data_surat' => $data_surat
                 ];
                 $this->load->view('user/index', $data);
-
-            }
-
-
         }
 
+        public function updateSuratPengantar(){
+            $this->form_validation->set_rules([
+                [
+                    'field' => 'keperluan',
+                    'label' => 'Keperluan',
+                    'rules' => 'trim|required|regex_match[/^[a-zA-Z ]/]'
+                ]
+            ]);
+
+            if ($this->input->post()) {
+                $nomor_surat = $this->input->post('nomor_surat');
+                $keperluan = $this->input->post('keperluan');
+
+
+                if ($this->form_validation->run() == TRUE) {
+                    $data = [
+                        'keperluan' => $keperluan
+                    ];
+                    $data2 = [
+                        'nomor_surat' => $nomor_surat,
+                        'status' => 'pengajuan'
+                    ];
+                    $update_surat_pengantar = $this->m_admin->edit_data('surat_pengantar','nomor_surat',$nomor_surat,$data);
+                    $update_status_surat = $this->m_admin->input_data('status_surat',$data2);
+
+                    if ($update_surat_pengantar && $update_surat_pengantar) {
+                        $url = base_url('user/riwayatSuratPengantar');
+
+                        $json = [
+                            'message' => "Pengajuan Surat Pengantar Berhasil Diinput..",
+                            'url' => $url
+                        ];
+                    }else {
+                        $json['errors'] = "Pengajuan Surat Pengantar Gagal Diinput..!";
+                    } 
+                }else {
+                    $no = 0;
+                    foreach ($this->input->post() as $key => $value) {
+                        if (form_error($key) != "") {
+                            $json['form_errors'][$no]['id'] = $key;
+                            $json['form_errors'][$no]['msg'] = form_error($key, null, null);
+                            $no++;
+                        }
+                    }
+                }
+                echo json_encode($json);
+            }else {
+                redirect('user/editSuratPengantar','refresh');
+            }
+        }
       //  ==============================================================================================================
 
     public function tampilbulan(){

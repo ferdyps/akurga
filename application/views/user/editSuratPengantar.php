@@ -6,17 +6,15 @@
           <hr class="divider my-4">
         </div>
         <div class="col-lg-8 align-self-baseline">
-        <?= form_open();?>
+        <?= form_open('user/updateSuratPengantar', ['id' => 'default-form', 'log' => 'Input Surat Pengantar']);?>
             <div class='form-group'>
                 <label for="input-nomor_surat" class="text-white">Nomor Surat</label>
                 <input type="text" value="<?= $data_surat->nomor_surat?>" name="nomor_surat" id="input-nomor_surat" class="form-control" readonly>
             </div>
             <div class='form-group'>
                 <label for="input-keperluan" class="text-white">Keperluan</label>
-                <input value="<?= $data_surat->keperluan?>" type="text" name="keperluan" id="input-keperluan" class="form-control <?php if(form_error('keperluan')) { echo 'is-invalid'; } ?>" placeholder="Keperluan"">
-                <div class="invalid-feedback">
-                  <?= form_error('keperluan'); ?>
-                </div>
+                <input value="<?= $data_surat->keperluan?>" type="text" name="keperluan" id="input-keperluan" class="form-control" placeholder="Keperluan">
+                <div class="invalid-feedback"></div>
             </div>
             <input type="submit" value="Submit" class="btn btn-primary">
         <?= form_close();?>

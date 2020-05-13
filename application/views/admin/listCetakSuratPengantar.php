@@ -17,8 +17,7 @@
                       <th>Nomor Surat</th>
                       <th>NIK</th>
                       <th>Nama Lengkap</th>
-                      <th>Keperluan</th>
-                      <th>Tanggal Diperlukan</th>
+                      <th>Keperluan</th>\
                       <th>Action</th>
                     </tr>
                   </thead>
@@ -34,7 +33,6 @@
                         <td><?= $row['nik']?></td>
                         <td><?= $row['nama']?></td>
                         <td><?= $row['keperluan']?></td>
-                        <td><?= $row['tanggal_surat']?></td>
                         <td>
                           <a href="<?= base_url('ketuaRW/cetak_surat_pengantar/'.$row['nomor_surat'])?>" class="btn btn-success" target="_BLANK"><i class="fas fa-print"></i></a>
                         </td>
