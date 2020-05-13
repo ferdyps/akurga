@@ -61,6 +61,8 @@
 
   <!-- Portfolio Section -->
   <section id="portfolio">
+    <h2 class="text-center mt-0">Struktur Organisasi RT</h2>
+    <hr class="divider my-4">
     <div class="container-fluid p-0">
       <div class="row no-gutters">
         <div class="col-lg-4 col-sm-6">

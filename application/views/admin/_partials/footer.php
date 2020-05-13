@@ -46,6 +46,8 @@
         format: 'HH:i',
         formatSubmit: 'H:i',
         hiddenName: true,
+        min: [8,0],
+        max: [20,0],
         onSet: function() {
           $('.timepicker').parents('.form-input').find('.invalid-feedback').html('');
           $('.timepicker').parents('.form-input').find('.form-control').removeClass('is-invalid');

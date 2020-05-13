@@ -39,8 +39,14 @@
           <li class="nav-item">
             <a class="nav-link" href="<?= base_url('user/riwayatKomplain')?>">Riwayat Pengajuan Komplain</a>
           </li>-->
-          <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="<?= base_url('user/notulensidisplay')?>">Notulensi</a>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Rapat dan Notulensi
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="<?= base_url('user/rapatdisplay')?>">Riwayat Surat Undangan Rapat</a>
+              <a class="dropdown-item" href="<?= base_url('user/notulensidisplay')?>">Riwayat Notulensi Rapat</a>
+            </div>
           </li>
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="<?= base_url('user/tampilbulan')?>">Lihat Pembayaran</a>

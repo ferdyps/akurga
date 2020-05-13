@@ -274,7 +274,7 @@
                 ]
 
             ]);
-            
+
             if ($this->input->post()) {
                 $nomor_komplain = $this->input->post('nomor_komplain');
                 $hasil_komplain = $this->input->post('hasil_komplain');
@@ -286,8 +286,8 @@
                 $config['max_size']             = 2000; // 1MB
 
                 $this->load->library('upload', $config);
-                
-                
+
+
                 if ($this->form_validation->run() == TRUE) {
                     if ($this->upload->do_upload('gambar')) {
                         $data_upload = $this->upload->data('file_name');
@@ -566,8 +566,8 @@
               $set_rt = 'RW 01';
             }
 
-            $generate_id = $this->m_admin->get_id($id,$nama_field,$nama_tabel,$set_rt);
-            $generate_id2 = $this->m_admin->get_id($id_2,$nama_field,$nama_tabel,$set_rt);
+            $generate_id = $this->m_admin->get_id_adapt($id,$nama_tabel,$set_rt);
+            $generate_id2 = $this->m_admin->get_id_adapt($id_2,$nama_tabel,$set_rt);
             $content = 'admin/form_usulan';
             $title = 'Form Usulan Rapat';
             $data = [

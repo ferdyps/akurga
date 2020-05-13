@@ -33,5 +33,8 @@
     .notulensi-text{
       color: #000000;
     }
+    .bgaja{
+      background: linear-gradient(to bottom, rgba(92, 77, 66, 0.8) 0%, rgba(92, 77, 66, 0.8) 100%), url("../assets/user/img/desa-indah.jpg");
+    }
   </style>
 </head>

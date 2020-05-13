@@ -161,10 +161,10 @@
                 $data['datawarga'] = $this->m_admin->tampilDataWarga($filternik)->result();
 
                   if($data['datawarga']==null){
-                    $this->session->set_flashdata("pesan", "<div class=\"alert alert-danger\" id=\"alert\"><i class=\"glyphicon glyphicon-remove\"></i>NIK Tidak Terdaftar</div>");
+                    $this->session->set_flashdata("pesan", "<div class=\"alert alert-danger\" id=\"alert\"><i class=\"glyphicon glyphicon-remove\"></i>NIK Tidak Cocok</div>");
                     redirect('Bendahara/formpemasukan');
                   }else{
-                    $this->session->set_flashdata("pesan", "<div class=\"alert alert-success\" id=\"alert\"><i class=\"glyphicon glyphicon-remove\"></i>NIK Terdaftar</div>");
+                    $this->session->set_flashdata("pesan", "<div class=\"alert alert-success\" id=\"alert\"><i class=\"glyphicon glyphicon-remove\"></i>NIK Cocok</div>");
                   }
             }
 
@@ -213,16 +213,18 @@
             $data['content']="admin/editiuranmasuk.php";
             $this->load->view('admin/index',$data);
         }
-        public function detail_iuran_masuk($nik){
-            $where = array(
-                'nik' => $nik
-            );
 
-            $data['detailpembayaran'] = $this->m_admin->detail($where)->result();
+        public function detail_iuran_masuk(){
+            $data['title'] = 'Detail Iuran Masuk';
+            $nik = addslashes($this->input->get('nik'));
+            $tahun = addslashes($this->input->get('tahun'));
+
+            $data['detailpembayaran'] = $this->m_admin->detail($nik,$tahun)->result();
             // var_dump($this->m_admin->detail($where)->result());
             $data['content']="admin/detailpembayaran.php";
             $this->load->view('admin/index',$data);
         }
+
         public function detail_iuran_keluar($no_pengeluaran){
             $where = array(
                 'no_pengeluaran' => $no_pengeluaran
