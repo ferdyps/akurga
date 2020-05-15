@@ -37,7 +37,7 @@
 
                    <div class="form-group form-input">
                        <label for="input-tanggal">Tanggal</label>
-                       <input name="tanggal" id="input-tanggal" class="form-control" value="<?= date("d-m-Y",strtotime($tanggal)) ?>">
+                       <input readonly name="tanggal" id="input-tanggal" class="form-control" value="<?= date("d-m-Y") ?>">
                        <div class="invalid-feedback">
                        </div>
                    </div>

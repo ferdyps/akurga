@@ -7,87 +7,179 @@
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
   <div class="card-header py-3">
-    <h6 class="m-0 font-weight-bold text-primary">Rekap Bulan</h6>
+    <h6 class="m-0 font-weight-bold text-primary">Laporan Keuangan</h6>
+    <center>
+    <div class="form-group form-input">
+            <form action="" method="GET">
+              <table>
+                <tr>
+                  <td>
+
+                    <select name="tahun" id="Tahun" class="form-control">
+                      <?php
+                        if(isset($_GET['tahun'])){
+                          echo "<option selected='".$_GET['tahun']. "'>".$_GET['tahun']."</option>";
+                        }else{
+                      ?>
+                      <option disabled='' selected=''> Tahun </option>
+
+                      <?php
+                        }
+                        $realtimeYear = date('Y');
+                        for ($i = $realtimeYear; $i >= 2018; $i--) {
+                        ?>
+                            <option value="<?php echo $i ?>"><?php echo $i ?></option>
+                        <?php
+                        }
+                      ?>
+                    </select>
+                  </td>
+                  <td>
+                    <input class='btn btn-primary' type="submit" value="Find">
+                  </td>
+                  <td>
+                    <a class='btn btn-warning' href='<?php echo base_url(); ?>Bendahara/rekapbulan'> Show All </a>
+                  </td>
+                </tr>
+              </table>
+            </form>
+            <?php
+              if(isset($_GET['tahun'])){
+                echo "<br><h3>Tahun ".$_GET['tahun']. "</h3>";
+              }
+            ?>
+    </div>
+  </center>
   </div>
 
   <div class="row px-3 my-3">
-               <div class="col">
-               <div class="form-group form-input">
-                        <label for="diberikan_kepada">Pilih Bulan</label>
-                        <select name="diberikan_kepada" id="Pendidikan" class="form-control">
-                            <option selected disabled>-- Pilih Bulan --</option>
-                            <option value="Fotocopy">Januari</option>
-                            <option value="Gaji Pegawai">Februari</option>
-                            <option value="Kesehatan">Maret</option>
-                            <option value="Duka Cita">April</option>
-                            <option value="Kebersihan">Mei</option>
-                            <option value="Kebersihan">Juni</option>
-                            <option value="Kebersihan">Juli</option>
-                            <option value="Kebersihan">Agustus</option>
-                            <option value="Kebersihan">September</option>
-                            <option value="Kebersihan">Oktober</option>
-                            <option value="Kebersihan">November</option>
-                            <option value="Kebersihan">Desember</option>
-                            <!-- <option value="DIPLOMA II">DIPLOMA II</option>
-                            <option value="AKADEMI/DIPLOMA III/S. MUDA">AKADEMI/DIPLOMA III/S. MUDA</option>
-                            <option value="DIPLOMA IV/STRATA I">DIPLOMA IV/STRATA I</option>
-                            <option value="STRATA II">STRATA II</option>
-                            <option value="STRATA III">STRATA III</option> -->
-                        </select>
-                    </div>
-                   <?php echo form_error('diberikan_kepada'); ?>
-
-
 
   <div class="card-body">
     <div class="table-responsive">
       <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
         <thead>
           <tr>
-            <th>NO</th>
-            <!-- <th>NO Pengeluaran</th> -->
-            <!-- <th>Diberikan Kepada</th> -->
-            <th>Nominal</th>
-            <!-- <th>Tanggal</th> -->
-            <th>Keterangan</th>
-            <th>Gambar</th>
-            <th>Aksi</th>
+            <th>No</th>
+            <th>Bulan</th>
+            <th>Tahun </th>
+            <th>Uang Masuk</th>
+            <th>Uang Keluar</th>
+            <th>Total</th>
           </tr>
         </thead>
 
         <tbody>
-        <!-- <?php 
+        <?php
+        error_reporting(0);
           $no = 1;
-          $sum=0;
-          foreach($dataiurank as $b){ 
-        ?>
-          <tr>
-            <td><?php echo $no++; ?></td>
-            <!-- <td><?php echo $b['no_pengeluaran']; ?></td>    -->
-            <!-- <td><?php echo $b['diberikan_kepada']; ?></td> -->
-            <td>Rp. <?php echo number_format ($b['nominal'],2); ?></td>
-            <!-- <td><?php echo $b['tanggal']; ?></td> -->
-            <td><?php echo $b['digunakan_untuk'] ?></td>
-            <!-- <td><?php echo $b['gambar'] ?></td> -->
-            <td><img src="<?php echo base_url('/uploads/gambar/'.$b['gambar']);?>" height="50px" width="50px"></td>
-            <td>
-            <?php $sum=$sum+$b['nominal']?>
-              <?php echo anchor('admin/edit_iuran_keluar/'.$b['no_pengeluaran'],'Edit'); ?> | |  
-                 <?php echo anchor('admin/detail_iuran_keluar/'.$b['no_pengeluaran'],'Detail'); ?>  
-            </td>
-          </tr>
-        <?php } ?>
-        <tr>
-      <td>Total</td>
-      <td><?php echo $sum;?> </td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr> -->
+          $total = 0;
+          $totalsisa = 0;
+          $totalAll = 0;
+          $selisih = 0;
+          $result = 0;
+         foreach ($masuk as $row) { ?>
+           <tr>
+             <td><?= $no ?> </td>
+
+             <?php
+
+             if($row->bulan == "01"){
+               $bulan = 'Januari';
+             }elseif($row->bulan == "02"){
+               $bulan = 'Februari';
+             }elseif($row->bulan == "03"){
+               $bulan = 'Maret';
+             }elseif($row->bulan == "04"){
+               $bulan = 'April';
+             }elseif($row->bulan == "05"){
+               $bulan = 'Mei';
+             }elseif($row->bulan == "06"){
+               $bulan = 'Juni';
+             }elseif($row->bulan == "07"){
+               $bulan = 'Juli';
+             }elseif($row->bulan == "08"){
+               $bulan = 'Agustus';
+             }elseif($row->bulan == "09"){
+               $bulan = 'September';
+             }elseif($row->bulan == "10"){
+               $bulan = 'Oktober';
+             }elseif($row->bulan == "11"){
+               $bulan = 'November';
+             }elseif($row->bulan == "12"){
+               $bulan = 'Desember';
+             }
+
+            ?>
+             <td><?= $bulan;?> </td>
+             <td><?= $row->tahun;?></td>
+             <?php
+             // if($row->bulan == "Januari"){
+             //   $bulan = '01';
+             // }elseif($row->bulan == "Februari"){
+             //   $bulan = '02';
+             // }elseif($row->bulan == "Maret"){
+             //   $bulan = '03';
+             // }elseif($row->bulan == "April"){
+             //   $bulan = '04';
+             // }elseif($row->bulan == "Mei"){
+             //   $bulan = '05';
+             // }elseif($row->bulan == "Juni"){
+             //   $bulan = '06';
+             // }elseif($row->bulan == "Juli"){
+             //   $bulan = '07';
+             // }elseif($row->bulan == "Agustus"){
+             //   $bulan = '08';
+             // }elseif($row->bulan == "September"){
+             //   $bulan = '09';
+             // }elseif($row->bulan == "Oktober"){
+             //   $bulan = '10';
+             // }elseif($row->bulan == "November"){
+             //   $bulan = '11';
+             // }elseif($row->bulan == "Desember"){
+             //   $bulan = '12';
+             // }
+
+             $filterMasuk = $this->m_admin->filteriuranmasuk($row->bulan,$row->tahun)->result();
+             $filterKeluar = $this->m_admin->filteriurankeluar($row->bulan,$row->tahun)->result(); ?>
+
+             <td>Rp. <?= number_format($filterMasuk[0]->nominal,2)?></td>
+             <td>Rp. <?= number_format($filterKeluar[0]->nominal,2) ?></td>
+
+             <?php
+
+             $total = $filterMasuk[0]->nominal - $filterKeluar[0]->nominal;
+
+             $totalsisa += $total;
+             ?>
+
+             <td>Rp. <?= number_format($totalsisa,2) ?></td>
+           </tr>
+        <?php
+       $no++;
+       }
+
+      $totalkeluar = $this->m_admin->totaliurankeluar()->result();
+      $totalmasuk = $this->m_admin->totaliuranmasuk()->result();
+
+      $totalAll = $totalmasuk[0]->nominal - $totalkeluar[0]->nominal;
+
+      $selisih = $totalAll - $totalsisa;
+
+      ?>
         </tbody>
+        <?php
+        if(empty($_GET['tahun'])){
+            $result = $totalsisa + $selisih;
+        ?>
+                  <p align=right> Total <b> Rp. <?= number_format($totalsisa,2); ?> </b>  - Pengeluaran Lain <b> Rp. <?= number_format(-$selisih,2); ?> </b></p>
+                  <p align=right> Sisa Saldo <h2 align=right><b> Rp. <?= number_format($result,2); ?> </b> </h2></p>
+        <?php
+        }
+        ?>
       </table>
-</div>
-  </div>
-</div>
+
+    </div>
+      </div>
+    </div>
+    </div>
 </div>

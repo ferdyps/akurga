@@ -320,6 +320,52 @@
               JOIN warga w ON w.nik = p.nik
               GROUP BY p.nik");
           }
+          public function iuranmasuk($tahun=''){
+            $select = "SELECT
+              distinct(date_format(tanggal,'%m')) as 'bulan',
+              date_format(tanggal,'%Y') as 'tahun'
+              from pembayaran";
+              if($tahun!=null){
+                $where = "where date_format(tanggal,'%Y') = $tahun order by 1";
+  
+                $query = $select." ".$where;
+              }else{
+                $query = $select." order by 1";
+              }
+  
+  
+              return $this->db->query($query);
+          }
+          public function totaliurankeluar(){
+            return $this->db->query("SELECT
+              sum(nominal) as 'nominal'
+              from pengeluaran");
+          }
+  
+          public function totaliuranmasuk(){
+            return $this->db->query("SELECT
+              sum(nominal) as 'nominal'
+              from pembayaran");
+          }  
+
+          public function filteriuranmasuk($bulan,$tahun){
+            return $this->db->query("SELECT
+              date_format(tanggal,'%m') as 'bulan',
+              sum(nominal) as 'nominal'
+              from pembayaran
+              where date_format(tanggal,'%Y') = $tahun and date_format(tanggal,'%m') = $bulan
+              group by 1");
+          }
+  
+          public function filteriurankeluar($bulan,$tahun){
+            return $this->db->query("SELECT
+              date_format(tanggal,'%m') as bulan,
+              sum(nominal) as nominal
+              from pengeluaran
+              where date_format(tanggal,'%Y') = $tahun and date_format(tanggal,'%m') = $bulan
+              group by 1");
+          }
+
 
         public function tampilDataWarga($where=''){
           if($where!=null){
