@@ -314,8 +314,7 @@
               w.nama AS nama_warga,
               `tanggal`,
               jenis_warga,
-              SUM(nominal) AS jumlah_iuran,
-              tahun
+              SUM(nominal) AS jumlah_iuran
               FROM `pembayaran` p
               JOIN warga w ON w.nik = p.nik
               GROUP BY p.nik");
@@ -414,7 +413,8 @@
                 SUM(nominal) AS jumlah_iuran,
                 tahun
             FROM `pembayaran` p
-            JOIN warga w ON w.nik = p.nik
+            LEFT OUTER JOIN warga w ON w.nik = p.nik
+            WHERE TAHUN = $where
             GROUP BY p.nik");
         }
         public function detail($nik,$tahun){
