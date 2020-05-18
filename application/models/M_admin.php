@@ -321,33 +321,35 @@
               GROUP BY p.nik");
           }
           public function iuranmasuk($tahun=''){
-            $select = "SELECT
+            $selectmasuk = "(SELECT
               distinct(date_format(tanggal,'%m')) as 'bulan',
               date_format(tanggal,'%Y') as 'tahun'
               from pembayaran";
               if($tahun!=null){
-                $where = "where date_format(tanggal,'%Y') = $tahun order by 1";
+                $where = "where date_format(tanggal,'%Y') = $tahun order by 1)";
   
-                $query = $select." ".$where;
+                $querymasuk = $selectmasuk." ".$where;
               }else{
-                $query = $select." order by 1";
+                $querymasuk = $selectmasuk.")";
+              }
+
+              $selectkeluar = "(SELECT
+              distinct(date_format(tanggal,'%m')) as 'bulan',
+              date_format(tanggal,'%Y') as 'tahun'
+              from pengeluaran";
+              if($tahun!=null){
+                $where = "where date_format(tanggal,'%Y') = $tahun order by 1)";
+  
+                $querykeluar = $selectkeluar." ".$where;
+              }else{
+                $querykeluar = $selectkeluar.")";
               }
   
+              $query = $querymasuk." union ".$querykeluar;
   
               return $this->db->query($query);
           }
-          public function totaliurankeluar(){
-            return $this->db->query("SELECT
-              sum(nominal) as 'nominal'
-              from pengeluaran");
-          }
   
-          public function totaliuranmasuk(){
-            return $this->db->query("SELECT
-              sum(nominal) as 'nominal'
-              from pembayaran");
-          }  
-
           public function filteriuranmasuk($bulan,$tahun){
             return $this->db->query("SELECT
               date_format(tanggal,'%m') as 'bulan',

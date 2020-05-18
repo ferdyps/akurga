@@ -74,9 +74,6 @@
           $no = 1;
           $total = 0;
           $totalsisa = 0;
-          $totalAll = 0;
-          $selisih = 0;
-          $result = 0;
          foreach ($masuk as $row) { ?>
            <tr>
              <td><?= $no ?> </td>
@@ -158,21 +155,12 @@
        $no++;
        }
 
-      $totalkeluar = $this->m_admin->totaliurankeluar()->result();
-      $totalmasuk = $this->m_admin->totaliuranmasuk()->result();
-
-      $totalAll = $totalmasuk[0]->nominal - $totalkeluar[0]->nominal;
-
-      $selisih = $totalAll - $totalsisa;
-
       ?>
         </tbody>
         <?php
         if(empty($_GET['tahun'])){
-            $result = $totalsisa + $selisih;
         ?>
-                  <p align=right> Total <b> Rp. <?= number_format($totalsisa,2); ?> </b>  - Pengeluaran Lain <b> Rp. <?= number_format(-$selisih,2); ?> </b></p>
-                  <p align=right> Sisa Saldo <h2 align=right><b> Rp. <?= number_format($result,2); ?> </b> </h2></p>
+                  <p align=right> Sisa Saldo <h2 align=right><b> Rp. <?= number_format($totalsisa,2); ?> </b> </h2></p>
         <?php
         }
         ?>

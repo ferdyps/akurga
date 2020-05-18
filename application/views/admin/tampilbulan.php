@@ -97,14 +97,14 @@
                                       <td>
                                           <?php
                                             $tarif = $this->m_admin->tampilTarif($row->jenis_warga)->result();
-                                            $tahunsekarang = date("Y");
+                                            $tahunsekarang = date('Y');
                                             if($row->tahun < $tahunsekarang){
                                               $bulan = 12;
                                               $jumlahharusdibayar = $bulan * $tarif[0]->nominal;
                                               $total = $row->jumlah_iuran - $jumlahharusdibayar;
                                                 echo "Rp. ". $total;
                                             }else{
-                                            $bulan = date("n");
+                                            $bulan = date('n');
                                             $jumlahharusdibayar = $bulan * $tarif[0]->nominal;
                                             $total = $row->jumlah_iuran - $jumlahharusdibayar;
                                               echo "Rp. ".$total;
@@ -126,7 +126,6 @@
                                           <th>Nama</th>
                                           <th>Jumlah Iuran</th>
                                           <th>Tunggakan</th>
-                                          <!-- <th>Tahun</td> -->
                                           <!-- <th>Aksi</th> -->
                                       </tr>
                                   </thead>
@@ -161,7 +160,6 @@
                                             }
                                           ?>
                                       </td>
-                                      <!-- <td><?= $row->tahun ?></td> -->
                                   </tr>
                                   <?php
                                   $no++;
