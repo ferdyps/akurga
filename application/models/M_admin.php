@@ -79,9 +79,11 @@
         }elseif ($input == 'surat_pengantar') {
           $Char = '-SK-'.$romawi.'-'.date("Y");
           $Char2 = '-SK-'.$romawi;
+          $atr = 'nomor_surat';
         }elseif ($input == 'komplain') {
           $Char = "-KOMPLAIN-".$romawi."-".date("Y");
           $Char2 = '-KOMPLAIN-'.$romawi;
+          $atr = 'nomor_komplain';
         }else {
           echo "Erorr id";
         }
@@ -97,6 +99,7 @@
           return $newID;
 
       }
+
       // ======================== END GET ID otomatis ================================
 
         public function input_data($table, $data){

@@ -125,7 +125,7 @@
             $nama_tabel = 'surat_pengantar';
             $set_rt = 'RT '.$this->rt;
 
-            $generate_id = $this->m_admin->get_id($id,$nama_field,$nama_tabel,$set_rt);
+            $generate_id = $this->m_admin->get_id_adapt($id,$nama_tabel,$set_rt);
 
             $data = [
                 'content' => 'user/formSuratPengantar',
@@ -148,17 +148,19 @@
                 $nomor_surat = $this->input->post('nomor_surat');
                 $keperluan = $this->input->post('keperluan');
                 $nik = $this->m_admin->userJoinWarga($this->session->userdata('id_user'))->result()[0]->nik;
+                $set_rt = 'RT '.$this->rt;
 
                 if ($this->form_validation->run() == TRUE) {
                     $data = [
                         'nomor_surat' => $nomor_surat,
                         'keperluan' => $keperluan,
-                        'nik' => $nik
+                        'nik' => $nik,
+                        'rt' => $set_rt
                     ];
                     $insert_suratnya = $this->m_admin->input_data('surat_pengantar',$data);
-                    $id_surat = $this->m_admin->getNomorSuratPengantar()->row()->nomor_surat;
+                    // $id_surat = $this->m_admin->getNomorSuratPengantar()->row()->nomor_surat;
                     $data_status_surat = [
-                        'nomor_surat' => $id_surat,
+                        'nomor_surat' => $nomor_surat,
                         'status' => 'pengajuan'
                     ];
                     $insert_ke_status = $this->m_admin->input_data('status_surat',$data_status_surat);
@@ -195,7 +197,7 @@
             $nama_tabel = 'komplain';
             $set_rt = 'RT '.$this->rt;
 
-            $generate_id = $this->m_admin->get_id($id,$nama_field,$nama_tabel,$set_rt);
+            $generate_id = $this->m_admin->get_id_adapt($id,$nama_tabel,$set_rt);
             $data = [
                 'content' => 'user/formKomplain',
                 'title' => 'Komplain',
@@ -224,6 +226,7 @@
                 $lokasi = $this->input->post('lokasi');
                 $keluhan = $this->input->post('keluhan');
                 $nik = $this->m_admin->userJoinWarga($this->session->userdata('id_user'))->result()[0]->nik;
+                $set_rt = 'RT '.$this->rt;
 
                 $config['upload_path']          = './assets/foto/komplain';
                 // $config['file_name']            = $this->input->post('gbr_surat');
@@ -243,7 +246,8 @@
                             'lingkup' => 'RT',
                             'status' => 'proses',
                             'nik' => $nik,
-                            'gambar' => $data_upload
+                            'gambar' => $data_upload,
+                            'rt' => $set_rt
                         ];
 
                         $insertKomplain = $this->m_admin->input_data('komplain', $data);
