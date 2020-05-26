@@ -144,6 +144,12 @@
           </div>
         </div>
       </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="<?php echo base_url("Bendahara/rekapbulan");?>">
+          <i class="fas fa-fw fa-cog"></i>
+          <span>Laporan Keuangan</span>
+        </a>
+      </li>
 
       <hr class="sidebar-divider">
       <?php } else if ( $this->session->userdata('role') == 'Kolektor Iuran'){ ?>

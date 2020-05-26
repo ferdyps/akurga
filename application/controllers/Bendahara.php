@@ -88,8 +88,16 @@
             // 	'nip' => $this->session->userdata('nip')
             // );
             // $data['dataiuran'] = $this->petugas_model->view_data($where,'iuran_masuk')->result();
+            $filtertahun = addslashes($this->input->get('tahun'));
+
+            if(!empty($filtertahun)){
+                  $data['masuk'] = $this->m_admin->iuranmasuk($filtertahun)->result();
+            }else{
+                  $data['masuk'] = $this->m_admin->iuranmasuk()->result();
+            }
             $data['content'] = "admin/rekapbulan";
             $data['title'] = 'Tabel Data Rekap';
+
             $this->load->view('admin/index',$data);
         }
 
@@ -327,7 +335,7 @@
                     }
                 }
 
-                $tanggal = date("Y-m-d",strtotime($tanggal));
+                $tanggal = $this->input->post('tanggal');
             // $gambar = $_FILES['gambar']['name'];
 
             // $config['max_size'] =0;

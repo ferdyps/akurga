@@ -317,12 +317,59 @@
               w.nama AS nama_warga,
               `tanggal`,
               jenis_warga,
-              SUM(nominal) AS jumlah_iuran,
-              tahun
+              SUM(nominal) AS jumlah_iuran
               FROM `pembayaran` p
               JOIN warga w ON w.nik = p.nik
               GROUP BY p.nik");
           }
+          public function iuranmasuk($tahun=''){
+            $selectmasuk = "(SELECT
+              distinct(date_format(tanggal,'%m')) as 'bulan',
+              date_format(tanggal,'%Y') as 'tahun'
+              from pembayaran";
+              if($tahun!=null){
+                $where = "where date_format(tanggal,'%Y') = $tahun order by 1)";
+  
+                $querymasuk = $selectmasuk." ".$where;
+              }else{
+                $querymasuk = $selectmasuk.")";
+              }
+
+              $selectkeluar = "(SELECT
+              distinct(date_format(tanggal,'%m')) as 'bulan',
+              date_format(tanggal,'%Y') as 'tahun'
+              from pengeluaran";
+              if($tahun!=null){
+                $where = "where date_format(tanggal,'%Y') = $tahun order by 1)";
+  
+                $querykeluar = $selectkeluar." ".$where;
+              }else{
+                $querykeluar = $selectkeluar.")";
+              }
+  
+              $query = $querymasuk." union ".$querykeluar;
+  
+              return $this->db->query($query);
+          }
+  
+          public function filteriuranmasuk($bulan,$tahun){
+            return $this->db->query("SELECT
+              date_format(tanggal,'%m') as 'bulan',
+              sum(nominal) as 'nominal'
+              from pembayaran
+              where date_format(tanggal,'%Y') = $tahun and date_format(tanggal,'%m') = $bulan
+              group by 1");
+          }
+  
+          public function filteriurankeluar($bulan,$tahun){
+            return $this->db->query("SELECT
+              date_format(tanggal,'%m') as bulan,
+              sum(nominal) as nominal
+              from pengeluaran
+              where date_format(tanggal,'%Y') = $tahun and date_format(tanggal,'%m') = $bulan
+              group by 1");
+          }
+
 
         public function tampilDataWarga($where=''){
           if($where!=null){
@@ -369,7 +416,8 @@
                 SUM(nominal) AS jumlah_iuran,
                 tahun
             FROM `pembayaran` p
-            JOIN warga w ON w.nik = p.nik
+            LEFT OUTER JOIN warga w ON w.nik = p.nik
+            WHERE TAHUN = $where
             GROUP BY p.nik");
         }
         public function detail($nik,$tahun){
