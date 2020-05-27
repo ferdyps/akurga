@@ -25,8 +25,9 @@
               </div>
               <div class="form-group form-input">
                 <label for="input-lampiran">Lampiran</label>
-                <input type="text" name="lampiran" id="input-lampiran" class="form-control">
+                <input type="text" name="lampiran" id="input-lampiran" class="form-control" placeholder="">
                 <div class="invalid-feedback"></div>
+                <p class="text-mute">* Inputkan " _ " jika tidak terdapat lampiran</p>
               </div>
               <div class="form-group form-input">
                 <label for="Sifat">Sifat</label>

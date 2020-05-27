@@ -29,7 +29,7 @@
                   ?>
                   <tbody class="text-center">
                     <td><?= $i++ ?></td>
-                    <?php $set = substr($row['no_udg'],5,3); ?>
+                    <?php $set = substr($row['no_udg'],4,3); ?>
                     <?php if ($set == 'RPT') { ?>
                       <td><?php echo "Surat Undangan Rapat"; ?></td>
                     <?php }else { ?>
@@ -46,7 +46,7 @@
                       <?php if ($set == 'RPT') { ?>
                        href="<?= base_url("sekretaris/inputundanganrapat").'/'.$row['no_udg'];?>"
                       <?php }else { ?>
-                       href="<?= base_url("sekretaris/inputundangankegiatan").'/'.$row['no_udg'];?>" 
+                       href="<?= base_url("sekretaris/inputundangankegiatan").'/'.$row['no_udg'];?>"
                       <?php } ?>
                        class="d-none d-sm-inline-block btn btn-primary shadow-sm" title="Buat Surat Undangan">
                        <i class="fas fa-plus-circle"></i>

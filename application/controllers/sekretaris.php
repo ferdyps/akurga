@@ -137,7 +137,7 @@ class sekretaris extends CI_Controller {
       }
 
       $data['key_no_udg'] = $key;
-      $data['generate_id'] = $this->m_admin->get_id_adapt($id,$nama_tabel,$set_rt); //$this->session->userdata('jabatan')
+      $data['generate_id'] = $this->m_admin->get_id_adapt_sekre($id,$nama_tabel,$set_rt); //$this->session->userdata('jabatan')
       $data['content'] = 'admin/v_notulensi';
       $data['title'] = 'Input Notulensi Rapat';
       $this->load->view('admin/index', $data);
@@ -156,7 +156,7 @@ class sekretaris extends CI_Controller {
       $set_rt = 'RW 01';
     }
 
-    $data['generate_id'] = $this->m_admin->get_id_adapt($id,$nama_tabel,$set_rt); //$this->session->userdata('jabatan')
+    $data['generate_id'] = $this->m_admin->get_id_adapt_sekre($id,$nama_tabel,$set_rt); //$this->session->userdata('jabatan')
     $data['content'] = 'admin/v_arsip_surat';
     $data['title'] = 'Input Arsip Surat';
     $this->load->view('admin/index', $data);
@@ -310,7 +310,10 @@ class sekretaris extends CI_Controller {
       $pdf->Cell(5,5,'Lampiran',0,0,'L');
       $pdf->Cell(25);
       $pdf->Cell(5,5,':',0,0,'L');
-      $pdf->MultiCell(60,5,$row['lampiran_udg'],0,'L');
+      if ($row['lampiran_udg'] == '_') {
+        $lampir = '-';
+      }
+      $pdf->MultiCell(60,5,$lampir,0,'L');
       $pdf->Ln(1);
       $pdf->Cell(17);
       $pdf->Cell(5,5,'Sifat',0,0,'L');
@@ -577,27 +580,39 @@ class sekretaris extends CI_Controller {
       ],
 
       [
+        'field' => 'lampiran',
+        'label' => 'Lampiran',
+        'rules' => 'trim|required|regex_match[/^[\w]/]|max_length[80]'
+      ],
+
+      [
+        'field' => 'sifat',
+        'label' => 'Sifat',
+        'rules' => 'trim|required'
+      ],
+
+      [
         'field' => 'hal',
         'label' => 'hal',
-        'rules' => 'trim|required'
+        'rules' => 'trim|required|regex_match[/^[\w]/]|max_length[80]'
       ],
 
       [
         'field' => 'tujuan_surat',
         'label' => 'tujuan surat',
-        'rules' => 'trim|required'
+        'rules' => 'trim|required|regex_match[/^[\w]/]|max_length[70]'
       ],
 
       [
         'field' => 'tempat_udg',
         'label' => 'tempat Undangan',
-        'rules' => 'trim|required'
+        'rules' => 'trim|required|regex_match[/^[\w]/]|max_length[70]'
       ],
 
       [
         'field' => 'isi_surat',
         'label' => 'Isi Surat',
-        'rules' => 'trim|required'
+        'rules' => 'trim|required|regex_match[/^[\w]/]'
       ],
 
       [
@@ -613,9 +628,15 @@ class sekretaris extends CI_Controller {
       ],
 
       [
+        'field' => 'tembusan',
+        'label' => 'Tembusan ',
+        'rules' => 'trim|required|regex_match[/^[\w]/]'
+      ],
+
+      [
         'field' => 'acara_udg',
         'label' => 'acara Undangan',
-        'rules' => 'trim|required'
+        'rules' => 'trim|required|regex_match[/^[\w]/]'
       ]
     ]);
 
@@ -684,32 +705,50 @@ class sekretaris extends CI_Controller {
     $this->form_validation->set_rules([
       [
         'field' => 'hal_kgt',
-        'label' => 'hal',
+        'label' => 'Hal',
+        'rules' => 'trim|required|regex_match[/^[\w]/]|max_length[80]'
+      ],
+
+      [
+        'field' => 'lampiran_kgt',
+        'label' => 'Lampiran Kegiatan',
+        'rules' => 'trim|required|regex_match[/^[\w]/]|max_length[80]'
+      ],
+
+      [
+        'field' => 'sifat_kgt',
+        'label' => 'Sifat Kegiatan',
         'rules' => 'trim|required'
       ],
 
       [
         'field' => 'tujuan_surat_kgt',
         'label' => 'tujuan surat',
-        'rules' => 'trim|required'
+        'rules' => 'trim|required|regex_match[/^[\w]/]|max_length[70]'
       ],
 
       [
         'field' => 'tempat_udg_kgt',
         'label' => 'tempat Undangan',
-        'rules' => 'trim|required'
+        'rules' => 'trim|required|regex_match[/^[\w]/]|max_length[70]'
+      ],
+
+      [
+        'field' => 'catatan_kgt',
+        'label' => 'Catatan Penting',
+        'rules' => 'trim|required|regex_match[/^[\w]/]'
       ],
 
       [
         'field' => 'isi_surat_kgt',
         'label' => 'Isi Surat',
-        'rules' => 'trim|required'
+        'rules' => 'trim|required|regex_match[/^[\w]/]'
       ],
 
       [
         'field' => 'tgl_surat_kgt',
         'label' => 'Tanggal Surat ',
-        'rules' => 'required'
+        'rules' => 'trim|required'
       ],
 
       [
@@ -719,9 +758,15 @@ class sekretaris extends CI_Controller {
       ],
 
       [
+        'field' => 'tembusan',
+        'label' => 'Tembusan ',
+        'rules' => 'trim|required|regex_match[/^[\w]/]'
+      ],
+
+      [
         'field' => 'acara_udg_kgt',
         'label' => 'acara Undangan',
-        'rules' => 'trim|required'
+        'rules' => 'trim|required|regex_match[/^[\w]/]'
       ]
     ]);
 
@@ -799,13 +844,13 @@ class sekretaris extends CI_Controller {
       [
         'field' => 'tembusan',
         'label' => 'Tembusan',
-        'rules' => 'trim|required'
+        'rules' => 'trim|required|regex_match[/^[\w]/]|max_length[100]'
       ],
 
       [
         'field' => 'uraian_notulen_cetak',
         'label' => 'Uraian Notulensi cetak',
-        'rules' => 'trim|required'
+        'rules' => 'trim|required|regex_match[/^[\w]/]'
       ],
 
       [
@@ -938,32 +983,32 @@ class sekretaris extends CI_Controller {
       [
         'field' => 'no_surat',
         'label' => 'nomor surat',
-        'rules' => 'required'
+        'rules' => 'trim|required|regex_match[/^[\w]/]|max_length[50]'
       ],
 
       [
         'field' => 'pengirim',
         'label' => 'Pengirim',
-        'rules' => 'trim|required'
+        'rules' => 'trim|required|regex_match[/^[\w]/]|max_length[100]'
       ],
 
       [
         'field' => 'tgl_terima',
         'label' => 'Tanggal Terima Surat',
-        'rules' => 'required'
+        'rules' => 'trim|required'
       ],
 
 
       [
         'field' => 'tgl_surat',
         'label' => 'Tanggal Surat',
-        'rules' => 'required'
+        'rules' => 'trim|required'
       ],
 
       [
         'field' => 'keterangan',
         'label' => 'keterangan',
-        'rules' => 'required'
+        'rules' => 'trim|required|regex_match[/^[\w]/]'
       ]
     ]);
 

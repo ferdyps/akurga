@@ -525,8 +525,8 @@
             $tabel = 'surat_undangan';
             if ($this->role == 'Ketua RT') {
               $set_rt = 'RT '.$this->rt;
-            }elseif ($this->role == 'Ketua RW') {
-              $set_rt = 'RW 01';
+            }else{
+              site_url('auth/logout');
             }
             $where = [
                 'status' => 0,
@@ -535,7 +535,7 @@
             $list_data = $this->m_admin->selectWithWhere($tabel,$where)->result_array();
             $data = [
                 'content'   => 'admin/tbl_usul_ketua',
-                'title'     => 'Riwayat Usulan Ketua RT/RW',
+                'title'     => 'Riwayat Usulan Ketua RT',
                 'list_data' => $list_data
             ];
             $this->load->view('admin/index', $data);
@@ -549,12 +549,12 @@
 
             if ($this->role == 'Ketua RT') {
               $set_rt = 'RT '.$this->rt;
-            }elseif ($this->role == 'Ketua RW') {
-              $set_rt = 'RW 01';
+            }else{
+              site_url('auth/logout');
             }
 
-            $generate_id = $this->m_admin->get_id_adapt($id,$nama_tabel,$set_rt);
-            $generate_id2 = $this->m_admin->get_id_adapt($id_2,$nama_tabel,$set_rt);
+            $generate_id = $this->m_admin->get_id_adapt_sekre($id,$nama_tabel,$set_rt);
+            $generate_id2 = $this->m_admin->get_id_adapt_sekre($id_2,$nama_tabel,$set_rt);
             $content = 'admin/form_usulan';
             $title = 'Form Usulan Rapat';
             $data = [
@@ -579,7 +579,7 @@
             echo json_encode($json);
         }
 
-        public function insertUsulanPengurus(){
+        public function insertUsulanRT(){
           $this->form_validation->set_rules([
               [
                   'field' => 'no_udg',
@@ -590,25 +590,25 @@
               [
                   'field' => 'tujuan_surat',
                   'label' => 'tujuan surat',
-                  'rules' => 'trim|required'
+                  'rules' => 'trim|required|regex_match[/^[\w]/]|max_length[70]'
               ],
 
               [
                   'field' => 'tempat_udg',
                   'label' => 'tempat Undangan',
-                  'rules' => 'trim|required'
+                  'rules' => 'trim|required|regex_match[/^[\w]/]|max_length[70]'
               ],
 
               [
                   'field' => 'usul_surat',
-                  'label' => 'Isi Surat',
-                  'rules' => 'trim|required'
+                  'label' => 'Usulan Rapat',
+                  'rules' => 'trim|required|regex_match[/^[\w]/]|max_length[500]'
               ],
 
               [
                   'field' => 'tgl_rpt',
                   'label' => 'Tanggal Surat ',
-                  'rules' => 'required'
+                  'rules' => 'trim|required'
               ],
 
               [
@@ -628,8 +628,8 @@
 
             if ($this->role == 'Ketua RT') {
               $set_rt = 'RT '.$this->rt;
-            }elseif ($this->role == 'Ketua RW') {
-              $set_rt = 'RW 01';
+            }else{
+              site_url('auth/logout');
             }
 
 
