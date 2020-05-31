@@ -47,6 +47,11 @@
           </center> 
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+
+                  <?php
+                  ini_set( "display_errors", 0);
+                  if(isset($_GET['tahun'])){
+              ?>
                     <thead>
                         <tr>
                             <th>NO</th>
@@ -73,44 +78,95 @@
                     <tbody>
                         <?php 
                         $no = 1;
-                        foreach ($iuran as $row) { 
-                        $bulan = date('m');
+                        foreach ($iuranTahun as $row) { 
+                        // $bulan = date('m');
                         ?>
                         <tr>
                             <td><?= $no ?></td>
                             <!-- <td>NIK</td> -->
                             <td><?= $row->nama_warga ?></td>
-                            <td><?= $bulan >= 1 ? $row->bulan_januari : null ?></td>
-                            <td><?= $bulan >= 2 ? $row->bulan_februari : null ?></td>
-                            <td><?= $bulan >= 3 ? $row->bulan_maret : null ?></td>
-                            <td><?= $bulan >= 4 ? $row->bulan_april : null ?></td>
-                            <td><?= $bulan >= 5 ? $row->bulan_mei : null ?></td>
-                            <td><?= $bulan >= 6 ? $row->bulan_juni : null ?></td>
-                            <td><?= $bulan >= 7 ? $row->bulan_juli : null ?></td>
-                            <td><?= $bulan >= 8 ? $row->bulan_agustus : null ?></td>
-                            <td><?= $bulan >= 9 ? $row->bulan_september : null ?></td>
-                            <td><?= $bulan >= 10 ? $row->bulan_oktober : null ?></td>
-                            <td><?= $bulan >= 11 ? $row->bulan_november : null ?></td>
-                            <td><?= $bulan >= 12 ? $row->bulan_desember : null ?></td>
+                            <td><?= $row->bulan_januari  ?></td>
+                            <td><?= $row->bulan_februari  ?></td>
+                            <td><?= $row->bulan_maret  ?></td>
+                            <td><?= $row->bulan_april  ?></td>
+                            <td><?= $row->bulan_mei  ?></td>
+                            <td><?= $row->bulan_juni  ?></td>
+                            <td><?= $row->bulan_juli  ?></td>
+                            <td><?= $row->bulan_agustus  ?></td>
+                            <td><?= $row->bulan_september  ?></td>
+                            <td><?= $row->bulan_oktober  ?></td>
+                            <td><?= $row->bulan_november  ?></td>
+                            <td><?= $row->bulan_desember  ?></td>
                             <td>
-                                <?php 
-                                if($row->jenis_warga == "Tetap"){
-                                    echo ($bulan * 15000) - $row->jumlah_iuran < 0 ? 
-                                        0 : ($bulan * 15000) - $row->jumlah_iuran;
-                                } elseif ($row->jenis_warga == "Sementara") {
-                                    echo ($bulan * 10000) - $row->jumlah_iuran < 0 ? 
-                                        0 : ($bulan * 10000) - $row->jumlah_iuran;
-                                }
-                                ?>
+                                 <?php
+                                            $tarif = $this->m_user->tampilTarif($row->jenis_warga)->result();
+                                            $tahunsekarang = date('Y');
+                                            if($row->tahun < $tahunsekarang){
+                                              $bulan = 12;
+                                              $jumlahharusdibayar = $bulan * $tarif[0]->nominal;
+                                              $total = $row->jumlah_iuran - $jumlahharusdibayar;
+                                                echo "Rp. ". $total;
+                                            }else{
+                                            $bulan = date('n');
+                                            $jumlahharusdibayar = $bulan * $tarif[0]->nominal;
+                                            $total = $row->jumlah_iuran - $jumlahharusdibayar;
+                                              echo "Rp. ".$total;
+                                            }
+                                  ?>
                             </td>
                             <td>
-                                <?php echo anchor('user/detail_iuran_masuk/'.$row->nik,'Detail');?>
+                            <a href="<?php echo base_url(); ?>user/detail_iuran_masuk?nik=<?php echo $row->nik;?>&tahun=<?php echo $row->tahun; ?>"> Detail     
                             </td>
                         </tr>
                         <?php
                         $no++;
                         } 
-                        ?>
+                       }else{  ?>
+                       <thead>
+                              <tr>
+                                  <th>NO</th>
+                                  <th>Nama</th>
+                                  <th>Jumlah Iuran</th>
+                                  <th>Tunggakan</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                            <?php
+                                  ini_set( "display_errors", 0);
+                                  $no = 1;
+                                  foreach ($iuran as $row) {
+                                  ?>
+                                  <tr>
+                                      <td><?= $no ?></td>
+                                      <!-- <td>NIK</td> -->
+                                      <td><?= $row->nama_warga ?></td>
+                                      <td><?= $row->jumlah_iuran ?></td>
+                                      <td>
+                                          <?php
+                                            $batas = date_create('2018-01-01');
+                                            $waktusekarang = date_create(date('Y-m-d'));
+                                            $selisih = date_diff($batas, $waktusekarang);
+                                            $jumlahbulan = (($selisih->y * 12) + ($selisih->m+1));
+
+                                            $tarif = $this->m_admin->tampilTarif($row->jenis_warga)->result();
+
+                                            if($row->jenis_warga = "Tetap"){
+                                                $jumlahharusdibayar = $jumlahbulan * $tarif[0]->nominal;
+                                                $total = $row->jumlah_iuran - $jumlahharusdibayar;
+                                                echo "Rp. ".$total;
+                                            }else{
+                                              $total = $jumlahbulan * $tarif[0]->nominal;
+                                              $total = $row->jumlah_iuran - $jumlahharusdibayar;
+                                              echo "Rp. ".$total;
+                                            }
+                                          ?>
+                                      </td>
+                                  </tr>
+                                  <?php
+                                  $no++;
+                                  }
+                                }
+                                  ?>
                     </tbody>
                 </table>
             </div>
