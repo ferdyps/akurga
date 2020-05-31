@@ -39,7 +39,7 @@
                       <a href="#" class="d-none d-sm-inline-block btn btn-primary shadow-sm" title="Edit Data" id="detailRapat" data-url="<?= base_url('sekretaris/detailRapat/'); ?>" data-noudg="<?= $row['no_udg']; ?>"
                          data-toggle="modal" data-target="#editDataRapatModal"><i class="fas fa-edit"></i></a>
                       <b>||</b>
-                      <?php $set = substr($row['no_udg'],5,3); ?>
+                      <?php $set = substr($row['no_udg'],4,3); ?>
                       <?php if ($set == 'RPT') { ?>
                         <a href="<?= base_url("sekretaris/inputnotulensi").'/'.$row['no_udg'];?>" class="d-none d-sm-inline-block btn btn-primary shadow-sm" title="Input Notulensi"><i class="fas fa-clipboard"></i></a>
                         <b>||</b>

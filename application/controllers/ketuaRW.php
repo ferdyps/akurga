@@ -1,9 +1,9 @@
 <?php
-    
+
     defined('BASEPATH') OR exit('No direct script access allowed');
-    
+
     class KetuaRW extends CI_Controller {
-    
+
         public $id_user;
         public function __construct(){
             parent::__construct();
@@ -141,7 +141,7 @@
                 ]
 
             ]);
-            
+
             if ($this->input->post()) {
                 $nomor_komplain = $this->input->post('nomor_komplain');
                 $hasil_komplain = $this->input->post('hasil_komplain');
@@ -153,7 +153,7 @@
                 $config['max_size']             = 2000; // 1MB
 
                 $this->load->library('upload', $config);
-                
+
                 if ($this->form_validation->run() == TRUE) {
                     if ($this->upload->do_upload('gambar')) {
                         $data_upload = $this->upload->data('file_name');
@@ -166,6 +166,7 @@
                         $data2 = [
                             'status' => 'selesai'
                         ];
+<<<<<<< HEAD
                     
                         $input_hasil = $this->m_admin->input_data('tindak_lanjut',$data);
                         $update_status = $this->m_admin->edit_data('komplain','nomor_komplain',$nomor_komplain,$data2);
@@ -177,6 +178,12 @@
                                 'message' => "Hasil Tindak Lanjut Berhasil Diinput..",
                                 'url' => $url
                             ];
+=======
+
+                    } else {
+                        redirect('ketuaRW/inputHasilKomplainRW/'.$no_komplen,'refresh');
+                    }
+>>>>>>> b7b7d0115ecc20691fc6b70cb0af5da96c2c5a39
 
                         } else {
                             $json['errors'] = "Hasil Tindak Lanjut Gagal Diinput..!";
@@ -201,9 +208,21 @@
                         }
                     }
                 }
+<<<<<<< HEAD
                 echo json_encode($json);
             } else {
                 redirect('ketuaRW/inputHasilkomplainRW','refresh');
+=======
+
+            }else {
+
+                $data = [
+                    'content' => 'admin/inputHasilKomplainRW',
+                    'title' => 'Input Hasil Komplain RW',
+                    'no_komplen' => $no_komplen,
+                ];
+                $this->load->view('admin/index', $data);
+>>>>>>> b7b7d0115ecc20691fc6b70cb0af5da96c2c5a39
             }
         }
 
@@ -240,7 +259,7 @@
                 }
 
             }
-            
+
         }
 
         public function klik_konfirmasi_data_warga($id){
@@ -265,7 +284,7 @@
 
             $query = $this->m_admin->edit_data('komplain','nomor_komplain',$id,$data);
 
-            
+
 
             if ($query) {
                 $json['message'] = 'Komplain Berhasil Diteruskan Kepada RW';
@@ -336,7 +355,7 @@
             // }
             }
         }
-        
+
         public function cetak_surat_pengantar() {
             $id     = $this->uri->segment(3);
             $surat  = $this->m_admin->detailSuratPengantar($id)->row();
@@ -440,9 +459,163 @@
             ];
             $this->load->view('admin/index', $data);
         }
-    
+
+        public function tbl_usulan_ketuaRW(){
+            $tabel = 'surat_undangan';
+            if ($this->role == 'Ketua RW') {
+              $set_rt = 'RW 01';
+            }else {
+              site_url('auth/logout');
+            }
+
+            $where = [
+                'status' => 0,
+                'rt'     => $set_rt
+            ];
+            $list_data = $this->m_admin->selectWithWhere($tabel,$where)->result_array();
+            $data = [
+                'content'   => 'admin/tbl_usul_ketua_rw',
+                'title'     => 'Riwayat Usulan Ketua RW',
+                'list_data' => $list_data
+            ];
+            $this->load->view('admin/index', $data);
+        }
+
+        public function usul_pembuatanRW(){
+            $id           = 'rapat';
+            $id_2         = 'kegiatan';
+            $nama_field   = 'no_udg';
+            $nama_tabel   = 'surat_undangan';
+
+            if ($this->role == 'Ketua RW') {
+              $set_rt = 'RW 01';
+            }else {
+              site_url('auth/logout');
+            }
+
+            $generate_id = $this->m_admin->get_id_adapt_sekre($id,$nama_tabel,$set_rt);
+            $generate_id2 = $this->m_admin->get_id_adapt_sekre($id_2,$nama_tabel,$set_rt);
+            $content = 'admin/form_usulan_rw';
+            $title = 'Form Usulan Rapat';
+            $data = [
+              'generate_id' => $generate_id,
+              'generate_id2' => $generate_id2,
+              'content'     => $content,
+              'title'       => $title
+            ];
+            $this->load->view('admin/index', $data);
+
+        }
+
+        public function klik_hapus_usulan_rapatRW($id2){
+            $id = array('no_udg' => $id2);
+            $query = $this->m_admin->delete_data($id , 'surat_undangan');
+
+            if (!$query) {
+                $json['message'] = 'Data Usulan Rapat Berhasil Dihapus';
+            }else {
+                $json['errors'] = 'Data Usulan Rapat Dihapus';
+            }
+            echo json_encode($json);
+        }
+
+        public function insertUsulanRW(){
+          $this->form_validation->set_rules([
+              [
+                  'field' => 'no_udg',
+                  'label' => 'Jenis Surat',
+                  'rules' => 'trim|required'
+              ],
+
+              [
+                  'field' => 'tujuan_surat',
+                  'label' => 'tujuan surat',
+                  'rules' => 'trim|required'
+              ],
+
+              [
+                  'field' => 'tempat_udg',
+                  'label' => 'tempat Undangan',
+                  'rules' => 'trim|required'
+              ],
+
+              [
+                  'field' => 'usul_surat',
+                  'label' => 'Isi Surat',
+                  'rules' => 'trim|required'
+              ],
+
+              [
+                  'field' => 'tgl_rpt',
+                  'label' => 'Tanggal Surat ',
+                  'rules' => 'required'
+              ],
+
+              [
+                  'field' => 'jam_udg',
+                  'label' => 'Jam Undangan ',
+                  'rules' => 'trim|required'
+              ]
+          ]);
+
+          if ($this->input->post()) {
+            $no_udg       = $this->input->post('no_udg');
+            $tujuan_srt   = $this->input->post('tujuan_surat');
+            $tempat_udg   = $this->input->post('tempat_udg');
+            $usul_surat   = $this->input->post('usul_surat');
+            $tgl_rpt      = $this->input->post('tgl_rpt');
+            $jam_udg      = $this->input->post('jam_udg');
+
+            if ($this->role == 'Ketua RW') {
+              $set_rt = 'RW 01';
+            }else {
+              site_url('auth/logout');
+            }
+
+
+            if ($this->form_validation->run() == TRUE) {
+              $data = [
+                'no_udg'        => $no_udg,
+                'tujuan_surat'  => $tujuan_srt,
+                'tempat_udg'    => $tempat_udg,
+                'usulan_rpt'    => $usul_surat,
+                'tgl_udg'       => $tgl_rpt,
+                'jam_udg'       => $jam_udg,
+                'rt'            => $set_rt,
+                'id_user'       => $this->id_user
+              ];
+
+              $query = $this->m_admin->input_data('surat_undangan', $data);
+
+              if ($query) {
+                $url = base_url('ketuaRW/tbl_usulan_ketuaRW');
+
+                $json = [
+                    'message' => "Data Usulan Pembuatan Surat Undangan berhasil diinput..",
+                    'url' => $url
+                ];
+              } else {
+                $json['errors'] = "Data Usulan Pembuatan Surat Undangan gagal diinput..!";
+              }
+            } else {
+              $no = 0;
+              foreach ($this->input->post() as $key => $value) {
+                  if (form_error($key) != "") {
+                      $json['form_errors'][$no]['id'] = $key;
+                      $json['form_errors'][$no]['msg'] = form_error($key, null, null);
+                      $no++;
+                  }
+              }
+            }
+
+            echo json_encode($json);
+          } else {
+            redirect('KetuaRW/usul_pembuatanRW','refresh');
+          }
+        }
+
     }
-    
+
     /* End of file KetuaRW.php */
-    
+
 ?>
