@@ -100,6 +100,77 @@
 
       }
 
+      public function get_id_adapt_sekre($input,$table,$rt){
+        if (date("m") == '01') {
+          $bln = 'I';
+        }elseif (date("m") == '02') {
+          $bln = 'II';
+        }elseif (date("m") == '03') {
+          $bln = 'III';
+        }elseif (date("m") == '04') {
+          $bln = 'IV';
+        }elseif (date("m") == '05') {
+          $bln = 'V';
+        }elseif (date("m") == '06') {
+          $bln = 'VI';
+        }elseif (date("m") == '07') {
+          $bln = 'VII';
+        }elseif (date("m") == '08') {
+          $bln = 'VIII';
+        }elseif (date("m") == '09') {
+          $bln = 'IX';
+        }elseif (date("m") == '10') {
+          $bln = 'X';
+        }elseif (date("m") == '11') {
+          $bln = 'XI';
+        }elseif (date("m") == '12') {
+          $bln = 'XII';
+        }
+        if ($rt == 'RT 01') {
+          $rt_convert = 'RT.01';
+        }elseif ($rt == 'RT 02') {
+          $rt_convert = 'RT.02';
+        }elseif ($rt == 'RT 03') {
+          $rt_convert = 'RT.03';
+        }elseif ($rt == 'RT 04') {
+          $rt_convert = 'RT.04';
+        }elseif ($rt == 'RT 05') {
+          $rt_convert = 'RT.05';
+        }elseif ($rt == 'RW 01') {
+          $rt_convert = 'RW.01';
+        }
+
+        if ($input == 'rapat') {
+          $Char = "-RPT-".$rt_convert.'-'.$bln.'-'.date("Y");
+          $Char2 = '-RPT-'.$rt_convert;
+          $atr = 'no_udg';
+        }elseif ($input == 'kegiatan') {
+          $Char = "-KGT-".$rt_convert.'-'.$bln.'-'.date("Y");
+          $Char2 = '-KGT-'.$rt_convert;
+          $atr = 'no_udg';
+        }elseif ($input == 'notulensi') {
+          $Char = "-NOT-".$rt_convert.'-'.$bln.'-'.date("Y");
+          $Char2 = '-NOT-'.$rt_convert;
+          $atr = 'no_notulen';
+        }elseif ($input == 'arsip') {
+          $Char = "-ASM-".$rt_convert.'-'.$bln.'-'.date("Y");
+          $Char2 = '-ASM-'.$rt_convert;
+          $atr = 'kd_surat';
+        }else {
+          echo "Erorr id";
+        }
+
+        $this->db->where('rt', $rt);
+        $this->db->like( $atr, $Char2, 'both');
+        $query = $this->db->get($table)->num_rows();
+        // $Kode= $query->num_rows();
+          // $noUrut=(int)substr($Kode, 1, 4);
+          $query++;
+
+          $newID = sprintf("%03s", $query) . $Char; //. $rtnya
+          return $newID;
+
+      }
       // ======================== END GET ID otomatis ================================
 
         public function input_data($table, $data){
@@ -132,7 +203,7 @@
 
         public function get_detail_notulensi($id)
         {
-          $this->db->select('surat_undangan.acara_udg, surat_undangan.tgl_udg, surat_undangan.jam_udg, surat_undangan.tempat_udg, notulensi_rpt.no_notulen, notulensi_rpt.no_udg, notulensi_rpt.tgl_buat, notulensi_rpt.dokumentasi_rpt,  notulensi_rpt.uraian_notulen, notulensi_rpt.penulis, notulensi_rpt.rt, notulensi_rpt.tembusan');
+          $this->db->select('surat_undangan.acara_udg, surat_undangan.tujuan_surat, surat_undangan.tgl_udg, surat_undangan.jam_udg, surat_undangan.tempat_udg, notulensi_rpt.no_notulen, notulensi_rpt.no_udg, notulensi_rpt.tgl_buat, notulensi_rpt.dokumentasi_rpt,  notulensi_rpt.uraian_notulen, notulensi_rpt.uraian_notulen_cetak , notulensi_rpt.penulis, notulensi_rpt.rt, notulensi_rpt.tembusan');
           $this->db->from('surat_undangan');
           $this->db->join('notulensi_rpt', 'surat_undangan.no_udg = notulensi_rpt.no_udg');
           $this->db->where('notulensi_rpt.no_notulen', $id);

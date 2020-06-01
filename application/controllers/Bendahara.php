@@ -335,7 +335,7 @@
                     }
                 }
 
-                $tanggal = $this->input->post('tanggal');
+                $tanggal = date("Y-m-d",strtotime($tanggal));
             // $gambar = $_FILES['gambar']['name'];
 
             // $config['max_size'] =0;
@@ -406,6 +406,7 @@
 }
 
         public function iurankeluar(){
+          $data['title'] = 'Tabel Data Keluar';
             $tanggal = date("Y-m-d");
             if($this->input->post('submit')){
                 $this->form_validation->set_rules('diberikan_kepada','Kelompok Anggaran','required');
@@ -420,7 +421,7 @@
                 } else {
                 $diberikan_kepada = $this->input->post('diberikan_kepada');
                 $tanggal = date("Y-m-d",strtotime($tanggal));
-                $nominal = $this->input->post('nominal');
+                $nominal = preg_replace("/[^0-9]/", "",$this->input->post('nominal'));
                 $digunakan_untuk = $this->input->post('digunakan_untuk');
                 $gambar = $_FILES['gambar']['name'];
 

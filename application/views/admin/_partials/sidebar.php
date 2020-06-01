@@ -57,6 +57,19 @@
           <i class="fas fa-fw fa-chart-area"></i>
           <span>Daftar Komplain</span></a>
       </li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUsulKetuaRW" aria-expanded="true" aria-controls="collapseUsulKetuaRW">
+          <i class="fas fa-fw fa-cog"></i>
+          <span>Usulan Surat Undangan</span>
+        </a>
+        <div id="collapseUsulKetuaRW" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="<?php echo base_url("ketuaRW/usul_pembuatanRW");?>">Usulan Pembuatan Surat</a>
+            <a class="collapse-item" href="<?php echo base_url("ketuaRW/tbl_usulan_ketuaRW");?>">Riwayat Usulan Surat</a>
+          </div>
+        </div>
+      </li>
       <hr class="sidebar-divider">
 
 
@@ -109,11 +122,11 @@
 
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePengurus" aria-expanded="true" aria-controls="collapsePengurus">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUsulKetuaRT" aria-expanded="true" aria-controls="collapseUsulKetuaRT">
           <i class="fas fa-fw fa-cog"></i>
           <span>Usulan Surat Undangan</span>
         </a>
-        <div id="collapsePengurus" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="collapseUsulKetuaRT" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <a class="collapse-item" href="<?php echo base_url("ketuaRT/usul_pembuatan");?>">Usulan Pembuatan Surat</a>
             <a class="collapse-item" href="<?php echo base_url("ketuaRT/tbl_usulan_ketua");?>">Riwayat Usulan Surat</a>

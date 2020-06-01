@@ -57,7 +57,9 @@
                        <label>Untuk versi cetak</label>
                        <textarea cols="30" rows="10" class="form-control" name="uraian_notulen_cetak" id="input-uraian_notulen_cetak"></textarea>
                        <div class="invalid-feedback"></div>
-                       <br>
+
+                   </div>
+                   <div class="form-group form-input">
                      <label>Untuk versi unggah ke web</label>
                      <textarea name="uraian_notulen" id="text_area_notulen" cols="30" rows="10" class=""></textarea>
                      <div class="invalid-feedback"></div>

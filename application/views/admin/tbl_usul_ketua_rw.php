@@ -1,12 +1,12 @@
 <div class="container-fluid">
 
           <!-- Page Heading -->
-          <h1 class="h3 mb-2 text-gray-800">Riwayat Usulan Rapat Ketua RT</h1>
+          <h1 class="h3 mb-2 text-gray-800">Riwayat Usulan Rapat Ketua RW</h1>
 
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Data Riwayat Usulan Rapat Ketua RT</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Data Riwayat Usulan Rapat Ketua RW</h6>
             </div>
             <div class="card-body">
               <div class="table-responsive">
@@ -41,7 +41,7 @@
                     <td><?= $row['tempat_udg'] ?></td>
                     <td><?= $row['jam_udg'] ?></td>
                     <td>
-                      <button class="btn btn-primary" onclick="konfirmasi_data('<?= base_url('ketuaRT/klik_hapus_usulan_rapat/')?>', '<?= $row['no_udg']; ?>' )">Hapus Data</button>
+                      <button class="btn btn-primary" onclick="konfirmasi_data('<?= base_url('ketuaRW/klik_hapus_usulan_rapatRW/')?>', '<?= $row['no_udg']; ?>' )">Hapus Data</button>
                     </td>
                   </tbody>
                 <?php } ?>
