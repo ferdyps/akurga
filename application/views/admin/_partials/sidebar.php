@@ -13,6 +13,17 @@
       <hr class="sidebar-divider my-0">
 
       <!-- Nav Item - Dashboard -->
+      <!-- <li class="nav-item active">
+        <a class="nav-link" href="<?php echo base_url("admin/index");?>">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>Dashboard</span></a>
+      </li> -->
+
+      <!-- Divider -->
+      <!-- <hr class="sidebar-divider"> -->
+      <?php if ( $this->session->userdata('role') == 'Ketua RW') { ?>
+
+      <!-- Heading -->
       <li class="nav-item active">
         <a class="nav-link" href="<?php echo base_url("admin/index");?>">
           <i class="fas fa-fw fa-tachometer-alt"></i>
@@ -21,9 +32,6 @@
 
       <!-- Divider -->
       <hr class="sidebar-divider">
-      <?php if ( $this->session->userdata('role') == 'Ketua RW') { ?>
-
-      <!-- Heading -->
       <div class="sidebar-heading">
         Ketua RW
       </div>
@@ -53,6 +61,11 @@
 
 
       <?php } elseif ( $this->session->userdata('role') == 'Ketua RT'){ ?>
+      <li class="nav-item active">
+        <a class="nav-link" href="<?php echo base_url("admin/index");?>">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>Dashboard</span></a>
+      </li>
       <div class="sidebar-heading">
         Ketua RT
       </div>
@@ -109,6 +122,11 @@
       </li>
           <hr class="sidebar-divider">
       <?php } else if ( $this->session->userdata('role') == 'Bendahara'){ ?>
+      <li class="nav-item active">
+        <a class="nav-link" href="<?php echo base_url("admin/index");?>">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>Dashboard</span></a>
+      </li>
       <div class="sidebar-heading">
         Bendahara
       </div>
@@ -153,6 +171,11 @@
 
       <hr class="sidebar-divider">
       <?php } else if ( $this->session->userdata('role') == 'Kolektor Iuran'){ ?>
+      <li class="nav-item active">
+        <a class="nav-link" href="<?php echo base_url("admin/index");?>">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>Dashboard</span></a>
+      </li>
       <div class="sidebar-heading">
         Kolektor Iuran
       </div>
@@ -187,6 +210,11 @@
       </li>
 
     <?php }elseif ( $this->session->userdata('role') == 'Sekretaris RT' || $this->session->userdata('role') == 'Sekretaris RW' ) {?>
+    <li class="nav-item active">
+        <a class="nav-link" href="<?php echo base_url("admin/index");?>">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>Dashboard</span></a>
+      </li>
       <!-- ================================ SEKRETARIS ========================================== -->
 
       <div class="sidebar-heading">Sekretaris</div>

@@ -36,8 +36,8 @@
                         <td><?= $row['nama']?></td>
                         <td><?= $row['role']?></td>
                         <td>
-                          <button class="btn btn-primary" data-target="#edit-role" data-toggle="modal" <?= $row['id_user']?>>Edit Role</button>
-                          <button class="btn btn-danger">Hapus</button>
+                          <button class="btn btn-primary" data-target="#edit-role" data-toggle="modal" onclick="role_edit('<?= $row['id_user']?>')">Edit Role</button>
+                          <!-- <button class="btn btn-danger">Hapus</button> -->
                         </td>
                       </tr>
                   <?php } ?>
@@ -52,17 +52,19 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="editDataWargaModalLabel">Keterangan Penolakan Surat</h5>
+        <h5 class="modal-title" id="editDataWargaModalLabel">Edit Role</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <?= form_open('ketuaRW/edit_role/'.$row['id_user']);?>
+      <?= form_open('ketuaRW/edit_role',['id' => 'default-form', 'log' => 'Input Role'])?>
             <div class="row px-3 my-3">
                 <div class="col">
                     <div class="form-group">
-                        <label for="pesan">Role</label>
-                        <select name="role" id="" class="form-control">
+                        <input type="hidden" name="id_user" id="input-id_user" value="">
+                        <label for="input-role">Role</label>
+                        <select name="role" id="input-role" class="form-control">
+                            <option selected disabled>-- Pilih Role --</option>
                             <option value="Ketua RT">Ketua RT</option>
                             <option value="Bendahara">Bendahara</option>
                             <option value="Sekretaris">Sekretaris</option>
@@ -74,7 +76,7 @@
             </div>
             <div class="col">
                 <div class="form-group text-center">
-                    <input type="submit" value="Submit" class="btn btn-primary" onclick="return confirm('Apakah anda yakin ingin mengubah..?');" >
+                    <input type="submit" value="Submit" class="btn btn-primary">
                     <input type="reset" value="Reset" class="btn btn-danger">
                 </div>
             </div>
@@ -82,4 +84,11 @@
     </div>
   </div>
 </div>
+
+<script>
+  function role_edit(id_user) {
+    
+    $('#input-id_user').val(id_user);
+  }
+</script>
         

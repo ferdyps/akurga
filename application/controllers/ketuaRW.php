@@ -33,22 +33,28 @@
         public function index(){
             $dataPoints = array();
             $dataPoints2 = array();
+            $dataPoints3 = array();
             $usulanPoints = $this->m_admin->CountData('surat_undangan', 'status', 0)->result_array();
             $query = $this->m_admin->CountData('warga','valid',0)->result_array();
             $result = $this->m_admin->grafikPendidikan()->result();
             $result2 = $this->m_admin->grafikPekerjaan()->result();
+            $result3 = $this->m_admin->grafikJumlahWargaPerRT()->result();
             foreach ($result as $row) {
                 array_push($dataPoints, array('label' => $row->pendidikan, 'y' => $row->total));
             }
             foreach ($result2 as $row) {
                 array_push($dataPoints2, array('label' => $row->pekerjaan, 'y' => $row->total));
             }
+            foreach ($result3 as $row) {
+                array_push($dataPoints3, array('label' => $row->rt, 'y' => $row->total));
+            }
             $data = [
-                'content'       => 'admin/dashboard',
+                'content'       => 'admin/dashboardRW',
                 'title'         => 'Dashboard',
                 'semuaWarga'    => $query,
                 'dataPoints'    => $dataPoints,
                 'dataPoints2'   => $dataPoints2,
+                'dataPoints3'   => $dataPoints3,
                 'usulan_points' => $usulanPoints,
                 'dataiurank'    => $this->m_admin->tampil_iuran_keluar()->result_array(),
             ];
@@ -86,29 +92,22 @@
             $this->load->view('admin/index', $data);
         }
 
-        public function edit_role($id_user){
-            if ($this->input->post()) {
+        public function edit_role(){
+                $id_user = $this->input->post('id_user');
                 $role = $this->input->post('role');
                 $data = ['role' => $role];
                 $update_role = $this->m_admin->edit_data('user', 'id_user',$id_user,$data);
 
                 if ($update_role) {
-                    ?>
-                    <script>
-                        alert('Role berhasil diupdate');
-                        location = "<?php echo base_url('ketuaRW/list_akun');?>";
-                    </script>
-                    <?php
-                }else{
-                    ?>
-                    <script>
-                        alert('Role gagal diupdate');
-                        location = "<?php echo base_url('ketuaRW/list_akun');?>";
-                    </script>
-                    <?php
-                }
+                    $url = base_url('ketuaRW/list_akun');
 
-            }
+                    $json = [
+                        'message' => "Role berhasil diubah..",
+                        'url' => $url
+                    ];
+                } else {
+                    $json['errors'] = "Role gagal diubah..";
+                }
         }
 
         public function daftarKomplainRW(){
@@ -207,41 +206,7 @@
             }
         }
 
-        public function insertHasilKomplainRW(){
-            $nomor_komplain = $this->input->post('nomor_komplain');
-            $hasil_komplain = $this->input->post('hasil_komplain');
-            $tanggal = date('Y-m-d');
-            if ($this->input->post()) {
-                $data = [
-                    'nomor_komplain' => $nomor_komplain,
-                    'hasil_tindak_lanjut' => $hasil_komplain,
-                    'tgl_tindak_lanjut' => $tanggal
-                ];
-                $data2 = [
-                    'status' => 'selesai'
-                ];
-                $input_hasil = $this->m_admin->input_data('tindak_lanjut',$data);
-                $update_status = $this->m_admin->edit_data('komplain','nomor_komplain',$nomor_komplain,$data2);
-
-                if($input_hasil && $update_status){
-                    ?>
-                    <script>
-                        alert('Tindak Lanjut Komplain Berhasil Diinput');
-                        location = "<?php echo base_url('ketuaRW/daftarKomplainRW');?>";
-                    </script>
-                    <?php
-                }else{
-                    ?>
-                    <script>
-                        alert('Tindak Lanjut Komplain Gagal Diinput');
-                        location = "<?php echo base_url('ketuaRW/daftarKomplainRW');?>";
-                    </script>
-                    <?php
-                }
-
-            }
-            
-        }
+        
 
         public function klik_konfirmasi_data_warga($id){
             // $data['valid'] = 1;

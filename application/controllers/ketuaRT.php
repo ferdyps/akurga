@@ -34,26 +34,34 @@
         }
 
         public function index(){
+            $rt = $this->rt;
             $dataPoints = array();
             $dataPoints2 = array();
+            $dataPoints3 = array();
             $usulanPoints = $this->m_admin->CountData('surat_undangan', 'status', 0)->result_array();
             $query = $this->m_admin->CountData('warga','valid',0)->result_array();
-            $result = $this->m_admin->grafikPendidikan()->result();
-            $result2 = $this->m_admin->grafikPekerjaan()->result();
+            $result = $this->m_admin->grafikPendidikanRT($rt)->result();
+            $result2 = $this->m_admin->grafikPekerjaanRT($rt)->result();
+            $result3 = $this->m_admin->grafikWarga($rt)->result();
             foreach ($result as $row) {
                 array_push($dataPoints, array('label' => $row->pendidikan, 'y' => $row->total));
             }
             foreach ($result2 as $row) {
                 array_push($dataPoints2, array('label' => $row->pekerjaan, 'y' => $row->total));
             }
+            foreach ($result3 as $row) {
+                array_push($dataPoints3, array('label' => $row->jk, 'y' => $row->total));
+            }
             $data = [
-                'content'       => 'admin/dashboard',
+                'content'       => 'admin/dashboardRT',
                 'title'         => 'Dashboard',
                 'semuaWarga'    => $query,
                 'dataPoints'    => $dataPoints,
                 'dataPoints2'   => $dataPoints2,
+                'dataPoints3'   => $dataPoints3,
                 'usulan_points' => $usulanPoints,
                 'dataiurank'    => $this->m_admin->tampil_iuran_keluar()->result_array(),
+                'rt' => $rt
             ];
             $this->load->view('admin/index', $data);
         }

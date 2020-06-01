@@ -196,13 +196,37 @@
             $this->db->group_by('pendidikan');
             return $this->db->get('warga');
         }
+        public function grafikPendidikanRT($rt){
+            $this->db->select('COUNT(nik) as total, pendidikan');
+            $this->db->where('rt',$rt);
+            $this->db->group_by('pendidikan');
+            return $this->db->get('warga');
+        }
 
         public function grafikPekerjaan(){
             $this->db->select('COUNT(nik) as total, pekerjaan');
             $this->db->group_by('pekerjaan');
             return $this->db->get('warga');
         }
+        public function grafikPekerjaanRT($rt){
+            $this->db->select('COUNT(nik) as total, pekerjaan');
+            $this->db->where('rt',$rt);
+            $this->db->group_by('pekerjaan');
+            return $this->db->get('warga');
+        }
 
+        public function grafikJumlahWargaPerRT(){
+            $this->db->select('COUNT(nik) as total, rt');
+            $this->db->group_by('rt');
+            return $this->db->get('warga');
+        }
+        public function grafikWarga($rt){
+            $this->db->select('COUNT(nik) as total, jk');
+            $this->db->where('rt',$rt);
+            $this->db->group_by('jk');
+            return $this->db->get('warga');
+        }
+        
         public function userJoinWarga($id_user){
             return $this->db->query("SELECT * FROM user u JOIN warga w ON u.id_user=w.id_user WHERE u.id_user = '$id_user'");
         }
@@ -221,7 +245,7 @@
         }
 
         public function komplainJoinWargaRT($rt){
-            return $this->db->query("SELECT nomor_komplain,w.nik,nama,rt,keluhan,lokasi,tanggal_komplain,lingkup,k.status,k.gambar FROM komplain k JOIN warga w ON w.nik=k.nik where lingkup='rt' and rt='$rt'
+            return $this->db->query("SELECT nomor_komplain,w.nik,nama,w.rt,keluhan,lokasi,tanggal_komplain,lingkup,k.status,k.gambar FROM komplain k JOIN warga w ON w.nik=k.nik where lingkup='rt' and w.rt='$rt'
             ");
         }
 
