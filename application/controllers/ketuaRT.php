@@ -187,19 +187,19 @@
                         } else {
                             $data['nohp'] = $nohp;
                         }
-    
+
                         $query = $this->m_admin->input_data('warga', $data);
-    
+
                         if ($query) {
                             $url = base_url('ketuaRT/inputWarga');
-    
+
                             $json = [
                                 'message' => "Data Warga berhasil diinput..",
                                 'url' => $url
                             ];
                         }else {
                             $json['errors'] = "Data Warga gagal diinput..!";
-                        }    
+                        }
 
                     }else {
                         $gambar_prob = $this->upload->display_errors('', '');
@@ -207,7 +207,7 @@
                         $json = [
                         'pict' => $gambar_prob,
                         ];
-                        
+
                     }
                 } else {
                     $no = 0;
@@ -269,7 +269,7 @@
                 'title' => 'Input Hasil Komplain',
                 'no_komplen' => $no_komplen,
             ];
-            $this->load->view('admin/index', $data);    
+            $this->load->view('admin/index', $data);
 
         }
 
@@ -308,13 +308,13 @@
                         $data2 = [
                             'status' => 'selesai'
                         ];
-                    
+
                         $input_hasil = $this->m_admin->input_data('tindak_lanjut',$data);
                         $update_status = $this->m_admin->edit_data('komplain','nomor_komplain',$nomor_komplain,$data2);
-    
+
                         if ($input_hasil && $update_status) {
                             $url = base_url('ketuaRT/daftarKomplain');
-    
+
                             $json = [
                                 'message' => "Hasil Tindak Lanjut Berhasil Diinput..",
                                 'url' => $url
@@ -456,7 +456,7 @@
                         }else {
                             $json['errors'] = "Data Warga Gagal Diubah";
                         }
-                        
+
                     }else {
                         $gambar_prob = $this->upload->display_errors('', '');
 
@@ -514,7 +514,7 @@
                         'status' => 'ditolak'
                     ];
                     $tolak = $this->m_admin->input_data('status_surat',$data);
-                    
+
                     if ($tolak) {
                         $url = base_url('ketuaRT/daftarSuratPengantar');
 
@@ -547,7 +547,7 @@
             if ($this->role == 'Ketua RT') {
               $set_rt = 'RT '.$this->rt;
             }else{
-              site_url('auth/logout');
+              redirect('auth/logout','refresh');
             }
             $where = [
                 'status' => 0,

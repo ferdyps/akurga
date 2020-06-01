@@ -312,8 +312,11 @@ class sekretaris extends CI_Controller {
       $pdf->Cell(5,5,':',0,0,'L');
       if ($row['lampiran_udg'] == '_') {
         $lampir = '-';
+        $pdf->MultiCell(60,5,$lampir,0,'L');
+      }else {
+        $pdf->MultiCell(60,5,$row['lampiran_udg'],0,'L');
       }
-      $pdf->MultiCell(60,5,$lampir,0,'L');
+
       $pdf->Ln(1);
       $pdf->Cell(17);
       $pdf->Cell(5,5,'Sifat',0,0,'L');
@@ -382,13 +385,19 @@ class sekretaris extends CI_Controller {
       foreach ($ketua_rt as $key) {
         $pdf->Cell(35,7,$key['nama'],0,1,'C');
       }
-      $pdf->Ln(15);
+      $pdf->Ln(5);
       $pdf->SetFont('Arial','B'.'U',11);
       $pdf->Cell(19,7,'Tembusan',0,0,'C');
       $pdf->SetFont('Arial','',11);
       $pdf->Cell(3,7,':',0,0,'C');
       $pdf->MultiCell(177,7,$row['tembusan'],0,'L');
+      if (substr($row['no_udg'],4,3) == 'KGT') {
+        $pdf->SetFont('Arial','B',11);
+        $pdf->Cell(19,7,'*Catatan',0,0,'C');
+        $pdf->Cell(3,7,':',0,0,'C');
+      }
 
+      $pdf->MultiCell(177,7,$row['catatan'],0,'L');
       $pdf->Output('Undangan Rapat '.str_replace('-','/',$row['no_udg']).' '.$tgl_buat,'I');
     }
   }
@@ -703,6 +712,11 @@ class sekretaris extends CI_Controller {
   public function insertUndanganKegiatan(){
 
     $this->form_validation->set_rules([
+      [
+        'field' => 'no_udg_kgt',
+        'label' => 'No surat',
+        'rules' => 'trim|required'
+      ],
       [
         'field' => 'hal_kgt',
         'label' => 'Hal',
@@ -1127,27 +1141,39 @@ class sekretaris extends CI_Controller {
       ],
 
       [
+        'field' => 'lampiran',
+        'label' => 'Lampiran',
+        'rules' => 'trim|required|regex_match[/^[\w]/]|max_length[80]'
+      ],
+
+      [
+        'field' => 'sifat',
+        'label' => 'Sifat',
+        'rules' => 'trim|required'
+      ],
+
+      [
         'field' => 'hal',
         'label' => 'hal',
-        'rules' => 'trim|required'
+        'rules' => 'trim|required|regex_match[/^[\w]/]|max_length[80]'
       ],
 
       [
         'field' => 'tujuan_surat',
         'label' => 'tujuan surat',
-        'rules' => 'trim|required'
+        'rules' => 'trim|required|regex_match[/^[\w]/]|max_length[70]'
       ],
 
       [
         'field' => 'tempat_udg',
         'label' => 'tempat Undangan',
-        'rules' => 'trim|required'
+        'rules' => 'trim|required|regex_match[/^[\w]/]|max_length[70]'
       ],
 
       [
         'field' => 'isi_surat',
         'label' => 'Isi Surat',
-        'rules' => 'trim|required'
+        'rules' => 'trim|required|regex_match[/^[\w]/]'
       ],
 
       // [
@@ -1163,9 +1189,15 @@ class sekretaris extends CI_Controller {
       // ],
 
       [
+        'field' => 'tembusan',
+        'label' => 'Tembusan ',
+        'rules' => 'trim|required|regex_match[/^[\w]/]'
+      ],
+
+      [
         'field' => 'acara_udg',
         'label' => 'acara Undangan',
-        'rules' => 'trim|required'
+        'rules' => 'trim|required|regex_match[/^[\w]/]'
       ]
     ]);
 
@@ -1268,9 +1300,193 @@ class sekretaris extends CI_Controller {
 
       echo json_encode($json);
     } else {
-      redirect('sekretaris/editRapat','refresh');
+      redirect('sekretaris/riwayat_Undangan','refresh');
     }
   }
+
+  public function editKegiatan(){
+    $this->form_validation->set_rules([
+      [
+        'field' => 'no_udg_kgtedit',
+        'label' => 'Nomor Undangan',
+        'rules' => 'trim|required'
+      ],
+
+      [
+        'field' => 'hal_kgtedit',
+        'label' => 'hal',
+        'rules' => 'trim|required|regex_match[/^[\w]/]|max_length[80]'
+      ],
+
+      [
+        'field' => 'lampiran_kgtedit',
+        'label' => 'Lampiran Kegiatan',
+        'rules' => 'trim|required|regex_match[/^[\w]/]|max_length[80]'
+      ],
+
+      [
+        'field' => 'sifat_kgtedit',
+        'label' => 'Sifat Kegiatan',
+        'rules' => 'trim|required'
+      ],
+
+      [
+        'field' => 'tujuan_surat_kgtedit',
+        'label' => 'tujuan surat',
+        'rules' => 'trim|required|regex_match[/^[\w]/]|max_length[70]'
+      ],
+
+      [
+        'field' => 'tempat_udg_kgtedit',
+        'label' => 'tempat Undangan',
+        'rules' => 'trim|required|regex_match[/^[\w]/]|max_length[70]'
+      ],
+
+      [
+        'field' => 'catatan_kgtedit',
+        'label' => 'Catatan Penting',
+        'rules' => 'trim|required|regex_match[/^[\w]/]'
+      ],
+
+      [
+        'field' => 'isi_surat_kgtedit',
+        'label' => 'Isi Surat',
+        'rules' => 'trim|required|regex_match[/^[\w]/]'
+      ],
+
+      // [
+      //     'field' => 'tgl_surat',
+      //     'label' => 'Tanggal Surat ',
+      //     'rules' => 'trim|required'
+      // ],
+      //
+      // [
+      //     'field' => 'jam_udg',
+      //     'label' => 'Jam Undangan ',
+      //     'rules' => 'trim|required'
+      // ],
+
+      [
+        'field' => 'tembusan_kgtedit',
+        'label' => 'Tembusan ',
+        'rules' => 'trim|required|regex_match[/^[\w]/]'
+      ],
+
+      [
+        'field' => 'acara_udg_kgtedit',
+        'label' => 'acara Undangan',
+        'rules' => 'trim|required|regex_match[/^[\w]/]'
+      ]
+    ]);
+
+    if ($this->input->post()) {
+      $no_udg     = $this->input->post('no_udg_kgtedit');
+      $lampiran   = $this->input->post('lampiran_kgtedit');
+      $sifat      = $this->input->post('sifat_kgtedit');
+      $hal        = $this->input->post('hal_kgtedit');
+      $tujuan_srt = $this->input->post('tujuan_surat_kgtedit');
+      $tempat_udg = $this->input->post('tempat_udg_kgtedit');
+      $tembusan   = $this->input->post('tembusan_kgtedit');
+      $isi_surat  = $this->input->post('isi_surat_kgtedit');
+      $tgl_srt    = $this->input->post('tgl_surat_kgtedit');
+      $jam_udg    = $this->input->post('jam_udg_kgtedit');
+      $acara_udg  = $this->input->post('acara_udg_kgtedit');
+      $catatan    = $this->input->post('catatan_kgtedit');
+
+      if ($this->form_validation->run() == TRUE) {
+        if ($tgl_srt == '' && $jam_udg == '') {
+          $data = [
+            'no_udg' => $no_udg,
+            'lampiran_udg' => $lampiran,
+            'sifat_udg' => $sifat,
+            'perihal_udg' => $hal,
+            'tujuan_surat' => $tujuan_srt,
+            'tempat_udg' => $tempat_udg,
+            'tembusan' => $tembusan,
+            'isi_surat' => $isi_surat,
+            'acara_udg' => $acara_udg,
+            'catatan'   => $catatan,
+            'id_user' => $this->id_user
+          ];
+        }elseif ($tgl_srt == '') {
+          $data = [
+            'no_udg' => $no_udg,
+            'lampiran_udg' => $lampiran,
+            'sifat_udg' => $sifat,
+            'perihal_udg' => $hal,
+            'tujuan_surat' => $tujuan_srt,
+            'tempat_udg' => $tempat_udg,
+            'tembusan' => $tembusan,
+            'isi_surat' => $isi_surat,
+            'jam_udg' => $jam_udg,
+            'acara_udg' => $acara_udg,
+            'catatan'   => $catatan,
+            'id_user' => $this->id_user
+          ];
+        }elseif ($jam_udg == '') {
+          $data = [
+            'no_udg' => $no_udg,
+            'lampiran_udg' => $lampiran,
+            'sifat_udg' => $sifat,
+            'perihal_udg' => $hal,
+            'tujuan_surat' => $tujuan_srt,
+            'tempat_udg' => $tempat_udg,
+            'tembusan' => $tembusan,
+            'isi_surat' => $isi_surat,
+            'tgl_udg' => $tgl_srt,
+            'acara_udg' => $acara_udg,
+            'catatan'   => $catatan,
+            'id_user' => $this->id_user
+          ];
+        }else {
+          $data = [
+            'no_udg' => $no_udg,
+            'lampiran_udg' => $lampiran,
+            'sifat_udg' => $sifat,
+            'perihal_udg' => $hal,
+            'tujuan_surat' => $tujuan_srt,
+            'tempat_udg' => $tempat_udg,
+            'tembusan' => $tembusan,
+            'isi_surat' => $isi_surat,
+            'tgl_udg' => $tgl_srt,
+            'jam_udg' => $jam_udg,
+            'acara_udg' => $acara_udg,
+            'catatan'   => $catatan,
+            'id_user' => $this->id_user
+          ];
+        }
+
+
+
+        $query = $this->m_admin->edit_data('surat_undangan','no_udg', $no_udg,$data);
+
+        if ($query) {
+          $url = base_url('sekretaris/riwayat_Undangan');
+
+          $json = [
+            'message' => "Data Surat Undangan Kegiatan berhasil diubah..",
+            'url' => $url
+          ];
+        } else {
+          $json['errors'] = "Data Surat Undangan Kegiatan gagal diubah..!";
+        }
+      } else {
+        $no = 0;
+        foreach ($this->input->post() as $key => $value) {
+          if (form_error($key) != "") {
+            $json['form_errors'][$no]['id'] = $key;
+            $json['form_errors'][$no]['msg'] = form_error($key, null, null);
+            $no++;
+          }
+        }
+      }
+
+      echo json_encode($json);
+    } else {
+      redirect('sekretaris/riwayat_Undangan','refresh');
+    }
+  }
+
   public function detailRapat($id){
     $tabel = 'surat_undangan';
     $where = [
@@ -1281,35 +1497,28 @@ class sekretaris extends CI_Controller {
     echo json_encode($data);
   }
 
-  public function editData_Notulensi(){
+  public function editdokumen_Notulensi(){
 
     $id     = $this->uri->segment(3);
     $no     = array('no_notulen' => $id );
     $surat  = $this->m_admin->selectWithWhere('notulensi_rpt', $no)->result_array();
     $data['fetch'] = $surat;
-    $data['content'] = 'admin/v_edit_notulensi';
+    $data['content'] = 'admin/v_edit_doknotulensi';
     $data['title'] = 'Edit Data Notulensi Rapat';
     $this->load->view('admin/index', $data);
   }
 
-  public function editNotulen(){
+  public function editDokRapatNotulen(){
     $this->form_validation->set_rules([
       [
         'field' => 'no_notulen',
         'label' => 'Nomor Notulensi',
-        'rules' => 'trim|required'
-      ],
-
-      [
-        'field' => 'tembusan',
-        'label' => 'Tembusan',
         'rules' => 'trim|required'
       ]
     ]);
 
     if ($this->input->post()) {
       $no_notulen     = $this->input->post('no_notulen');
-      $tembusan       = $this->input->post('tembusan');
 
       $config['upload_path']          = './assets/foto/notulensi';
       // $config['file_name']            = $this->input->post('gbr_surat');
@@ -1325,7 +1534,6 @@ class sekretaris extends CI_Controller {
         if ($this->upload->do_upload('dokumentasi_rpt')){
           $data_upload     = $this->upload->data('file_name');
           $data = [
-            'tembusan'        => $tembusan,
             'dokumentasi_rpt' => $data_upload
           ];
           $query = $this->m_admin->edit_data('notulensi_rpt','no_notulen', $no_notulen, $data);
@@ -1333,11 +1541,11 @@ class sekretaris extends CI_Controller {
             $url = base_url('sekretaris/riwayat_notulensi');
 
             $json = [
-              'message' => "Data Notulensi berhasil diinput..",
+              'message' => "Data Dokumentasi Rapat Notulensi berhasil diubah..",
               'url' => $url
             ];
           }else {
-            $json['errors'] = "Data Notulensi gagal diinput..!";
+            $json['errors'] = "Data Dokumentasi Rapat Notulensi gagal diubah..";
           }
 
         } else {
@@ -1348,22 +1556,6 @@ class sekretaris extends CI_Controller {
             $json = [
               'pict' => $gambar_prob,
             ];
-          }else {
-            $data = [
-              'tembusan'        => $tembusan
-            ];
-            $query = $this->m_admin->edit_data('notulensi_rpt','no_notulen', $no_notulen, $data);
-            if ($query) {
-              $url = base_url('sekretaris/riwayat_notulensi');
-
-              $json = [
-                'message' => "Edit Notulensi berhasil ..",
-                'url' => $url
-              ];
-            }else {
-
-              $json['errors'] = "Edit Notulensi gagal diinput..!";
-            }
           }
         }
 
@@ -1392,9 +1584,15 @@ class sekretaris extends CI_Controller {
       ],
 
       [
+        'field' => 'tembusan',
+        'label' => 'Tembusan ',
+        'rules' => 'trim|required|regex_match[/^[\w]/]'
+      ],
+
+      [
         'field' => 'uraian_notulen_cetak',
         'label' => 'Uraian Notulensi Cetak',
-        'rules' => 'trim|required'
+        'rules' => 'trim|required|regex_match[/^[\w]/]'
       ],
 
       [
@@ -1406,12 +1604,14 @@ class sekretaris extends CI_Controller {
 
     if ($this->input->post()) {
       $no_notulen             = $this->input->post('no_notulen');
+      $tembusan               = $this->input->post('tembusan');
       $uraian_notulen_cetak   = $this->input->post('uraian_notulen_cetak');
       $uraian                 = $this->input->post('uraian_notulen');
 
 
       if ($this->form_validation->run() == TRUE) {
         $data = [
+          'tembusan'             => $tembusan,
           'uraian_notulen_cetak' => $uraian_notulen_cetak,
           'uraian_notulen'       => $uraian
         ];
@@ -1439,7 +1639,7 @@ class sekretaris extends CI_Controller {
       }
       echo json_encode($json);
     }else {
-      redirect('sekretaris/editData_Notulensi','refresh');
+      redirect('sekretaris/riwayat_notulensi','refresh');
     }
   }
 
@@ -1464,19 +1664,19 @@ class sekretaris extends CI_Controller {
       [
         'field' => 'no_surat',
         'label' => 'nomor surat',
-        'rules' => 'required'
+        'rules' => 'trim|required|regex_match[/^[\w]/]|max_length[50]'
       ],
 
       [
         'field' => 'pengirim',
         'label' => 'Pengirim',
-        'rules' => 'trim|required'
+        'rules' => 'trim|required|regex_match[/^[\w]/]|max_length[100]'
       ],
 
       [
         'field' => 'keterangan',
         'label' => 'keterangan',
-        'rules' => 'required'
+        'rules' => 'trim|required|regex_match[/^[\w]/]'
       ]
     ]);
 

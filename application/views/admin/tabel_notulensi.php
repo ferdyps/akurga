@@ -34,13 +34,13 @@
                     </td>
                     <td>
 
-                      <a href="<?= base_url("sekretaris/editData_Notulensi").'/'.$row['no_notulen'];?>" class="d-none d-sm-inline-block btn btn-primary shadow-sm" title="Edit Data Notulensi"><i class="fas fa-edit"></i></a>
-
                       <a href="<?= base_url("sekretaris/notulensi_rapat").'/'.$row['no_notulen'];?>" target="_blank" class="d-none d-sm-inline-block btn btn-primary shadow-sm" title="Lihat Isi Uraian Notulensi"><i class="fas fa-upload"></i></a>
 
                       <a href="#" class="d-none d-sm-inline-block btn btn-primary shadow-sm" id="editUraianNotulensi" title="Edit Uraian Notulensi"
                       data-url="<?= base_url('sekretaris/detailNotulen/'); ?>" data-notulensi="<?= $row['no_notulen']; ?>"
-                      data-toggle="modal" data-target="#editUraianNotulensiModal"><i class="fas fa-file-import"></i></a>
+                      data-toggle="modal" data-target="#editUraianNotulensiModal"><i class="fas fa-edit"></i></a>
+
+                      <a href="<?= base_url("sekretaris/editdokumen_Notulensi").'/'.$row['no_notulen'];?>" class="d-none d-sm-inline-block btn btn-primary shadow-sm" title="Edit Dokumentasi Rapat Notulensi"><i class="fas fa-file-image"></i></a>
 
                       <a href="<?= base_url("sekretaris/cetak_notulensi").'/'.$row['no_notulen'];?>" target="_blank" class="d-none d-sm-inline-block btn btn-primary shadow-sm" title="Cetak Notulensi Rapat"><i class="fas fa-print"></i></a>
                     </td>
@@ -67,7 +67,7 @@
                   success:function(data) {
                     console.log(data);
                     $('#editUraianNotulensiModal #edit-no_notulen').val(data.no_notulen);
-                    $('#editUraianNotulensiModal #edit-uraian_notulen').val(data.uraian_notulen);
+                    $('#editUraianNotulensiModal #edit-tembusan').val(data.tembusan);
                   },
                   error:function() {
                     alert('Error di System..!');
