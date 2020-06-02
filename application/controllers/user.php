@@ -413,7 +413,7 @@
 
         $data['tahun'] = $this->m_admin->tampilTahunPembayaran()->result();
         if(!empty($filtertahun)){
-            $data['iuranTahun'] = $this->m_user->tampil_iuran_perbulan_pertahun($filtertahun)->result();
+            $data['iuranTahun'] = $this->m_user->tampil_iuran_perbulan_pertahun($filtertahun,$id_user)->result();
         }
         $this->load->view('user/index',$data);
     }

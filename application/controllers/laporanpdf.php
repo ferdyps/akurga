@@ -29,6 +29,7 @@ class laporanpdf extends CI_Controller{
         $pdf->Cell(45,6,'Pembayaran Bulan',1,0);
         $pdf->Cell(35,6,'Nominal',1,0);
         $pdf->Cell(35,6,'Tanggal',1,1);
+       
         // $pdf->Cell(30,6,'JUMLAH BELI',1,0);
         // $pdf->Cell(30,6,'HARGA BELI',1,0);
         // $pdf->Cell(25,6,'TOTAL',1,1);
@@ -43,6 +44,7 @@ class laporanpdf extends CI_Controller{
             $pdf->Cell(45,6,$row->pembayaran_bulan,1,0);
             $pdf->Cell(35,6,$row->nominal,1,0);
             $pdf->Cell(35,6,$row->tanggal,1,1);
+
             $total=$total + $row->nominal;
             // $pdf->Cell(35,6,$row->jumlahbeli,1,1);
             // $pdf->Cell(30,6,$row->jumlahbeli,1,0);
@@ -51,6 +53,9 @@ class laporanpdf extends CI_Controller{
         }
         $pdf->Cell(190,7,'Total:',0,1,);
         $pdf->Cell(35,6,$total,1,1);
+        $pdf->Cell(10,7,'',0,1);
+        $pdf->SetFont('Arial','B',10);
+        $pdf->Cell (35,6,'Bendahara RT',1,1);
         $pdf->Output();
     }
 
