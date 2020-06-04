@@ -135,9 +135,9 @@
              // }elseif($row->bulan == "Desember"){
              //   $bulan = '12';
              // }
-
-             $filterMasuk = $this->m_admin->filteriuranmasuk($row->bulan,$row->tahun)->result();
-             $filterKeluar = $this->m_admin->filteriurankeluar($row->bulan,$row->tahun)->result(); ?>
+             $rt = $this->session->userdata('rt');
+             $filterMasuk = $this->m_admin->filteriuranmasuk($row->bulan,$row->tahun,$rt)->result();
+             $filterKeluar = $this->m_admin->filteriurankeluar($row->bulan,$row->tahun,$rt)->result(); ?>
 
              <td>Rp. <?= number_format($filterMasuk[0]->nominal,2)?></td>
              <td>Rp. <?= number_format($filterKeluar[0]->nominal,2) ?></td>
