@@ -312,9 +312,9 @@
 
 			$this->m_admin->update_data($where,$dataiurankeluar,'pengeluaran');
 			redirect(base_url('Bendahara/tabeldataiurankeluar'),'refresh');
-		} else {
-			redirect(base_url('Bendahara/editiurankeluar'),'refresh');
-		}
+  		} else {
+  			redirect(base_url('Bendahara/editiurankeluar'),'refresh');
+  		}
     }
     public function iuranmasuk(){
       $data['title'] = 'Tabel Data Keluar';
@@ -322,7 +322,6 @@
         if($this->input->post('submit_masuk')){
 
             $this->form_validation->set_rules('nik','Nik','required');
-            $this->form_validation->set_rules('pembayaran_bulan', 'Pembayaran Bulan', 'required');
             // $this->form_validation->set_rules('tahun', 'Tahun', 'required');
             $this->form_validation->set_rules('nominal', 'Nominal', 'required');
             $this->form_validation->set_rules('tanggal', 'Tanggal', 'required');
@@ -336,49 +335,21 @@
                 // $this->load->view('admin/formpengeluaran');
             } else {
                 $nik = $this->input->post('nik');
-                $pembayaran_bulan = $this->input->post('pembayaran_bulan');
-                $tahun = $this->input->post('tahun');
+                $pembayaran_bulan = substr($this->input->post('bulantahun'),0,-7);
+                $tahun = substr($this->input->post('bulantahun'),-4);
                 $nominal = $this->input->post('nominal');
                 $bulan = $this->m_admin->tampil_bulan_iuran($nik)->result();
                 // print_r($bulan);
                 foreach ($bulan as $value) {
                     if (($pembayaran_bulan == $value->pembayaran_bulan) && ($tahun == $value->tahun)){
                         $this->session->set_flashdata('pembayaran', 'maaf user sudah membayar');
-                        redirect("Bendahara/formpemasukan");
+                        redirect("Bendahara/formpemasukan?filternik=$nik");
                     } else {
 
                     }
                 }
 
                 $tanggal = date("Y-m-d",strtotime($tanggal));
-            // $gambar = $_FILES['gambar']['name'];
-
-            // $config['max_size'] =0;
-            // $config['max_width']=0;
-            // $config['max_height']=0;
-            // $config['allowed_types'] = "png|jpg|jpeg|gif";
-            // $config['upload_path']='./uploads/gambar';
-
-            // $this->load->library('upload');
-            // $this->upload->initialize($config);
-
-            // $this->upload->do_upload('gambar');
-            // $data_image=$this->upload->data('file_name');
-            // $gambar = $data_image;
-
-            // if(!$this->upload->do_upload('gambar')){
-            //     echo "gambar gak masook";
-            //     $error = array
-            //     ('error'=>$this->upload->display_errors());
-            //     $this->load->view('admin/tabelpengeluaran',$error);
-            // }else{
-            //     $data = array(
-            //         'upload_data'=>$this->upload->data()
-            //     );
-            //     $file = $this->upload->data();
-            //     $gambar=$file['file_name'];
-            //     $gambar="gambar.jpg";
-            // }
 
                 $dataiuranmasuk = array(
                     'nik' => $nik,
@@ -400,17 +371,14 @@
                             alert("Berhasil Isi Data")
                     </script>
                     <?php
-                    $data['dataiuranmsk'] = $this->m_admin->tampil_iuran_masuk($rt)->result_array();
-                    $data['content'] = "admin/tabelpemasukan.php";
-                    $this->load->view('admin/index',$data);
+                    redirect(base_url('Bendahara/tampilbulan'),'refresh');
                 }else{
                     ?>
                     <script>
                             alert("Gagal Isi Data")
                     </script>
                     <?php
-                    $data['content'] = "admin/formpemasukan.php";
-                    $this->load->view('admin/index',$data);
+                    redirect(base_url('Bendahara/formpemasukan'),'refresh');
                 }
 
         }

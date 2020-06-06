@@ -7,7 +7,7 @@
  <div class="wrapper">
    <p><?php echo $this->session->flashdata('pesan'); ?> </p>
  </div>
- 
+
  <div class="container">
      <div class="row bg-white rounded shadow border-left-primary">
        <div class="col px-0">
@@ -53,31 +53,90 @@
                    </div>
                    <?php echo form_error('nik','<small class="text-danger">','</small>'); ?>
 
-                   <div class="form-group">
-                       <label for="PembayaranBulan">Pembayaran Bulan</label>
-                       <select id="PembayaranBulan" name="pembayaran_bulan" class="form-control">
-                       <?php
-                        $no = 1;
-                            foreach ($bulan as $bulan) {?>
-                                   <option value ="<?= $bulan ?>"> <?= $bulan ?></option>
-                            <?php }?>
-               </select>
-                   </div>
-                   <?php echo form_error('pembayaran_bulan'); ?>
-
                     <div class="form-group form-input">
-                        <label for="tahun">Tahun</label>
-                        <select name="tahun" id="Tahun" class="form-control">
+                        <label for="bulantahun">Pembayaran Bulan - Tahun</label>
+                        <select name="bulantahun" id="bulanTahun" class="form-control" required>
+                          <option value="" disabled selected>Pilih</option>
                           <?php
                             $realtimeYear = date('Y');
-                            for ($i = $realtimeYear; $i >= 2018; $i--) {
-                            ?>
-                                <option value="<?php echo $i ?>"><?php echo $i ?></option>
-                            <?php
+                            for ($i = 2018; $i <= $realtimeYear; $i++) {
+                              $cekbelumbayar = $this->m_admin->detailBulan($value->nik,$i)->result();
+                              if($cekbelumbayar[0]->bulan_januari == null){
+                              ?>
+                                  <option value="Januari - <?= $i; ?>"><?= "Januari - ".$i; ?></option>
+                          <?php
+                              }
+                              if($cekbelumbayar[0]->bulan_februari == null){
+                          ?>
+                                <option value="Februari - <?= $i; ?>"><?= "Februari - ".$i; ?></option>
+                          <?php
+                              }
+                              if($cekbelumbayar[0]->bulan_maret == null){
+                          ?>
+                                <option value="Maret - <?= $i; ?>"><?= "Maret - ".$i; ?></option>
+                          <?php
+                              }
+                              if($cekbelumbayar[0]->bulan_april == null){
+                          ?>
+                                <option value="April - <?= $i; ?>"><?= "April - ".$i; ?></option>
+                          <?php
+                              }
+                              if($cekbelumbayar[0]->bulan_mei == null){
+                          ?>
+                                <option value="Mei - <?= $i; ?>"><?= "Mei - ".$i; ?></option>
+                          <?php
+                              }
+                              if($cekbelumbayar[0]->bulan_juni == null){
+                          ?>
+                                <option value="Juni - <?= $i; ?>"><?= "Juni - ".$i; ?></option>
+                          <?php
+                              }
+                              if($cekbelumbayar[0]->bulan_juli == null){
+                          ?>
+                                <option value="Juli - <?= $i; ?>"><?= "Juli - ".$i; ?></option>
+                          <?php
+                              }
+                              if($cekbelumbayar[0]->bulan_agustus == null){
+                          ?>
+                                <option value="Agustus - <?= $i; ?>"><?= "Agustus - ".$i; ?></option>
+                          <?php
+                              }
+                              if($cekbelumbayar[0]->bulan_september == null){
+                          ?>
+                                <option value="September - <?= $i; ?>"><?= "September - ".$i; ?></option>
+                          <?php
+                              }
+                              if($cekbelumbayar[0]->bulan_oktober == null){
+                          ?>
+                                <option value="Oktober - <?= $i; ?>"><?= "Oktober - ".$i; ?></option>
+                          <?php
+                              }
+                              if($cekbelumbayar[0]->bulan_november == null){
+                          ?>
+                                <option value="November - <?= $i; ?>"><?= "November - ".$i; ?></option>
+                          <?php
+                              }
+                              if($cekbelumbayar[0]->bulan_desember == null){
+                          ?>
+                                <option value="Desember - <?= $i; ?>"><?= "Desember - ".$i; ?></option>
+                          <?php
+                              }
                             }
                           ?>
                         </select>
+
+                    <?php if ($this->session->flashdata('pembayaran')) {
+                        ?>
+                        <a href="#" class="btn btn-warning btn-icon-split">
+                        <span class="icon text-white-50">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </span>
+                        <span class="text"><?= $this->session->flashdata('pembayaran');?></span>
+                        </a>
+                        <?php
+                    }?>
                     </div>
+                       <?php echo form_error('bulantahun'); ?>
 
                   <div class="form-group">
                       <label for="Jenis-Iuran">Jenis Iuran - <?php echo "Warga ".$value->jenis_warga; ?></label>
@@ -120,14 +179,15 @@
                   <?php echo form_error('nik','<small class="text-danger">','</small>'); ?>
 
                   <div class="form-group">
-                      <label for="PembayaranBulan">Pembayaran Bulan</label>
-                      <select id="PembayaranBulan" name="pembayaran_bulan" class="form-control">
+                      <label for="PembayaranBulan">Pembayaran Bulan - Tahun</label>
+                      <select id="bulanTahun" name="bulantahun" class="form-control" required>
+                      <option value="" disabled selected>Pilih</option>
                       <?php
                        $no = 1;
                            foreach ($bulan as $bulan) {?>
                                   <option value ="<?= $bulan ?>"> <?= $bulan ?></option>
                            <?php }?>
-              </select>
+                      </select>
                <?php if ($this->session->flashdata('pembayaran')) {
                    ?>
                    <a href="#" class="btn btn-warning btn-icon-split">
@@ -139,21 +199,7 @@
                    <?php
                }?>
                   </div>
-                  <?php echo form_error('pembayaran_bulan'); ?>
-
-                   <div class="form-group form-input">
-                       <label for="tahun">Tahun</label>
-                       <select name="tahun" id="Tahun" class="form-control">
-                         <?php
-                           $realtimeYear = date('Y');
-                           for ($i = $realtimeYear; $i >= 2018; $i--) {
-                           ?>
-                               <option value="<?php echo $i ?>"><?php echo $i ?></option>
-                           <?php
-                           }
-                         ?>
-                       </select>
-                   </div>
+                  <?php echo form_error('bulantahun'); ?>
 
                    <div class="form-group">
                        <label for="Jenis-Iuran">Jenis Iuran</label>
