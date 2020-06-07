@@ -6,8 +6,8 @@
           <hr class="divider my-4">
         </div>
         <div class="col-lg-8 align-self-baseline">
-            <table class="table table-striped table-bordered table-dark table-hover">
-                <thead>
+            <table class="table table-striped table-bordered table-hover table-sm">
+                <thead class="table-dark">
                     <tr>
                         <th width="5%">No</th>
                         <th>Nomor Surat</th>
@@ -17,7 +17,7 @@
                         <th>Action</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="table-light">
                 <?php
                     $i=1; 
                     foreach($listSurat as $row)

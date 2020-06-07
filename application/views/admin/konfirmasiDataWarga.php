@@ -37,6 +37,7 @@
                 <th>Nama Jalan</th>
                 <th>Nomor Rumah</th>
                 <th>Gang</th>
+                <th>Gambar</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -61,6 +62,7 @@
                   <td><?= $row['nama_jalan']?></td>
                   <td><?= $row['no_rumah']?></td>
                   <td><?= $row['gang']?></td>
+                  <td><img width="100%" src="<?= base_url('./assets/foto/warga/'.$row['gambar']) ?>"></td>
                   <td><button class="btn btn-primary" onclick="konfirmasi_data('<?= base_url('ketuaRW/klik_konfirmasi_data_warga/')?>', <?= $row['nik']; ?>)"><i class="fas fa-check"></i></button>
                   <button class="btn btn-danger" data-target="#input-message-warga" data-toggle="modal" onclick="approve_warga('<?= $row['nik']; ?>')"><i class="fas fa-times"></i></button></td>
                 </tr>
@@ -92,6 +94,7 @@
                 <th>Nama Jalan</th>
                 <th>Nomor Rumah</th>
                 <th>Gang</th>
+                <th>Gambar</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -118,6 +121,7 @@
                   <td><?= $row['nama_jalan']?></td>
                   <td><?= $row['no_rumah']?></td>
                   <td><?= $row['gang']?></td>
+                  <td><img width="100%" src="<?= base_url('./assets/foto/warga/'.$row['gambar']) ?>"></td>
                   <td><button class="btn btn-primary" onclick="konfirmasi_data('<?= base_url('ketuaRW/klik_konfirmasi_data_warga/')?>', <?= $row['nik']; ?>)"><i class="fas fa-check"></i></button>
                   <button class="btn btn-danger" id="buttonTolakWargaTetap" data-target="#input-message-warga" data-toggle="modal" onclick="approve_warga('<?= $row['nik']; ?>')"><i class="fas fa-times"></i></button>
                   </td>
@@ -139,13 +143,13 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <?= form_open('ketuaRW/declineWarga');?>
+      <?= form_open('ketuaRW/declineWarga',['id' => 'default-form', 'log' => 'Input Pesan Warga']);?>
             <input type="hidden" name="nik" id="nikHiddenForm" value="">
             <div class="row px-3 my-3">
                 <div class="col">
-                    <div class="form-group">
-                        <label for="pesan">Keterangan</label>
-                        <textarea id="pesan"  class="form-control" name="pesan"></textarea>
+                    <div class="form-group form-input">
+                        <label for="input-pesan">Keterangan</label>
+                        <textarea id="input-pesan"  class="form-control" name="pesan" placeholder="Keterangan"></textarea>
                         <div class="invalid-feedback"></div>
                     </div>
                 </div>

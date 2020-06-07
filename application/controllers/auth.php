@@ -133,7 +133,7 @@
 //===============================================================================================
         public function logout(){
             $this->session->sess_destroy();
-            redirect('auth/','refresh');
+            redirect('dashboard/','refresh');
         }
 //===============================================================================================
         private function cek_session(){

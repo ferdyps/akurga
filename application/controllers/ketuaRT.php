@@ -17,6 +17,7 @@
             $this->id_user = $this->session->userdata('id_user');
             $this->role = $this->session->userdata('role');
             $this->rt = $this->session->userdata('rt');
+            $this->nama = $this->session->userdata('nama');
 
             if(!$this->session->has_userdata('status')){
                 redirect('auth/','refresh');
@@ -34,6 +35,7 @@
         }
 
         public function index(){
+
             $rt = $this->rt;
             $dataPoints = array();
             $dataPoints2 = array();
@@ -61,7 +63,8 @@
                 'dataPoints3'   => $dataPoints3,
                 'usulan_points' => $usulanPoints,
                 'dataiurank'    => $this->m_admin->tampil_iuran_keluar()->result_array(),
-                'rt' => $rt
+                'rt' => $rt,
+                'nama' => $this->nama
             ];
             $this->load->view('admin/index', $data);
         }
@@ -230,8 +233,10 @@
             $table = 'warga';
             $where = ['jenis_warga' => 'sementara','rt' => $set_rt];
             $where2 = ['jenis_warga' => 'tetap','rt' => $set_rt];
-            $list_warga_sementara = $this->m_admin->selectWithWhere($table,$where)->result_array();
-            $list_warga_tetap = $this->m_admin->selectWithWhere($table,$where2)->result_array();
+            $orderby = 'timestamp';
+            $direction = 'DESC';
+            $list_warga_sementara = $this->m_admin->selectWithWhereOrder($table,$where,$orderby,$direction)->result_array();
+            $list_warga_tetap = $this->m_admin->selectWithWhereOrder($table,$where2,$orderby,$direction)->result_array();
             $data = [
                 'content' => 'admin/tabelDataWarga',
                 'title' => 'List Data Warga',
@@ -253,12 +258,15 @@
         }
 
         public function daftarKomplain(){
-            $rt = $this->rt;
-            $list_komplain = $this->m_admin->komplainJoinWargaRT($rt)->result_array();
+            // $set_rt = $this->rt;
+            $rt = 'RT '.$this->rt;
+            $list_komplain = $this->m_admin->komplainJoinWargaRT($this->rt)->result_array();
+            $list_hasil = $this->m_admin->tindakLanjutRT($rt)->result_array();
             $data = [
                 'content' => 'admin/daftarKomplain',
                 'title' => 'List Komplain',
-                'list_komplain' => $list_komplain
+                'list_komplain' => $list_komplain,
+                'list_hasil' => $list_hasil
             ];
             $this->load->view('admin/index', $data);
         }
@@ -347,14 +355,19 @@
         }
 
         public function klik_konfirmasi_surat_pengantar($id){
+            $pengurus = $this->nama;
             $data = [
                 'nomor_surat' => $id,
                 'status' => 'diterima'
             ];
+            $data2 = [
+                'pengurus' => $pengurus
+            ];
 
             $query = $this->m_admin->input_data('status_surat',$data);
+            $query2 = $this->m_admin->edit_data('surat_pengantar','nomor_surat',$id,$data2);
 
-            if ($query) {
+            if ($query && $query2) {
                 $json['message'] = 'Surat Pengantar Berhasil Diapproval';
             }else {
                 $json['errors'] = 'Surat Pengantar Gagal Diapproval';
@@ -458,11 +471,63 @@
                         }
                         
                     }else {
-                        $gambar_prob = $this->upload->display_errors('', '');
+                        if ($tanggal_lahir == '') {
+                            $data = [
+                                'nama' => $nama,
+                                'tempat_lahir' => $tempat_lahir,
+                                'pendidikan' => $pendidikan,
+                                'pekerjaan' => $pekerjaan,
+                                'agama' => $agama,
+                                'jk' => $jk,
+                                'status' => $status,
+                                'nama_jalan' => $nama_jalan,
+                                'no_rumah' => $no_rumah,
+                                'gang' => $gang,
+                                'nokk' => $nokk,
+                                'hub_dlm_kel' => $hub_dlm_kel,
+                                'nohp' => $nohp,
+                                'valid' => 0,
+                                'pesan' => '',
+                            ];
+                        } else {
+                            $data = [
+                                'nama' => $nama,
+                                'tempat_lahir' => $tempat_lahir,
+                                'tanggal_lahir' => $tanggal_lahir,
+                                'pendidikan' => $pendidikan,
+                                'pekerjaan' => $pekerjaan,
+                                'agama' => $agama,
+                                'jk' => $jk,
+                                'status' => $status,
+                                'nama_jalan' => $nama_jalan,
+                                'no_rumah' => $no_rumah,
+                                'gang' => $gang,
+                                'nokk' => $nokk,
+                                'hub_dlm_kel' => $hub_dlm_kel,
+                                'nohp' => $nohp,
+                                'valid' => 0,
+                                'pesan' => '',
+                            ];
+                        }
+                        $query = $this->m_admin->edit_data('warga','nik',$nik,$data);
 
-                        $json = [
-                        'pict' => $gambar_prob,
-                        ];
+                        if ($query) {
+                            $url = base_url('ketuaRT/tabelDataWarga');
+
+                            $json = [
+                                'message' => "Data Warga berhasil diubah..",
+                                'url' => $url
+                            ];
+                        }else {
+                            $json['errors'] = "Data Warga Gagal Diubah";
+                        }
+                        
+
+                        // $gambar_prob = $this->upload->display_errors('', '');
+
+                        // $json = [
+                        // 'pict' => $gambar_prob,
+                        // ];
                         // redirect('ketuaRT/tabelDataWarga','refresh');
                     }
 
@@ -693,6 +758,21 @@
           } else {
             redirect('KetuaRT/usul_pembuatan','refresh');
           }
+        }
+
+        public function klik_komplain_RW($id){
+            $data['lingkup'] = 'RW';
+
+            $query = $this->m_admin->edit_data('komplain','nomor_komplain',$id,$data);
+
+
+
+            if ($query) {
+                $json['message'] = 'Komplain Berhasil Diteruskan Kepada RW';
+            }else {
+                $json['errors'] = 'Komplain Gagal Diteruskan Kepada RW';
+            }
+            echo json_encode($json);
         }
 
 

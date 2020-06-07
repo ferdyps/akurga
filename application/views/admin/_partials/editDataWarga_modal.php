@@ -145,18 +145,7 @@
                         <label for="input-rt">RT</label>
                         <input type="text" name="rt" id="input-rt" class="form-control" readonly>
                         <div class="invalid-feedback"></div>
-                    </div>    
-                    <!-- <div class="form-group form-input">
-                        <label for="input-RT">RT</label>
-                        <select name="rt" id="input-RT" class="form-control">
-                            <option selected disabled>-- Pilih Rt --</option>
-                            <option value="01">01</option>
-                            <option value="02">02</option>
-                            <option value="03">03</option>
-                            <option value="04">04</option>
-                            <option value="05">05</option>
-                        </select>
-                    </div>  -->
+                    </div>
                     <div class="form-group form-input">
                         <label for="input-gambar">Gambar</label>
                         <div class="custom-file">

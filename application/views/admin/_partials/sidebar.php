@@ -2,7 +2,7 @@
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="">
         <div class="sidebar-brand-icon rotate-n-15">
           <!-- <i class="fas fa-laugh-wink"></i> -->
         </div>
@@ -39,23 +39,23 @@
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
         <a class="nav-link" href="<?= base_url('ketuaRW/konfirmasiDataWarga')?>">
-          <i class="fas fa-fw fa-chart-area"></i>
-          <span>Approval Data Warga</span></a>
+          <i class="fas fa-fw fa-users"></i>
+          <span>Warga</span></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="<?= base_url('ketuaRW/listCetakSuratPengantar')?>">
-          <i class="fas fa-fw fa-chart-area"></i>
-          <span>Cetak Surat Pengantar</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="<?= base_url('ketuaRW/list_akun')?>">
-          <i class="fas fa-fw fa-chart-area"></i>
-          <span>List Akun Pengguna</span></a>
+          <i class="fas fa-fw fa-envelope"></i>
+          <span>Surat Pengantar</span></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="<?= base_url('ketuaRW/daftarKomplainRW')?>">
-          <i class="fas fa-fw fa-chart-area"></i>
-          <span>Daftar Komplain</span></a>
+          <i class="fas fa-fw fa-bullhorn"></i>
+          <span>Pengaduan</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="<?= base_url('ketuaRW/list_akun')?>">
+          <i class="fas fa-fw fa-address-book"></i>
+          <span>Akun</span></a>
       </li>
 
       <li class="nav-item">
@@ -88,7 +88,7 @@
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseKetuaRT" aria-expanded="true" aria-controls="collapseKetuaRT">
           <i class="fas fa-fw fa-users"></i>
-          <span>Data Warga</span>
+          <span>Warga</span>
         </a>
         <div id="collapseKetuaRT" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
@@ -98,26 +98,28 @@
         </div>
       </li>
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseKetuaRTsurat" aria-expanded="true" aria-controls="collapseKetuaRTsurat">
-          <i class="fas fa-fw fa-cog"></i>
+        <!-- <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseKetuaRTsurat" aria-expanded="true" aria-controls="collapseKetuaRTsurat"> -->
+        <a class="nav-link collapsed" href="<?php echo base_url('ketuaRT/daftarSuratPengantar');?>" aria-expanded="true">
+          <i class="fas fa-fw fa-envelope"></i>
           <span>Surat Pengantar</span>
         </a>
-        <div id="collapseKetuaRTsurat" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <!-- <div id="collapseKetuaRTsurat" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <a class="collapse-item" href="<?php echo base_url('ketuaRT/daftarSuratPengantar');?>">List Surat Pengantar</a>
           </div>
-        </div>
+        </div> -->
       </li>
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseKetuaRTkomplain" aria-expanded="true" aria-controls="collapseKetuaRTkomplain">
-          <i class="fas fa-fw fa-cog"></i>
-          <span>Komplain</span>
+        <!-- <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseKetuaRTkomplain" aria-expanded="true" aria-controls="collapseKetuaRTkomplain"> -->
+        <a class="nav-link collapsed" href="<?= base_url('ketuaRT/daftarKomplain');?>" aria-expanded="true">
+          <i class="fas fa-fw fa-bullhorn"></i>
+          <span>Pengaduan</span>
         </a>
-        <div id="collapseKetuaRTkomplain" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <!-- <div id="collapseKetuaRTkomplain" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <a class="collapse-item" href="<?= base_url('ketuaRT/daftarKomplain');?>">List Komplain</a>
           </div>
-        </div>
+        </div> -->
       </li>
 
       <!-- Nav Item - Pages Collapse Menu -->
@@ -315,7 +317,7 @@
       </li>
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseKetuaRTsurat" aria-expanded="true" aria-controls="collapseKetuaRTsurat">
-          <i class="fas fa-fw fa-cog"></i>
+          <i class="fas fa-fw fa-envelope"></i>
           <span>Surat Pengantar</span>
         </a>
         <div id="collapseKetuaRTsurat" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">

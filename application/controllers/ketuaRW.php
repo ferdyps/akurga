@@ -14,6 +14,7 @@
 
             $this->id_user = $this->session->userdata('id_user');
             $this->role = $this->session->userdata('role');
+            $this->nama = $this->session->userdata('nama');
 
             if(!$this->session->has_userdata('status')){
                 redirect('auth/','refresh');
@@ -22,7 +23,7 @@
                     redirect('user/','refresh');
                 }else if ($this->session->userdata('role') == 'Bendahara') {
                     redirect('admin/','refresh');
-                }else if ($this->session->userdata('role') == 'ketuaRT') {
+                }else if ($this->session->userdata('role') == 'Ketua RT') {
                     redirect('ketuaRT/','refresh');
                 }else if ($this->session->userdata('role') == 'Sekretaris') {
                     redirect('sekretaris/','refresh');
@@ -112,10 +113,12 @@
 
         public function daftarKomplainRW(){
             $list_komplain = $this->m_admin->komplainJoinWargaRW()->result_array();
+            $list_tindak_lanjut =  $this->m_admin->tindakLanjutRW()->result_array();
             $data = [
                 'content' => 'admin/daftarKomplainRW',
                 'title' => 'List Komplain',
-                'list_komplain' => $list_komplain
+                'list_komplain' => $list_komplain,
+                'list_tindak_lanjut' => $list_tindak_lanjut
             ];
             $this->load->view('admin/index', $data);
         }
@@ -225,30 +228,22 @@
             echo json_encode($json);
         }
 
-        public function klik_komplain_RW($id){
-            $data['lingkup'] = 'RW';
-
-            $query = $this->m_admin->edit_data('komplain','nomor_komplain',$id,$data);
-
-
-
-            if ($query) {
-                $json['message'] = 'Komplain Berhasil Diteruskan Kepada RW';
-            }else {
-                $json['errors'] = 'Komplain Gagal Diteruskan Kepada RW';
-            }
-            echo json_encode($json);
-        }
-
         public function declineWarga(){
 
             // $this->form_validation->set_rules('pesan', 'Pesan', 'regex_match[/^[a-zA-Z ]/]');
+            $this->form_validation->set_rules([
+                [
+                    'field' => 'pesan',
+                    'label' => 'Pesan',
+                    'rules' => 'trim|required|regex_match[/^[a-zA-Z ]/]'
+                ]
+            ]);
 
             if ($this->input->post()) {
                 $pesan = $this->input->post('pesan');
                 $nik = $this->input->post('nik');
 
-                // if ($this->form_validation->run() == TRUE) {
+                if ($this->form_validation->run() == TRUE) {
                     $data = [
                         // 'nik' => $nik,
                         'valid' => 2,
@@ -261,48 +256,34 @@
                     // $update = $this->m_admin->edit_data('warga','nik',$nik,$data2);
                     $update = $this->m_admin->edit_data('warga','nik',$nik,$data);
 
-                    if ($update) {
-                        ?>
-                        <script>
-                            alert('Berhasil Ditolak');
-                            location = "<?php echo base_url('ketuaRW/konfirmasiDataWarga');?>";
-                        </script>
-                        <?php
-                    }else{
-                        ?>
-                        <script>
-                            alert('Gagal Ditolak');
-                            location = "<?php echo base_url('ketuaRW/konfirmasiDataWarga');?>";
-                        </script>
-                        <?php
+                    if($update){
+                        $url = base_url('ketuaRW/konfirmasiDataWarga');
+                        $json = [
+                            'message' => 'Data Warga Berhasil Dibatalkan',
+                            'url' => $url
+                        ];
+                    }else {
+                        $json['errors'] = 'Data Warga Gagal Dibatalkan';
                     }
-            //             $url = base_url('admin/konfirmasiDataWarga');
-            //             $json = [
-            //                 'message' => 'Data Warga Berhasil Dibatalkan',
-            //                 'url' => $url
-            //             ];
-            //         }else {
-            //             $json['errors'] = 'Data Warga Gagal Dibatalkan';
-            //         }
 
-            //     } else {
-            //         $no = 0;
-            //         foreach ($this->input->post() as $key => $value) {
-            //             if (form_error($key) != "") {
-            //                 $json['form_errors'][$no]['id'] = $key;
-            //                 $json['form_errors'][$no]['msg'] = form_error($key, null, null);
-            //                 $no++;
-            //             }
-            //         }
-            //     }
-            //     echo json_encode($json);
-            // }else {
-            //     redirect('admin/konfirmasiDataWarga','refresh');
-            // }
+                } else {
+                    $no = 0;
+                    foreach ($this->input->post() as $key => $value) {
+                        if (form_error($key) != "") {
+                            $json['form_errors'][$no]['id'] = $key;
+                            $json['form_errors'][$no]['msg'] = form_error($key, null, null);
+                            $no++;
+                        }
+                    }
+                }
+                echo json_encode($json);
+            }else {
+                redirect('ketuaRW/konfirmasiDataWarga','refresh');
             }
         }
 
         public function cetak_surat_pengantar() {
+            $nama = $this->nama;
             $id     = $this->uri->segment(3);
             $surat  = $this->m_admin->detailSuratPengantar($id)->row();
 
@@ -317,7 +298,7 @@
             // setting jenis font yang akan digunakan
             $pdf->SetFont('Arial','B',16);
             // mencetak string
-            $pdf->Cell(190,7,'RUKUN TETANGGA 01',0,1,'C');
+            $pdf->Cell(190,7,'RUKUN TETANGGA '.$row->rt,0,1,'C');
             $pdf->SetFont('Arial','B',12);
             $pdf->Cell(190,7,'RUKUN WARGA 01',0,1,'C');
             $pdf->Cell(190,7,'DESA SUKAPURA KECAMATAN DAYEUHKOLOT',0,1,'C');
@@ -325,7 +306,7 @@
             $pdf->Line(10,40,200,40);
             $pdf->Ln(1.4);
             $pdf->SetFont('Arial','',12);
-            $pdf->Cell(190,7,'Sekretariat : Manggadua RT. 01 RW. 01 Desa Sukapura Kec. Dayeuhkolot Kab. Bandung -  40267',0,1,'C');
+            $pdf->Cell(190,7,'Sekretariat : Manggadua RT. '.$row->rt.' RW. 01 Desa Sukapura Kec. Dayeuhkolot Kab. Bandung -  40267',0,1,'C');
             $pdf->SetLineWidth(1);
             $pdf->Line(10,46,200,46);
             $pdf->Ln(10);
@@ -334,10 +315,10 @@
             $pdf->SetLineWidth(0.5);
             $pdf->Line(77,64,133,64);
             $pdf->SetFont('Arial','B',12);
-            $pdf->Cell(0,1,'No :'.str_replace('-','/',$row->nomor_surat),0,1,'C');
+            $pdf->Cell(0,1,'No :'.substr_replace(str_replace('-','/',$row->nomor_surat),'-',6,1),0,1,'C');
             $pdf->Ln(15);
             $pdf->SetFont('Arial','',12);
-            $pdf->Cell(0,0,'Saya yang bertanda tangan di bawah ini Ketua RT 01/ RW 01, Desa Sukapura Kecamatan',0,1,'J');
+            $pdf->Cell(0,0,'Saya yang bertanda tangan di bawah ini Ketua RT '.$row->rt.'/ RW 01, Desa Sukapura Kecamatan',0,1,'J');
             $pdf->Cell(0,13,'Dayeuhkolot Kabupaten Bandung, dengan ini menerangkan bahwa:',0,1,'L');
             $pdf->Ln(10);
             $pdf->SetFont('Arial','B',12);
@@ -356,7 +337,7 @@
             $pdf->Cell(15);
             $pdf->Cell(47,13,'Pekerjaan',0,0,'L');
             $pdf->Cell(3,13,':',0,0,'L');
-            $pdf->Cell(47,13,ucwords($row->pekerjaan),0,1,'L');
+            $pdf->Cell(47,13,ucwords(strtolower($row->pekerjaan)),0,1,'L');
             $pdf->Cell(15);
             $pdf->Cell(47,0,'Agama',0,0,'L');
             $pdf->Cell(3,0,':',0,0,'L');
@@ -374,19 +355,22 @@
             $pdf->Cell(3,13,':',0,0,'L');
             $pdf->Cell(47,13,ucwords($row->nama_jalan).', '.ucwords($row->gang).', No. '.ucwords($row->no_rumah).', ',0,1,'L');
             $pdf->Cell(65);
-            $pdf->Cell(47,2,'RT. 01 RW. 01, Babakan Ciamis, Kabupaten Bandung',0,1,'L');
+            $pdf->Cell(47,2,'RT. '.$row->rt.' RW. 01, Babakan Ciamis, Kabupaten Bandung',0,1,'L');
             $pdf->Ln(10);
             $pdf->Cell(0,0,'Adalah benar warga kami.',0,1,'L');
             $pdf->Ln(7);
-            $pdf->Cell(0,0,'Surat keterangan ini diberikan untuk dipergunakan '.$row->keperluan.'.',0,1,'L');
+            $pdf->MultiCell(0,6,'Surat keterangan ini diberikan untuk dipergunakan '.$row->keperluan.'.');
             $pdf->Ln(20);
             $pdf->Cell(0,0,'Manggadua, '.strftime("%d %B %Y",strtotime(date("d-m-Y"))),0,1,'R');
             $pdf->Ln(7);
             $pdf->SetFont('Arial','B',12);
             $pdf->Cell(0,0,'Hormat Kami,',0,1,'R');
             $pdf->Ln(7);
-            $pdf->Cell(160,20,'KETUA RT. 01',0,0,'R');
+            $pdf->Cell(160,20,'KETUA RT. '.$row->rt,0,0,'R');
             $pdf->Cell(-100,20,'KETUA RW. 01',0,1,'R');
+            $pdf->Ln(4);
+            $pdf->Cell(55,30,ucwords($nama),0,0,'R');
+            $pdf->Cell(120,30,ucwords($row->pengurus),0,1,'R');
             $pdf->Ln(20);
             $pdf->SetFont('Arial','B',12);
             // $pdf->Cell(0,20,'KETUA RW. 01',0,1,'L');

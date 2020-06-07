@@ -5,47 +5,33 @@
     class m_admin extends CI_Model {
 
       // ======================== GET ID otomatis ================================
-      public function get_id($input,$no,$table,$rt) {
-        $this->db->select("MAX($no) as maxId");
-        if ($rt == 'RT 01') {
-          $romawi = 'I';
-        }elseif ($rt == 'RT 02') {
-          $romawi = 'II';
-        }elseif ($rt == 'RT 03') {
-          $romawi = 'III';
-        }elseif ($rt == 'RT 04') {
-          $romawi = 'IV';
-        }elseif ($rt == 'RT 05') {
-          $romawi = 'V';
-        }elseif ($rt == 'RW 01') {
-          $romawi = 'I';
-        }
-        $query = $this->db->get($table)->row();
-        $Kode=$query->maxId;
-          $noUrut=(int)substr($Kode, 1, 4);
-          $noUrut++;
-          if ($input == 'rapat') {
-            $Char = "-RPT-".$romawi.'-'.date("Y");
-          }elseif ($input == 'kegiatan') {
-            $Char = "-KGT-".$romawi.'-'.date("Y");
-          }elseif ($input == 'notulensi') {
-            $Char = "-NOT-".$romawi.'-'.date("Y");
-          }elseif ($input == 'arsip') {
-            $Char = "-ASM-".$romawi.'-'.date("Y");
-          }elseif ($input == 'surat_pengantar') {
-            $Char = '-SK-'.$romawi.'-'.date("Y");
-          }elseif ($input == 'komplain') {
-            $Char = "-KOMPLAIN-".$romawi."-".date("Y");
-          }else {
-            echo "Erorr id";
-          }
-
-          $newID = sprintf("%04s", $noUrut) . $Char; //. $rtnya
-          return $newID;
-
-      }
-
       public function get_id_adapt($input,$table,$rt) {
+        if (date("m") == '01') {
+          $bln = 'I';
+        }elseif (date("m") == '02') {
+          $bln = 'II';
+        }elseif (date("m") == '03') {
+          $bln = 'III';
+        }elseif (date("m") == '04') {
+          $bln = 'IV';
+        }elseif (date("m") == '05') {
+          $bln = 'V';
+        }elseif (date("m") == '06') {
+          $bln = 'VI';
+        }elseif (date("m") == '07') {
+          $bln = 'VII';
+        }elseif (date("m") == '08') {
+          $bln = 'VIII';
+        }elseif (date("m") == '09') {
+          $bln = 'IX';
+        }elseif (date("m") == '10') {
+          $bln = 'X';
+        }elseif (date("m") == '11') {
+          $bln = 'XI';
+        }elseif (date("m") == '12') {
+          $bln = 'XII';
+        }
+
         if ($rt == 'RT 01') {
           $romawi = 'I';
         }elseif ($rt == 'RT 02') {
@@ -60,24 +46,8 @@
           $romawi = 'I';
         }
 
-        if ($input == 'rapat') {
-          $Char = "-RPT-".$romawi.'-'.date("Y");
-          $Char2 = '-RPT-'.$romawi;
-          $atr = 'no_udg';
-        }elseif ($input == 'kegiatan') {
-          $Char = "-KGT-".$romawi.'-'.date("Y");
-          $Char2 = '-KGT-'.$romawi;
-          $atr = 'no_udg';
-        }elseif ($input == 'notulensi') {
-          $Char = "-NOT-".$romawi.'-'.date("Y");
-          $Char2 = '-NOT-'.$romawi;
-          $atr = 'no_notulen';
-        }elseif ($input == 'arsip') {
-          $Char = "-ASM-".$romawi.'-'.date("Y");
-          $Char2 = '-ASM-'.$romawi;
-          $atr = 'kd_surat';
-        }elseif ($input == 'surat_pengantar') {
-          $Char = '-SK-'.$romawi.'-'.date("Y");
+        if ($input == 'surat_pengantar') {
+          $Char = '-SK-'.$romawi.'-'.$bln.'-'.date("Y");
           $Char2 = '-SK-'.$romawi;
           $atr = 'nomor_surat';
         }elseif ($input == 'komplain') {
@@ -190,6 +160,12 @@
             return $this->db->get_where($table,$where);
         }
 
+        public function selectWithWhereOrder($table,$where,$orderby,$direction){
+            $this->db->where($where);
+            $this->db->order_by($orderby,$direction);
+            return $this->db->get($table);
+        }
+
         public function delete_data($where, $table){
            $this->db->where($where);
            $this->db->delete($table);
@@ -218,6 +194,27 @@
           return $this->db->get();
         }
         // ============================================================
+        // ==========================RW==================================
+        public function tindakLanjutRW(){
+          return $this->db->query("SELECT id_tindak_lanjut,hasil_tindak_lanjut,tgl_tindak_lanjut,tl.nomor_komplain,tl.gambar,lingkup 
+          FROM tindak_lanjut tl JOIN komplain k 
+          ON tl.nomor_komplain=k.nomor_komplain 
+          WHERE lingkup = 'rw'
+          ORDER BY id_tindak_lanjut DESC");
+        }
+        
+        // ==========================RW==================================
+        // ==========================RT==================================
+        public function tindakLanjutRT($rt){
+          return $this->db->query("SELECT id_tindak_lanjut,hasil_tindak_lanjut,tgl_tindak_lanjut,tl.nomor_komplain,tl.gambar,lingkup,rt 
+          FROM tindak_lanjut tl JOIN komplain k 
+          ON tl.nomor_komplain=k.nomor_komplain 
+          WHERE lingkup = 'rt' AND rt = '$rt'
+          ORDER BY id_tindak_lanjut DESC");
+        }
+        // ==========================RT==================================
+
+
         public function list_surat_pengantar($rt)
         {
             return $this->db->query("SELECT sp.*,w.nama,w.rt,
@@ -316,13 +313,20 @@
         }
 
         public function komplainJoinWargaRT($rt){
-            return $this->db->query("SELECT nomor_komplain,w.nik,nama,w.rt,keluhan,lokasi,tanggal_komplain,lingkup,k.status,k.gambar FROM komplain k JOIN warga w ON w.nik=k.nik where lingkup='rt' and w.rt='$rt'
-            ");
+            return $this->db->query("SELECT nomor_komplain,w.nik,nama,w.rt,keluhan,lokasi,tanggal_komplain,lingkup,k.status,k.gambar 
+            FROM komplain k JOIN warga w 
+            ON w.nik=k.nik 
+            where lingkup='rt' and w.rt='$rt'
+            ORDER BY nomor_komplain DESC");
         }
 
         public function komplainJoinWargaRW(){
-            return $this->db->query("SELECT nomor_komplain,w.nik,nama,keluhan,lokasi,tanggal_komplain,lingkup,k.status,k.gambar FROM komplain k JOIN warga w ON w.nik=k.nik where lingkup='rw'
-            ");
+            return $this->db->query("SELECT nomor_komplain,w.nik,nama,keluhan,lokasi,tanggal_komplain,lingkup,k.status,k.gambar 
+            FROM komplain k 
+            JOIN warga w 
+            ON w.nik=k.nik 
+            where lingkup='rw'
+            ORDER BY nomor_komplain DESC");
         }
 
         public function riwayatSuratPengantar($id_user){

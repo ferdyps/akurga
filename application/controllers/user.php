@@ -23,8 +23,12 @@
             if(!$this->session->has_userdata('status')){
                 redirect('auth/','refresh');
             } else {
-                if ($this->session->userdata('role') == 'adminMaster' || $this->session->userdata('role') == 'Ketua RT' || $this->session->userdata('role') == 'Bendahara') {
+                if ($this->session->userdata('role') == 'adminMaster') {
                     redirect('admin/','refresh');
+                } else if ($this->session->userdata('role') == 'Ketua RT') {
+                    redirect('ketuaRT/','refresh');
+                } else if ($this->session->userdata('role') == 'Bendahara') {
+                    redirect('Bendahara/','refresh');
                 }
             }
         }
@@ -385,74 +389,73 @@
             }
         }
       //  ==============================================================================================================
-      public function rekapbulan(){
-        // $where = array(
-        // 	'nip' => $this->session->userdata('nip')
-        // );
-        // $data['dataiuran'] = $this->petugas_model->view_data($where,'iuran_masuk')->result();
-        $filtertahun = addslashes($this->input->get('tahun'));
+        public function rekapbulan(){
+            // $where = array(
+            // 	'nip' => $this->session->userdata('nip')
+            // );
+            // $data['dataiuran'] = $this->petugas_model->view_data($where,'iuran_masuk')->result();
+            $filtertahun = addslashes($this->input->get('tahun'));
 
-        if(!empty($filtertahun)){
-              $data['masuk'] = $this->m_admin->iuranmasuk($filtertahun)->result();
-        }else{
-              $data['masuk'] = $this->m_admin->iuranmasuk()->result();
-        }
-        $data['content'] = "admin/rekapbulan";
-        $data['title'] = 'Tabel Data Rekap';
-
-        $this->load->view('admin/index',$data);
-    } 
-
-    public function tampilbulan(){
-        $id_user = $this->session->userdata('id_user');
-        $data['content'] = "user/tampilbulan";
-        $data['title'] = 'Tabel Data Bulan';
-        $data['iuran'] = $this->m_user->tampil_iuran_perbulan($id_user)->result();
-
-        $filtertahun = addslashes($this->input->get('tahun'));
-
-        $data['tahun'] = $this->m_admin->tampilTahunPembayaran()->result();
-        if(!empty($filtertahun)){
-            $data['iuranTahun'] = $this->m_user->tampil_iuran_perbulan_pertahun($filtertahun)->result();
-        }
-        $this->load->view('user/index',$data);
-    }
-    public function filteriuranmasuk($bulan,$tahun){
-        return $this->db->query("SELECT
-          date_format(tanggal,'%m') as 'bulan',
-          sum(nominal) as 'nominal'
-          from pembayaran
-          where date_format(tanggal,'%Y') = $tahun and date_format(tanggal,'%m') = $bulan
-          group by 1");
-      }
-      public function filterPemasukan()
-        {
-            $bulan = $this->input->get('bulan');
-            $where = [
-                'pembayaran_bulan' => $bulan
-            ];
-            if ($bulan == '' || $bulan == null) {
-                echo json_encode($this->m_admin->tampil_iuran_masuk()->result());
-            } else {
-                echo json_encode($this->m_admin->tampil_iuran_masuk($where)->result());
+            if(!empty($filtertahun)){
+                $data['masuk'] = $this->m_admin->iuranmasuk($filtertahun)->result();
+            }else{
+                $data['masuk'] = $this->m_admin->iuranmasuk()->result();
             }
-        }
-    public function tabeldataiurankeluaruser(){
-        $data['title'] = 'Tabel Data Keluar';
-        $data['dataiurank'] = $this->m_user->tampil_iuran_keluar()->result_array();
-        $data['content'] = "user/tabelpengeluaranuser.php";
-        $this->load->view('user/index',$data);
-    }
-    public function detail_iuran_masuk(){
-       $data['title'] = 'Detail Iuran Masuk';
-            $nik = addslashes($this->input->get('nik'));
-            $tahun = addslashes($this->input->get('tahun'));
+            $data['content'] = "admin/rekapbulan";
+            $data['title'] = 'Tabel Data Rekap';
 
-            $data['detailpembayaran'] = $this->m_user->detail($nik,$tahun)->result();
-        // var_dump($this->m_admin->detail($where)->result());
-        $data['content']="user/detailpembayaranuser.php";
-        $this->load->view('user/index',$data);
-    }
+            $this->load->view('admin/index',$data);
+        } 
+
+        public function tampilbulan(){
+            $id_user = $this->session->userdata('id_user');
+            $data['content'] = "user/tampilbulan";
+            $data['title'] = 'Tabel Data Bulan';
+            $data['iuran'] = $this->m_user->tampil_iuran_perbulan($id_user)->result();
+
+            $filtertahun = addslashes($this->input->get('tahun'));
+
+            $data['tahun'] = $this->m_admin->tampilTahunPembayaran()->result();
+            if(!empty($filtertahun)){
+                $data['iuranTahun'] = $this->m_user->tampil_iuran_perbulan_pertahun($filtertahun)->result();
+            }
+            $this->load->view('user/index',$data);
+        }
+        public function filteriuranmasuk($bulan,$tahun){
+            return $this->db->query("SELECT
+            date_format(tanggal,'%m') as 'bulan',
+            sum(nominal) as 'nominal'
+            from pembayaran
+            where date_format(tanggal,'%Y') = $tahun and date_format(tanggal,'%m') = $bulan
+            group by 1");
+        }
+        public function filterPemasukan(){
+                $bulan = $this->input->get('bulan');
+                $where = [
+                    'pembayaran_bulan' => $bulan
+                ];
+                if ($bulan == '' || $bulan == null) {
+                    echo json_encode($this->m_admin->tampil_iuran_masuk()->result());
+                } else {
+                    echo json_encode($this->m_admin->tampil_iuran_masuk($where)->result());
+                }
+        }
+        public function tabeldataiurankeluaruser(){
+            $data['title'] = 'Tabel Data Keluar';
+            $data['dataiurank'] = $this->m_user->tampil_iuran_keluar()->result_array();
+            $data['content'] = "user/tabelpengeluaranuser.php";
+            $this->load->view('user/index',$data);
+        }
+        public function detail_iuran_masuk(){
+                $data['title'] = 'Detail Iuran Masuk';
+                $nik = addslashes($this->input->get('nik'));
+                $tahun = addslashes($this->input->get('tahun'));
+
+                $data['detailpembayaran'] = $this->m_user->detail($nik,$tahun)->result();
+            // var_dump($this->m_admin->detail($where)->result());
+            $data['content']="user/detailpembayaranuser.php";
+            $this->load->view('user/index',$data);
+        }
 }
 
     /* End of file User.php */

@@ -134,16 +134,14 @@
                     </div>
                     <div class="form-group form-input">
                         <label for="Gang">Gang</label>
-                        <select name="gang" id="Gang" class="form-control" onchange='CheckGang(this.value);'>
+                        <select name="gang" id="Gang" class="form-control">
                             <option selected disabled>-- Pilih Gang --</option>
                             <option value="Bbk.Ciamis I">Bbk.Ciamis I</option>
                             <option value="Bbk.Ciamis II">Bbk.Ciamis II</option>
                             <option value="Bbk.Ciamis III">Bbk.Ciamis III</option>
                             <option value="Bbk.Ciamis IV">Bbk.Ciamis IV</option>
                             <option value="Bbk.Ciamis V">Bbk.Ciamis V</option>
-                            <option value="lainnya">lainnya</option>
                         </select>
-                        <input type="text" name="gang" id="input-Gang" style='display:none;' class="form-control">
                     </div>
                     <div class="form-group form-input">
                         <label for="input-rt">RT</label>
@@ -233,11 +231,4 @@
         $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
     });
 
-    function CheckGang(val){
-        var element=document.getElementById('input-Gang');
-        if(val=='-- Pilih Gang --'||val=='lainnya')
-        element.style.display='block';
-        else  
-        element.style.display='none';
-    }
 </script>

@@ -2,12 +2,12 @@
     <div class="container h-100">
       <div class="row h-100 align-items-center justify-content-center text-center">
         <div class="col-lg-10 align-self-end">
-          <h1 class="text-uppercase text-white font-weight-bold">Daftar Pengajuan Komplain</h1>
+          <h1 class="text-uppercase text-white font-weight-bold">Daftar Pengaduan</h1>
           <hr class="divider my-4">
         </div>
         <div class="col-lg-8 align-self-baseline">
-            <table class="table table-striped table-bordered table-dark table-hover">
-                <thead>
+            <table class="table table-striped table-bordered table-hover table-sm">
+                <thead class="table-dark">
                     <tr>
                         <th width="5%">No</th>
                         <th>Nomor Komplain</th>
@@ -19,7 +19,7 @@
                         <th>Hasil</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="table-light">
                 <?php
                     $i=1; 
                     foreach($listKomplain as $row)
