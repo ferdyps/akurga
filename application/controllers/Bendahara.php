@@ -249,69 +249,70 @@
         }
 
         public function detail_iuran_keluar($no_pengeluaran){
+          $data['title'] = 'Detail Iuran Keluar';
             $where = array(
                 'no_pengeluaran' => $no_pengeluaran
             );
+
 
             $data['detailpengeluaran'] = $this->m_admin->view_detail_pengeluaran($where,'pengeluaran')->result();
             // var_dump($this->m_admin->detail($where)->result());
             $data['content']="admin/detailpengeluaran.php";
             $this->load->view('admin/index',$data);
         }
-        function update_data_iuran_masuk(){
-            if($this->input->post('edit_keluar')){
-                $no_pengeluaran = $this->session->userdata('no_pengeluaran');
-                $diberikan_kepada = $this->input->post('diberikan_kepada');
-                $tanggal = $this->input->post('tanggal');
-                $nominal = $this->input->post('nominal');
-                $digunakan_untuk = $this->input->post('digunakan_untuk');
-                $gambar = $this->input->post('gambar');
-
-                $dataiurankeluar = array(
-                    'no_pengeluaran' => $no_pengeluaran,
-                    'diberikan_kepada' => $diberikan_kepada,
-                    'tanggal' => $tanggal,
-                    'nominal' => $nominal,
-                    'digunakan_untuk' => $digunakan_untuk,
-                    'gambar' => $gambar
-
-                );
-
-                $where = array(
-                    'no_pengeluaran' => $no_pengeluaran
-                );
-
-                $this->m_admin->update_data($where,$dataiurankeluar,'pengeluaran');
-                redirect(base_url('Bendahara/tabeldataiurankeluar'),'refresh');
-            } else {
-                redirect(base_url('Bendahara/editiurankeluar'),'refresh');
-            }
-        }
+        
 	function update_data_iuran_keluar(){
 		if($this->input->post('edit_keluar')){
-			$no_pengeluaran = $this->session->userdata('no_pengeluaran');
-			$diberikan_kepada = $this->input->post('diberikan_kepada');
-			$tanggal = $this->input->post('tanggal');
-			$nominal = $this->input->post('nominal');
+      			$no_pengeluaran = $this->session->userdata('no_pengeluaran');
+      			$diberikan_kepada = $this->input->post('diberikan_kepada');
+      			$tanggal = $this->input->post('tanggal');
+      			$nominal = $this->input->post('nominal');
             $digunakan_untuk = $this->input->post('digunakan_untuk');
-            $gambar = $this->input->post('gambar');
+            $gambar = $_FILES['gambar']['name'];
 
-			$dataiurankeluar = array(
-				'no_pengeluaran' => $no_pengeluaran,
-				'diberikan_kepada' => $diberikan_kepada,
-				'tanggal' => $tanggal,
-				'nominal' => $nominal,
-                'digunakan_untuk' => $digunakan_untuk,
-                'gambar' => $gambar
+            $config['max_size'] =0;
+            $config['max_width']=0;
+            $config['max_height']=0;
+            $config['allowed_types'] = "png|jpg|jpeg|gif";
+            $config['upload_path']='./uploads/gambar';
 
-			);
+            $this->load->library('upload');
+            $this->upload->initialize($config);
 
-			$where = array(
-				'no_pengeluaran' => $no_pengeluaran
-			);
+            $this->upload->do_upload('gambar');
+            $data_image=$this->upload->data('file_name');
+            $gambar = $data_image;
 
-			$this->m_admin->update_data($where,$dataiurankeluar,'pengeluaran');
-			redirect(base_url('Bendahara/tabeldataiurankeluar'),'refresh');
+            if(!empty($gambar)){
+        			$dataiurankeluar = array(
+                				'no_pengeluaran' => $no_pengeluaran,
+                				'diberikan_kepada' => $diberikan_kepada,
+                				'tanggal' => $tanggal,
+                				'nominal' => $nominal,
+                        'digunakan_untuk' => $digunakan_untuk,
+                        'gambar' => $gambar
+
+        			);
+            }else{
+              $dataiurankeluar = array(
+                        'no_pengeluaran' => $no_pengeluaran,
+                        'diberikan_kepada' => $diberikan_kepada,
+                        'tanggal' => $tanggal,
+                        'nominal' => $nominal,
+                        'digunakan_untuk' => $digunakan_untuk
+
+              );
+            }
+
+      			$where = array(
+      				'no_pengeluaran' => $no_pengeluaran
+      			);
+
+			    $this->m_admin->update_data($where,$dataiurankeluar,'pengeluaran');
+          $rt = $this->session->userdata('rt');
+          $data['dataiurank'] = $this->m_admin->tampil_iuran_keluar($rt)->result_array();
+          $data['content'] = "admin/tabelpengeluaran.php";
+          $this->load->view('admin/index',$data);
   		} else {
   			redirect(base_url('Bendahara/editiurankeluar'),'refresh');
   		}

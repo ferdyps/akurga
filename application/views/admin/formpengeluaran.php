@@ -1,11 +1,11 @@
 <div class="container-fluid">
  <!-- Page Heading -->
- 
+
  <div class="d-sm-flex align-items-center justify-content-between mb-4">
      <h1 class="h3 mb-0 text-gray-800">Input Iuran Keluar</h1>
  </div>
  <div class="container">
- 
+
      <div class="row bg-white rounded shadow border-left-primary">
        <div class="col px-0">
        <!-- <?php if(!empty(validation_errors())) :
@@ -14,12 +14,12 @@
 <!-- <?php endif; ?>  -->
        <?=form_open_multipart("Bendahara/iurankeluar");
         $tanggal = date("d-m-Y");?>
-      
+
            <div class="row px-3 my-3">
                <div class="col">
                <div class="form-group form-input">
                         <label for="diberikan_kepada">Kelompok Anggaran</label>
-                        <select name="diberikan_kepada" id="Pendidikan" class="form-control">
+                        <select name="diberikan_kepada" id="Pendidikan" class="form-control" required>
                             <option selected disabled>-- Kelompok Anggaran --</option>
                             <option value="Fotocopy">Fotocopy</option>
                             <option value="Gaji Pegawai">Gaji Pegawai</option>
@@ -37,7 +37,7 @@
 
                    <div class="form-group form-input">
                        <label for="input-tanggal">Tanggal</label>
-                       <input readonly name="tanggal" id="input-tanggal" class="form-control" value="<?= date("d-m-Y") ?>">
+                       <input name="tanggal" id="input-tanggal" class="form-control" value="<?= date("d-m-Y"); ?> " readonly required>
                        <div class="invalid-feedback">
                        </div>
                    </div>
@@ -45,15 +45,15 @@
 
                    <div class="form-group form-input">
                        <label for="input-nominal">Nominal</label>
-                       <input type="number" name="nominal" id="input-nominal" class="form-control" >
+                       <input type="text" name="nominal" id="rupiah" class="form-control" required>
                        <div class="invalid-feedback">
                        </div>
                    </div>
                    <?php echo form_error('nominal','<small class="text-danger">','</small>'); ?>
-                   
+
                    <div class="form-group form-input">
                        <label for="input-digunakan_untuk">Keterangan</label>
-                       <input type="text" name="digunakan_untuk" id="input-digunakan_untuk" class="form-control">
+                       <input type="text" name="digunakan_untuk" id="input-digunakan_untuk" class="form-control" required>
                        <div class="invalid-feedback">
                      </div>
                    </div>
@@ -61,8 +61,8 @@
 
                    <div class="form-group form-input">
                        <label for="input-gambar">Gambar</label>
-                       <input type="file" name="gambar" id="input-gambar" class="form-control">
-                       <div class="invalid-feedback">      
+                       <input type="file" name="gambar" id="input-gambar" class="form-control" required>
+                       <div class="invalid-feedback">
                      </div>
                    </div>
                    <?php echo form_error('gambar'); ?>
@@ -72,10 +72,9 @@
                    <input type="reset" value="Reset" class="btn btn-danger">
                </div>
            </div>
-        <?= form_close();?> 
+        <?= form_close();?>
        </div>
 </div>
-
 <script type="text/javascript">
 
 		var rupiah = document.getElementById('rupiah');
@@ -103,4 +102,3 @@
 			return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
 		}
 	</script>
-

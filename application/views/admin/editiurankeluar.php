@@ -6,19 +6,19 @@
  <div class="container">
      <div class="row bg-white rounded shadow border-left-primary">
        <div class="col px-0">
-       <?php foreach($pengeluaran as $b){?> 
+       <?php foreach($pengeluaran as $b){?>
        <?=form_open_multipart("Bendahara/update_data_iuran_keluar");?>
            <div class="row px-3 my-3">
                <div class="col">
                <div class="form-group form-input">
                         <label for="diberikan_kepada">Kelompok Anggaran</label>
                         <select name="diberikan_kepada" id="diberikan_kepada" class="form-control">
-                            <option selected disabled>-- Kelompok Anggaran --</option>
-                            <option <?php echo $b->diberikan_kepada == 'Fotocopy' ? 'selected' : 'Fotocopy' ?> value="Fotocopy">Fotocopy</option>
-                            <option <?php echo $b->diberikan_kepada == 'Gaji Petugas' ? 'selected' : 'Gaji Petugas' ?> value="Gaji Petugas">Gaji Petugas</option>
-                            <option <?php echo $b->diberikan_kepada == 'Kesehatan' ? 'selected' : 'Kesehatan' ?> value="Kesehatan">Kesehatan</option>
-                            <option <?php echo $b->diberikan_kepada == 'Dukacita' ? 'selected' : 'Dukacita' ?>value="Duka Cita">Duka Cita</option>
-                            <option <?php echo $b->diberikan_kepada == 'Kebersihan' ? 'selected' : 'Kebersihan' ?>value="Kebersihan">Kebersihan</option>
+                            <option selected value="<?= $b->diberikan_kepada;?>"><?= $b->diberikan_kepada;?></option>
+                            <option value="Fotocopy">Fotocopy</option>
+                            <option value="Gaji Petugas">Gaji Petugas</option>
+                            <option value="Kesehatan">Kesehatan</option>
+                            <option value="Duka Cita">Duka Cita</option>
+                            <option value="Kebersihan">Kebersihan</option>
                             <!-- <option value="DIPLOMA II">DIPLOMA II</option>
                             <option value="AKADEMI/DIPLOMA III/S. MUDA">AKADEMI/DIPLOMA III/S. MUDA</option>
                             <option value="DIPLOMA IV/STRATA I">DIPLOMA IV/STRATA I</option>
@@ -39,7 +39,7 @@
                        <div class="invalid-feedback">
                        </div>
                    </div>
-                   
+
                    <div class="form-group form-input">
                        <label for="input-digunakan_untuk">Keterangan</label>
                        <input type="text" name="digunakan_untuk" id="input-digunakan_untuk" class="form-control" value="<?php echo $b->digunakan_untuk ?>">
@@ -49,7 +49,7 @@
                    <div class="form-group form-input">
                        <label for="input-gambar">Gambar</label>
                        <input type="file" name="gambar" id="input-gambar" class="form-control" value="<?php echo $b->gambar ?>">
-                       <div class="invalid-feedback">      
+                       <div class="invalid-feedback">
                      </div>
                    </div>
            <div class="col">
