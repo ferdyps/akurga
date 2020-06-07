@@ -13,17 +13,6 @@
       <hr class="sidebar-divider my-0">
 
       <!-- Nav Item - Dashboard -->
-      <!-- <li class="nav-item active">
-        <a class="nav-link" href="<?php echo base_url("admin/index");?>">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Dashboard</span></a>
-      </li> -->
-
-      <!-- Divider -->
-      <!-- <hr class="sidebar-divider"> -->
-      <?php if ( $this->session->userdata('role') == 'Ketua RW') { ?>
-
-      <!-- Heading -->
       <li class="nav-item active">
         <a class="nav-link" href="<?php echo base_url("admin/index");?>">
           <i class="fas fa-fw fa-tachometer-alt"></i>
@@ -32,6 +21,9 @@
 
       <!-- Divider -->
       <hr class="sidebar-divider">
+      <?php if ( $this->session->userdata('role') == 'Ketua RW') { ?>
+
+      <!-- Heading -->
       <div class="sidebar-heading">
         Ketua RW
       </div>
@@ -57,28 +49,10 @@
           <i class="fas fa-fw fa-address-book"></i>
           <span>Akun</span></a>
       </li>
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUsulKetuaRW" aria-expanded="true" aria-controls="collapseUsulKetuaRW">
-          <i class="fas fa-fw fa-cog"></i>
-          <span>Usulan Surat Undangan</span>
-        </a>
-        <div id="collapseUsulKetuaRW" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="<?php echo base_url("ketuaRW/usul_pembuatanRW");?>">Usulan Pembuatan Surat</a>
-            <a class="collapse-item" href="<?php echo base_url("ketuaRW/tbl_usulan_ketuaRW");?>">Riwayat Usulan Surat</a>
-          </div>
-        </div>
-      </li>
       <hr class="sidebar-divider">
 
 
       <?php } elseif ( $this->session->userdata('role') == 'Ketua RT'){ ?>
-      <li class="nav-item active">
-        <a class="nav-link" href="<?php echo base_url("admin/index");?>">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Dashboard</span></a>
-      </li>
       <div class="sidebar-heading">
         Ketua RT
       </div>
@@ -124,11 +98,11 @@
 
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUsulKetuaRT" aria-expanded="true" aria-controls="collapseUsulKetuaRT">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePengurus" aria-expanded="true" aria-controls="collapsePengurus">
           <i class="fas fa-fw fa-cog"></i>
           <span>Usulan Surat Undangan</span>
         </a>
-        <div id="collapseUsulKetuaRT" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="collapsePengurus" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <a class="collapse-item" href="<?php echo base_url("ketuaRT/usul_pembuatan");?>">Usulan Pembuatan Surat</a>
             <a class="collapse-item" href="<?php echo base_url("ketuaRT/tbl_usulan_ketua");?>">Riwayat Usulan Surat</a>
@@ -137,11 +111,6 @@
       </li>
           <hr class="sidebar-divider">
       <?php } else if ( $this->session->userdata('role') == 'Bendahara'){ ?>
-      <li class="nav-item active">
-        <a class="nav-link" href="<?php echo base_url("admin/index");?>">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Dashboard</span></a>
-      </li>
       <div class="sidebar-heading">
         Bendahara
       </div>
@@ -171,7 +140,7 @@
           <div class="bg-white py-2 collapse-inner rounded">
             <!-- <a class="collapse-item" href="<?php echo base_url("Bendahara/formpengeluaran");?>">Form Pengeluaran</a>
             <a class="collapse-item" href="<?php echo base_url("Bendahara/tabeldataiurankeluar");?>">Tabel Pengeluaran</a> -->
-            <a class="collapse-item" href="<?php echo base_url("Bendahara/formpemasukan");?>">Form Pemasukan</a>
+            <!-- <a class="collapse-item" href="<?php echo base_url("Bendahara/formpemasukan");?>">Form Pemasukan</a> -->
             <a class="collapse-item" href="<?php echo base_url("Bendahara/tabelpemasukan");?>">Tabel Pemasukan</a>
             <a class="collapse-item" href="<?php echo base_url("Bendahara/tampilbulan");?>">Tabel Tampilan Bulan</a>
           </div>
@@ -183,14 +152,8 @@
           <span>Laporan Keuangan</span>
         </a>
       </li>
-
       <hr class="sidebar-divider">
       <?php } else if ( $this->session->userdata('role') == 'Kolektor Iuran'){ ?>
-      <li class="nav-item active">
-        <a class="nav-link" href="<?php echo base_url("admin/index");?>">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Dashboard</span></a>
-      </li>
       <div class="sidebar-heading">
         Kolektor Iuran
       </div>
@@ -225,11 +188,6 @@
       </li>
 
     <?php }elseif ( $this->session->userdata('role') == 'Sekretaris RT' || $this->session->userdata('role') == 'Sekretaris RW' ) {?>
-    <li class="nav-item active">
-        <a class="nav-link" href="<?php echo base_url("admin/index");?>">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Dashboard</span></a>
-      </li>
       <!-- ================================ SEKRETARIS ========================================== -->
 
       <div class="sidebar-heading">Sekretaris</div>

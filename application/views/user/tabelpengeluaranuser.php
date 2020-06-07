@@ -17,9 +17,9 @@
             <th>NO</th>
             <!-- <th>NO Pengeluaran</th> -->
             <!-- <th>Diberikan Kepada</th> -->
-            <th>Nominal</th>
-            <th>Tanggal</th>
             <th>Anggaran</th>
+            <th>Tanggal</th>
+            <th>Nominal </th>
             <th>Keterangan</th>
             <th>Gambar</th>
             <!-- <th>Aksi</th> -->
@@ -35,9 +35,9 @@
           <tr>
             <td><?php echo $no++; ?></td>
             <!-- <td><?php echo $b['no_pengeluaran']; ?></td>    -->
-            <td>Rp. <?php echo number_format ($b['nominal'],2); ?></td>
-            <td><?php echo $b['tanggal']; ?></td>
             <td><?php echo $b['diberikan_kepada']; ?></td> 
+            <td><?php echo $b['tanggal']; ?></td>
+            <td>Rp. <?php echo number_format ($b['nominal'],2); ?></td>
             <td><?php echo $b['digunakan_untuk'] ?></td>
             <!-- <td><?php echo $b['gambar'] ?></td> -->
             <td><img src="<?php echo base_url('/uploads/gambar/'.$b['gambar']);?>" height="50px" width="50px"></td>
@@ -48,9 +48,9 @@
         <?php } ?>
         <tr>
       <td>Total</td>
+      <td></td>
+      <td></td>
       <td>Rp. <?php echo number_format($sum,2) ;?> </td>
-      <td></td>
-      <td></td>
       <td></td>
       <td></td>
     </tr>

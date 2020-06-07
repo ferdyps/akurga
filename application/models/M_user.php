@@ -66,7 +66,7 @@
           return $this->db->get();
         }
         
-        public function tampil_iuran_perbulan(){
+        public function tampil_iuran_perbulan($id_user){
             return $this->db->query("SELECT
               `no_pembayaran`,
               w.nik as nik,
@@ -76,35 +76,36 @@
               SUM(nominal) AS jumlah_iuran
               FROM `pembayaran` p
               JOIN warga w ON w.nik = p.nik
+              JOIN user u ON u.id_user = w.id_user
+              WHERE u.id_user = $id_user
               GROUP BY p.nik");
           }
-
-        public function tampil_iuran_perbulan_pertahun($where){
+          public function tampil_iuran_perbulan_pertahun($tahun,$id_user){
             return $this->db->query("SELECT
                 `no_pembayaran`,
                 w.nik as nik,
                 w.nama AS nama_warga,
                 `tanggal`,
-                (SELECT nominal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'Januari' and tahun = $where) AS bulan_januari,
-                (SELECT nominal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'Februari' and tahun = $where) AS bulan_februari,
-                (SELECT nominal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'Maret' and tahun = $where) AS bulan_maret,
-                (SELECT nominal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'April' and tahun = $where) AS bulan_april,
-                (SELECT nominal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'Mei' and tahun = $where) AS bulan_mei,
-                (SELECT nominal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'Juni' and tahun = $where) AS bulan_juni,
-                (SELECT nominal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'Juli' and tahun = $where) AS bulan_juli,
-                (SELECT nominal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'Agustus' and tahun = $where) AS bulan_agustus,
-                (SELECT nominal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'September' and tahun = $where) AS bulan_september,
-                (SELECT nominal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'Oktober' and tahun = $where) AS bulan_oktober,
-                (SELECT nominal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'November' and tahun = $where) AS bulan_november,
-                (SELECT nominal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'Desember' and tahun = $where) AS bulan_desember,
+                (SELECT nominal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'Januari' and tahun = $tahun and u.id_user = $id_user) AS bulan_januari,
+                (SELECT nominal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'Februari' and tahun = $tahun and u.id_user = $id_user) AS bulan_februari,
+                (SELECT nominal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'Maret' and tahun = $tahun and u.id_user = $id_user) AS bulan_maret,
+                (SELECT nominal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'April' and tahun = $tahun and u.id_user = $id_user) AS bulan_april,
+                (SELECT nominal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'Mei' and tahun = $tahun and u.id_user = $id_user) AS bulan_mei,
+                (SELECT nominal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'Juni' and tahun = $tahun and u.id_user = $id_user) AS bulan_juni,
+                (SELECT nominal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'Juli' and tahun = $tahun and u.id_user = $id_user) AS bulan_juli,
+                (SELECT nominal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'Agustus' and tahun = $tahun and u.id_user = $id_user) AS bulan_agustus,
+                (SELECT nominal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'September' and tahun = $tahun and u.id_user = $id_user) AS bulan_september,
+                (SELECT nominal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'Oktober' and tahun = $tahun and u.id_user = $id_user) AS bulan_oktober,
+                (SELECT nominal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'November' and tahun = $tahun and u.id_user = $id_user) AS bulan_november,
+                (SELECT nominal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'Desember' and tahun = $tahun and u.id_user = $id_user) AS bulan_desember,
                 jenis_warga,
                 SUM(nominal) AS jumlah_iuran,
                 tahun
             FROM `pembayaran` p
             LEFT OUTER JOIN warga w ON w.nik = p.nik
-            WHERE TAHUN = $where
+            JOIN user u ON u.id_user = w.id_user
+            where tahun = $tahun and u.id_user = $id_user
             GROUP BY p.nik");
-        
         }
         public function tampil_iuran_keluar(){
             // return $this->db->get('pengeluaran');

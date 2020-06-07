@@ -14,6 +14,7 @@
 
             $this->id_user = $this->session->userdata('id_user');
             $this->role = $this->session->userdata('role');
+            $this->rt = $this->session->userdata('rt');
 
             if(!$this->session->has_userdata('status')){
                 redirect('auth/','refresh');
@@ -29,6 +30,7 @@
         public function index(){
             $dataPoints = array();
             $dataPoints2 = array();
+            $rt = $this->session->userdata('rt');
             $usulanPoints = $this->m_admin->CountData('surat_undangan', 'status', 0)->result_array();
             $query = $this->m_admin->CountData('warga','valid',0)->result_array();
             $result = $this->m_admin->grafikPendidikan()->result();
@@ -46,7 +48,7 @@
                 'dataPoints'    => $dataPoints,
                 'dataPoints2'   => $dataPoints2,
                 'usulan_points' => $usulanPoints,
-                'dataiurank'    => $this->m_admin->tampil_iuran_keluar()->result_array(),
+                'dataiurank'    => $this->m_admin->tampil_iuran_keluar($rt)->result_array(),
             ];
             $this->load->view('admin/index', $data);
         }
@@ -89,11 +91,12 @@
             // );
             // $data['dataiuran'] = $this->petugas_model->view_data($where,'iuran_masuk')->result();
             $filtertahun = addslashes($this->input->get('tahun'));
+            $rt = $this->session->userdata('rt');
 
             if(!empty($filtertahun)){
-                  $data['masuk'] = $this->m_admin->iuranmasuk($filtertahun)->result();
+                  $data['masuk'] = $this->m_admin->iuranmasuk($rt,$filtertahun)->result();
             }else{
-                  $data['masuk'] = $this->m_admin->iuranmasuk()->result();
+                  $data['masuk'] = $this->m_admin->iuranmasuk($rt)->result();
             }
             $data['content'] = "admin/rekapbulan";
             $data['title'] = 'Tabel Data Rekap';
@@ -107,35 +110,31 @@
 
             $data['content'] = "admin/tampilbulan";
             $data['title'] = 'Tabel Data Bulan';
-            $data['iuran'] = $this->m_admin->tampil_iuran_perbulan()->result();
+            $rt = $this->session->userdata('rt');
+            $data['iuran'] = $this->m_admin->tampil_iuran_perbulan($rt)->result();
 
             $filtertahun = addslashes($this->input->get('tahun'));
 
             $data['tahun'] = $this->m_admin->tampilTahunPembayaran()->result();
             if(!empty($filtertahun)){
-                $data['iuranTahun'] = $this->m_admin->tampil_iuran_perbulan_pertahun($filtertahun)->result();
+                $data['iuranTahun'] = $this->m_admin->tampil_iuran_perbulan_pertahun($rt,$filtertahun)->result();
             }
 
 
             $this->load->view('admin/index',$data);
         }
 
-        public function tabelpemasukan(){
-            $data['title'] = 'Tabel Data Keluar';
-            $data['dataiuranmsk'] = $this->m_admin->tampil_iuran_masuk()->result_array();
-            $data['content'] = "admin/tabelpemasukan.php";
-            $this->load->view('admin/index',$data);
-        }
         public function filterPemasukan()
         {
             $bulan = $this->input->get('bulan');
+            $rt = $this->session->userdata('rt');
             $where = [
                 'pembayaran_bulan' => $bulan
             ];
             if ($bulan == '' || $bulan == null) {
-                echo json_encode($this->m_admin->tampil_iuran_masuk()->result());
+                echo json_encode($this->m_admin->tampil_iuran_masuk($rt)->result());
             } else {
-                echo json_encode($this->m_admin->tampil_iuran_masuk($where)->result());
+                echo json_encode($this->m_admin->tampil_iuran_masuk($rt,$where)->result());
             }
         }
         public function formpengeluaran(){
@@ -178,15 +177,30 @@
 
             $this->load->view('admin/index',$data);
         }
+
+        public function tabelpemasukan(){
+            $data['title'] = 'Tabel Data Pemasukkan';
+            $rt = $this->session->userdata('rt');
+
+            $data['dataiuranmsk'] = $this->m_admin->tampil_iuran_masuk($rt)->result_array();
+            $data['content'] = "admin/tabelpemasukan.php";
+            $this->load->view('admin/index',$data);
+        }
+
         public function tabeldataiurankeluar(){
             $data['title'] = 'Tabel Data Keluar';
-            $data['dataiurank'] = $this->m_admin->tampil_iuran_keluar()->result_array();
+            $rt = $this->session->userdata('rt');
+
+            $data['dataiurank'] = $this->m_admin->tampil_iuran_keluar($rt)->result_array();
             $data['content'] = "admin/tabelpengeluaran.php";
              $this->load->view('admin/index',$data);
         }
+
         public function tabeldataiurankeluaruser(){
             $data['title'] = 'Tabel Data Keluar';
-            $data['dataiurank'] = $this->m_admin->tampil_iuran_keluar()->result_array();
+            $rt = $this->session->userdata('rt');
+
+            $data['dataiurank'] = $this->m_admin->tampil_iuran_keluar($rt)->result_array();
             $data['content'] = "admin/tabelpengeluaranuser.php";
              $this->load->view('admin/index',$data);
         }
@@ -201,6 +215,7 @@
         }
         public function edit_iuran_keluar($no_pengeluaran)
         {
+          $data['title'] = 'Edit iuran keluar';
             $where = array(
                 'no_pengeluaran' => $no_pengeluaran
             );
@@ -234,72 +249,73 @@
         }
 
         public function detail_iuran_keluar($no_pengeluaran){
+          $data['title'] = 'Detail Iuran Keluar';
             $where = array(
                 'no_pengeluaran' => $no_pengeluaran
             );
+
 
             $data['detailpengeluaran'] = $this->m_admin->view_detail_pengeluaran($where,'pengeluaran')->result();
             // var_dump($this->m_admin->detail($where)->result());
             $data['content']="admin/detailpengeluaran.php";
             $this->load->view('admin/index',$data);
         }
-        function update_data_iuran_masuk(){
-            if($this->input->post('edit_keluar')){
-                $no_pengeluaran = $this->session->userdata('no_pengeluaran');
-                $diberikan_kepada = $this->input->post('diberikan_kepada');
-                $tanggal = $this->input->post('tanggal');
-                $nominal = $this->input->post('nominal');
-                $digunakan_untuk = $this->input->post('digunakan_untuk');
-                $gambar = $this->input->post('gambar');
-
-                $dataiurankeluar = array(
-                    'no_pengeluaran' => $no_pengeluaran,
-                    'diberikan_kepada' => $diberikan_kepada,
-                    'tanggal' => $tanggal,
-                    'nominal' => $nominal,
-                    'digunakan_untuk' => $digunakan_untuk,
-                    'gambar' => $gambar
-
-                );
-
-                $where = array(
-                    'no_pengeluaran' => $no_pengeluaran
-                );
-
-                $this->m_admin->update_data($where,$dataiurankeluar,'pengeluaran');
-                redirect(base_url('Bendahara/tabeldataiurankeluar'),'refresh');
-            } else {
-                redirect(base_url('Bendahara/editiurankeluar'),'refresh');
-            }
-        }
+        
 	function update_data_iuran_keluar(){
 		if($this->input->post('edit_keluar')){
-			$no_pengeluaran = $this->session->userdata('no_pengeluaran');
-			$diberikan_kepada = $this->input->post('diberikan_kepada');
-			$tanggal = $this->input->post('tanggal');
-			$nominal = $this->input->post('nominal');
+      			$no_pengeluaran = $this->session->userdata('no_pengeluaran');
+      			$diberikan_kepada = $this->input->post('diberikan_kepada');
+      			$tanggal = $this->input->post('tanggal');
+      			$nominal = $this->input->post('nominal');
             $digunakan_untuk = $this->input->post('digunakan_untuk');
-            $gambar = $this->input->post('gambar');
+            $gambar = $_FILES['gambar']['name'];
 
-			$dataiurankeluar = array(
-				'no_pengeluaran' => $no_pengeluaran,
-				'diberikan_kepada' => $diberikan_kepada,
-				'tanggal' => $tanggal,
-				'nominal' => $nominal,
-                'digunakan_untuk' => $digunakan_untuk,
-                'gambar' => $gambar
+            $config['max_size'] =0;
+            $config['max_width']=0;
+            $config['max_height']=0;
+            $config['allowed_types'] = "png|jpg|jpeg|gif";
+            $config['upload_path']='./uploads/gambar';
 
-			);
+            $this->load->library('upload');
+            $this->upload->initialize($config);
 
-			$where = array(
-				'no_pengeluaran' => $no_pengeluaran
-			);
+            $this->upload->do_upload('gambar');
+            $data_image=$this->upload->data('file_name');
+            $gambar = $data_image;
 
-			$this->m_admin->update_data($where,$dataiurankeluar,'pengeluaran');
-			redirect(base_url('Bendahara/tabeldataiurankeluar'),'refresh');
-		} else {
-			redirect(base_url('Bendahara/editiurankeluar'),'refresh');
-		}
+            if(!empty($gambar)){
+        			$dataiurankeluar = array(
+                				'no_pengeluaran' => $no_pengeluaran,
+                				'diberikan_kepada' => $diberikan_kepada,
+                				'tanggal' => $tanggal,
+                				'nominal' => $nominal,
+                        'digunakan_untuk' => $digunakan_untuk,
+                        'gambar' => $gambar
+
+        			);
+            }else{
+              $dataiurankeluar = array(
+                        'no_pengeluaran' => $no_pengeluaran,
+                        'diberikan_kepada' => $diberikan_kepada,
+                        'tanggal' => $tanggal,
+                        'nominal' => $nominal,
+                        'digunakan_untuk' => $digunakan_untuk
+
+              );
+            }
+
+      			$where = array(
+      				'no_pengeluaran' => $no_pengeluaran
+      			);
+
+			    $this->m_admin->update_data($where,$dataiurankeluar,'pengeluaran');
+          $rt = $this->session->userdata('rt');
+          $data['dataiurank'] = $this->m_admin->tampil_iuran_keluar($rt)->result_array();
+          $data['content'] = "admin/tabelpengeluaran.php";
+          $this->load->view('admin/index',$data);
+  		} else {
+  			redirect(base_url('Bendahara/editiurankeluar'),'refresh');
+  		}
     }
     public function iuranmasuk(){
       $data['title'] = 'Tabel Data Keluar';
@@ -307,7 +323,6 @@
         if($this->input->post('submit_masuk')){
 
             $this->form_validation->set_rules('nik','Nik','required');
-            $this->form_validation->set_rules('pembayaran_bulan', 'Pembayaran Bulan', 'required');
             // $this->form_validation->set_rules('tahun', 'Tahun', 'required');
             $this->form_validation->set_rules('nominal', 'Nominal', 'required');
             $this->form_validation->set_rules('tanggal', 'Tanggal', 'required');
@@ -321,49 +336,21 @@
                 // $this->load->view('admin/formpengeluaran');
             } else {
                 $nik = $this->input->post('nik');
-                $pembayaran_bulan = $this->input->post('pembayaran_bulan');
-                $tahun = $this->input->post('tahun');
+                $pembayaran_bulan = substr($this->input->post('bulantahun'),0,-7);
+                $tahun = substr($this->input->post('bulantahun'),-4);
                 $nominal = $this->input->post('nominal');
                 $bulan = $this->m_admin->tampil_bulan_iuran($nik)->result();
                 // print_r($bulan);
                 foreach ($bulan as $value) {
                     if (($pembayaran_bulan == $value->pembayaran_bulan) && ($tahun == $value->tahun)){
                         $this->session->set_flashdata('pembayaran', 'maaf user sudah membayar');
-                        redirect("Bendahara/formpemasukan");
+                        redirect("Bendahara/formpemasukan?filternik=$nik");
                     } else {
 
                     }
                 }
 
                 $tanggal = date("Y-m-d",strtotime($tanggal));
-            // $gambar = $_FILES['gambar']['name'];
-
-            // $config['max_size'] =0;
-            // $config['max_width']=0;
-            // $config['max_height']=0;
-            // $config['allowed_types'] = "png|jpg|jpeg|gif";
-            // $config['upload_path']='./uploads/gambar';
-
-            // $this->load->library('upload');
-            // $this->upload->initialize($config);
-
-            // $this->upload->do_upload('gambar');
-            // $data_image=$this->upload->data('file_name');
-            // $gambar = $data_image;
-
-            // if(!$this->upload->do_upload('gambar')){
-            //     echo "gambar gak masook";
-            //     $error = array
-            //     ('error'=>$this->upload->display_errors());
-            //     $this->load->view('admin/tabelpengeluaran',$error);
-            // }else{
-            //     $data = array(
-            //         'upload_data'=>$this->upload->data()
-            //     );
-            //     $file = $this->upload->data();
-            //     $gambar=$file['file_name'];
-            //     $gambar="gambar.jpg";
-            // }
 
                 $dataiuranmasuk = array(
                     'nik' => $nik,
@@ -377,6 +364,7 @@
                 $query = $this->m_admin->isi_data_iuran_masuk($dataiuranmasuk);
                 print_r($query);
                 $this->session->set_userdata($dataiuranmasuk);
+                $rt = $this->session->userdata('rt');
 
                 if($query){
                     ?>
@@ -384,17 +372,14 @@
                             alert("Berhasil Isi Data")
                     </script>
                     <?php
-                    $data['dataiuranmsk'] = $this->m_admin->tampil_iuran_masuk()->result_array();
-                    $data['content'] = "admin/tabelpemasukan.php";
-                    $this->load->view('admin/index',$data);
+                    redirect(base_url('Bendahara/tampilbulan'),'refresh');
                 }else{
                     ?>
                     <script>
                             alert("Gagal Isi Data")
                     </script>
                     <?php
-                    $data['content'] = "admin/formpemasukan.php";
-                    $this->load->view('admin/index',$data);
+                    redirect(base_url('Bendahara/formpemasukan'),'refresh');
                 }
 
         }
@@ -450,13 +435,14 @@
                     // $file = $this->upload->data();
                     // $gambar=$file['file_name'];
                     // $gambar="gambar.jpg";
-
+                $rt = $this->session->userdata('rt');
 
                     $dataiurankeluar = array(
                         'diberikan_kepada' => $diberikan_kepada,
                         'tanggal'=> $tanggal,
                         'nominal' => $nominal,
                         'digunakan_untuk' => $digunakan_untuk,
+                        'rt' => $rt,
                         'gambar' => $gambar,
                     );
 
@@ -470,7 +456,8 @@
                                 alert("Berhasil Isi Data")
                         </script>
                         <?php
-                        $data['dataiurank'] = $this->m_admin->tampil_iuran_keluar()->result_array();
+                        $rt = $this->session->userdata('rt');
+                        $data['dataiurank'] = $this->m_admin->tampil_iuran_keluar($rt)->result_array();
                         $data['content'] = "admin/tabelpengeluaran.php";
                         $this->load->view('admin/index',$data);
                     }else{

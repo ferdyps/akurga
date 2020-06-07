@@ -7,8 +7,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <?= form_open_multipart('sekretaris/editArsipMasuk', ['id' => 'default-form', 'log' => 'Edit Arsip Surat Masuk']);?>
-      <!-- <div id="flash-data2" data-flashdata2="<?= $this->session->flashdata('error'); ?>"></div> -->
+      <?= form_open_multipart('sekretaris/editArsipMasuk', ['id' => 'edit-formrpt', 'log' => 'Edit Arsip Surat Masuk']);?>
                 <div class="row px-3 my-3">
                     <div class="col">
                         <div class="form-group form-input">

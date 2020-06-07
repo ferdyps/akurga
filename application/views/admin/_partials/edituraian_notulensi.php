@@ -7,7 +7,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <?= form_open('sekretaris/editUraianNotulen', ['id' => 'default-form' , 'log' => 'Edit Uraian Notulensi']);?>
+      <?= form_open('sekretaris/editUraianNotulen', ['id' => 'edit-formrpt' , 'log' => 'Edit Uraian Notulensi']);?>
       <div class="row px-3 my-3">
           <div class="col">
               <div class="form-group form-input">
@@ -21,19 +21,28 @@
 
       <div class="row px-3 my-3">
           <div class="col">
+            <div class="form-group form-input">
+                <label for="edit-tembusan">Tembusan</label>
+                <textarea class="form-control" name="tembusan" id="edit-tembusan"></textarea>
+                <div class="invalid-feedback">
+
+              </div>
+            </div>
               <div class="form-group form-input">
                 <label>Uraian Notulensi</label>
                 <div class="alert alert-success" role="alert">
                     Lakukan pengeditan uraian notulensi di <b>microsoft word</b> terlebih dahulu. Lalu <b>copy paste</b> semua tulisan dari file <b>microsoft word</b> anda ke dalam input di bawah ini . .
                 </div>
-                <label>Untuk versi cetak</label>
-                <textarea cols="30" rows="10" class="form-control" name="uraian_notulen_cetak" id="edit-uraian_notulen_pdf"></textarea>
+                <label class="small">Untuk versi cetak</label>
+                <textarea cols="30" rows="10" class="form-control" name="uraian_notulen_cetak" id="edit-uraian_notulen_cetak"></textarea>
                 <div class="invalid-feedback"></div>
-                <br>
-                <label>Untuk versi unggah ke web</label>
+              </div>
+              <div class="form-group form-input">
+                <label class="small">Untuk versi unggah ke web</label>
                 <textarea name="uraian_notulen" id="edit-uraian_notulen" cols="30" rows="10"></textarea>
                 <div class="invalid-feedback"></div>
               </div>
+
           </div>
       </div>
       <div class="col">
@@ -50,7 +59,7 @@
 
 <script>
 tinymce.init({
-  selector: 'textarea#edit-uraian_notulen',
+  selector: '#edit-uraian_notulen',
   plugins: 'advlist autolink lists link image charmap print preview hr anchor pagebreak',
   toolbar_mode: 'floating',
   tinycomments_mode: 'embedded',

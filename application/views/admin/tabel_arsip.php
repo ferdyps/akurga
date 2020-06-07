@@ -3,7 +3,6 @@
 
   <!-- Page Heading -->
   <h1 class="h3 mb-2 text-gray-800">Riwayat Arsip Surat</h1>
-  <div id="flash-data2" data-flashdata2="<?= $this->session->flashdata('error'); ?>"></div>
   <!-- DataTales Example -->
   <div class="card shadow mb-4">
     <div class="card-header py-3">
