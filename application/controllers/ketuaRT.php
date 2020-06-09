@@ -45,6 +45,8 @@
             $result = $this->m_admin->grafikPendidikanRT($rt)->result();
             $result2 = $this->m_admin->grafikPekerjaanRT($rt)->result();
             $result3 = $this->m_admin->grafikWarga($rt)->result();
+
+            // $tampil_iuran = $this->m_admin->tampil_iuran_keluar($rt)->result_array();
             foreach ($result as $row) {
                 array_push($dataPoints, array('label' => $row->pendidikan, 'y' => $row->total));
             }
@@ -62,7 +64,7 @@
                 'dataPoints2'   => $dataPoints2,
                 'dataPoints3'   => $dataPoints3,
                 'usulan_points' => $usulanPoints,
-                'dataiurank'    => $this->m_admin->tampil_iuran_keluar()->result_array(),
+                // 'dataiurank'    => $tampil_iuran,
                 'rt' => $rt,
                 'nama' => $this->nama
             ];

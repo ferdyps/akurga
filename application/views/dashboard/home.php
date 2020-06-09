@@ -50,9 +50,16 @@
         </div>
         <div class="col-lg-3 col-md-6 text-center">
           <div class="mt-5">
-            <i class="fas fa-4x fa-globe text-primary mb-4"></i>
-            <h3 class="h4 mb-2">Ready to Publish</h3>
-            <p class="text-muted mb-0">You can use this design as is, or you can make changes!</p>
+            <i class="fas fa-4x fa-meetup text-primary mb-4"></i>
+            <h3 class="h4 mb-2">Rapat</h3>
+            <p class="text-muted mb-0"></p>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6 text-center">
+          <div class="mt-5">
+            <i class="fas fa-4x fa-meetup text-primary mb-4"></i>
+            <h3 class="h4 mb-2">Notulensi</h3>
+            <p class="text-muted mb-0"></p>
           </div>
         </div>
       </div>
@@ -60,7 +67,7 @@
   </section>
 
   <!-- Portfolio Section -->
-  <section id="portfolio">
+  <!-- <section id="portfolio">
     <h2 class="text-center mt-0">Struktur Organisasi RT</h2>
     <hr class="divider my-4">
     <div class="container-fluid p-0">
@@ -145,7 +152,7 @@
         </div>
       </div>
     </div>
-  </section>
+  </section> -->
 
   <!-- Contact Section -->
   <section class="page-section" id="contact">
@@ -160,7 +167,7 @@
       <div class="row">
         <div class="col ml-auto text-center mb-5 mb-lg-0">
           <i class="fas fa-phone fa-3x mb-3 text-muted"></i>
-          <div>+1 (202) 555-0149</div>
+          <div>(021) 555 0149</div>
         </div>
       </div>
     </div>
