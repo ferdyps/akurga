@@ -38,12 +38,12 @@
             <div class="row no-gutters align-items-center">
               <div class="col-auto">
                 <?php
-                $sum = 0;
-                foreach($dataiurank as $b) {
-                  $sum += $b['nominal'];
-                }
+                // $sum = 0;
+                // foreach($dataiurank as $b) {
+                //   $sum += $b['nominal'];
+                // }
                 ?>
-                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><?= $sum ?></div>
+                <!-- <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><?= $sum ?></div> -->
               </div>
               <div class="col">
                 <div class="progress progress-sm mr-2">
