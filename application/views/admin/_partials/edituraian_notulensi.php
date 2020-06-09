@@ -24,9 +24,8 @@
             <div class="form-group form-input">
                 <label for="edit-tembusan">Tembusan</label>
                 <textarea class="form-control" name="tembusan" id="edit-tembusan"></textarea>
-                <div class="invalid-feedback">
-
-              </div>
+                <div class="invalid-feedback"></div>
+                <p class="text-mute">* Inputkan " _ " jika tidak terdapat tembusan</p>
             </div>
               <div class="form-group form-input">
                 <label>Uraian Notulensi</label>

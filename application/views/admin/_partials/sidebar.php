@@ -13,11 +13,11 @@
       <hr class="sidebar-divider my-0">
 
       <!-- Nav Item - Dashboard -->
-      <li class="nav-item active">
+      <!-- <li class="nav-item active">
         <a class="nav-link" href="<?php echo base_url("admin/index");?>">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
-      </li>
+      </li> -->
 
       <!-- Divider -->
       <hr class="sidebar-divider">
@@ -48,6 +48,19 @@
         <a class="nav-link" href="<?= base_url('ketuaRW/list_akun')?>">
           <i class="fas fa-fw fa-address-book"></i>
           <span>Akun</span></a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePengurus" aria-expanded="true" aria-controls="collapsePengurus">
+          <i class="fas fa-fw fa-cog"></i>
+          <span>Usulan Surat Undangan</span>
+        </a>
+        <div id="collapsePengurus" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="<?php echo base_url("ketuaRW/usul_pembuatanRW");?>">Usulan Pembuatan Surat</a>
+            <a class="collapse-item" href="<?php echo base_url("ketuaRW/tbl_usulan_ketuaRW");?>">Riwayat Usulan Surat</a>
+          </div>
+        </div>
       </li>
       <hr class="sidebar-divider">
 
@@ -189,9 +202,13 @@
 
     <?php }elseif ( $this->session->userdata('role') == 'Sekretaris RT' || $this->session->userdata('role') == 'Sekretaris RW' ) {?>
       <!-- ================================ SEKRETARIS ========================================== -->
-
+      <li class="nav-item active">
+        <a class="nav-link" href="<?php echo base_url("sekretaris/index");?>">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>Dashboard</span></a>
+      </li>
+      <hr class="sidebar-divider">
       <div class="sidebar-heading">Sekretaris</div>
-
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSekretarisUndangan" aria-expanded="true" aria-controls="collapseSekretarisUndangan">
           <i class="fas fa-fw fa-cog"></i>

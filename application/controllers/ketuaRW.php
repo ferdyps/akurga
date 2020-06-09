@@ -5,6 +5,7 @@
     class KetuaRW extends CI_Controller {
 
         public $id_user;
+        public $rt;
         public function __construct(){
             parent::__construct();
             $this->load->model('m_admin');
@@ -15,6 +16,7 @@
             $this->id_user = $this->session->userdata('id_user');
             $this->role = $this->session->userdata('role');
             $this->nama = $this->session->userdata('nama');
+            $this->rt = $this->session->userdata('rt');
 
             if(!$this->session->has_userdata('status')){
                 redirect('auth/','refresh');
@@ -57,7 +59,7 @@
                 'dataPoints2'   => $dataPoints2,
                 'dataPoints3'   => $dataPoints3,
                 'usulan_points' => $usulanPoints,
-                'dataiurank'    => $this->m_admin->tampil_iuran_keluar()->result_array(),
+                'dataiurank'    => $this->m_admin->tampil_iuran_keluar($this->rt)->result_array()
             ];
             $this->load->view('admin/index', $data);
         }
@@ -109,6 +111,7 @@
                 } else {
                     $json['errors'] = "Role gagal diubah..";
                 }
+                echo json_encode($json);
         }
 
         public function daftarKomplainRW(){
@@ -124,7 +127,7 @@
         }
 
         public function inputHasilKomplainRW($no_komplen){
-            
+
             $data = [
                 'content' => 'admin/inputHasilKomplainRW',
                 'title' => 'Input Hasil Komplain RW',
@@ -168,13 +171,13 @@
                         $data2 = [
                             'status' => 'selesai'
                         ];
-                    
+
                         $input_hasil = $this->m_admin->input_data('tindak_lanjut',$data);
                         $update_status = $this->m_admin->edit_data('komplain','nomor_komplain',$nomor_komplain,$data2);
-                        
+
                         if ($input_hasil && $update_status) {
                             $url = base_url('ketuaRW/daftarKomplainRW');
-    
+
                             $json = [
                                 'message' => "Hasil Tindak Lanjut Berhasil Diinput..",
                                 'url' => $url
@@ -209,7 +212,7 @@
             }
         }
 
-        
+
 
         public function klik_konfirmasi_data_warga($id){
             // $data['valid'] = 1;

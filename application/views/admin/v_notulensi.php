@@ -17,14 +17,19 @@
                        </div>
                    </div>
                    <div class="form-group form-input">
-                       <label for="dokumentasi_rpt">Dokumentasi Rapat</label>
-                       <div class="custom-file">
-                         <input type="file" name="dokumentasi_rpt" class="custom-file-input" id="dok_rpt">
-                         <label class="custom-file-label" for="dok_rpt">Choose file</label>
-                       </div>
-                       <p class="text-mute">*Ukuran file Maksimal 2 MB <br> *file yang di izinkan .jpg .jpeg, atau .png</p>
+                       <label for="tembusan">Tembusan</label>
+                       <textarea style="width: 520px;
+                     min-width:520px;
+                     max-width:520px;
+                     height:210px;
+                     min-height:125px;
+                     max-height:125px;"
+                     class="form-control" name="tembusan" id="input-tembusan"></textarea>
                        <div class="invalid-feedback"></div>
+                       <p class="text-mute">* Inputkan " _ " jika tidak terdapat tembusan</p>
                    </div>
+
+
 
 
 
@@ -32,18 +37,21 @@
                <!-- ====================Batas ke 2==================== -->
                <div class="col">
                  <div class="form-group form-input">
-                     <label for="tembusan">Tembusan</label>
-                     <textarea style="width: 520px;
-                   min-width:520px;
-                   max-width:520px;
-                   height:210px;
-                   min-height:125px;
-                   max-height:125px;"
-                   class="form-control" name="tembusan" id="input-tembusan"></textarea>
-                     <div class="invalid-feedback">
-
-                   </div>
+                     <label for="dokumentasi_rpt">Dokumentasi Rapat</label>
+                     <div class="custom-file">
+                       <input type="file" name="dokumentasi_rpt" class="custom-file-input" id="dok_rpt">
+                       <label class="custom-file-label" for="dok_rpt">Choose file</label>
+                     </div>
+                     <p class="text-mute">*Ukuran file Maksimal 2 MB <br> *file yang di izinkan .jpg .jpeg, atau .png</p>
+                     <div class="invalid-feedback"></div>
                  </div>
+                 <div class="form-group form-input">
+                     <label for="input-ket_dok_rpt">Keterangan Dokumentasi Rapat</label>
+                     <input type="text" name="ket_dok_rpt" id="input-ket_dok_rpt" class="form-control" placeholder="(detail keterangan gambar)">
+                     <div class="invalid-feedback"></div>
+                     <p class="text-mute">*Contoh = warga sedang membahas struktur organisasi. Foto: Gusti Tanati</p>
+                 </div>
+
 
                </div>
            </div>
@@ -54,13 +62,13 @@
                      <div class="alert alert-success" role="alert">
                          Lakukan <b>penulisan uraian notulensi</b> di <b>microsoft word</b> terlebih dahulu. Lalu <b>copy & paste</b> semua tulisan dari file <b>microsoft word</b> anda ke dalam input di bawah ini . .
                        </div>
-                       <label>Untuk versi cetak</label>
+                       <label class="small">Untuk versi cetak</label>
                        <textarea cols="30" rows="10" class="form-control" name="uraian_notulen_cetak" id="input-uraian_notulen_cetak"></textarea>
                        <div class="invalid-feedback"></div>
 
                    </div>
                    <div class="form-group form-input">
-                     <label>Untuk versi unggah ke web</label>
+                     <label class="small">Untuk versi unggah ke web</label>
                      <textarea name="uraian_notulen" id="text_area_notulen" cols="30" rows="10" class=""></textarea>
                      <div class="invalid-feedback"></div>
                    </div>

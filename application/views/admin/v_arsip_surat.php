@@ -16,11 +16,12 @@
                          <div class="invalid-feedback">
                          </div>
                      </div>
+                     <br>
                      <div class="form-group form-input">
                          <label for="input-no_surat">Nomor Surat</label>
                          <input type="text" name="no_surat" id="input-no_surat" class="form-control">
-                         <div class="invalid-feedback">
-                         </div>
+                         <div class="invalid-feedback"></div>
+                         <p class="text-mute">* Inputkan nomor surat yang terdapat pada surat.</p>
                      </div>
 
                      <div class="form-group form-input">
@@ -49,9 +50,7 @@
                                <label class="custom-file-label">Choose file</label>
                              </div>
                              <p class="text-mute">*Ukuran file Maksimal 2 MB <br> *file yang di izinkan .jpg .jpeg, atau .png</p>
-                             <div class="invalid-feedback">
-
-                           </div>
+                             <div class="invalid-feedback"></div>
                          </div>
                          <div class="form-group form-input">
                              <label for="input-tgl_surat">Tanggal Surat</label>
@@ -80,7 +79,6 @@
                  <div class="col">
                      <div class="form-group text-center">
                          <input type="submit" class="btn btn-primary">
-                         <input type="reset" value="Reset" class="btn btn-danger">
                      </div>
                  </div>
              </div>

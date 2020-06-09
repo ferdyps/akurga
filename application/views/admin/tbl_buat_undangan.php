@@ -49,7 +49,7 @@
                        href="<?= base_url("sekretaris/inputundangankegiatan").'/'.$row['no_udg'];?>"
                       <?php } ?>
                        class="d-none d-sm-inline-block btn btn-primary shadow-sm" title="Buat Surat Undangan">
-                       <i class="fas fa-plus-circle"></i>
+                       Buat Surat Undangan
                      </a>
                     </td>
                   </tbody>

@@ -25,24 +25,25 @@
                     foreach ($list_notulen as $row) {
                   ?>
                   <tbody class="text-center">
-                    <td><?= $row['no_notulen'] ?></td>
+                    <td><?= str_replace('-','/',$row['no_notulen']); ?></td>
                     <td><?= $row['penulis'] ?></td>
-                    <td><?= $row['tgl_buat'] ?></td>
+                    <td><?= strftime("%d %B %Y",strtotime($row['tgl_buat'])); ?></td>
                     <td><?= $row['tembusan'] ?></td>
                     <td>
                       <a href="<?= base_url("sekretaris/dokumentasi_rapat").'/'.$row['no_notulen'];?>" target="_blank" class="d-none d-sm-inline-block btn btn-primary shadow-sm" title="Detail Dokumentasi Rapat"><i class="fas fa-image"></i></a>
                     </td>
                     <td>
 
-                      <a href="<?= base_url("sekretaris/notulensi_rapat").'/'.$row['no_notulen'];?>" target="_blank" class="d-none d-sm-inline-block btn btn-primary shadow-sm" title="Lihat Isi Uraian Notulensi"><i class="fas fa-upload"></i></a>
 
                       <a href="#" class="d-none d-sm-inline-block btn btn-primary shadow-sm" id="editUraianNotulensi" title="Edit Uraian Notulensi"
                       data-url="<?= base_url('sekretaris/detailNotulen/'); ?>" data-notulensi="<?= $row['no_notulen']; ?>"
                       data-toggle="modal" data-target="#editUraianNotulensiModal"><i class="fas fa-edit"></i></a>
-
-                      <a href="<?= base_url("sekretaris/editdokumen_Notulensi").'/'.$row['no_notulen'];?>" class="d-none d-sm-inline-block btn btn-primary shadow-sm" title="Edit Dokumentasi Rapat Notulensi"><i class="fas fa-file-image"></i></a>
-
-                      <a href="<?= base_url("sekretaris/cetak_notulensi").'/'.$row['no_notulen'];?>" target="_blank" class="d-none d-sm-inline-block btn btn-primary shadow-sm" title="Cetak Notulensi Rapat"><i class="fas fa-print"></i></a>
+                      <b>||</b>
+                      <a href="<?= base_url("sekretaris/notulensi_rapat").'/'.$row['no_notulen'];?>" target="_blank" class="d-none d-sm-inline-block btn btn-primary shadow-sm" title="Lihat Isi Uraian Notulensi">Preview<br>Surat</a>
+                      <b>||</b>
+                      <a href="<?= base_url("sekretaris/editdokumen_Notulensi").'/'.$row['no_notulen'];?>" class="d-none d-sm-inline-block btn btn-primary shadow-sm" title="Edit Dokumentasi Rapat Notulensi">Edit<br>Gambar </i></a>
+                      <b>||</b>
+                      <a href="<?= base_url("sekretaris/cetak_notulensi").'/'.$row['no_notulen'];?>" target="_blank" class="d-none d-sm-inline-block btn btn-primary shadow-sm" title="Cetak Notulensi Rapat">Cetak/Simpan<br>Surat </a>
                     </td>
 
                   </tbody>

@@ -22,10 +22,10 @@
                       <th>Action</th>
                     </tr>
                   </thead>
-                  
+
                   <tbody>
                   <?php
-                    $i=1; 
+                    $i=1;
                     foreach($list_akun as $row)
                   {?>
                       <tr>
@@ -61,13 +61,14 @@
             <div class="row px-3 my-3">
                 <div class="col">
                     <div class="form-group">
-                        <input type="hidden" name="id_user" id="input-id_user" value="">
+                        <input type="hidden" name="id_user" id="input-id_user">
                         <label for="input-role">Role</label>
                         <select name="role" id="input-role" class="form-control">
                             <option selected disabled>-- Pilih Role --</option>
                             <option value="Ketua RT">Ketua RT</option>
                             <option value="Bendahara">Bendahara</option>
-                            <option value="Sekretaris">Sekretaris</option>
+                            <option value="Sekretaris RW">Sekretaris RW</option>
+                            <option value="Sekretaris RT">Sekretaris RT</option>
                             <option value="Warga">Warga</option>
                             <option value="Kolektor Iuran">Kolektor Iuran</option>
                         </select>
@@ -87,8 +88,7 @@
 
 <script>
   function role_edit(id_user) {
-    
+
     $('#input-id_user').val(id_user);
   }
 </script>
-        

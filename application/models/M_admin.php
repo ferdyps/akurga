@@ -179,7 +179,7 @@
 
         public function get_detail_notulensi($id)
         {
-          $this->db->select('surat_undangan.acara_udg, surat_undangan.tujuan_surat, surat_undangan.tgl_udg, surat_undangan.jam_udg, surat_undangan.tempat_udg, notulensi_rpt.no_notulen, notulensi_rpt.no_udg, notulensi_rpt.tgl_buat, notulensi_rpt.dokumentasi_rpt,  notulensi_rpt.uraian_notulen, notulensi_rpt.uraian_notulen_cetak , notulensi_rpt.penulis, notulensi_rpt.rt, notulensi_rpt.tembusan');
+          $this->db->select('surat_undangan.acara_udg, surat_undangan.tujuan_surat, surat_undangan.tgl_udg, surat_undangan.jam_udg, surat_undangan.tempat_udg, notulensi_rpt.no_notulen, notulensi_rpt.no_udg, notulensi_rpt.dokumentasi_rpt, notulensi_rpt.keterangan_dokumentasi,  notulensi_rpt.uraian_notulen, notulensi_rpt.uraian_notulen_cetak, notulensi_rpt.penulis, notulensi_rpt.rt, notulensi_rpt.tembusan, notulensi_rpt.tgl_buat');
           $this->db->from('surat_undangan');
           $this->db->join('notulensi_rpt', 'surat_undangan.no_udg = notulensi_rpt.no_udg');
           $this->db->where('notulensi_rpt.no_notulen', $id);
@@ -196,19 +196,19 @@
         // ============================================================
         // ==========================RW==================================
         public function tindakLanjutRW(){
-          return $this->db->query("SELECT id_tindak_lanjut,hasil_tindak_lanjut,tgl_tindak_lanjut,tl.nomor_komplain,tl.gambar,lingkup 
-          FROM tindak_lanjut tl JOIN komplain k 
-          ON tl.nomor_komplain=k.nomor_komplain 
+          return $this->db->query("SELECT id_tindak_lanjut,hasil_tindak_lanjut,tgl_tindak_lanjut,tl.nomor_komplain,tl.gambar,lingkup
+          FROM tindak_lanjut tl JOIN komplain k
+          ON tl.nomor_komplain=k.nomor_komplain
           WHERE lingkup = 'rw'
           ORDER BY id_tindak_lanjut DESC");
         }
-        
+
         // ==========================RW==================================
         // ==========================RT==================================
         public function tindakLanjutRT($rt){
-          return $this->db->query("SELECT id_tindak_lanjut,hasil_tindak_lanjut,tgl_tindak_lanjut,tl.nomor_komplain,tl.gambar,lingkup,rt 
-          FROM tindak_lanjut tl JOIN komplain k 
-          ON tl.nomor_komplain=k.nomor_komplain 
+          return $this->db->query("SELECT id_tindak_lanjut,hasil_tindak_lanjut,tgl_tindak_lanjut,tl.nomor_komplain,tl.gambar,lingkup,rt
+          FROM tindak_lanjut tl JOIN komplain k
+          ON tl.nomor_komplain=k.nomor_komplain
           WHERE lingkup = 'rt' AND rt = '$rt'
           ORDER BY id_tindak_lanjut DESC");
         }
@@ -294,7 +294,7 @@
             $this->db->group_by('jk');
             return $this->db->get('warga');
         }
-        
+
         public function userJoinWarga($id_user){
             return $this->db->query("SELECT * FROM user u JOIN warga w ON u.id_user=w.id_user WHERE u.id_user = '$id_user'");
         }
@@ -313,18 +313,18 @@
         }
 
         public function komplainJoinWargaRT($rt){
-            return $this->db->query("SELECT nomor_komplain,w.nik,nama,w.rt,keluhan,lokasi,tanggal_komplain,lingkup,k.status,k.gambar 
-            FROM komplain k JOIN warga w 
-            ON w.nik=k.nik 
+            return $this->db->query("SELECT nomor_komplain,w.nik,nama,w.rt,keluhan,lokasi,tanggal_komplain,lingkup,k.status,k.gambar
+            FROM komplain k JOIN warga w
+            ON w.nik=k.nik
             where lingkup='rt' and w.rt='$rt'
             ORDER BY nomor_komplain DESC");
         }
 
         public function komplainJoinWargaRW(){
-            return $this->db->query("SELECT nomor_komplain,w.nik,nama,keluhan,lokasi,tanggal_komplain,lingkup,k.status,k.gambar 
-            FROM komplain k 
-            JOIN warga w 
-            ON w.nik=k.nik 
+            return $this->db->query("SELECT nomor_komplain,w.nik,nama,keluhan,lokasi,tanggal_komplain,lingkup,k.status,k.gambar
+            FROM komplain k
+            JOIN warga w
+            ON w.nik=k.nik
             where lingkup='rw'
             ORDER BY nomor_komplain DESC");
         }
@@ -421,7 +421,7 @@
               SUM(nominal) AS jumlah_iuran
               FROM `pembayaran` p
               JOIN warga w ON w.nik = p.nik
-              Where rt = $rt 
+              Where rt = $rt
               GROUP BY p.nik");
           }
           public function iuranmasuk($rt,$tahun=''){
@@ -432,7 +432,7 @@
               join warga on warga.nik = pembayaran.nik";
               if($tahun!=null){
                 $where = "where date_format(tanggal,'%Y') = $tahun and rt = $rt order by 1)";
-  
+
                 $querymasuk = $selectmasuk." ".$where;
               }else{
                 $where = "where rt = $rt order by 1)";
@@ -446,18 +446,18 @@
               from pengeluaran";
               if($tahun!=null){
                 $where = "where date_format(tanggal,'%Y') = $tahun and rt = $rt order by 1)";
-  
+
                 $querykeluar = $selectkeluar." ".$where;
               }else{
                 $where = "where rt = $rt order by 1)";
                 $querykeluar = $selectkeluar." ".$where;
               }
-  
+
               $query = $querymasuk." union ".$querykeluar;
-  
+
               return $this->db->query($query);
           }
-  
+
           public function filteriuranmasuk($bulan,$tahun,$rt){
             return $this->db->query("SELECT
               date_format(tanggal,'%m') as 'bulan',
@@ -467,7 +467,7 @@
               where date_format(tanggal,'%Y') = $tahun and date_format(tanggal,'%m') = $bulan and rt = $rt
               group by 1");
           }
-  
+
           public function filteriurankeluar($bulan,$tahun,$rt){
             return $this->db->query("SELECT
               date_format(tanggal,'%m') as bulan,

@@ -62,7 +62,7 @@
                 'dataPoints2'   => $dataPoints2,
                 'dataPoints3'   => $dataPoints3,
                 'usulan_points' => $usulanPoints,
-                'dataiurank'    => $this->m_admin->tampil_iuran_keluar()->result_array(),
+                'dataiurank'    => $this->m_admin->tampil_iuran_keluar($rt)->result_array(),
                 'rt' => $rt,
                 'nama' => $this->nama
             ];
@@ -521,7 +521,7 @@
                         }else {
                             $json['errors'] = "Data Warga Gagal Diubah";
                         }
-                        
+
 
                         // $gambar_prob = $this->upload->display_errors('', '');
 

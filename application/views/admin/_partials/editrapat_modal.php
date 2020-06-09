@@ -19,6 +19,7 @@
                   <label for="edit-lampiran">Lampiran</label>
                   <input type="text" name="lampiran" id="edit-lampiran" class="form-control">
                   <div class="invalid-feedback"></div>
+                  <p class="text-mute">* Inputkan " _ " jika tidak terdapat lampiran</p>
               </div>
               <div class="form-group form-input">
                   <label for="sifat">Sifat</label>
@@ -87,6 +88,7 @@
                   <label for="edit-tembusan">Tembusan</label>
                   <textarea class="form-control" name="tembusan" id="edit-tembusan"></textarea>
                   <div class="invalid-feedback"></div>
+                  <p class="text-mute">* Inputkan " _ " jika tidak terdapat tembusan</p>
               </div>
           </div>
       </div>

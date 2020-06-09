@@ -52,8 +52,14 @@
                       <h6 class="lead notulensi-text">Notulensi By <?= substr($row['penulis'],0,10).' '.$row['rt']; ?></h6>
                       <?php config_item('setlocal'); ?>
                       <h6 class="lead notulensi-text">Diunggah pada tanggal <?= strftime("%d %B %Y",strtotime($row['tgl_buat'])); ?></h6><br>
+
                       <img width="1000px" height="800px" class="img-thumbnail img-fluid mx-auto d-block" src="<?= base_url('./assets/foto/notulensi/'. $row['dokumentasi_rpt'])?>">
-                      <br>
+                      <div class="media">
+                        <div class="media-body">
+                          <h6 class="mt-0 ml-5 mb-5 text-muted"><?= $row['keterangan_dokumentasi'] ?></h6>
+                        </div>
+                      </div>
+
                       <h6 class="lead notulensi-text">Rapat dilaksanakan pada :</h6>
                       <h6 class="lead notulensi-text">Tanggal : <?= strftime("%d %B %Y",strtotime($row['tgl_udg'])); ?></h6>
                       <h6 class="lead notulensi-text">Waktu : Jam <?= strftime("%R",strtotime($row['jam_udg'])); ?> s/d selesai</h6>
@@ -63,7 +69,12 @@
                       <h6 class="notulensi-text">HASIL PERTEMUAN :</h6>
                       <?= $row['uraian_notulen']; ?>
                       <hr class="my-4 border-dark">
-                      <h6>Tembusan : <?= $row['tembusan'];?> </h6>
+                      <?php if ($row['tembusan'] == '_') {
+                        $tembusan = '-';
+                      }else {
+                        $tembusan = $row['tembusan'];
+                      } ?>
+                      <h6>Tembusan : <?= $tembusan;?> </h6>
                     </div>
                   </div>
                 </div>

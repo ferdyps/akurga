@@ -25,7 +25,7 @@
           </thead>
           <?php foreach ($list_arsip as $row){ ?>
             <tbody class="text-center">
-              <td><?= $row['kd_surat'] ?></td>
+              <td><?= str_replace('-','/',$row['kd_surat']); ?></td>
               <td><?= $row['no_surat'] ?></td>
               <td><?= $row['pengirim'] ?></td>
 

@@ -19,8 +19,8 @@
                         <div class="form-group form-input">
                             <label for="edit-no_surat">Nomor Surat</label>
                             <input type="text" name="no_surat" id="edit-no_surat" class="form-control">
-                            <div class="invalid-feedback">
-                            </div>
+                            <div class="invalid-feedback"></div>
+                            <p class="text-mute">* Inputkan nomor surat yang terdapat pada surat.</p>
                         </div>
 
                         <div class="form-group form-input">
@@ -74,7 +74,6 @@
                     <div class="col">
                         <div class="form-group text-center">
                             <input type="submit" class="btn btn-primary">
-                            <input type="reset" value="Reset" class="btn btn-danger">
                         </div>
                     </div>
              <?= form_close();?>

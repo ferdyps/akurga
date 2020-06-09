@@ -35,7 +35,7 @@ class sekretaris extends CI_Controller {
   public function index(){
     $dataPoints = array();
     $dataPoints2 = array();
-    $usulanPoints = $this->m_admin->CountData('surat_undangan', 'status', 0)->result_array();
+    // $usulanPoints = $this->m_admin->CountData('surat_undangan', 'status', 0)->result_array();
     $query = $this->m_admin->CountData('warga','valid',0)->result_array();
     $result = $this->m_admin->grafikPendidikan()->result();
     $result2 = $this->m_admin->grafikPekerjaan()->result();
@@ -51,9 +51,11 @@ class sekretaris extends CI_Controller {
       'semuaWarga'    => $query,
       'dataPoints'    => $dataPoints,
       'dataPoints2'   => $dataPoints2,
-      'usulan_points' => $usulanPoints,
-      'dataiurank'    => $this->m_admin->tampil_iuran_keluar()->result_array(),
+      // 'usulan_points' => $usulanPoints,
+      'dataiurank'    => $this->m_admin->tampil_iuran_keluar($this->rt)->result_array()
+
     ];
+    // 'dataiuran'    => $this->m_admin->tampil_iuran_keluar($this->rt)->result_array(),
     $this->load->view('admin/index', $data);
   }
 
@@ -258,7 +260,7 @@ class sekretaris extends CI_Controller {
       );
     }elseif ($this->role == 'Sekretaris RW') {
       $set_rt = 'warga 01';
-      $set_rt2  = 'rw '.$this->rt;
+      $set_rt2  = 'rw 01';
       $ketua  = array(
         'role' => 'Ketua RW'
       );
@@ -288,12 +290,12 @@ class sekretaris extends CI_Controller {
 
       $pdf->Cell(190,7,'DESA SUKAPURA KECAMATAN DAYEUHKOLOT',0,1,'C');
       $pdf->Cell(190,7,'KABUPATEN BANDUNG',0,1,'C');
-      $pdf->Line(10,40,200,40);
+      $pdf->Line(10,32,200,32);
       $pdf->Ln(1.4);
       $pdf->SetFont('Arial','',12);
       $pdf->Cell(190,7,'Sekretariat : Manggadua RT. ' .$this->rt. ' RW. 01 Desa Sukapura Kec. Dayeuhkolot Kab. Bandung -  40267',0,1,'C');
       $pdf->SetLineWidth(1);
-      $pdf->Line(10,46,200,46);
+      $pdf->Line(10,40,200,40);
       $pdf->Ln(12);
       $pdf->Cell(17);
       $pdf->Cell(5,5,'Nomor',0,0,'L');
@@ -368,24 +370,27 @@ class sekretaris extends CI_Controller {
       $pdf->Cell(17);
       $pdf->MultiCell(160,7,'Demikian disampaikan untuk dapat dimaklumi, atas kehadirannya diucapkan terima kasih agar menjadi maklum yang berkepentingan mengetahuinya.',0,'L');
       $pdf->Ln(8);
-      $pdf->SetAutoPageBreak(1, 35);
+
+      if ($pdf->GetY() > 230) {
+            $pdf->SetY(275);
+      }elseif ($pdf->GetY() < 225) {
+         $pdf->SetY(215);
+      }
+
       $pdf->MultiCell(170,7,'Salam Hormat',0,'R');
-      $pdf->Ln(8);
+      $pdf->Ln(2);
       $pdf->Cell(27);
       $pdf->Cell(35,7,'Sekretaris '.strtoupper($set_rt2),0,0,'C');
-      // $pdf->Cell(35,7,'Sekretaris',0,'C');
       $pdf->Cell(60);
       $pdf->Cell(35,7,'Ketua '.strtoupper($set_rt2),0,0,'C');
-      // $pdf->Cell(35,7,'Ketua RT 01 RW 01',0,'C');
       $pdf->Ln(30);
       $pdf->Cell(27);
-      // $pdf->MultiCell(35,7,$this->nama,0,'l');
       $pdf->Cell(35,7,$this->nama,0,0,'C');
       $pdf->Cell(60);
       foreach ($ketua_rt as $key) {
         $pdf->Cell(35,7,$key['nama'],0,1,'C');
       }
-      $pdf->Ln(5);
+      $pdf->Ln(1);
       $pdf->SetFont('Arial','B'.'U',11);
       $pdf->Cell(19,7,'Tembusan',0,0,'C');
       $pdf->SetFont('Arial','',11);
@@ -415,24 +420,16 @@ class sekretaris extends CI_Controller {
       );
     }elseif ($this->role == 'Sekretaris RW') {
       $set_rt = 'warga 01';
-      $set_rt2  = 'rw '.$this->rt;
+      $set_rt2  = 'rw 01';
       $ketua  = array(
         'role' => 'Ketua RW'
       );
     }else {
-      site_url('auth/logout');
+      redirect('auth/logout','refresh');
     }
 
     $surat  = $this->m_admin->get_detail_notulensi($id)->result_array();
     $ketua_rt  = $this->m_admin->cek_ketua($ketua)->result_array();
-
-    if ($this->role == 'Sekretaris RT') {
-      $set_rt   = 'tetangga '.$this->rt;
-      $set_rt2  = 'rt '.$this->rt;
-    }elseif ($this->role == 'Sekretaris RW') {
-      $set_rt = 'warga 01';
-      $set_rt2  = 'rw '.$this->rt;
-    }
 
     setlocale(LC_ALL, 'IND');
 
@@ -455,12 +452,12 @@ class sekretaris extends CI_Controller {
 
       $pdf->Cell(190,7,'DESA SUKAPURA KECAMATAN DAYEUHKOLOT',0,1,'C');
       $pdf->Cell(190,7,'KABUPATEN BANDUNG',0,1,'C');
-      $pdf->Line(10,40,200,40);
+      $pdf->Line(10,32,200,32);
       $pdf->Ln(1.4);
       $pdf->SetFont('Arial','',12);
       $pdf->Cell(190,7,'Sekretariat : Manggadua RT. ' .$this->rt. ' RW. 01 Desa Sukapura Kec. Dayeuhkolot Kab. Bandung -  40267',0,1,'C');
       $pdf->SetLineWidth(1);
-      $pdf->Line(10,46,200,46);
+      $pdf->Line(10,40,200,40);
       $pdf->Ln(12);
       $pdf->Cell(17);
       $pdf->Cell(5,5,'Nomor',0,0,'L');
@@ -531,16 +528,9 @@ class sekretaris extends CI_Controller {
         $pdf->SetAutoPageBreak(1, 35);
         $pdf->MultiCell(170,7,'Salam Hormat',0,'R');
         $pdf->Ln(8);
-        // $pdf->Cell(27);
-        // $pdf->Cell(35,7,'Sekretaris '.strtoupper($set_rt2),0,0,'C');
-        // $pdf->Cell(35,7,'Sekretaris',0,'C');
         $pdf->Cell(130);
         $pdf->Cell(35,7,'Ketua '.strtoupper($set_rt2),0,0,'C');
-        // $pdf->Cell(35,7,'Ketua RT 01 RW 01',0,'C');
         $pdf->Ln(30);
-        // $pdf->Cell(27);
-        // $pdf->MultiCell(35,7,$this->nama,0,'l');
-        // $pdf->Cell(35,7,$this->nama,0,0,'C');
         $pdf->Cell(130);
 
         $pdf->Cell(35,7,$key['nama'],0,1,'C');
@@ -550,7 +540,12 @@ class sekretaris extends CI_Controller {
       $pdf->Cell(19,7,'Tembusan',0,0,'C');
       $pdf->SetFont('Arial','',11);
       $pdf->Cell(3,7,':',0,0,'C');
-      $pdf->MultiCell(177,7,$row['tembusan'],0,'L');
+      if ($row['tembusan'] == '_') {
+        $tembus = '-';
+        $pdf->MultiCell(177,7,$tembus,0,'L');
+      }else {
+        $pdf->MultiCell(177,7,$row['tembusan'],0,'L');
+      }
 
       $pdf->Output('Notulensi Rapat '.$row['no_notulen'].' '.$tgl_buat,'I');
     }
@@ -862,6 +857,12 @@ class sekretaris extends CI_Controller {
       ],
 
       [
+        'field' => 'ket_dok_rpt',
+        'label' => 'Keterangan Dokumentasi Rapat',
+        'rules' => 'trim|required|regex_match[/^[\w]/]|max_length[300]'
+      ],
+
+      [
         'field' => 'uraian_notulen_cetak',
         'label' => 'Uraian Notulensi cetak',
         'rules' => 'trim|required|regex_match[/^[\w]/]'
@@ -882,6 +883,7 @@ class sekretaris extends CI_Controller {
     if ($this->input->post()) {
       $no_notulen             = $this->input->post('no_notulen');
       $tembusan               = $this->input->post('tembusan');
+      $ket_dok_rpt            = $this->input->post('ket_dok_rpt');
       $uraian_notulen_cetak   = $this->input->post('uraian_notulen_cetak');
       $uraian_notulen         = $this->input->post('uraian_notulen');
       $date                   = date("Y/m/d");
@@ -908,16 +910,17 @@ class sekretaris extends CI_Controller {
         if ($this->upload->do_upload('dokumentasi_rpt')){
           $data_upload     = $this->upload->data('file_name');
           $data = [
-            'no_notulen'            => $no_notulen,
-            'dokumentasi_rpt'       => $data_upload,
-            'tembusan'              => $tembusan,
-            'uraian_notulen_cetak'  => $uraian_notulen_cetak,
-            'uraian_notulen'        => $uraian_notulen,
-            'tgl_buat'              => $date,
-            'penulis'               => $penulis,
-            'rt'                    => $set_rt,
-            'status'                => 0,
-            'no_udg'                => $no_udg
+            'no_notulen'              => $no_notulen,
+            'dokumentasi_rpt'         => $data_upload,
+            'tembusan'                => $tembusan,
+            'keterangan_dokumentasi'  => $ket_dok_rpt,
+            'uraian_notulen_cetak'    => $uraian_notulen_cetak,
+            'uraian_notulen'          => $uraian_notulen,
+            'tgl_buat'                => $date,
+            'penulis'                 => $penulis,
+            'rt'                      => $set_rt,
+            'status'                  => 0,
+            'no_udg'                  => $no_udg
           ];
           $query = $this->m_admin->input_data('notulensi_rpt', $data);
           if ($query) {
@@ -942,30 +945,6 @@ class sekretaris extends CI_Controller {
               'pict' => $gambar_prob,
               // 'back' => $back_url
             ];
-          }else {
-            $data = [
-              'no_notulen'            => $no_notulen,
-              'tembusan'              => $tembusan,
-              'uraian_notulen_cetak'  => $uraian_notulen_cetak,
-              'uraian_notulen'        => $uraian_notulen,
-              'tgl_buat'              => $date,
-              'penulis'               => $penulis,
-              'rt'                    => $set_rt,
-              'status'                => 0,
-              'no_udg'                => $no_udg
-            ];
-            $query = $this->m_admin->input_data('notulensi_rpt', $data);
-            if ($query) {
-              $url = base_url('sekretaris/riwayat_notulensi');
-
-              $json = [
-                'message' => "Data Notulensi berhasil diinput..",
-                'url' => $url
-              ];
-            }else {
-
-              $json['errors'] = "Data Notulensi gagal diinput..!";
-            }
           }
         }
 
@@ -1487,6 +1466,41 @@ class sekretaris extends CI_Controller {
     }
   }
 
+  public function previewRapat(){
+    $id     = $this->uri->segment(3);
+
+      if ($this->role == 'Sekretaris RT') {
+        $set_rt = 'RT '.$this->rt;
+        $ketua  = array(
+          'role' => 'Ketua RT',
+          'rt'   => $this->rt
+        );
+        $array_data = array(
+                              'no_udg'     => $id,
+                              'rt'         => $set_rt
+                            );
+      }elseif ($this->role == 'Sekretaris RW') {
+        $ketua  = array(
+          'role' => 'Ketua RW'
+        );
+        $array_data = array(
+                              'no_udg'     => $id,
+                              'rt'         => 'RW 01'
+                            );
+      }else {
+        redirect('auth/logout','refresh');
+      }
+
+
+
+    $ketua_rt  = $this->m_admin->cek_ketua($ketua)->result_array();
+    $db = $this->m_admin->selectWithWhere('surat_undangan', $array_data)->result_array();
+    $data['fetch'] = $db;
+    $data['fetch_ketua'] = $ketua_rt;
+    $data['title'] = 'Detail Surat Undangan Rapat';
+    $this->load->view('admin/v_detailrpt', $data);
+  }
+
   public function detailRapat($id){
     $tabel = 'surat_undangan';
     $where = [
@@ -1514,11 +1528,17 @@ class sekretaris extends CI_Controller {
         'field' => 'no_notulen',
         'label' => 'Nomor Notulensi',
         'rules' => 'trim|required'
-      ]
+      ],
+      [
+        'field' => 'ket_dok_rpt',
+        'label' => 'Keterangan Dokumentasi Rapat',
+        'rules' => 'trim|required|regex_match[/^[\w]/]|max_length[300]'
+      ],
     ]);
 
     if ($this->input->post()) {
       $no_notulen     = $this->input->post('no_notulen');
+      $ket_dok_rpt     = $this->input->post('ket_dok_rpt');
 
       $config['upload_path']          = './assets/foto/notulensi';
       // $config['file_name']            = $this->input->post('gbr_surat');
@@ -1534,7 +1554,8 @@ class sekretaris extends CI_Controller {
         if ($this->upload->do_upload('dokumentasi_rpt')){
           $data_upload     = $this->upload->data('file_name');
           $data = [
-            'dokumentasi_rpt' => $data_upload
+            'dokumentasi_rpt' => $data_upload,
+            'keterangan_dokumentasi' => $ket_dok_rpt
           ];
           $query = $this->m_admin->edit_data('notulensi_rpt','no_notulen', $no_notulen, $data);
           if ($query) {
@@ -1549,14 +1570,35 @@ class sekretaris extends CI_Controller {
           }
 
         } else {
+          if ($this->upload->display_errors('', '') == 'You did not select a file to upload.') {
+            $data = [
+              'keterangan_dokumentasi' => $ket_dok_rpt
+            ];
+            $query = $this->m_admin->edit_data('notulensi_rpt','no_notulen', $no_notulen, $data);
+            if ($query) {
+              $url = base_url('sekretaris/riwayat_notulensi');
 
-          if ($this->upload->display_errors() != '') {
+              $json = [
+                'message' => "Data Dokumentasi Rapat Notulensi berhasil diubah..",
+                'url' => $url
+              ];
+            }else {
+              $json['errors'] = "Data Dokumentasi Rapat Notulensi gagal diubah..";
+            }
+          }else{
             $gambar_prob = $this->upload->display_errors('', '');
 
             $json = [
               'pict' => $gambar_prob,
             ];
           }
+          // if ($this->upload->display_errors('', '') != '') {
+          //   $gambar_prob = $this->upload->display_errors('', '');
+          //
+          //   $json = [
+          //     'pict' => $gambar_prob,
+          //   ];
+          // }
         }
 
       }else {

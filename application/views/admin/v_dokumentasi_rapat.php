@@ -32,9 +32,18 @@
   <body id="page-top">
 
     <div class="container-fluid">
-      <?php foreach ($fetch as $row) { ?>
-        <img width="1000px" height="800px" class="img-thumbnail img-fluid mx-auto d-block" src="<?= base_url('./assets/foto/notulensi/'. $row['dokumentasi_rpt'])?>">
-      <?php } ?>
+      <div class="card w-50 mx-auto">
+        <div class="card-header">
+          <h1 class="text-center">Detail Dokumentasi Rapat</h1>
+        </div>
+        <?php foreach ($fetch as $row) { ?>
+          <img width="500px" height="300px" class="img-thumbnail img-fluid mx-auto d-block card-img-top" src="<?= base_url('./assets/foto/notulensi/'. $row['dokumentasi_rpt'])?>">
+        <div class="card-body">
+            <h6 class="font-weight-bold text-black-50 text-center card-title"><?= $row['keterangan_dokumentasi'] ?></h6>
+          <?php } ?>
+        </div>
+      </div>
+
     </div>
 
   <script src="<?= base_url('assets/sweetalert2-9.3.6/dist/sweetalert2.all.min.js'); ?>"></script>
