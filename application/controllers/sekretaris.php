@@ -33,30 +33,69 @@ class sekretaris extends CI_Controller {
   // Ketua RT
   // -------------------------------------------------------------------------
   public function index(){
-    $dataPoints = array();
-    $dataPoints2 = array();
-    // $usulanPoints = $this->m_admin->CountData('surat_undangan', 'status', 0)->result_array();
-    $query = $this->m_admin->CountData('warga','valid',0)->result_array();
-    $result = $this->m_admin->grafikPendidikan()->result();
-    $result2 = $this->m_admin->grafikPekerjaan()->result();
-    foreach ($result as $row) {
-      array_push($dataPoints, array('label' => $row->pendidikan, 'y' => $row->total));
-    }
-    foreach ($result2 as $row) {
-      array_push($dataPoints2, array('label' => $row->pekerjaan, 'y' => $row->total));
-    }
-    $data = [
-      'content'       => 'admin/dashboard',
-      'title'         => 'Dashboard',
-      'semuaWarga'    => $query,
-      'dataPoints'    => $dataPoints,
-      'dataPoints2'   => $dataPoints2,
-      // 'usulan_points' => $usulanPoints,
-      'dataiurank'    => $this->m_admin->tampil_iuran_keluar($this->rt)->result_array()
+    if ($this->role == 'Sekretaris RT') {
+      $rt = $this->rt;
+      $dataPoints = array();
+      $dataPoints2 = array();
+      $dataPoints3 = array();
+      $query = $this->m_admin->CountData('warga','valid',0)->result_array();
+      $result = $this->m_admin->grafikPendidikanRT($rt)->result();
+      $result2 = $this->m_admin->grafikPekerjaanRT($rt)->result();
+      $result3 = $this->m_admin->grafikWarga($rt)->result();
 
-    ];
-    // 'dataiuran'    => $this->m_admin->tampil_iuran_keluar($this->rt)->result_array(),
-    $this->load->view('admin/index', $data);
+      // $tampil_iuran = $this->m_admin->tampil_iuran_keluar($rt)->result_array();
+      foreach ($result as $row) {
+        array_push($dataPoints, array('label' => $row->pendidikan, 'y' => $row->total));
+      }
+      foreach ($result2 as $row) {
+        array_push($dataPoints2, array('label' => $row->pekerjaan, 'y' => $row->total));
+      }
+      foreach ($result3 as $row) {
+        array_push($dataPoints3, array('label' => $row->jk, 'y' => $row->total));
+      }
+      $tampil_iuran = $this->m_admin->tampil_iuran_keluar($rt)->result_array();
+      $data = [
+        'content'       => 'admin/dashboardRT',
+        'title'         => 'Dashboard',
+        'semuaWarga'    => $query,
+        'dataPoints'    => $dataPoints,
+        'dataPoints2'   => $dataPoints2,
+        'dataPoints3'   => $dataPoints3,
+        'dataiurank'    => $tampil_iuran,
+        'rt' => $rt,
+        'nama' => $this->nama
+      ];
+      $this->load->view('admin/index', $data);
+
+    }elseif ($this->role == 'Sekretaris RW') {
+      $dataPoints = array();
+      $dataPoints2 = array();
+      $dataPoints3 = array();
+      $query = $this->m_admin->CountData('warga','valid',0)->result_array();
+      $result = $this->m_admin->grafikPendidikan()->result();
+      $result2 = $this->m_admin->grafikPekerjaan()->result();
+      $result3 = $this->m_admin->grafikJumlahWargaPerRT()->result();
+      foreach ($result as $row) {
+        array_push($dataPoints, array('label' => $row->pendidikan, 'y' => $row->total));
+      }
+      foreach ($result2 as $row) {
+        array_push($dataPoints2, array('label' => $row->pekerjaan, 'y' => $row->total));
+      }
+      foreach ($result3 as $row) {
+        array_push($dataPoints3, array('label' => $row->rt, 'y' => $row->total));
+      }
+      $data = [
+        'content'       => 'admin/dashboardRW',
+        'title'         => 'Dashboard',
+        'semuaWarga'    => $query,
+        'dataPoints'    => $dataPoints,
+        'dataPoints2'   => $dataPoints2,
+        'dataPoints3'   => $dataPoints3,
+        'dataiurank'    => $this->m_admin->tampil_iuran_keluar($this->rt)->result_array()
+      ];
+      $this->load->view('admin/index', $data);
+    }
+
   }
 
 
@@ -372,9 +411,9 @@ class sekretaris extends CI_Controller {
       $pdf->Ln(8);
 
       if ($pdf->GetY() > 230) {
-            $pdf->SetY(275);
+        $pdf->SetY(275);
       }elseif ($pdf->GetY() < 225) {
-         $pdf->SetY(215);
+        $pdf->SetY(215);
       }
 
       $pdf->MultiCell(170,7,'Salam Hormat',0,'R');
@@ -1469,27 +1508,27 @@ class sekretaris extends CI_Controller {
   public function previewRapat(){
     $id     = $this->uri->segment(3);
 
-      if ($this->role == 'Sekretaris RT') {
-        $set_rt = 'RT '.$this->rt;
-        $ketua  = array(
-          'role' => 'Ketua RT',
-          'rt'   => $this->rt
-        );
-        $array_data = array(
-                              'no_udg'     => $id,
-                              'rt'         => $set_rt
-                            );
-      }elseif ($this->role == 'Sekretaris RW') {
-        $ketua  = array(
-          'role' => 'Ketua RW'
-        );
-        $array_data = array(
-                              'no_udg'     => $id,
-                              'rt'         => 'RW 01'
-                            );
-      }else {
-        redirect('auth/logout','refresh');
-      }
+    if ($this->role == 'Sekretaris RT') {
+      $set_rt = 'RT '.$this->rt;
+      $ketua  = array(
+        'role' => 'Ketua RT',
+        'rt'   => $this->rt
+      );
+      $array_data = array(
+        'no_udg'     => $id,
+        'rt'         => $set_rt
+      );
+    }elseif ($this->role == 'Sekretaris RW') {
+      $ketua  = array(
+        'role' => 'Ketua RW'
+      );
+      $array_data = array(
+        'no_udg'     => $id,
+        'rt'         => 'RW 01'
+      );
+    }else {
+      redirect('auth/logout','refresh');
+    }
 
 
 

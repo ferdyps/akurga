@@ -23,6 +23,12 @@
       <hr class="sidebar-divider">
       <?php if ( $this->session->userdata('role') == 'Ketua RW') { ?>
 
+        <li class="nav-item active">
+          <a class="nav-link" href="<?php echo base_url("ketuaRW/index");?>">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Dashboard</span></a>
+        </li>
+        <hr class="sidebar-divider">
       <!-- Heading -->
       <div class="sidebar-heading">
         Ketua RW
@@ -59,13 +65,36 @@
           <div class="bg-white py-2 collapse-inner rounded">
             <a class="collapse-item" href="<?php echo base_url("ketuaRW/usul_pembuatanRW");?>">Usulan Pembuatan Surat</a>
             <a class="collapse-item" href="<?php echo base_url("ketuaRW/tbl_usulan_ketuaRW");?>">Riwayat Usulan Surat</a>
+            <a class="collapse-item" href="<?php echo base_url("ketuaRW/riwayat_Undangan");?>">Riwayat Surat Undangan</a>
           </div>
         </div>
+      </li>
+
+      <li class="nav-item">
+        <!-- <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseKetuaRTsurat" aria-expanded="true" aria-controls="collapseKetuaRTsurat"> -->
+        <a class="nav-link collapsed" href="<?php echo base_url('ketuaRW/riwayat_notulensi');?>" aria-expanded="true">
+          <i class="fas fa-fw fa-edit"></i>
+          <span>Riwayat Notulensi Rapat</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <!-- <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseKetuaRTsurat" aria-expanded="true" aria-controls="collapseKetuaRTsurat"> -->
+        <a class="nav-link collapsed" href="<?php echo base_url('ketuaRW/riwayat_arsip');?>" aria-expanded="true">
+          <i class="fas fa-fw fa-archive"></i>
+          <span>Riwayat Arsip Surat</span>
+        </a>
       </li>
       <hr class="sidebar-divider">
 
 
       <?php } elseif ( $this->session->userdata('role') == 'Ketua RT'){ ?>
+        <li class="nav-item active">
+          <a class="nav-link" href="<?php echo base_url("ketuaRT/index");?>">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Dashboard</span></a>
+        </li>
+        <hr class="sidebar-divider">
       <div class="sidebar-heading">
         Ketua RT
       </div>
@@ -112,16 +141,34 @@
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePengurus" aria-expanded="true" aria-controls="collapsePengurus">
-          <i class="fas fa-fw fa-cog"></i>
-          <span>Usulan Surat Undangan</span>
+          <i class="fas fa-fw fa-envelope"></i>
+          <span>Surat Undangan</span>
         </a>
         <div id="collapsePengurus" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <a class="collapse-item" href="<?php echo base_url("ketuaRT/usul_pembuatan");?>">Usulan Pembuatan Surat</a>
             <a class="collapse-item" href="<?php echo base_url("ketuaRT/tbl_usulan_ketua");?>">Riwayat Usulan Surat</a>
+            <a class="collapse-item" href="<?php echo base_url("ketuaRT/riwayat_Undangan");?>">Riwayat Surat Undangan</a>
           </div>
         </div>
       </li>
+
+      <li class="nav-item">
+        <!-- <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseKetuaRTsurat" aria-expanded="true" aria-controls="collapseKetuaRTsurat"> -->
+        <a class="nav-link collapsed" href="<?php echo base_url('ketuaRT/riwayat_notulensi');?>" aria-expanded="true">
+          <i class="fas fa-fw fa-edit"></i>
+          <span>Riwayat Notulensi Rapat</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <!-- <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseKetuaRTsurat" aria-expanded="true" aria-controls="collapseKetuaRTsurat"> -->
+        <a class="nav-link collapsed" href="<?php echo base_url('ketuaRT/riwayat_arsip');?>" aria-expanded="true">
+          <i class="fas fa-fw fa-archive"></i>
+          <span>Riwayat Arsip Surat</span>
+        </a>
+      </li>
+
           <hr class="sidebar-divider">
       <?php } else if ( $this->session->userdata('role') == 'Bendahara'){ ?>
       <div class="sidebar-heading">

@@ -36,32 +36,16 @@
                       <?php $set = substr($row['no_udg'],4,3); ?>
                       <?php if ($set == 'RPT') { ?>
                         <a href="#" class="d-none d-sm-inline-block btn btn-primary shadow-sm" title="Detail Data Rapat"
-                          id="detailData" data-url="<?= base_url('sekretaris/detailRapat/'); ?>" data-noudg="<?= $row['no_udg']; ?>"
+                          id="detailData" data-url="<?= base_url('ketuaRW/detailRapat/'); ?>" data-noudg="<?= $row['no_udg']; ?>"
                           data-toggle="modal" data-target="#detailDataModal"><i class="fas fa-folder-open"></i></a>
                         <b>||</b>
-                        <a href="#" class="d-none d-sm-inline-block btn btn-primary shadow-sm" title="Edit Data Rapat" id="editRapat"
-                           data-url="<?= base_url('sekretaris/detailRapat/'); ?>" data-noudg="<?= $row['no_udg']; ?>"
-                           data-toggle="modal" data-target="#editDataRapatModal"><i class="fas fa-edit"></i></a>
-                        <b>||</b>
-                        <a href="<?= base_url("sekretaris/previewRapat").'/'.$row['no_udg'];?>" target="_blank" class="d-none d-sm-inline-block btn btn-primary shadow-sm" title="Preview Surat Undangan">Preview<br>Surat</a>
-                        <b>||</b>
-                        <a href="<?= base_url("sekretaris/inputnotulensi").'/'.$row['no_udg'];?>" class="d-none d-sm-inline-block btn btn-primary shadow-sm" title="Input Notulensi">Input<br>Notulensi</a>
-                        <b>||</b>
+                        <a href="<?= base_url("ketuaRW/previewRapat").'/'.$row['no_udg'];?>" target="_blank" class="d-none d-sm-inline-block btn btn-primary shadow-sm" title="Preview Surat Undangan">Preview<br>Surat</a>
                       <?php }elseif ($set == 'KGT') { ?>
                         <a href="#" class="d-none d-sm-inline-block btn btn-primary shadow-sm" title="Detail Data Kegiatan"
-                          id="detailDataKgt" data-url="<?= base_url('sekretaris/detailRapat/'); ?>" data-noudg="<?= $row['no_udg']; ?>"
+                          id="detailDataKgt" data-url="<?= base_url('ketuaRW/detailRapat/'); ?>" data-noudg="<?= $row['no_udg']; ?>"
                           data-toggle="modal" data-target="#detailDataKgtModal"><i class="fas fa-folder-open"></i></a>
-                          <b>||</b>
-                          <a href="<?= base_url("sekretaris/previewRapat").'/'.$row['no_udg'];?>" target="_blank" class="d-none d-sm-inline-block btn btn-primary shadow-sm" title="Preview Surat Undangan">Preview<br>Surat</a>
-                          <b>||</b>
-                          <a href="#" class="d-none d-sm-inline-block btn btn-primary shadow-sm" title="Edit Data Kegiatan" id="editKegiatan"
-                          data-url="<?= base_url('sekretaris/detailRapat/'); ?>" data-noudg="<?= $row['no_udg']; ?>"
-                          data-toggle="modal" data-target="#editDataKgtModal"><i class="fas fa-edit"></i></a>
-                          <b>||</b>
-
+                        <a href="<?= base_url("ketuaRW/previewRapat").'/'.$row['no_udg'];?>" target="_blank" class="d-none d-sm-inline-block btn btn-primary shadow-sm" title="Preview Surat Undangan">Preview<br>Surat</a>
                       <?php } ?>
-
-                      <a href="<?= base_url("sekretaris/cetak_undangan").'/'.$row['no_udg'];?>" target="_blank" class="d-none d-sm-inline-block btn btn-primary shadow-sm" title="Cetak Surat Undangan">Cetak/Simpan<br>Surat</a>
                     </td>
                     </tr>
                   <?php } ?>
@@ -71,69 +55,11 @@
             </div>
           </div>
         </div>
-        <?php $this->load->view('admin/_partials/editrapat_modal')?>
-        <?php $this->load->view('admin/_partials/editkgt_modal')?>
         <?php $this->load->view('admin/_partials/detailrapat_modal')?>
         <?php $this->load->view('admin/_partials/detailkgt_modal')?>
         <script>
-            // Jquery Edit data rapat
-            $(document).on('click','#editRapat',function(){
-              var id_rapat = $(this).attr('data-noudg');
-              var url = $(this).attr('data-url');
-              $.ajax({
-                url: url + id_rapat,
-                method: 'POST',
-                data: {id_rapat:id_rapat},
-                dataType: 'json',
-                  success:function(data) {
-                    console.log(data);
-                    $('#editDataRapatModal #edit-no_udg').val(data.no_udg);
-                    $('#editDataRapatModal #edit-lampiran').val(data.lampiran_udg);
-                    $('#editDataRapatModal #edit-sifat').val(data.sifat_udg);
-                    $('#editDataRapatModal #edit-hal').val(data.perihal_udg);
-                    $('#editDataRapatModal #edit-tujuan_surat').val(data.tujuan_surat);
-                    $('#editDataRapatModal #edit-tempat_udg').val(data.tempat_udg);
-                    $('#editDataRapatModal #edit-tembusan').val(data.tembusan);
-                    $('#editDataRapatModal #edit-isi_surat').val(data.isi_surat);
-                    $('#editDataRapatModal #edit-tgl_surat').val(data.tgl_udg);
-                    $('#editDataRapatModal #edit-jam_udg').val(data.jam_udg);
-                    $('#editDataRapatModal #edit-acara_udg').val(data.acara_udg);
-                  },
-                  error:function() {
-                    alert('Error di System..!');
-                  }
-              });
-            });
 
-            // Jquery Edit data Kegiatan
-            $(document).on('click','#editKegiatan',function(){
-              var id_rapat = $(this).attr('data-noudg');
-              var url = $(this).attr('data-url');
-              $.ajax({
-                url: url + id_rapat,
-                method: 'POST',
-                data: {id_rapat:id_rapat},
-                dataType: 'json',
-                  success:function(data) {
-                    console.log(data);
-                    $('#editDataKgtModal #edit-no_udg_kgtedit').val(data.no_udg);
-                    $('#editDataKgtModal #edit-lampiran_kgtedit').val(data.lampiran_udg);
-                    $('#editDataKgtModal #edit-sifat_kgtedit').val(data.sifat_udg);
-                    $('#editDataKgtModal #edit-hal_kgtedit').val(data.perihal_udg);
-                    $('#editDataKgtModal #edit-tujuan_surat_kgtedit').val(data.tujuan_surat);
-                    $('#editDataKgtModal #edit-tempat_udg_kgtedit').val(data.tempat_udg);
-                    $('#editDataKgtModal #edit-tembusan_kgtedit').val(data.tembusan);
-                    $('#editDataKgtModal #edit-isi_surat_kgtedit').val(data.isi_surat);
-                    $('#editDataKgtModal #edit-tgl_surat_kgtedit').val(data.tgl_udg);
-                    $('#editDataKgtModal #edit-jam_udg_kgtedit').val(data.jam_udg);
-                    $('#editDataKgtModal #edit-acara_udg_kgtedit').val(data.acara_udg);
-                    $('#editDataKgtModal #edit-catatan_kgtedit').val(data.catatan);
-                  },
-                  error:function() {
-                    alert('Error di System..!');
-                  }
-              });
-            });
+
 
             // Jquery detail data rapat
             $(document).on('click','#detailData',function(){
