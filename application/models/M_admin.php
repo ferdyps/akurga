@@ -382,6 +382,9 @@
         public function edit_data_iuran_keluar($where,$table){
             return $this->db->get_where($table,$where);
         }
+        public function edit_data_tarif($where,$table){
+          return $this->db->get_where($table,$where);
+      }
         function update_data($where,$data,$table){
             $this->db->where($where);
             $this->db->update($table,$data);
@@ -493,6 +496,12 @@
             $query = "
             select * from tarif where jenis_iuran = '".$where."'";
             return $this->db->query($query);
+        }
+
+        public function tampil_tarif(){
+          $query = "
+          select * from tarif";
+          return $this->db->query($query);
         }
 
         public function tampilTahunPembayaran(){
@@ -636,6 +645,11 @@
         ")->result();
 
         return $hasil;
+    
+    }
+
+    public function datart(){
+      return $this->db->query("SELECT distinct(rt) as rt from warga");
     }
 
 

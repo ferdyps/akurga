@@ -87,6 +87,13 @@
                                 'message' => "Login Akun Berhasil",
                                 'url' => $url
                             ];
+                        }elseif ( $user_auth->role == 'Bendahara RW' ) {
+                            $url = base_url('Bendahara/index');
+
+                            $json = [
+                                'message' => "Login Akun Berhasil",
+                                'url' => $url
+                            ];
                         }elseif ( $user_auth->role == 'Kolektor Iuran' ) {
                             $url = base_url('Bendahara/index');
 
@@ -145,6 +152,8 @@
                 }elseif ($this->session->userdata('role') == "Ketua RT") {
                     redirect('ketuaRT/','refresh');
                 }elseif ($this->session->userdata('role') == "Bendahara") {
+                    redirect('Bendahara/','refresh');
+                }elseif ($this->session->userdata('role') == "Bendahara RW") {
                     redirect('Bendahara/','refresh');
                 }elseif ($this->session->userdata('role') == "Kolektor Iuran") {
                     redirect('Bendahara/','refresh');

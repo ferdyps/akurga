@@ -212,7 +212,23 @@
           <span>Laporan Keuangan</span>
         </a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="<?php echo base_url("Bendahara/tabeltarif");?>">
+          <i class="fas fa-fw fa-cog"></i>
+          <span>Tarif</span>
+        </a>
+      </li>
       <hr class="sidebar-divider">
+      <?php } else if ( $this->session->userdata('role') == 'Bendahara RW'){ ?>
+      <div class="sidebar-heading">
+        Bendahara RW
+      </div>
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="<?php echo base_url("Bendahara/rekaprt");?>">
+          <i class="fas fa-fw fa-cog"></i>
+          <span>Laporan Keuangan</span>
+        </a>
+      </li>
       <?php } else if ( $this->session->userdata('role') == 'Kolektor Iuran'){ ?>
       <div class="sidebar-heading">
         Kolektor Iuran
