@@ -28,10 +28,6 @@ class sekretaris extends CI_Controller {
   }
   // Untuk Front-end
 
-  // =========================================================================
-
-  // Ketua RT
-  // -------------------------------------------------------------------------
   public function index(){
     if ($this->role == 'Sekretaris RT') {
       $rt = $this->rt;
@@ -165,8 +161,10 @@ class sekretaris extends CI_Controller {
     $array_check  = array('no_udg' => $key );
     $db_check     = $this->m_admin->selectWithWhere($nama_tabel, $array_check);
     if ($db_check->num_rows() > 0) {
-
-      $this->session->set_flashdata('success','silahkan lihat di Riwayat Notulensi Rapat');
+      $data_notulen_check = $db_check->result_array();
+      foreach ($data_notulen_check as $data_check) {
+      $this->session->set_flashdata('success','Silahkan Lihat di Riwayat Notulensi Rapat Nomor '.$data_check['no_notulen']);
+      }
       redirect('sekretaris/riwayat_Undangan','refresh');
 
       echo json_encode($json);

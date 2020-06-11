@@ -28,13 +28,13 @@
 
   <script type="text/javascript">
   //kodingan buat input notulensi yang telah ada
-  const flashData = $('#flash-data').data('flashdata');
+  const flashData = $('.flash-data').data('flashdata');
 
   if (flashData) {
     Swal.fire({
       icon: 'info',
       title: 'Data Notulensi Telah Di Input !',
-      text: 'Silahkan Cek di Riwayat Notulensi Rapat'
+      text: flashData
   })
 }
 

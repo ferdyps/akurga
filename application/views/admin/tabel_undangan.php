@@ -1,7 +1,7 @@
 <div class="container-fluid">
           <!-- Page Heading -->
           <h1 class="h3 mb-2 text-gray-800">Riwayat Surat Undangan</h1>
-
+          <div class="flash-data" data-flashdata="<?= $this->session->flashdata('success'); ?>"></div>
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
