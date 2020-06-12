@@ -489,12 +489,12 @@ class sekretaris extends CI_Controller {
 
       $pdf->Cell(190,7,'DESA SUKAPURA KECAMATAN DAYEUHKOLOT',0,1,'C');
       $pdf->Cell(190,7,'KABUPATEN BANDUNG',0,1,'C');
-      $pdf->Line(10,32,200,32);
+      $pdf->Line(10,40,200,40);
       $pdf->Ln(1.4);
       $pdf->SetFont('Arial','',12);
       $pdf->Cell(190,7,'Sekretariat : Manggadua RT. ' .$this->rt. ' RW. 01 Desa Sukapura Kec. Dayeuhkolot Kab. Bandung -  40267',0,1,'C');
       $pdf->SetLineWidth(1);
-      $pdf->Line(10,40,200,40);
+      $pdf->Line(10,46,200,46);
       $pdf->Ln(12);
       $pdf->Cell(17);
       $pdf->Cell(5,5,'Nomor',0,0,'L');
