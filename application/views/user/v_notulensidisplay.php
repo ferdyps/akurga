@@ -21,7 +21,7 @@
                       <div class="card-body">
                         <?php config_item('setlocal'); ?>
                         <h6 class="card-title text-right">Diunggah <?= strftime("%d %B %Y",strtotime($row['tgl_buat'])); ?> </h6>
-                        <h2 class="card-title text-left">Notulensi Rapat dengan undangan rapat nomor <?= $row['no_udg']; ?> </h2>
+                        <h2 class="card-title text-left">Notulensi Rapat dengan undangan rapat nomor <?= str_replace('-','/',$row['no_udg']); ?> </h2>
                         <p class="card-text text-justify"><?= $row['acara_udg']; ?></p>
                         <span class="card-text text-left">Rapat telah dilaksanakan pada  tanggal <?= strftime("%d %B %Y",strtotime($row['tgl_udg'])); ?></span><br>
                         <a href="<?= base_url("user/notulensi_rapat").'/'.$row['no_notulen'];?>" class="stretched-link">Selengkapnya</a>
