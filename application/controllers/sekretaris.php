@@ -1671,13 +1671,13 @@ class sekretaris extends CI_Controller {
       [
         'field' => 'uraian_notulen_cetak',
         'label' => 'Uraian Notulensi Cetak',
-        'rules' => 'trim|required|regex_match[/^[\w]/]'
+        'rules' => 'trim|regex_match[/^[\w]/]'
       ],
 
       [
         'field' => 'uraian_notulen',
         'label' => 'Uraian Notulensi',
-        'rules' => 'required'
+        'rules' => 'trim'
       ]
     ]);
 
@@ -1689,23 +1689,42 @@ class sekretaris extends CI_Controller {
 
 
       if ($this->form_validation->run() == TRUE) {
-        $data = [
-          'tembusan'             => $tembusan,
-          'uraian_notulen_cetak' => $uraian_notulen_cetak,
-          'uraian_notulen'       => $uraian
-        ];
-
-        $query = $this->m_admin->edit_data('notulensi_rpt','no_notulen', $no_notulen, $data);
-        if ($query) {
-          $url = base_url('sekretaris/riwayat_notulensi');
-
-          $json = [
-            'message' => "Data Notulensi berhasil diubah..",
-            'url' => $url
+        if ($uraian == '' && $uraian_notulen_cetak == '') {
+          $data = [
+            'tembusan'             => $tembusan
           ];
+
+          $query = $this->m_admin->edit_data('notulensi_rpt','no_notulen', $no_notulen, $data);
+          if ($query) {
+            $url = base_url('sekretaris/riwayat_notulensi');
+
+            $json = [
+              'message' => "Data Notulensi berhasil diubah..",
+              'url' => $url
+            ];
+          }else {
+            $json['errors'] = "Data Notulensi gagal diubah..!";
+          }
         }else {
-          $json['errors'] = "Data Notulensi gagal diubah..!";
+          $data = [
+            'tembusan'             => $tembusan,
+            'uraian_notulen_cetak' => $uraian_notulen_cetak,
+            'uraian_notulen'       => $uraian
+          ];
+
+          $query = $this->m_admin->edit_data('notulensi_rpt','no_notulen', $no_notulen, $data);
+          if ($query) {
+            $url = base_url('sekretaris/riwayat_notulensi');
+
+            $json = [
+              'message' => "Data Notulensi berhasil diubah..",
+              'url' => $url
+            ];
+          }else {
+            $json['errors'] = "Data Notulensi gagal diubah..!";
+          }
         }
+
       }else {
         $no = 0;
         foreach ($this->input->post() as $key => $value) {
