@@ -135,16 +135,67 @@
           }else {
             site_url('auth/logout');
           }
-          $rt_found = array('rt' => $set_rt );
+          // $rt_found = array('rt' => $set_rt );
 
-          $db = $this->m_user->selectWithWhere('surat_undangan', $rt_found)->result_array();
+          // $db = $this->m_user->selectWithWhere('surat_undangan', $rt_found)->result_array();
           $data = [
 
-              'fetch'                => $db,
+              // 'fetch'                => $db,
               'content'              => 'user/v_rapatdisplay',
               'title'                => 'Riwayat Surat Undangan Rapat'
           ];
           $this->load->view('user/index', $data);
+        }
+
+        function fetch_rapatdisplay()
+        {
+          if ($this->role == 'Warga') {
+            $set_rt = 'RT '.$this->rt;
+          }else {
+            site_url('auth/logout');
+          }
+
+          $fetch_data = $this->m_user->make_datatables_rapatdisplay($set_rt);
+          $data = array();
+          foreach($fetch_data as $row)
+          {
+            $tgl_buat_data = strftime("%d %B %Y",strtotime($row->tgl_buat));
+            $no_udg_data = str_replace('-','/',$row->no_udg);
+            $tgl_udg_data = strftime("%d %B %Y",strtotime($row->tgl_udg));
+            $sub_array2 = array();
+            $sub_array2[] ='<div class="media position-relative">
+              <div class="media-body">
+                <div class="col-lg-12 align-self-baseline">
+                  <div class="card mb-3" style="max-width: 1000px;">
+                    <div class="row no-gutters">
+                      <div class="col-md-4">
+                        <img src="'.base_url('./assets/foto/bandung.jpg') .'" class="card-img img-fluid">
+                      </div>
+                      <div class="col-md-8">
+                        <div class="card-body">
+                          <h6 class="card-title text-right">Tanggal Unggah '.$tgl_buat_data.' </h6>
+                          <h2 class="card-title text-left">Surat undangan rapat nomor '.$no_udg_data.' </h2>
+                          <p class="card-text text-justify">'.$row->acara_udg.'</p>
+                          <span class="card-text text-left">Rapat telah dilaksanakan pada  tanggal '.$tgl_udg_data.'</span><br>
+                          <a href="'.base_url("user/rapat_detail/").$row->no_udg.'" class="stretched-link">Selengkapnya</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>'
+            ;
+            $data[] = $sub_array2;
+          }
+
+          $output = array(
+            "draw"                    =>     intval($_POST["draw"]),
+            "recordsTotal"            =>      $this->m_user->get_all_data_rapatdisplay($set_rt),
+            "recordsFiltered"         =>     $this->m_user->get_filtered_data_rapatdisplay($set_rt),
+            "data"                    =>     $data
+          );
+          echo json_encode($output);
         }
 
         public function rapat_detail(){

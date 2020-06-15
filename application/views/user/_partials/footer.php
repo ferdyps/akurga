@@ -41,8 +41,23 @@
          ],
     });
 
-    // $('#tabel_notulensi').DataTable().search(
-    // ).draw();
+    $('#tabel_rapat').DataTable({
+           "processing":true,
+           "serverSide":true,
+           "order":[],
+           "ajax":{
+                url:"<?php echo base_url().'user/fetch_rapatdisplay'; ?>",
+                type:"POST"
+           },
+           "columnDefs":[
+                {
+                     "targets":[],
+                     "orderable":false,
+                },
+           ],
+      });
+
+
   </script>
 
 </body>

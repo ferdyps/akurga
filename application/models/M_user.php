@@ -4,11 +4,18 @@
 
     class M_user extends CI_Model {
 
-// data table server side ajax with stream_get_filters
+// data table server side ajax
 var $table_notulensidisplay = "surat_undangan";
 var $select_notulensidisplay = array("no_notulen", "dokumentasi_rpt", "notulensi_rpt.tgl_buat", "notulensi_rpt.no_udg", "acara_udg", "tgl_udg",);
 var $order_notulensidisplay = array("notulensi_rpt.tgl_buat");
 var $where_rt = 'notulensi_rpt.rt =';
+
+var $table_rapatdisplay = "surat_undangan";
+var $select_rapatdisplay = array("no_udg", "tgl_buat", "acara_udg", "tgl_udg",);
+var $order_rapatdisplay = array("tgl_buat");
+var $where_rt_rapatdisplay = 'rt =';
+var $where_status = 'status =';
+
 
 //ajax datatable notulensi display
 function make_query_notulensidisplay()
@@ -26,7 +33,7 @@ function make_query_notulensidisplay()
   }
   else
   {
-    $this->db->order_by('notulensi_rpt.tgl_buat', 'ASC');
+    $this->db->order_by('notulensi_rpt.tgl_buat', 'DESC');
   }
 }
 
@@ -58,6 +65,58 @@ function get_all_data_notulensidisplay($set_rt)
   $this->db->where($this->where_rt,$set_rt);
   $this->db->from($this->table_notulensidisplay);
   $this->db->join('notulensi_rpt', 'surat_undangan.no_udg = notulensi_rpt.no_udg');
+  return $this->db->count_all_results();
+}
+
+//ajax datatable rapat display
+function make_query_rapatdisplay()
+{
+  $this->db->select($this->select_rapatdisplay);
+  $this->db->from($this->table_rapatdisplay);
+  if(isset($_POST["search"]["value"]))
+  {
+    $this->db->like("no_udg", $_POST["search"]["value"]);
+  }
+  if(isset($_POST["order"]))
+  {
+    $this->db->order_by($this->order_rapatdisplay[$_POST['order']['0']['column']], $_POST['order']['0']['dir']);
+  }
+  else
+  {
+    $this->db->order_by('tgl_buat', 'DESC');
+  }
+}
+
+function make_datatables_rapatdisplay($set_rt){
+  $this->db->where($this->where_rt_rapatdisplay,$set_rt);
+  $this->db->where($this->where_status,'1');
+  $this->make_query_rapatdisplay();
+  if($_POST["length"] != -1)
+  {
+    $this->db->limit($_POST['length'], $_POST['start']);
+  }
+  $query = $this->db->get();
+  return $query->result();
+
+
+
+
+}
+
+function get_filtered_data_rapatdisplay($set_rt){
+  $this->db->where($this->where_rt_rapatdisplay,$set_rt);
+  $this->db->where($this->where_status,'1');
+  $this->make_query_rapatdisplay();
+  $query = $this->db->get();
+  return $query->num_rows();
+}
+
+function get_all_data_rapatdisplay($set_rt)
+{
+  $this->db->select("*");
+  $this->db->where($this->where_rt_rapatdisplay,$set_rt);
+  $this->db->where($this->where_status,'1');
+  $this->db->from($this->table_rapatdisplay);
   return $this->db->count_all_results();
 }
 

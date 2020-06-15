@@ -69,6 +69,7 @@
                     console.log(data);
                     $('#editUraianNotulensiModal #edit-no_notulen').val(data.no_notulen);
                     $('#editUraianNotulensiModal #edit-tembusan').val(data.tembusan);
+                    $('#editUraianNotulensiModal #edit-uraian_notulen_cetak').val(data.	uraian_notulen_cetak);
                   },
                   error:function() {
                     alert('Error di System..!');

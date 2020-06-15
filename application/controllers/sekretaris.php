@@ -1671,7 +1671,7 @@ class sekretaris extends CI_Controller {
       [
         'field' => 'uraian_notulen_cetak',
         'label' => 'Uraian Notulensi Cetak',
-        'rules' => 'trim|regex_match[/^[\w]/]'
+        'rules' => 'required|trim|regex_match[/^[\w]/]'
       ],
 
       [
@@ -1689,9 +1689,10 @@ class sekretaris extends CI_Controller {
 
 
       if ($this->form_validation->run() == TRUE) {
-        if ($uraian == '' && $uraian_notulen_cetak == '') {
+        if ($uraian == '') {
           $data = [
-            'tembusan'             => $tembusan
+            'tembusan'             => $tembusan,
+            'uraian_notulen_cetak' => $uraian_notulen_cetak
           ];
 
           $query = $this->m_admin->edit_data('notulensi_rpt','no_notulen', $no_notulen, $data);
