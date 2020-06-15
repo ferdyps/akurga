@@ -50,7 +50,7 @@ setlocale(LC_ALL, 'id-ID', 'id_ID');
                             <td><?= $row['keluhan']?></td>
                             <td><?= $row['lokasi']?></td>
                             <td><?= strftime("%d %B %Y", strtotime($row['tanggal_komplain']))?></td>
-                            <td class="text-center"><img width="50%" class="rounded" src="<?= base_url('./assets/foto/komplain/'.$row['gambar'])?>"></td>
+                            <td class="text-center"><img width="40%" class="rounded" src="<?= base_url('./assets/foto/komplain/'.$row['gambar'])?>"></td>
                             <td><a class="btn btn-primary" href="<?= base_url('ketuaRW/inputHasilKomplainRW/'. $row['nomor_komplain'])?>" <?php if($row['status'] == 'selesai') { ?> hidden <?php } ?>>Tindak Lanjut</a></td>
                           </tr>
                       <?php } ?>
@@ -83,7 +83,7 @@ setlocale(LC_ALL, 'id-ID', 'id_ID');
                             <td><?= $row['nomor_komplain']?></td>
                             <td><?= $row['hasil_tindak_lanjut']?></td>
                             <td><?= strftime("%d %B %Y", strtotime($row['tgl_tindak_lanjut']))?></td>
-                            <td class="text-center"><img width="50%" class="rounded" src="<?= base_url('./assets/foto/tindak_lanjut/'.$row['gambar'])?>"></td>
+                            <td class="text-center"><img width="40%" class="rounded" src="<?= base_url('./assets/foto/tindak_lanjut/'.$row['gambar'])?>"></td>
                           </tr>
                       <?php } ?>
                       </tbody>

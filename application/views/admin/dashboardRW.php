@@ -3,8 +3,8 @@
 
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-  <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-  <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+  <h1 class="h3 mb-0 text-gray-800">RW 01</h1>
+  <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
 </div>
 
 <!-- Content Row -->
@@ -16,7 +16,7 @@
       <div class="card-body">
         <div class="row no-gutters align-items-center">
           <div class="col mr-2">
-            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Warga Yang belum Approval</div>
+            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Approval Request (Warga) </div>
             <div class="h5 mb-0 font-weight-bold text-gray-800"><?php foreach($semuaWarga as $row){echo $row['total'];}?></div><br>
             <a href="<?php echo base_url('ketuaRW/konfirmasiDataWarga'); ?>" class="btn btn-primary">Lihat Warga</a>
           </div>
@@ -79,6 +79,11 @@
   </div>
 </div>
 
+<div class="row">
+  <div class="col text-center">
+    <h3>Data Kependudukan RW 01</h3>
+  </div>
+</div>
 <!-- Content Row -->
 
 <div class="row">
@@ -120,7 +125,7 @@ var chartPendidikan = new CanvasJS.Chart("education", {
 	exportEnabled: true,
 	animationEnabled: true,
 	title: {
-		text: "Pendidikan"
+		text: "Berdasarkan Pendidikan"
 	},
 	data: [{
 		type: "pie",
@@ -140,7 +145,7 @@ var chartKerjaan = new CanvasJS.Chart("job", {
 	exportEnabled: true,
 	animationEnabled: true,
 	title: {
-		text: "Pekerjaan"
+		text: "Berdasarkan Pekerjaan"
 	},
 	data: [{
 		type: "pie",
@@ -160,7 +165,7 @@ var chartJumlahWarga = new CanvasJS.Chart("warga", {
 	exportEnabled: true,
 	animationEnabled: true,
 	title: {
-		text: "Jumlah Warga per RT"
+		text: "Berdasarkan RT"
 	},
 	data: [{
 		type: "pie",

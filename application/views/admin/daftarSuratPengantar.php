@@ -6,7 +6,7 @@
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">List Surat Pengantar</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Daftar Pengajuan Surat Pengantar RT <?= $this->rt;?></h6>
             </div>
             <div class="card-body">
               <div class="table-responsive">

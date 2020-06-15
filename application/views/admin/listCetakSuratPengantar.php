@@ -17,7 +17,7 @@
                       <th>Nomor Surat</th>
                       <th>NIK</th>
                       <th>Nama Lengkap</th>
-                      <th>Keperluan</th>\
+                      <th>Keperluan</th>
                       <th>Action</th>
                     </tr>
                   </thead>

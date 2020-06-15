@@ -516,12 +516,12 @@
 
             $filtertahun = addslashes($this->input->get('tahun'));
 
-        $data['tahun'] = $this->m_admin->tampilTahunPembayaran()->result();
-        if(!empty($filtertahun)){
-            $data['iuranTahun'] = $this->m_user->tampil_iuran_perbulan_pertahun($filtertahun,$id_user)->result();
+            $data['tahun'] = $this->m_admin->tampilTahunPembayaran()->result();
+            if(!empty($filtertahun)){
+                $data['iuranTahun'] = $this->m_user->tampil_iuran_perbulan_pertahun($filtertahun,$id_user)->result();
+            }
+            $this->load->view('user/index',$data);
         }
-        $this->load->view('user/index',$data);
-    }
     public function filteriuranmasuk($bulan,$tahun){
         return $this->db->query("SELECT
           date_format(tanggal,'%m') as 'bulan',
