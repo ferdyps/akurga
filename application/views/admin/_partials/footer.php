@@ -81,7 +81,7 @@
     });
 
     $('.datepickerLagi').pickadate({
-      selectYears: true,
+      selectYears: 100,
       selectMonths: true,
       format: 'dd mmmm yyyy',
       formatSubmit: 'yyyy-mm-dd',
