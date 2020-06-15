@@ -153,7 +153,7 @@
                         [
                             'field' => 'nokk',
                             'label' => 'Nomor KK',
-                            'rules' => 'trim|required|numeric'
+                            'rules' => 'trim|required|numeric|min_length[16]|max_length[16]'
                         ]
                     ]);
                 } else {
@@ -161,7 +161,7 @@
                         [
                             'field' => 'nohp',
                             'label' => 'Nomor HP',
-                            'rules' => 'trim|required|numeric|is_unique[warga.nohp]'
+                            'rules' => 'trim|required|numeric|is_unique[warga.nohp]|min_length[11]|max_length[12]'
                         ]
                     ]);
                 }
