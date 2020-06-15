@@ -111,8 +111,8 @@
                 min-height:150px;
                 max-height:150px;"
                 class="form-control" name="tembusan" id="input-tembusan"></textarea>
-                  <div class="invalid-feedback">
-                </div>
+                  <div class="invalid-feedback"></div>
+                  <p class="text-mute">* Inputkan " _ " jika tidak terdapat tembusan</p>
               </div>
             </div>
           </div>

@@ -4,6 +4,63 @@
 
     class M_user extends CI_Model {
 
+// data table server side ajax with stream_get_filters
+var $table_notulensidisplay = "surat_undangan";
+var $select_notulensidisplay = array("no_notulen", "dokumentasi_rpt", "notulensi_rpt.tgl_buat", "notulensi_rpt.no_udg", "acara_udg", "tgl_udg",);
+var $order_notulensidisplay = array("notulensi_rpt.tgl_buat");
+var $where_rt = 'notulensi_rpt.rt =';
+
+//ajax datatable notulensi display
+function make_query_notulensidisplay()
+{
+  $this->db->select($this->select_notulensidisplay);
+  $this->db->from($this->table_notulensidisplay);
+  $this->db->join('notulensi_rpt', 'surat_undangan.no_udg = notulensi_rpt.no_udg');
+  if(isset($_POST["search"]["value"]))
+  {
+    $this->db->like("notulensi_rpt.no_udg", $_POST["search"]["value"]);
+  }
+  if(isset($_POST["order"]))
+  {
+    $this->db->order_by($this->order_notulensidisplay[$_POST['order']['0']['column']], $_POST['order']['0']['dir']);
+  }
+  else
+  {
+    $this->db->order_by('notulensi_rpt.tgl_buat', 'ASC');
+  }
+}
+
+function make_datatables_notulensidisplay($set_rt){
+  $this->db->where($this->where_rt,$set_rt);
+  $this->make_query_notulensidisplay();
+  if($_POST["length"] != -1)
+  {
+    $this->db->limit($_POST['length'], $_POST['start']);
+  }
+  $query = $this->db->get();
+  return $query->result();
+
+
+
+
+}
+
+function get_filtered_data_notulensidisplay($set_rt){
+  $this->db->where($this->where_rt,$set_rt);
+  $this->make_query_notulensidisplay();
+  $query = $this->db->get();
+  return $query->num_rows();
+}
+
+function get_all_data_notulensidisplay($set_rt)
+{
+  $this->db->select("*");
+  $this->db->where($this->where_rt,$set_rt);
+  $this->db->from($this->table_notulensidisplay);
+  $this->db->join('notulensi_rpt', 'surat_undangan.no_udg = notulensi_rpt.no_udg');
+  return $this->db->count_all_results();
+}
+
         public function cek_user($data){
             $sql = "SELECT user.id_user, user.username, user.role, warga.rt, warga.nama FROM user JOIN warga ON user.id_user = warga.id_user  WHERE (username = ? OR email = ?) AND password = ?";
             return $this->db->query($sql,array($data['username_email'],$data['username_email'],$data['password']));

@@ -85,6 +85,16 @@
             $data['title'] = 'Tabel Data pengeluaran';
             $this->load->view('admin/index',$data);
         }
+        // public function tabeltarif(){
+        //     // $where = array(
+        //     // 	'nip' => $this->session->userdata('nip')
+        //     // );
+        //     // $data['dataiuran'] = $this->petugas_model->view_data($where,'iuran_masuk')->result();
+        //     $data['content'] = "admin/tabelpengeluaran";
+        //     $data['title'] = 'Tabel Data pengeluaran';
+        //     $this->load->view('admin/index',$data);
+        // }
+
         public function rekapbulan(){
             // $where = array(
             // 	'nip' => $this->session->userdata('nip')
@@ -104,10 +114,35 @@
             $this->load->view('admin/index',$data);
         }
 
+        public function rekaprt(){
+
+            $data['datart'] = $this->m_admin->datart()->result();
+            $data['content'] = "admin/rekaprt";
+            $data['title'] = 'Tabel Data RT ';
+
+            $this->load->view('admin/index',$data);
+        }
+
+        public function rekapbulanrt(){
+            // $where = array(
+            // 	'nip' => $this->session->userdata('nip')
+            // );
+            // $data['dataiuran'] = $this->petugas_model->view_data($where,'iuran_masuk')->result();
+            $filtertahun = addslashes($this->input->get('tahun'));
+            $rt = addslashes($this->input->get('rt'));
+
+            if(!empty($filtertahun)){
+                  $data['masuk'] = $this->m_admin->iuranmasuk($rt,$filtertahun)->result();
+            }else{
+                  $data['masuk'] = $this->m_admin->iuranmasuk($rt)->result();
+            }
+            $data['content'] = "admin/rekapbulanrt";
+            $data['title'] = 'Tabel Data Rekap';
+
+            $this->load->view('admin/index',$data);
+        }
+
         public function tampilbulan(){
-
-
-
             $data['content'] = "admin/tampilbulan";
             $data['title'] = 'Tabel Data Bulan';
             $rt = $this->session->userdata('rt');
@@ -186,6 +221,12 @@
             $data['content'] = "admin/tabelpemasukan.php";
             $this->load->view('admin/index',$data);
         }
+        public function tabeltarif(){
+            $data['title'] = 'Tabel Data Pemasukan';
+            $data['datatarif'] = $this->m_admin->tampil_tarif()->result_array();
+            $data['content'] = "admin/tabeltarif.php";
+            $this->load->view('admin/index',$data);
+        }
 
         public function tabeldataiurankeluar(){
             $data['title'] = 'Tabel Data Keluar';
@@ -236,6 +277,39 @@
             $data['content']="admin/editiuranmasuk.php";
             $this->load->view('admin/index',$data);
         }
+        public function edit_tarif($kodeiuran)
+        {
+            $where = array(
+                'kodeiuran' => $kodeiuran
+            );
+            $this->session->set_userdata($where);
+
+            $data['tarif'] = $this->m_admin->edit_data_tarif($where,'tarif')->result();
+            $data['content']="admin/editdatatarif.php";
+            $this->load->view('admin/index',$data);
+
+        }
+        function update_data_tarif(){
+            if($this->input->post('edit_tarif')){
+                $kodeiuran = $this->session->userdata('kodeiuran');
+                $jenis_iuran = $this->input->post('jenis_iuran');
+                $nominal = $this->input->post('nominal');
+
+                $datatarif = array(
+                    'kodeiuran' => $kodeiuran,
+                    'jenis_iuran' => $jenis_iuran,
+                    'nominal' => $nominal
+                );
+                $where = array(
+                    'kodeiuran' => $kodeiuran
+                );
+                $this->m_admin->update_data($where,$datatarif,'tarif');
+                redirect(base_url('Bendahara/tabeltarif'),'refresh');
+            }else {
+                redirect(base_url('Bendahara/editdatatarif'),'refresh');
+            }
+        }
+
 
         public function detail_iuran_masuk(){
             $data['title'] = 'Detail Iuran Masuk';
@@ -260,7 +334,7 @@
             $data['content']="admin/detailpengeluaran.php";
             $this->load->view('admin/index',$data);
         }
-        
+
 	function update_data_iuran_keluar(){
 		if($this->input->post('edit_keluar')){
       			$no_pengeluaran = $this->session->userdata('no_pengeluaran');
@@ -300,7 +374,6 @@
                         'tanggal' => $tanggal,
                         'nominal' => $nominal,
                         'digunakan_untuk' => $digunakan_untuk
-
               );
             }
 

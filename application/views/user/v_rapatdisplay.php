@@ -21,7 +21,7 @@
                       <div class="card-body">
                         <?php config_item('setlocal'); ?>
                         <h6 class="card-title text-right">Tanggal Rapat <?= strftime("%d %B %Y",strtotime($row['tgl_udg'])); ?> </h6>
-                        <h2 class="card-title text-left">Surat undangan rapat nomor <?= $row['no_udg']; ?> </h2>
+                        <h2 class="card-title text-left">Surat undangan rapat nomor <?= str_replace('-','/',$row['no_udg']); ?> </h2>
                         <p class="card-text text-justify"><?= $row['acara_udg']; ?></p>
                         <!-- <span class="card-text text-left">Rapat telah dilaksanakan pada  tanggal <?= strftime("%d %B %Y",strtotime($row['tgl_udg'])); ?></span><br> -->
                         <a href="<?= base_url("user/rapat_detail").'/'.$row['no_udg'];?>" class="stretched-link">Selengkapnya</a>

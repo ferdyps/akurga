@@ -62,6 +62,7 @@
                    <div class="form-group form-input">
                        <label for="input-gambar">Gambar</label>
                        <input type="file" name="gambar" id="input-gambar" class="form-control" required>
+                       <p style="color:red">*File-type : .jpg / .jpeg / .png / .gif</p>
                        <div class="invalid-feedback">
                      </div>
                    </div>

@@ -547,6 +547,123 @@
           }
         }
 
+        public function riwayat_Undangan(){
+          if ($this->role == 'Ketua RW') {
+            $set_rt = 'RW 01';
+          }else {
+            redirect('auth/logout','refresh');
+          }
+
+          $id = array(
+            'status' => 1,
+            'rt'     => $set_rt
+          );
+
+          $data['list_surat_udg'] = $this->m_admin->selectWithWhere('surat_undangan',$id)->result_array();
+          $data['content'] = 'admin/tabel_undangan_ketuarw';
+          $data['title'] = 'Riwayat Surat Undangan';
+          $this->load->view('admin/index', $data);
+        }
+
+        public function detailRapat($id){
+          $tabel = 'surat_undangan';
+          $where = [
+            'no_udg' => $id
+          ];
+
+          $data = $this->m_admin->selectWithWhere($tabel,$where)->row();
+          echo json_encode($data);
+        }
+
+        public function previewRapat(){
+          $id     = $this->uri->segment(3);
+
+          if ($this->role == 'Ketua RW') {
+            $ketua  = array(
+              'role' => 'Ketua RW'
+            );
+            $array_data = array(
+              'no_udg'     => $id,
+              'rt'         => 'RW 01'
+            );
+          }else {
+            redirect('auth/logout','refresh');
+          }
+
+
+
+          $ketua_rt  = $this->m_admin->cek_ketua($ketua)->result_array();
+          $db = $this->m_admin->selectWithWhere('surat_undangan', $array_data)->result_array();
+          $data['fetch'] = $db;
+          $data['fetch_ketua'] = $ketua_rt;
+          $data['title'] = 'Detail Surat Undangan Rapat';
+          $this->load->view('admin/v_detailrpt', $data);
+        }
+
+        public function riwayat_notulensi(){
+          if ($this->role == 'Ketua RW') {
+            $set_rt = 'RW 01';
+          }else {
+            redirect('auth/logout','refresh');
+          }
+
+          $rt = array(
+            'rt'     => $set_rt,
+            'status' => 0
+          );
+          $data['list_notulen'] = $this->m_admin->selectWithWhere('notulensi_rpt',$rt)->result_array();
+          $data['content'] = 'admin/tabel_notulensi_ketuarw';
+          $data['title'] = 'Riwayat Notulensi Rapat';
+          $this->load->view('admin/index', $data);
+        }
+
+        public function dokumentasi_rapat()
+        {
+          $id     = $this->uri->segment(3);
+          $no     = array('no_notulen' => $id );
+          $surat  = $this->m_admin->selectWithWhere('notulensi_rpt', $no)->result_array();
+          $data['fetch'] = $surat;
+          $data['title'] = 'Detail Dokumentasi Rapat';
+          $this->load->view('admin/v_dokumentasi_rapat', $data);
+        }
+
+        public function notulensi_rapat(){
+
+          $id     = $this->uri->segment(3);
+          $surat  = $this->m_admin->get_detail_notulensi($id)->result_array();
+          $data['fetch'] = $surat;
+          $data['title'] = 'Notulensi Rapat';
+          $this->load->view('admin/v_notulensi_rapat', $data);
+        }
+
+        public function riwayat_arsip(){
+          if ($this->role == 'Ketua RW') {
+            $set_rt = 'RW 01';
+          }else {
+            redirect('auth/logout','refresh');
+          }
+
+          $rt = array(
+            'rt'     => $set_rt
+          );
+
+          $data['list_arsip'] = $this->m_admin->selectWithWhere('arsip_surat',$rt)->result_array();
+          $data['content'] = 'admin/tabel_arsip_ketuarw';
+          $data['title'] = 'Riwayat Arsip Surat';
+          $this->load->view('admin/index', $data);
+
+        }
+
+        public function gambar_arsip()
+        {
+          $id     = $this->uri->segment(3);
+          $no     = array('kd_surat' => $id );
+          $surat  = $this->m_admin->selectWithWhere('arsip_surat', $no)->result_array();
+          $data['fetch'] = $surat;
+          $data['title'] = 'Detail Gambar Surat';
+          $this->load->view('admin/v_gambar_arsip', $data);
+        }
+
     }
 
     /* End of file KetuaRW.php */

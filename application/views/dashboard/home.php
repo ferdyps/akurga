@@ -48,20 +48,6 @@
             <p class="text-muted mb-0"></p>
           </div>
         </div>
-        <div class="col-lg-3 col-md-6 text-center">
-          <div class="mt-5">
-            <i class="fas fa-4x fa-meetup text-primary mb-4"></i>
-            <h3 class="h4 mb-2">Rapat</h3>
-            <p class="text-muted mb-0"></p>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-6 text-center">
-          <div class="mt-5">
-            <i class="fas fa-4x fa-meetup text-primary mb-4"></i>
-            <h3 class="h4 mb-2">Notulensi</h3>
-            <p class="text-muted mb-0"></p>
-          </div>
-        </div>
       </div>
     </div>
   </section>

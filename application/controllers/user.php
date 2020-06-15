@@ -43,21 +43,71 @@
 
 // =========================SEKRETARIS ROLE=======================================
         public function notulensidisplay(){
+
+
+          // $db = $this->m_user->get_notulensi($set_rt)->result_array();
+          $data = [
+
+              // 'fetch'                => $db,
+              'content'              => 'user/v_notulensidisplay',
+              'title'                => 'Riwayat Notulensi Rapat'
+          ];
+          $this->load->view('user/index', $data);
+        }
+
+
+        function fetch_notulensidisplay()
+        {
           if ($this->role == 'Warga') {
             $set_rt = 'RT '.$this->rt;
           }else {
             site_url('auth/logout');
           }
 
-          $db = $this->m_user->get_notulensi($set_rt)->result_array();
-          $data = [
+          $fetch_data = $this->m_user->make_datatables_notulensidisplay($set_rt);
+          $data = array();
+          foreach($fetch_data as $row)
+          {
+            $tgl_buat_data = strftime("%d %B %Y",strtotime($row->tgl_buat));
+            $no_udg_data = str_replace('-','/',$row->no_udg);
+            $tgl_udg_data = strftime("%d %B %Y",strtotime($row->tgl_udg));
+            $sub_array2 = array();
+            $sub_array2[] =
+            '<div class="media position-relative">
+              <div class="media-body">
+                <div class="col-lg-12 align-self-baseline">
+                  <div class="card mb-3" style="max-width: 1200px;">
+                    <div class="row no-gutters">
+                      <div class="col-md-4">
+                        <img height="300px" src="'.base_url('./assets/foto/notulensi/').$row->dokumentasi_rpt.'" class="card-img">
+                      </div>
+                      <div class="col-md-8">
+                        <div class="card-body">
+                          <h6 class="card-title text-right">Diunggah '.$tgl_buat_data.' </h6>
+                          <h2 class="card-title text-left">Notulensi Rapat dengan undangan rapat nomor '.$no_udg_data.' </h2>
+                          <p class="card-text text-justify">'.$row->acara_udg.'</p>
+                          <span class="card-text text-left">Rapat telah dilaksanakan pada  tanggal'.$tgl_udg_data.'</span><br>
+                          <a href="'.base_url("user/notulensi_rapat/").$row->no_notulen.'" class="stretched-link">Selengkapnya</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>'
+            ;
+            $data[] = $sub_array2;
+          }
 
-              'fetch'                => $db,
-              'content'              => 'user/v_notulensidisplay',
-              'title'                => 'Riwayat Notulensi Rapat'
-          ];
-          $this->load->view('user/index', $data);
+          $output = array(
+            "draw"                    =>     intval($_POST["draw"]),
+            "recordsTotal"            =>      $this->m_user->get_all_data_notulensidisplay($set_rt),
+            "recordsFiltered"         =>     $this->m_user->get_filtered_data_notulensidisplay($set_rt),
+            "data"                    =>     $data
+          );
+          echo json_encode($output);
         }
+
 
         public function notulensi_rapat(){
           $id     = $this->uri->segment(3);
@@ -178,7 +228,7 @@
                         ];
                     }else {
                         $json['errors'] = "Pengajuan Surat Pengantar Gagal Diinput..!";
-                    }   
+                    }
                 } else {
                     $no = 0;
                     foreach ($this->input->post() as $key => $value) {
@@ -255,10 +305,10 @@
                         ];
 
                         $insertKomplain = $this->m_admin->input_data('komplain', $data);
-    
+
                         if ($insertKomplain) {
                             $url = base_url('user/riwayatKomplain');
-    
+
                             $json = [
                                 'message' => "Pengaduan berhasil diinput..",
                                 'url' => $url
@@ -326,7 +376,7 @@
 
 // ==================================================================================
         public function editSuratPengantar($id){
-            
+
                 $table = 'surat_pengantar';
                 $where = ['nomor_surat' => $id];
                 $data_surat = $this->m_admin->selectWithWhere($table,$where)->row();
@@ -372,7 +422,7 @@
                         ];
                     }else {
                         $json['errors'] = "Pengajuan Surat Pengantar Gagal Diinput..!";
-                    } 
+                    }
                 }else {
                     $no = 0;
                     foreach ($this->input->post() as $key => $value) {
@@ -405,7 +455,7 @@
             $data['title'] = 'Tabel Data Rekap';
 
             $this->load->view('admin/index',$data);
-        } 
+        }
 
         public function tampilbulan(){
             $id_user = $this->session->userdata('id_user');
