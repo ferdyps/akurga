@@ -6,7 +6,7 @@
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Daftar Pengaduan</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Daftar Pengaduan / Komplain RT <?= $this->rt;?></h6>
             </div>
             <div class="card-body">
               <nav>
@@ -48,7 +48,7 @@
                             <td><?= $row['keluhan']?></td>
                             <td><?= $row['lokasi']?></td>
                             <td><?= $row['tanggal_komplain']?></td>
-                            <td><img width="30%" src="<?= base_url('./assets/foto/komplain/'.$row['gambar'])?>"></td>
+                            <td class="text-center"><img width="40%" class="rounded" src="<?= base_url('./assets/foto/komplain/'.$row['gambar'])?>"></td>
                             <td><a class="btn btn-primary" href="<?= base_url('ketuaRT/inputHasilKomplain/'. $row['nomor_komplain'])?>" <?php if($row['status'] == 'selesai') { ?> hidden <?php } ?>>Tindak Lanjut</a>
                             <a class="btn btn-success" <?php if($row['status'] == 'selesai') { ?> hidden <?php } ?> onclick="konfirmasi_data('<?= base_url('ketuaRT/klik_komplain_RW/')?>', '<?= $row['nomor_komplain']; ?>')">Ketua RW</a></td>
                           </tr>
@@ -81,7 +81,7 @@
                             <td><?= $row['nomor_komplain']?></td>
                             <td><?= $row['hasil_tindak_lanjut']?></td>
                             <td><?= $row['tgl_tindak_lanjut']?></td>
-                            <td><img width="30%" src="<?= base_url('./assets/foto/tindak_lanjut/'.$row['gambar'])?>"></td>
+                            <td class="text-center"><img width="40%" class="rounded" src="<?= base_url('./assets/foto/tindak_lanjut/'.$row['gambar'])?>"></td>
                           </tr>
                       <?php } ?>
                       </tbody>

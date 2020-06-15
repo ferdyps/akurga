@@ -65,6 +65,7 @@
                         <label for="input-role">Role</label>
                         <select name="role" id="input-role" class="form-control">
                             <option selected disabled>-- Pilih Role --</option>
+                            <option value="Ketua RW">Ketua RW</option>
                             <option value="Ketua RT">Ketua RT</option>
                             <option value="Bendahara">Bendahara</option>
                             <option value="Sekretaris RW">Sekretaris RW</option>

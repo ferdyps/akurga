@@ -6,7 +6,7 @@
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Data Warga</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Daftar Warga RT <?= $this->rt;?></h6>
             </div>
             <div class="card-body">
               <nav>
@@ -53,7 +53,7 @@
                             <td><?= $row['status']?></td>
                             <td><?= $row['jenis_warga']?></td>
                             <td><?= $row['rt']?></td>
-                            <td><img width="100%" src="<?= base_url('./assets/foto/warga/'.$row['gambar']) ?>"></td>
+                            <td class="text-center"><img width="50%" class="rounded" src="<?= base_url('./assets/foto/warga/'.$row['gambar']) ?>"></td>
                             <td>
                               <?php if ($row['valid'] == 1) {
                                 echo "Sudah Valid";
@@ -112,7 +112,7 @@
                             <td><?= $row['status']?></td>
                             <td><?= $row['jenis_warga']?></td>
                             <td><?= $row['rt']?></td>
-                            <td><img width="100%" src="<?= base_url('./assets/foto/warga/'.$row['gambar']) ?>"></td>
+                            <td class="text-center"><img width="50%" class="rounded" src="<?= base_url('./assets/foto/warga/'.$row['gambar']) ?>"></td>
                             <td>
                               <?php if ($row['valid'] == 1) {
                                 echo "Sudah Valid";

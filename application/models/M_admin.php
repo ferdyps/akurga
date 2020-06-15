@@ -234,7 +234,8 @@
             ) as pesan
             FROM surat_pengantar sp
             JOIN warga w ON w.nik=sp.nik
-            WHERE w.rt='$rt'");
+            WHERE w.rt='$rt'
+            ORDER BY nomor_surat DESC");
         }
 
         public function list_cetak_sp()
@@ -243,7 +244,8 @@
             FROM surat_pengantar sp
             JOIN warga w ON w.nik=sp.nik
             JOIN status_surat ss ON sp.nomor_surat = ss.nomor_surat
-            WHERE ss.STATUS='diterima'");
+            WHERE ss.STATUS='diterima'
+            ORDER BY nomor_surat DESC");
         }
 
         public function getNomorSuratPengantar(){

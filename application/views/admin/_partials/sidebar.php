@@ -27,8 +27,14 @@
       <div class="sidebar-heading">
         Ketua RW
       </div>
-
+      <li class="nav-item active">
+        <a class="nav-link" href="<?php echo base_url("ketuaRW/index");?>">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>Dashboard</span></a>
+      </li>
+      <hr class="sidebar-divider">
       <!-- Nav Item - Pages Collapse Menu -->
+      
       <li class="nav-item">
         <a class="nav-link" href="<?= base_url('ketuaRW/konfirmasiDataWarga')?>">
           <i class="fas fa-fw fa-users"></i>
@@ -69,7 +75,12 @@
       <div class="sidebar-heading">
         Ketua RT
       </div>
-
+      <li class="nav-item active">
+        <a class="nav-link" href="<?php echo base_url("ketuaRT/index");?>">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>Dashboard</span></a>
+      </li>
+      <hr class="sidebar-divider">
       <!-- Nav Item - Pages Collapse Menu -->
 
       <li class="nav-item">

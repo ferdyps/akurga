@@ -147,7 +147,7 @@
                         <div class="invalid-feedback"></div>
                     </div>
                     <div class="form-group form-input">
-                        <label for="input-gambar">Gambar</label>
+                        <label for="input-gambar">Gambar Lampiran (JPG, JPEG, PNG)</label>
                         <div class="custom-file">
                             <input type="file" name="gambar" class="custom-file-input" id="input-gambar">
                             <label class="custom-file-label">Choose file</label>
@@ -167,7 +167,6 @@
             <div class="col">
                 <div class="form-group text-center">
                     <input type="submit" value="Edit" class="btn btn-primary">
-                    <input type="reset" value="Reset" class="btn btn-danger">
                 </div>
             </div>
         <?= form_close();?>

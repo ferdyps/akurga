@@ -160,7 +160,7 @@
                         </select>
                     </div> -->
                     <div class="form-group form-input">
-                        <label for="input-gambar">Gambar</label>
+                        <label for="input-gambar">Gambar Lampiran (JPG, JPEG, PNG)</label>
                         <div class="custom-file">
                             <input type="file" name="gambar" class="custom-file-input" id="input-gambar">
                             <label class="custom-file-label">Choose file</label>
