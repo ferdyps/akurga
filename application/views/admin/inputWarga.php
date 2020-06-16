@@ -160,10 +160,12 @@
                         </select>
                     </div> -->
                     <div class="form-group form-input">
-                        <label for="input-gambar">Gambar Lampiran (JPG, JPEG, PNG)</label>
+                        <label for="input-gambar">Gambar Lampiran Fotokopi KK/KTP</label>
                         <div class="custom-file">
                             <input type="file" name="gambar" class="custom-file-input" id="input-gambar">
                             <label class="custom-file-label">Choose file</label>
+                            * Ukuran file max 2mb <br>
+                            * Format file wajib JPG, JPEG atau PNG
                             <div class="invalid-feedback"></div>   
                         </div>
                     </div>   

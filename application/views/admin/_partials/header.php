@@ -22,7 +22,7 @@
   <link rel="stylesheet" href="<?= config_item('asset_url') . 'pickadate.js-3.6.2/themes/classic.css'; ?>">
   <link rel="stylesheet" href="<?= config_item('asset_url') . 'pickadate.js-3.6.2/themes/classic.date.css'; ?>">
   <link rel="stylesheet" href="<?= config_item('asset_url') . 'pickadate.js-3.6.2/themes/classic.time.css'; ?>">
-
+  <link rel="icon" href="<?= base_url('./assets/foto/bandung.jpg')?>" type="image/ico">
   <link rel="stylesheet" href="<?= config_item('asset_url') . 'css/main.css'; ?>">
 
   <?php $this->load->view('admin/_partials/js_core');?>

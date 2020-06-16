@@ -26,10 +26,12 @@
                 <div class="invalid-feedback"></div>
             </div>
             <div class="form-group form-input">
-                <label for="input-gambar" class="text-white">Gambar Lampiran (png, jpg, jpeg)</label>
+                <label for="input-gambar" class="text-white">Gambar Pengaduan</label>
                 <div class="custom-file">
                   <input name="gambar" id="input-gambar" type="file" class="custom-file-input ">
                   <label class="custom-file-label">Choose file</label>
+                  * Ukuran file max 2mb <br>
+                  * Format file wajib JPG, JPEG atau PNG
                   <div class="invalid-feedback"></div>
                 </div>
             </div>
