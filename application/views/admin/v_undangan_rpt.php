@@ -13,6 +13,10 @@
             <div class="form-group">
               <label for="input-tembusan">Isi Usulan Rapat</label>
               <textarea
+              style="
+            height:150px;
+            min-height:150px;
+            max-height:150px;"
               class="form-control" name="usulan_rpt" id="input-usulan_rpt" readonly><?= $row['usulan_rpt'] ?></textarea>
             </div>
           </div>
@@ -114,7 +118,6 @@
         <div class="col">
           <div class="form-group text-center">
             <input type="submit" class="btn btn-primary">
-            <input type="reset" value="Reset" class="btn btn-danger">
           </div>
         </div>
       </div>

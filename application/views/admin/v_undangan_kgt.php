@@ -13,6 +13,10 @@
             <div class="form-group form-input">
               <label for="input-tembusan">Isi Usulan Rapat</label>
               <textarea
+              style="
+            height:150px;
+            min-height:150px;
+            max-height:150px;"
               class="form-control" name="usulan_rpt" id="input-usulan_rpt" readonly><?= $row['usulan_rpt'] ?></textarea>
             </div>
           </div>
@@ -95,11 +99,17 @@
                   <div class="invalid-feedback">
                 </div>
               </div>
+
               <div class="form-group form-input">
-                  <label for="input-acara_udg_kgt">Agenda Kegiatan</label>
-                  <input type="input" name="acara_udg_kgt" id="input-acara_udg_kgt" class="form-control">
-                  <div class="invalid-feedback">
-                </div>
+                <label for="input-acara_udg_kgt">Agenda Rapat</label>
+                <textarea style="width: 520px;
+                min-width:520px;
+                max-width:520px;
+                height:150px;
+                min-height:150px;
+                max-height:150px;"
+                class="form-control" name="acara_udg_kgt" id="input-acara_udg_kgt"></textarea>
+                <div class="invalid-feedback"></div>
               </div>
 
               <div class="form-group form-input">
@@ -120,7 +130,6 @@
         <div class="col">
           <div class="form-group text-center">
             <input type="submit" class="btn btn-primary">
-            <input type="reset" value="Reset" class="btn btn-danger">
           </div>
         </div>
       </div>

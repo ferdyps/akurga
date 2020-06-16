@@ -21,10 +21,10 @@
                       <th>Action</th>
                     </tr>
                   </thead>
-                  <?php
-                    foreach ($list_surat_udg as $row) {
-                  ?>
                   <tbody class="text-center">
+                    <?php
+                    foreach ($list_surat_udg as $row) {
+                      ?>
                     <tr>
                     <td><?= str_replace('-','/',$row['no_udg']); ?></td>
                     <td><?= $row['tujuan_surat'] ?></td>

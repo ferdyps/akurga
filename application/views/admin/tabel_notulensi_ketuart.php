@@ -21,23 +21,24 @@
                       <th>Action</th>
                     </tr>
                   </thead>
-                  <?php
-                    foreach ($list_notulen as $row) {
-                  ?>
                   <tbody class="text-center">
-                    <td><?= str_replace('-','/',$row['no_notulen']); ?></td>
-                    <td><?= $row['penulis'] ?></td>
-                    <td><?= strftime("%d %B %Y",strtotime($row['tgl_buat'])); ?></td>
-                    <td><?= $row['tembusan'] ?></td>
-                    <td>
-                      <a href="<?= base_url("ketuaRT/dokumentasi_rapat").'/'.$row['no_notulen'];?>" target="_blank" class="d-none d-sm-inline-block btn btn-primary shadow-sm" title="Detail Dokumentasi Rapat"><i class="fas fa-image"></i></a>
-                    </td>
-                    <td>
-                      <a href="<?= base_url("ketuaRT/notulensi_rapat").'/'.$row['no_notulen'];?>" target="_blank" class="d-none d-sm-inline-block btn btn-primary shadow-sm" title="Lihat Isi Uraian Notulensi">Preview<br>Surat</a>
-                    </td>
-
+                    <?php
+                    foreach ($list_notulen as $row) {
+                      ?>
+                      <tr>
+                        <td><?= str_replace('-','/',$row['no_notulen']); ?></td>
+                        <td><?= $row['penulis'] ?></td>
+                        <td><?= strftime("%d %B %Y",strtotime($row['tgl_buat'])); ?></td>
+                        <td><?= $row['tembusan'] ?></td>
+                        <td>
+                          <a href="<?= base_url("ketuaRT/dokumentasi_rapat").'/'.$row['no_notulen'];?>" target="_blank" class="d-none d-sm-inline-block btn btn-primary shadow-sm" title="Detail Dokumentasi Rapat"><i class="fas fa-image"></i></a>
+                        </td>
+                        <td>
+                          <a href="<?= base_url("ketuaRT/notulensi_rapat").'/'.$row['no_notulen'];?>" target="_blank" class="d-none d-sm-inline-block btn btn-primary shadow-sm" title="Lihat Isi Uraian Notulensi">Preview<br>Surat</a>
+                        </td>
+                      </tr>
+                    <?php } ?>
                   </tbody>
-                <?php } ?>
                 </table>
               </div>
             </div>

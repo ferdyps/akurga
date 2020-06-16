@@ -301,6 +301,8 @@ class sekretaris extends CI_Controller {
       $ketua  = array(
         'role' => 'Ketua RW'
       );
+    }else {
+      redirect('auth/logout','refresh');
     }
 
     $surat  = $this->m_admin->selectWithWhere('surat_undangan', $no)->result_array();
@@ -327,12 +329,20 @@ class sekretaris extends CI_Controller {
 
       $pdf->Cell(190,7,'DESA SUKAPURA KECAMATAN DAYEUHKOLOT',0,1,'C');
       $pdf->Cell(190,7,'KABUPATEN BANDUNG',0,1,'C');
-      $pdf->Line(10,40,200,40);
+      if ($this->role == 'Sekretaris RT') {
+        $pdf->Line(10,40,200,40);
+      }elseif ($this->role == 'Sekretaris RW') {
+        $pdf->Line(10,33,200,33);
+      }
       $pdf->Ln(1.4);
       $pdf->SetFont('Arial','',12);
       $pdf->Cell(190,7,'Sekretariat : Manggadua RT. ' .$this->rt. ' RW. 01 Desa Sukapura Kec. Dayeuhkolot Kab. Bandung -  40267',0,1,'C');
       $pdf->SetLineWidth(1);
-      $pdf->Line(10,46,200,46);
+      if ($this->role == 'Sekretaris RT') {
+        $pdf->Line(10,46,200,46);
+      }elseif ($this->role == 'Sekretaris RW') {
+        $pdf->Line(10,40,200,40);
+      }
       $pdf->Ln(12);
       $pdf->Cell(17);
       $pdf->Cell(5,5,'Nomor',0,0,'L');
@@ -432,7 +442,12 @@ class sekretaris extends CI_Controller {
       $pdf->Cell(19,7,'Tembusan',0,0,'C');
       $pdf->SetFont('Arial','',11);
       $pdf->Cell(3,7,':',0,0,'C');
-      $pdf->MultiCell(177,7,$row['tembusan'],0,'L');
+      if ($row['tembusan'] == '_') {
+        $tembus = '-';
+        $pdf->MultiCell(177,7,$tembus,0,'L');
+      }else {
+        $pdf->MultiCell(177,7,$row['tembusan'],0,'L');
+      }
       if (substr($row['no_udg'],4,3) == 'KGT') {
         $pdf->SetFont('Arial','B',11);
         $pdf->Cell(19,7,'*Catatan',0,0,'C');
@@ -489,12 +504,20 @@ class sekretaris extends CI_Controller {
 
       $pdf->Cell(190,7,'DESA SUKAPURA KECAMATAN DAYEUHKOLOT',0,1,'C');
       $pdf->Cell(190,7,'KABUPATEN BANDUNG',0,1,'C');
-      $pdf->Line(10,40,200,40);
+      if ($this->role == 'Sekretaris RT') {
+        $pdf->Line(10,40,200,40);
+      }elseif ($this->role == 'Sekretaris RW') {
+        $pdf->Line(10,33,200,33);
+      }
       $pdf->Ln(1.4);
       $pdf->SetFont('Arial','',12);
       $pdf->Cell(190,7,'Sekretariat : Manggadua RT. ' .$this->rt. ' RW. 01 Desa Sukapura Kec. Dayeuhkolot Kab. Bandung -  40267',0,1,'C');
       $pdf->SetLineWidth(1);
-      $pdf->Line(10,46,200,46);
+      if ($this->role == 'Sekretaris RT') {
+        $pdf->Line(10,46,200,46);
+      }elseif ($this->role == 'Sekretaris RW') {
+        $pdf->Line(10,40,200,40);
+      }
       $pdf->Ln(12);
       $pdf->Cell(17);
       $pdf->Cell(5,5,'Nomor',0,0,'L');

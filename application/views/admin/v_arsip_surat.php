@@ -16,7 +16,7 @@
                          <div class="invalid-feedback">
                          </div>
                      </div>
-                     <br>
+                     <br><br>
                      <div class="form-group form-input">
                          <label for="input-no_surat">Nomor Surat</label>
                          <input type="text" name="no_surat" id="input-no_surat" class="form-control">

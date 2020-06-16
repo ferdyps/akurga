@@ -95,7 +95,6 @@
       <div class="col">
           <div class="form-group text-center">
               <input type="submit" value="Submit" class="btn btn-primary">
-              <input type="reset" value="Reset" class="btn btn-danger">
           </div>
       </div>
         <?= form_close();?>
