@@ -23,28 +23,30 @@
                       <th>action</th>
                     </tr>
                   </thead>
-                  <?php
-                  $i = 1;
-                  foreach ($list_data as $row) {
-                  ?>
                   <tbody class="text-center">
-                    <td><?= $i++ ?></td>
-                    <?php $set = substr($row['no_udg'],4,3); ?>
-                    <?php if ($set == 'RPT') { ?>
-                      <td><?php echo "Surat Undangan Rapat"; ?></td>
-                    <?php }else { ?>
-                      <td><?php echo "Surat Undangan Kegiatan"; ?></td>
-                    <?php } ?>
-                    <td><?= $row['usulan_rpt'] ?></td>
-                    <td><?= $row['tujuan_surat'] ?></td>
-                    <td><?= $row['tgl_udg'] ?></td>
-                    <td><?= $row['tempat_udg'] ?></td>
-                    <td><?= $row['jam_udg'] ?></td>
-                    <td>
-                      <button class="btn btn-primary" onclick="konfirmasi_data('<?= base_url('ketuaRW/klik_hapus_usulan_rapatRW/')?>', '<?= $row['no_udg']; ?>' )">Hapus Data</button>
-                    </td>
+                    <?php
+                    $i = 1;
+                    foreach ($list_data as $row) {
+                      ?>
+                      <tr>
+                        <td><?= $i++ ?></td>
+                        <?php $set = substr($row['no_udg'],4,3); ?>
+                        <?php if ($set == 'RPT') { ?>
+                          <td><?php echo "Surat Undangan Rapat"; ?></td>
+                        <?php }else { ?>
+                          <td><?php echo "Surat Undangan Kegiatan"; ?></td>
+                        <?php } ?>
+                        <td><?= $row['usulan_rpt'] ?></td>
+                        <td><?= $row['tujuan_surat'] ?></td>
+                        <td><?= $row['tgl_udg'] ?></td>
+                        <td><?= $row['tempat_udg'] ?></td>
+                        <td><?= $row['jam_udg'] ?></td>
+                        <td>
+                          <button class="btn btn-primary" onclick="konfirmasi_data('<?= base_url('ketuaRW/klik_hapus_usulan_rapatRW/')?>', '<?= $row['no_udg']; ?>' )">Hapus Data</button>
+                        </td>
+                      </tr>
+                  <?php } ?>
                   </tbody>
-                <?php } ?>
                 </table>
               </div>
             </div>

@@ -34,7 +34,7 @@
         Ketua RW
       </div>
       <!-- Nav Item - Pages Collapse Menu -->
-      
+
       <li class="nav-item">
         <a class="nav-link" href="<?= base_url('ketuaRW/konfirmasiDataWarga')?>">
           <i class="fas fa-fw fa-users"></i>
@@ -58,7 +58,7 @@
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePengurus" aria-expanded="true" aria-controls="collapsePengurus">
-          <i class="fas fa-fw fa-cog"></i>
+          <i class="fas fa-fw fa-envelope"></i>
           <span>Usulan Surat Undangan</span>
         </a>
         <div id="collapsePengurus" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -273,7 +273,7 @@
       <div class="sidebar-heading">Sekretaris</div>
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSekretarisUndangan" aria-expanded="true" aria-controls="collapseSekretarisUndangan">
-          <i class="fas fa-fw fa-cog"></i>
+          <i class="fas fa-fw fa-envelope"></i>
           <span>Surat undangan</span>
         </a>
         <div id="collapseSekretarisUndangan" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -285,7 +285,7 @@
       </li>
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSekretarisNotulensi" aria-expanded="true" aria-controls="collapseSekretarisNotulensi">
-          <i class="fas fa-fw fa-cog"></i>
+          <i class="fas fa-fw fa-edit"></i>
           <span>Notulensi Rapat</span>
         </a>
         <div id="collapseSekretarisNotulensi" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -296,7 +296,7 @@
       </li>
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSekretarisArsip" aria-expanded="true" aria-controls="collapseSekretarisArsip">
-          <i class="fas fa-fw fa-cog"></i>
+          <i class="fas fa-fw fa-archive"></i>
           <span>Arsip Surat</span>
         </a>
         <div id="collapseSekretarisArsip" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -423,7 +423,7 @@
       </li>
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSekretarisArsip" aria-expanded="true" aria-controls="collapseSekretarisArsip">
-          <i class="fas fa-fw fa-cog"></i>
+          <i class="fas fa-fw fa-archive"></i>
           <span>Arsip Surat</span>
         </a>
         <div id="collapseSekretarisArsip" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">

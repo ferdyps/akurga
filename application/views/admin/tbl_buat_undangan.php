@@ -23,37 +23,39 @@
                       <th>action</th>
                     </tr>
                   </thead>
-                  <?php
-                  $i = 1;
-                  foreach ($fetch as $row) {
-                  ?>
                   <tbody class="text-center">
-                    <td><?= $i++ ?></td>
-                    <?php $set = substr($row['no_udg'],4,3); ?>
-                    <?php if ($set == 'RPT') { ?>
-                      <td><?php echo "Surat Undangan Rapat"; ?></td>
-                    <?php }else { ?>
-                      <td><?php echo "Surat Undangan Kegiatan"; ?></td>
-                    <?php } ?>
-                    <td><?= $row['usulan_rpt'] ?></td>
-                    <td><?= $row['tujuan_surat'] ?></td>
-                    <td><?= $row['tgl_udg'] ?></td>
-                    <td><?= $row['tempat_udg'] ?></td>
-                    <td><?= $row['jam_udg'] ?></td>
-                    <td>
+                    <?php
+                    $i = 1;
+                    foreach ($fetch as $row) {
+                      ?>
+                      <tr>
+                        <td><?= $i++ ?></td>
+                        <?php $set = substr($row['no_udg'],4,3); ?>
+                        <?php if ($set == 'RPT') { ?>
+                          <td><?php echo "Surat Undangan Rapat"; ?></td>
+                        <?php }else { ?>
+                          <td><?php echo "Surat Undangan Kegiatan"; ?></td>
+                        <?php } ?>
+                        <td><?= $row['usulan_rpt'] ?></td>
+                        <td><?= $row['tujuan_surat'] ?></td>
+                        <td><?= $row['tgl_udg'] ?></td>
+                        <td><?= $row['tempat_udg'] ?></td>
+                        <td><?= $row['jam_udg'] ?></td>
+                        <td>
 
-                      <a
-                      <?php if ($set == 'RPT') { ?>
-                       href="<?= base_url("sekretaris/inputundanganrapat").'/'.$row['no_udg'];?>"
-                      <?php }else { ?>
-                       href="<?= base_url("sekretaris/inputundangankegiatan").'/'.$row['no_udg'];?>"
-                      <?php } ?>
-                       class="d-none d-sm-inline-block btn btn-primary shadow-sm" title="Buat Surat Undangan">
-                       Buat Surat Undangan
-                     </a>
-                    </td>
+                          <a
+                          <?php if ($set == 'RPT') { ?>
+                           href="<?= base_url("sekretaris/inputundanganrapat").'/'.$row['no_udg'];?>"
+                          <?php }else { ?>
+                           href="<?= base_url("sekretaris/inputundangankegiatan").'/'.$row['no_udg'];?>"
+                          <?php } ?>
+                           class="d-none d-sm-inline-block btn btn-primary shadow-sm" title="Buat Surat Undangan">
+                           Buat Surat Undangan
+                         </a>
+                        </td>
+                      </tr>      
+                  <?php } ?>
                   </tbody>
-                <?php } ?>
                 </table>
               </div>
             </div>

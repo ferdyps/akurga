@@ -10,7 +10,7 @@
             <?php config_item('setlocal'); ?>
             <div class="card-body">
               <div class="table-responsive">
-                <table class="table table-striped table-hover" id="dataTable" width="100%" cellspacing="0">
+                <table class="table table-striped table-hover" id="dataTableUdg" width="100%" cellspacing="0">
                   <thead>
                     <tr class="bg-primary text-white text-center">
                       <th>No Surat Undangan</th>
@@ -21,27 +21,30 @@
                       <th>Action</th>
                     </tr>
                   </thead>
-                  <?php
-                    foreach ($list_surat_udg as $row) {
-                  ?>
                   <tbody class="text-center">
+                    <?php
+                    foreach ($list_surat_udg as $row) {
+                      $noudg = str_replace('-','/',$row['no_udg']);
+                      $tgludg = strftime("%d %B %Y",strtotime($row['tgl_udg']));
+                      $jamudg = strftime("%R",strtotime($row['jam_udg']));
+                      ?>
                     <tr>
-                    <td><?= str_replace('-','/',$row['no_udg']); ?></td>
+                    <td><?= $noudg; ?></td>
                     <td><?= $row['tujuan_surat'] ?></td>
                     <td><?= $row['tempat_udg'] ?></td>
-                    <td><?= strftime("%d %B %Y",strtotime($row['tgl_udg'])) ?></td>
-                    <td><?= strftime("%R",strtotime($row['jam_udg'])) ?></td>
+                    <td><?= $tgludg ?></td>
+                    <td><?= $jamudg ?></td>
                     <td>
 
                       <?php $set = substr($row['no_udg'],4,3); ?>
                       <?php if ($set == 'RPT') { ?>
                         <a href="#" class="d-none d-sm-inline-block btn btn-primary shadow-sm" title="Detail Data Rapat"
                           id="detailData" data-url="<?= base_url('sekretaris/detailRapat/'); ?>" data-noudg="<?= $row['no_udg']; ?>"
-                          data-toggle="modal" data-target="#detailDataModal"><i class="fas fa-folder-open"></i></a>
+                          data-toggle="modal" data-target="#detailDataModal">Detail <br>Data</a>
                         <b>||</b>
                         <a href="#" class="d-none d-sm-inline-block btn btn-primary shadow-sm" title="Edit Data Rapat" id="editRapat"
                            data-url="<?= base_url('sekretaris/detailRapat/'); ?>" data-noudg="<?= $row['no_udg']; ?>"
-                           data-toggle="modal" data-target="#editDataRapatModal"><i class="fas fa-edit"></i></a>
+                           data-toggle="modal" data-target="#editDataRapatModal">Edit <br>Data</i></a>
                         <b>||</b>
                         <a href="<?= base_url("sekretaris/previewRapat").'/'.$row['no_udg'];?>" target="_blank" class="d-none d-sm-inline-block btn btn-primary shadow-sm" title="Preview Surat Undangan">Preview<br>Surat</a>
                         <b>||</b>
@@ -50,13 +53,13 @@
                       <?php }elseif ($set == 'KGT') { ?>
                         <a href="#" class="d-none d-sm-inline-block btn btn-primary shadow-sm" title="Detail Data Kegiatan"
                           id="detailDataKgt" data-url="<?= base_url('sekretaris/detailRapat/'); ?>" data-noudg="<?= $row['no_udg']; ?>"
-                          data-toggle="modal" data-target="#detailDataKgtModal"><i class="fas fa-folder-open"></i></a>
-                          <b>||</b>
-                          <a href="<?= base_url("sekretaris/previewRapat").'/'.$row['no_udg'];?>" target="_blank" class="d-none d-sm-inline-block btn btn-primary shadow-sm" title="Preview Surat Undangan">Preview<br>Surat</a>
+                          data-toggle="modal" data-target="#detailDataKgtModal">Detail <br>Data</i></a>
                           <b>||</b>
                           <a href="#" class="d-none d-sm-inline-block btn btn-primary shadow-sm" title="Edit Data Kegiatan" id="editKegiatan"
                           data-url="<?= base_url('sekretaris/detailRapat/'); ?>" data-noudg="<?= $row['no_udg']; ?>"
-                          data-toggle="modal" data-target="#editDataKgtModal"><i class="fas fa-edit"></i></a>
+                          data-toggle="modal" data-target="#editDataKgtModal">Edit <br>Data</i></a>
+                          <b>||</b>
+                          <a href="<?= base_url("sekretaris/previewRapat").'/'.$row['no_udg'];?>" target="_blank" class="d-none d-sm-inline-block btn btn-primary shadow-sm" title="Preview Surat Undangan">Preview<br>Surat</a>
                           <b>||</b>
 
                       <?php } ?>

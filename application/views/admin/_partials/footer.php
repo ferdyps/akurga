@@ -78,6 +78,7 @@
           $('.datepicker').parents('.form-input').find('.form-control').removeClass('is-invalid');
         }
       });
+
     });
 
     $('.datepickerLagi').pickadate({

@@ -9,6 +9,13 @@
        <?php echo form_open_multipart('sekretaris/insertNotulen', ['id' => 'default-form', 'log' => 'Input Notulensi']);?>
            <div class="row px-3 my-3">
                <div class="col">
+                 <div class="form-group form-input">
+                     <label for="input-no_udg">No Surat Undangan</label>
+                     <input type="text" name="no_notulen" value="<?= $key_no_udg  ?>" id="input-no_udg" class="form-control" readonly>
+                     <div class="invalid-feedback">
+
+                     </div>
+                 </div>
                    <div class="form-group form-input">
                        <label for="input-no_notulen">No Notulensi Rapat</label>
                        <input type="text" name="no_notulen" value="<?= $generate_id  ?>" id="input-no_notulen" class="form-control" readonly>
@@ -78,7 +85,6 @@
                <input type="hidden" name="no_udg" id="input-no_udg" value="<?= $key_no_udg  ?>" class="form-control">
                <div class="form-group text-center">
                    <input type="submit" class="btn btn-primary">
-                   <input type="reset" value="Reset" class="btn btn-danger">
                </div>
            </div>
        <?php echo form_close();?>

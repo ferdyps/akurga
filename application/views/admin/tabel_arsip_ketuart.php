@@ -23,23 +23,25 @@
               <th>action</th>
             </tr>
           </thead>
-          <?php foreach ($list_arsip as $row){ ?>
             <tbody class="text-center">
-              <td><?= str_replace('-','/',$row['kd_surat']); ?></td>
-              <td><?= $row['no_surat'] ?></td>
-              <td><?= $row['pengirim'] ?></td>
+              <?php foreach ($list_arsip as $row){ ?>
+                <tr>
+                  <td><?= str_replace('-','/',$row['kd_surat']); ?></td>
+                  <td><?= $row['no_surat'] ?></td>
+                  <td><?= $row['pengirim'] ?></td>
 
 
-              <td><?= strftime("%d %B %Y",strtotime($row['tgl_terima'])); ?></td>
-              <td><?= strftime("%d %B %Y",strtotime($row['tgl_surat'])); ?></td>
-              <td><?= strftime("%d %B %Y",strtotime($row['tgl_buat'])); ?></td>
-              <td><?= $row['keterangan'] ?></td>
-              <td>
-                <a href="<?= base_url("ketuaRT/gambar_arsip").'/'.$row['kd_surat'];?>" target="_blank" class="d-none d-sm-inline-block btn btn-primary shadow-sm"
-                  title="Detail Gambar Arsip"><i class="fas fa-image"></i></a>
-                </td>
+                  <td><?= strftime("%d %B %Y",strtotime($row['tgl_terima'])); ?></td>
+                  <td><?= strftime("%d %B %Y",strtotime($row['tgl_surat'])); ?></td>
+                  <td><?= strftime("%d %B %Y",strtotime($row['tgl_buat'])); ?></td>
+                  <td><?= $row['keterangan'] ?></td>
+                  <td>
+                    <a href="<?= base_url("ketuaRT/gambar_arsip").'/'.$row['kd_surat'];?>" target="_blank" class="d-none d-sm-inline-block btn btn-primary shadow-sm"
+                      title="Detail Gambar Arsip"><i class="fas fa-image"></i></a>
+                    </td>
+                </tr>
+              <?php } ?>
               </tbody>
-            <?php } ?>
           </table>
         </div>
       </div>

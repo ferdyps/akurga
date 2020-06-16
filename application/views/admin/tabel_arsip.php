@@ -10,7 +10,7 @@
     </div>
     <div class="card-body">
       <div class="table-responsive">
-        <table class="table table-striped table-hover" id="dataTable" width="100%" cellspacing="0">
+        <table class="table table-striped table-hover" id="dataTable_arsip" width="100%" cellspacing="0">
           <thead>
             <tr class="bg-primary text-white text-center">
               <th>Kode Surat</th>
@@ -23,26 +23,27 @@
               <th>action</th>
             </tr>
           </thead>
-          <?php foreach ($list_arsip as $row){ ?>
             <tbody class="text-center">
-              <td><?= str_replace('-','/',$row['kd_surat']); ?></td>
-              <td><?= $row['no_surat'] ?></td>
-              <td><?= $row['pengirim'] ?></td>
-
-
-              <td><?= strftime("%d %B %Y",strtotime($row['tgl_terima'])); ?></td>
-              <td><?= strftime("%d %B %Y",strtotime($row['tgl_surat'])); ?></td>
-              <td><?= strftime("%d %B %Y",strtotime($row['tgl_buat'])); ?></td>
-              <td><?= $row['keterangan'] ?></td>
-              <td>
-                <a href="#" class="d-none d-sm-inline-block btn btn-primary shadow-sm" id="editArsip"
-                data-url="<?= base_url('sekretaris/detailArsip/'); ?>" data-arsip="<?= $row['kd_surat']; ?>"
-                data-toggle="modal" data-target="#editDataArsipModal" title="Edit Data"><i class="fas fa-edit"></i></a>
-                <a href="<?= base_url("sekretaris/gambar_arsip").'/'.$row['kd_surat'];?>" target="_blank" class="d-none d-sm-inline-block btn btn-primary shadow-sm"
-                  title="Detail Gambar Arsip"><i class="fas fa-image"></i></a>
-                </td>
+              <?php foreach ($list_arsip as $row){ ?>
+                <tr>
+                  <td><?= str_replace('-','/',$row['kd_surat']); ?></td>
+                  <td><?= $row['no_surat'] ?></td>
+                  <td><?= $row['pengirim'] ?></td>
+                  <td><?= strftime("%d %B %Y",strtotime($row['tgl_terima'])); ?></td>
+                  <td><?= strftime("%d %B %Y",strtotime($row['tgl_surat'])); ?></td>
+                  <td><?= strftime("%d %B %Y",strtotime($row['tgl_buat'])); ?></td>
+                  <td><?= $row['keterangan'] ?></td>
+                  <td>
+                    <a href="#" class="d-none d-sm-inline-block btn btn-primary shadow-sm" id="editArsip"
+                    data-url="<?= base_url('sekretaris/detailArsip/'); ?>" data-arsip="<?= $row['kd_surat']; ?>"
+                    data-toggle="modal" data-target="#editDataArsipModal" title="Edit Data">Edit <br> Data</i></a>
+                    <b>||</b>
+                    <a href="<?= base_url("sekretaris/gambar_arsip").'/'.$row['kd_surat'];?>" target="_blank" class="d-none d-sm-inline-block btn btn-primary shadow-sm"
+                      title="Detail Gambar Arsip">Detail <br>Gambar</a>
+                  </td>
+                </tr>
+              <?php } ?>
               </tbody>
-            <?php } ?>
           </table>
         </div>
       </div>
