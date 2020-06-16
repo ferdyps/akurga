@@ -30,8 +30,10 @@
                 <div class="custom-file">
                   <input name="gambar" id="input-gambar" type="file" class="custom-file-input ">
                   <label class="custom-file-label">Choose file</label>
-                  * Ukuran file max 2mb <br>
-                  * Format file wajib JPG, JPEG atau PNG
+                  <div class="text-white text-left">
+                    * Ukuran file max 2mb <br>
+                    * Format file wajib JPG, JPEG atau PNG
+                  </div>
                   <div class="invalid-feedback"></div>
                 </div>
             </div>
