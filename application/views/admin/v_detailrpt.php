@@ -85,12 +85,22 @@
                         <hr class="my-3 border-dark">
 
                         <?php
+                        if ($row['tembusan'] == '_') {
+                          $temb = '-';
+                        }else {
+                          $temb = $row['tembusan'];
+                        }
                         $exp = explode("-", $row['no_udg']);
                         if ($exp[1] == 'KGT') {
+                          if ($row['catatan'] == '_') {
+                            $ctt = '-';
+                          }else {
+                            $ctt = $row['catatan'];
+                          }
                         ?>
-                          <h6 class="lead notulensi-text">Catatan : <?= $row['catatan'];?></h6>
+                          <h6 class="lead notulensi-text">Catatan : <?= $ctt;?></h6>
                         <?php } ?>
-                        <h6 class="lead notulensi-text">Tembusan : <?= $row['tembusan'];?></h6>
+                        <h6 class="lead notulensi-text">Tembusan : <?= $temb;?></h6>
                       </div>
                     </div>
                   </div>

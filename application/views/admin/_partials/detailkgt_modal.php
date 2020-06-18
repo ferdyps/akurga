@@ -61,7 +61,7 @@
               </div>
 
               <div class="form-group form-input">
-                  <label for="edit-tgl_surat">Tanggal Surat</label>
+                  <label for="edit-tgl_surat">Tanggal Pelaksanaan Rapat</label>
                   <input type="text" name="tgl_surat" id="edit-tgl_surat_kgt" class="form-control" readonly>
                   <div class="invalid-feedback"></div>
               </div>

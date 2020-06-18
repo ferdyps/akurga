@@ -279,8 +279,18 @@ class sekretaris extends CI_Controller {
     $no     = array('no_notulen' => $id );
     $surat  = $this->m_admin->selectWithWhere('notulensi_rpt', $no)->result_array();
     $data['fetch'] = $surat;
-    $data['title'] = 'Detail Dokumentasi Rapat';
+    $data['title'] = 'View Dokumentasi Rapat';
     $this->load->view('admin/v_dokumentasi_rapat', $data);
+  }
+
+  public function dokumentasi_presensi()
+  {
+    $id     = $this->uri->segment(3);
+    $no     = array('no_notulen' => $id );
+    $surat  = $this->m_admin->selectWithWhere('notulensi_rpt', $no)->result_array();
+    $data['fetch'] = $surat;
+    $data['title'] = 'View Presensi Warga';
+    $this->load->view('admin/v_dokumentasi_presensi', $data);
   }
 
   public function cetak_undangan()
@@ -670,7 +680,7 @@ class sekretaris extends CI_Controller {
       [
         'field' => 'tempat_udg',
         'label' => 'tempat Undangan',
-        'rules' => 'trim|required|regex_match[/^[\w]/]|max_length[70]'
+        'rules' => 'trim|required|regex_match[/^[\w]/]|max_length[250]'
       ],
 
       [
@@ -718,35 +728,53 @@ class sekretaris extends CI_Controller {
       $acara_udg  = $this->input->post('acara_udg');
       $date = date("Y/m/d");
 
+      if ($this->role == 'Sekretaris RT') {
+        $set_rt = 'RT '.$this->rt;
+      }elseif ($this->role == 'Sekretaris RW') {
+        $set_rt = 'RW 01';
+      }
+
       if ($this->form_validation->run() == TRUE) {
-        $data = [
-          'lampiran_udg'    => $lampiran,
-          'sifat_udg'       => $sifat,
-          'perihal_udg'     => $hal,
-          'tujuan_surat'    => $tujuan_srt,
-          'tempat_udg'      => $tempat_udg,
-          'tembusan'        => $tembusan,
-          'isi_surat'       => $isi_surat,
-          'tgl_udg'         => $tgl_srt,
-          'jam_udg'         => $jam_udg,
-          'acara_udg'       => $acara_udg,
-          'tgl_buat'        => $date,
-          'id_user'         => $this->id_user,
-          'status'          => 1
-        ];
-
-        $query = $this->m_admin->edit_data('surat_undangan', 'no_udg', $no_udg, $data);
-
-        if ($query) {
-          $url = base_url('sekretaris/riwayat_Undangan');
-
+        $nama_tabel = 'surat_undangan';
+        $array_check = array('tgl_udg' => $tgl_srt,
+                              'rt' => $set_rt
+                            );
+        $db_check     = $this->m_admin->selectWithWhere($nama_tabel, $array_check);
+        if ($db_check->num_rows() > 0) {
           $json = [
-            'message' => "Data Rapat berhasil diinput..",
-            'url' => $url
+            'tgl_rpt' => 'Terdapat input undangan dengan tanggal pelaksanaan rapat yang sama',
           ];
-        } else {
-          $json['errors'] = "Data Rapat gagal diinput..!";
+        }else {
+          $data = [
+            'lampiran_udg'    => $lampiran,
+            'sifat_udg'       => $sifat,
+            'perihal_udg'     => $hal,
+            'tujuan_surat'    => $tujuan_srt,
+            'tempat_udg'      => $tempat_udg,
+            'tembusan'        => $tembusan,
+            'isi_surat'       => $isi_surat,
+            'tgl_udg'         => $tgl_srt,
+            'jam_udg'         => $jam_udg,
+            'acara_udg'       => $acara_udg,
+            'tgl_buat'        => $date,
+            'id_user'         => $this->id_user,
+            'status'          => 1
+          ];
+
+          $query = $this->m_admin->edit_data('surat_undangan', 'no_udg', $no_udg, $data);
+
+          if ($query) {
+            $url = base_url('sekretaris/riwayat_Undangan');
+
+            $json = [
+              'message' => "Data Rapat berhasil diinput..",
+              'url' => $url
+            ];
+          } else {
+            $json['errors'] = "Data Rapat gagal diinput..!";
+          }
         }
+
       } else {
         $no = 0;
         foreach ($this->input->post() as $key => $value) {
@@ -799,7 +827,7 @@ class sekretaris extends CI_Controller {
       [
         'field' => 'tempat_udg_kgt',
         'label' => 'tempat Undangan',
-        'rules' => 'trim|required|regex_match[/^[\w]/]|max_length[70]'
+        'rules' => 'trim|required|regex_match[/^[\w]/]|max_length[250]'
       ],
 
       [
@@ -854,36 +882,54 @@ class sekretaris extends CI_Controller {
       $acara_udg  = $this->input->post('acara_udg_kgt');
       $date = date("Y/m/d");
 
+      if ($this->role == 'Sekretaris RT') {
+        $set_rt = 'RT '.$this->rt;
+      }elseif ($this->role == 'Sekretaris RW') {
+        $set_rt = 'RW 01';
+      }
+
       if ($this->form_validation->run() == TRUE) {
-        $data = [
-          'lampiran_udg'    => $lampiran,
-          'sifat_udg'       => $sifat,
-          'perihal_udg'     => $hal,
-          'tujuan_surat'    => $tujuan_srt,
-          'tempat_udg'      => $tempat_udg,
-          'catatan'         => $catatan,
-          'tembusan'        => $tembusan,
-          'isi_surat'       => $isi_surat,
-          'tgl_udg'         => $tgl_srt,
-          'tgl_buat'        => $date,
-          'jam_udg'         => $jam_udg,
-          'acara_udg'       => $acara_udg,
-          'id_user'         => $this->id_user,
-          'status'          => 1
-        ];
-
-        $query = $this->m_admin->edit_data('surat_undangan', 'no_udg', $no_udg, $data);
-
-        if ($query) {
-          $url = base_url('sekretaris/riwayat_Undangan');
-
+        $nama_tabel = 'surat_undangan';
+        $array_check = array('tgl_udg' => $tgl_srt,
+                              'rt' => $set_rt
+                            );
+        $db_check     = $this->m_admin->selectWithWhere($nama_tabel, $array_check);
+        if ($db_check->num_rows() > 0) {
           $json = [
-            'message' => "Data Kegiatan berhasil diinput..",
-            'url' => $url
+            'tgl_rpt' => 'Terdapat input undangan dengan tanggal pelaksanaan rapat yang sama',
           ];
         }else {
-          $json['errors'] = "Data Kegiatan gagal diinput..!";
+          $data = [
+            'lampiran_udg'    => $lampiran,
+            'sifat_udg'       => $sifat,
+            'perihal_udg'     => $hal,
+            'tujuan_surat'    => $tujuan_srt,
+            'tempat_udg'      => $tempat_udg,
+            'catatan'         => $catatan,
+            'tembusan'        => $tembusan,
+            'isi_surat'       => $isi_surat,
+            'tgl_udg'         => $tgl_srt,
+            'tgl_buat'        => $date,
+            'jam_udg'         => $jam_udg,
+            'acara_udg'       => $acara_udg,
+            'id_user'         => $this->id_user,
+            'status'          => 1
+          ];
+
+          $query = $this->m_admin->edit_data('surat_undangan', 'no_udg', $no_udg, $data);
+
+          if ($query) {
+            $url = base_url('sekretaris/riwayat_Undangan');
+
+            $json = [
+              'message' => "Data Kegiatan berhasil diinput..",
+              'url' => $url
+            ];
+          }else {
+            $json['errors'] = "Data Kegiatan gagal diinput..!";
+          }
         }
+
       }else {
         $no = 0;
         foreach ($this->input->post() as $key => $value) {
@@ -894,9 +940,7 @@ class sekretaris extends CI_Controller {
           }
         }
       }
-
       echo json_encode($json);
-
     }else {
       redirect('sekretaris/pembuatan_undangan','refresh');
     }
@@ -956,24 +1000,61 @@ class sekretaris extends CI_Controller {
         $set_rt = 'RW 01';
       }
 
+      $this->load->library('upload');
+      // print_r($_FILES);
       $config['upload_path']            = './assets/foto/notulensi';
-      // $config['file_name']            = $this->input->post('gbr_surat');
+      // $config['file_name']            = $this->input->post('dokumentasi_rpt');
       $config['allowed_types']          = 'jpg|jpeg|png';
       $config['max_size']               = 2000; // 2MB
       $config['overwrite']              = TRUE;
       // $config['max_width']            = 1024;
       // $config['max_height']           = 768;
+      $this->upload->initialize($config);
 
-      $this->load->library('upload', $config);
 
       if ($this->form_validation->run() == TRUE) {
         if ($this->upload->do_upload('dokumentasi_rpt')){
           $data_upload     = $this->upload->data('file_name');
+
+        } else {
+
+          if ($this->upload->display_errors() != '') {
+            $gambar_prob = $this->upload->display_errors('', '');
+            $json = [
+              'pict' => 'Something Wrong in Field Dokumentasi Rapat. '.$gambar_prob,
+            ];
+          }
+        }
+
+        $config2['upload_path']            = './assets/foto/notulensi/presensi';
+        // $config2['file_name']            = $this->input->post('dokumentasi_presensi');
+        $config2['allowed_types']          = 'jpg|jpeg|png';
+        $config2['max_size']               = 2000; // 2MB
+        $config2['overwrite']              = TRUE;
+        // $config2['max_width']            = 1024;
+        // $config2['max_height']           = 768;
+        $this->upload->initialize($config2, true);
+
+        if ($this->upload->do_upload('dokumentasi_presensi')){
+          $data_upload2     = $this->upload->data('file_name');
+
+        } else {
+
+          if ($this->upload->display_errors() != '') {
+            $gambar_prob = $this->upload->display_errors('', '');
+            $json = [
+              'pict2' => 'Something Wrong in Field Dokumentasi Presentasi Warga. '.$gambar_prob,
+            ];
+          }
+        }
+
+        if ($this->upload->do_upload('dokumentasi_rpt') && $this->upload->do_upload('dokumentasi_presensi')) {
           $data = [
             'no_notulen'              => $no_notulen,
-            'dokumentasi_rpt'         => $data_upload,
             'tembusan'                => $tembusan,
+            'dokumentasi_rpt'         => $data_upload,
             'keterangan_dokumentasi'  => $ket_dok_rpt,
+            'dokumentasi_presensi'    => $data_upload2,
             'uraian_notulen_cetak'    => $uraian_notulen_cetak,
             'uraian_notulen'          => $uraian_notulen,
             'tgl_buat'                => $date,
@@ -982,6 +1063,7 @@ class sekretaris extends CI_Controller {
             'status'                  => 0,
             'no_udg'                  => $no_udg
           ];
+
           $query = $this->m_admin->input_data('notulensi_rpt', $data);
           if ($query) {
             $url = base_url('sekretaris/riwayat_notulensi');
@@ -994,19 +1076,9 @@ class sekretaris extends CI_Controller {
 
             $json['errors'] = "Data Notulensi gagal diinput..!";
           }
-
-        } else {
-
-          if ($this->upload->display_errors() != '') {
-            $gambar_prob = $this->upload->display_errors('', '');
-            $back_url = base_url('sekretaris/inputnotulensi'.'/'.$no_udg);
-
-            $json = [
-              'pict' => $gambar_prob,
-              // 'back' => $back_url
-            ];
-          }
         }
+
+
 
       }else {
         $no = 0;
@@ -1073,6 +1145,7 @@ class sekretaris extends CI_Controller {
       $tgl_surat       = $this->input->post('tgl_surat');
       $keterangan      = $this->input->post('keterangan');
       $date = date("Y/m/d");
+
       if ($this->role == 'Sekretaris RT') {
         $set_rt = 'RT '.$this->rt;
       }elseif ($this->role == 'Sekretaris RW') {
@@ -1090,48 +1163,26 @@ class sekretaris extends CI_Controller {
 
       if ($this->form_validation->run() == TRUE) {
         if ($this->upload->do_upload('gbr_surat')){
-          $data_upload     = $this->upload->data('file_name');
-          $data = [
-            'kd_surat'   => $kd_surat,
-            'no_surat'   => $no_surat,
-            'pengirim'   => $pengirim,
-            'keterangan' => $keterangan,
-            'gambar_srt' => $data_upload,
-            'tgl_terima' => $tgl_terima,
-            'tgl_surat'  => $tgl_surat,
-            'tgl_buat'  => $date,
-            'rt'         => $set_rt,
-            'id_user'    => $this->id_user
-          ];
-
-          $query = $this->m_admin->input_data('arsip_surat', $data);
-          if ($query) {
-            $url = base_url('sekretaris/riwayat_arsip');
-
+          $nama_tabel = 'arsip_surat';
+          $array_check = array('no_surat' => $no_surat,
+                                'rt' => $set_rt
+                              );
+          $db_check     = $this->m_admin->selectWithWhere($nama_tabel, $array_check);
+          if ($db_check->num_rows() > 0) {
             $json = [
-              'message' => "Data arsip berhasil diinput..",
-              'url' => $url
+              'no_srt' => 'Terdapat input No Surat yang sama, cek kembali No Surat yang telah diinputkan. .',
             ];
           }else {
-            $json['errors'] = "Data arsip gagal diinput..!";
-          }
-        }else {
-          if ($this->upload->display_errors() != '') {
-            $gambar_prob = $this->upload->display_errors('', '');
-
-            $json = [
-              'pict' => $gambar_prob,
-            ];
-
-          } else {
+            $data_upload     = $this->upload->data('file_name');
             $data = [
               'kd_surat'   => $kd_surat,
               'no_surat'   => $no_surat,
               'pengirim'   => $pengirim,
               'keterangan' => $keterangan,
+              'gambar_srt' => $data_upload,
               'tgl_terima' => $tgl_terima,
               'tgl_surat'  => $tgl_surat,
-              'tgl_buat'  => $date,
+              'tgl_buat'   => $date,
               'rt'         => $set_rt,
               'id_user'    => $this->id_user
             ];
@@ -1147,6 +1198,16 @@ class sekretaris extends CI_Controller {
             }else {
               $json['errors'] = "Data arsip gagal diinput..!";
             }
+          }
+
+        }else {
+          if ($this->upload->display_errors() != '') {
+            $gambar_prob = $this->upload->display_errors('', '');
+
+            $json = [
+              'pict' => $gambar_prob,
+            ];
+
           }
         }
 
@@ -1253,79 +1314,96 @@ class sekretaris extends CI_Controller {
       $jam_udg    = $this->input->post('jam_udg');
       $acara_udg  = $this->input->post('acara_udg');
 
+      if ($this->role == 'Sekretaris RT') {
+        $set_rt = 'RT '.$this->rt;
+      }elseif ($this->role == 'Sekretaris RW') {
+        $set_rt = 'RW 01';
+      }
+
+
       if ($this->form_validation->run() == TRUE) {
-        if ($tgl_srt == '' && $jam_udg == '') {
-          $data = [
-            'no_udg' => $no_udg,
-            'lampiran_udg' => $lampiran,
-            'sifat_udg' => $sifat,
-            'perihal_udg' => $hal,
-            'tujuan_surat' => $tujuan_srt,
-            'tempat_udg' => $tempat_udg,
-            'tembusan' => $tembusan,
-            'isi_surat' => $isi_surat,
-            'acara_udg' => $acara_udg,
-            'id_user' => $this->id_user
-          ];
-        }elseif ($tgl_srt == '') {
-          $data = [
-            'no_udg' => $no_udg,
-            'lampiran_udg' => $lampiran,
-            'sifat_udg' => $sifat,
-            'perihal_udg' => $hal,
-            'tujuan_surat' => $tujuan_srt,
-            'tempat_udg' => $tempat_udg,
-            'tembusan' => $tembusan,
-            'isi_surat' => $isi_surat,
-            'jam_udg' => $jam_udg,
-            'acara_udg' => $acara_udg,
-            'id_user' => $this->id_user
-          ];
-        }elseif ($jam_udg == '') {
-          $data = [
-            'no_udg' => $no_udg,
-            'lampiran_udg' => $lampiran,
-            'sifat_udg' => $sifat,
-            'perihal_udg' => $hal,
-            'tujuan_surat' => $tujuan_srt,
-            'tempat_udg' => $tempat_udg,
-            'tembusan' => $tembusan,
-            'isi_surat' => $isi_surat,
-            'tgl_udg' => $tgl_srt,
-            'acara_udg' => $acara_udg,
-            'id_user' => $this->id_user
+        $nama_tabel = 'surat_undangan';
+        $array_check = array('tgl_udg' => $tgl_srt,
+                              'rt' => $set_rt
+                            );
+        $db_check     = $this->m_admin->selectWithWhere($nama_tabel, $array_check);
+        if ($db_check->num_rows() > 0) {
+          $json = [
+            'tgl_rpt' => 'Terdapat input undangan dengan tanggal pelaksanaan rapat yang sama',
           ];
         }else {
-          $data = [
-            'no_udg' => $no_udg,
-            'lampiran_udg' => $lampiran,
-            'sifat_udg' => $sifat,
-            'perihal_udg' => $hal,
-            'tujuan_surat' => $tujuan_srt,
-            'tempat_udg' => $tempat_udg,
-            'tembusan' => $tembusan,
-            'isi_surat' => $isi_surat,
-            'tgl_udg' => $tgl_srt,
-            'jam_udg' => $jam_udg,
-            'acara_udg' => $acara_udg,
-            'id_user' => $this->id_user
-          ];
+          if ($tgl_srt == '' && $jam_udg == '') {
+            $data = [
+              'no_udg' => $no_udg,
+              'lampiran_udg' => $lampiran,
+              'sifat_udg' => $sifat,
+              'perihal_udg' => $hal,
+              'tujuan_surat' => $tujuan_srt,
+              'tempat_udg' => $tempat_udg,
+              'tembusan' => $tembusan,
+              'isi_surat' => $isi_surat,
+              'acara_udg' => $acara_udg,
+              'id_user' => $this->id_user
+            ];
+          }elseif ($tgl_srt == '') {
+            $data = [
+              'no_udg' => $no_udg,
+              'lampiran_udg' => $lampiran,
+              'sifat_udg' => $sifat,
+              'perihal_udg' => $hal,
+              'tujuan_surat' => $tujuan_srt,
+              'tempat_udg' => $tempat_udg,
+              'tembusan' => $tembusan,
+              'isi_surat' => $isi_surat,
+              'jam_udg' => $jam_udg,
+              'acara_udg' => $acara_udg,
+              'id_user' => $this->id_user
+            ];
+          }elseif ($jam_udg == '') {
+            $data = [
+              'no_udg' => $no_udg,
+              'lampiran_udg' => $lampiran,
+              'sifat_udg' => $sifat,
+              'perihal_udg' => $hal,
+              'tujuan_surat' => $tujuan_srt,
+              'tempat_udg' => $tempat_udg,
+              'tembusan' => $tembusan,
+              'isi_surat' => $isi_surat,
+              'tgl_udg' => $tgl_srt,
+              'acara_udg' => $acara_udg,
+              'id_user' => $this->id_user
+            ];
+          }else {
+            $data = [
+              'no_udg' => $no_udg,
+              'lampiran_udg' => $lampiran,
+              'sifat_udg' => $sifat,
+              'perihal_udg' => $hal,
+              'tujuan_surat' => $tujuan_srt,
+              'tempat_udg' => $tempat_udg,
+              'tembusan' => $tembusan,
+              'isi_surat' => $isi_surat,
+              'tgl_udg' => $tgl_srt,
+              'jam_udg' => $jam_udg,
+              'acara_udg' => $acara_udg,
+              'id_user' => $this->id_user
+            ];
+          }
+          $query = $this->m_admin->edit_data('surat_undangan','no_udg', $no_udg,$data);
+
+          if ($query) {
+            $url = base_url('sekretaris/riwayat_Undangan');
+
+            $json = [
+              'message' => "Data Surat Undangan berhasil diubah..",
+              'url' => $url
+            ];
+          } else {
+            $json['errors'] = "Data Surat Undangan gagal diubah..!";
+          }
         }
 
 
-
-        $query = $this->m_admin->edit_data('surat_undangan','no_udg', $no_udg,$data);
-
-        if ($query) {
-          $url = base_url('sekretaris/riwayat_Undangan');
-
-          $json = [
-            'message' => "Data Surat Undangan berhasil diubah..",
-            'url' => $url
-          ];
-        } else {
-          $json['errors'] = "Data Surat Undangan gagal diubah..!";
-        }
       } else {
         $no = 0;
         foreach ($this->input->post() as $key => $value) {
@@ -1432,83 +1510,99 @@ class sekretaris extends CI_Controller {
       $acara_udg  = $this->input->post('acara_udg_kgtedit');
       $catatan    = $this->input->post('catatan_kgtedit');
 
+      if ($this->role == 'Sekretaris RT') {
+        $set_rt = 'RT '.$this->rt;
+      }elseif ($this->role == 'Sekretaris RW') {
+        $set_rt = 'RW 01';
+      }
+
       if ($this->form_validation->run() == TRUE) {
-        if ($tgl_srt == '' && $jam_udg == '') {
-          $data = [
-            'no_udg' => $no_udg,
-            'lampiran_udg' => $lampiran,
-            'sifat_udg' => $sifat,
-            'perihal_udg' => $hal,
-            'tujuan_surat' => $tujuan_srt,
-            'tempat_udg' => $tempat_udg,
-            'tembusan' => $tembusan,
-            'isi_surat' => $isi_surat,
-            'acara_udg' => $acara_udg,
-            'catatan'   => $catatan,
-            'id_user' => $this->id_user
-          ];
-        }elseif ($tgl_srt == '') {
-          $data = [
-            'no_udg' => $no_udg,
-            'lampiran_udg' => $lampiran,
-            'sifat_udg' => $sifat,
-            'perihal_udg' => $hal,
-            'tujuan_surat' => $tujuan_srt,
-            'tempat_udg' => $tempat_udg,
-            'tembusan' => $tembusan,
-            'isi_surat' => $isi_surat,
-            'jam_udg' => $jam_udg,
-            'acara_udg' => $acara_udg,
-            'catatan'   => $catatan,
-            'id_user' => $this->id_user
-          ];
-        }elseif ($jam_udg == '') {
-          $data = [
-            'no_udg' => $no_udg,
-            'lampiran_udg' => $lampiran,
-            'sifat_udg' => $sifat,
-            'perihal_udg' => $hal,
-            'tujuan_surat' => $tujuan_srt,
-            'tempat_udg' => $tempat_udg,
-            'tembusan' => $tembusan,
-            'isi_surat' => $isi_surat,
-            'tgl_udg' => $tgl_srt,
-            'acara_udg' => $acara_udg,
-            'catatan'   => $catatan,
-            'id_user' => $this->id_user
+        $nama_tabel = 'surat_undangan';
+        $array_check = array('tgl_udg' => $tgl_srt,
+                              'rt' => $set_rt
+                            );
+        $db_check     = $this->m_admin->selectWithWhere($nama_tabel, $array_check);
+        if ($db_check->num_rows() > 0) {
+          $json = [
+            'tgl_rpt' => 'Terdapat input undangan dengan tanggal pelaksanaan rapat yang sama',
           ];
         }else {
-          $data = [
-            'no_udg' => $no_udg,
-            'lampiran_udg' => $lampiran,
-            'sifat_udg' => $sifat,
-            'perihal_udg' => $hal,
-            'tujuan_surat' => $tujuan_srt,
-            'tempat_udg' => $tempat_udg,
-            'tembusan' => $tembusan,
-            'isi_surat' => $isi_surat,
-            'tgl_udg' => $tgl_srt,
-            'jam_udg' => $jam_udg,
-            'acara_udg' => $acara_udg,
-            'catatan'   => $catatan,
-            'id_user' => $this->id_user
-          ];
+          if ($tgl_srt == '' && $jam_udg == '') {
+            $data = [
+              'no_udg' => $no_udg,
+              'lampiran_udg' => $lampiran,
+              'sifat_udg' => $sifat,
+              'perihal_udg' => $hal,
+              'tujuan_surat' => $tujuan_srt,
+              'tempat_udg' => $tempat_udg,
+              'tembusan' => $tembusan,
+              'isi_surat' => $isi_surat,
+              'acara_udg' => $acara_udg,
+              'catatan'   => $catatan,
+              'id_user' => $this->id_user
+            ];
+          }elseif ($tgl_srt == '') {
+            $data = [
+              'no_udg' => $no_udg,
+              'lampiran_udg' => $lampiran,
+              'sifat_udg' => $sifat,
+              'perihal_udg' => $hal,
+              'tujuan_surat' => $tujuan_srt,
+              'tempat_udg' => $tempat_udg,
+              'tembusan' => $tembusan,
+              'isi_surat' => $isi_surat,
+              'jam_udg' => $jam_udg,
+              'acara_udg' => $acara_udg,
+              'catatan'   => $catatan,
+              'id_user' => $this->id_user
+            ];
+          }elseif ($jam_udg == '') {
+            $data = [
+              'no_udg' => $no_udg,
+              'lampiran_udg' => $lampiran,
+              'sifat_udg' => $sifat,
+              'perihal_udg' => $hal,
+              'tujuan_surat' => $tujuan_srt,
+              'tempat_udg' => $tempat_udg,
+              'tembusan' => $tembusan,
+              'isi_surat' => $isi_surat,
+              'tgl_udg' => $tgl_srt,
+              'acara_udg' => $acara_udg,
+              'catatan'   => $catatan,
+              'id_user' => $this->id_user
+            ];
+          }else {
+            $data = [
+              'no_udg' => $no_udg,
+              'lampiran_udg' => $lampiran,
+              'sifat_udg' => $sifat,
+              'perihal_udg' => $hal,
+              'tujuan_surat' => $tujuan_srt,
+              'tempat_udg' => $tempat_udg,
+              'tembusan' => $tembusan,
+              'isi_surat' => $isi_surat,
+              'tgl_udg' => $tgl_srt,
+              'jam_udg' => $jam_udg,
+              'acara_udg' => $acara_udg,
+              'catatan'   => $catatan,
+              'id_user' => $this->id_user
+            ];
+          }
+
+          $query = $this->m_admin->edit_data('surat_undangan','no_udg', $no_udg,$data);
+
+          if ($query) {
+            $url = base_url('sekretaris/riwayat_Undangan');
+
+            $json = [
+              'message' => "Data Surat Undangan Kegiatan berhasil diubah..",
+              'url' => $url
+            ];
+          } else {
+            $json['errors'] = "Data Surat Undangan Kegiatan gagal diubah..!";
+          }
         }
 
-
-
-        $query = $this->m_admin->edit_data('surat_undangan','no_udg', $no_udg,$data);
-
-        if ($query) {
-          $url = base_url('sekretaris/riwayat_Undangan');
-
-          $json = [
-            'message' => "Data Surat Undangan Kegiatan berhasil diubah..",
-            'url' => $url
-          ];
-        } else {
-          $json['errors'] = "Data Surat Undangan Kegiatan gagal diubah..!";
-        }
       } else {
         $no = 0;
         foreach ($this->input->post() as $key => $value) {
@@ -1600,6 +1694,9 @@ class sekretaris extends CI_Controller {
       $no_notulen     = $this->input->post('no_notulen');
       $ket_dok_rpt     = $this->input->post('ket_dok_rpt');
 
+      $this->load->library('upload');
+      // print_r($_FILES);
+
       $config['upload_path']          = './assets/foto/notulensi';
       // $config['file_name']            = $this->input->post('gbr_surat');
       $config['allowed_types']        = 'jpg|jpeg|png';
@@ -1607,16 +1704,57 @@ class sekretaris extends CI_Controller {
       // $config['max_width']            = 1024;
       // $config['max_height']           = 768;
 
-      $this->load->library('upload', $config);
+      $this->upload->initialize($config);
 
 
       if ($this->form_validation->run() == TRUE) {
         if ($this->upload->do_upload('dokumentasi_rpt')){
           $data_upload     = $this->upload->data('file_name');
+        } else {
+          if ($this->upload->display_errors('', '') == 'You did not select a file to upload.') {
+
+          }else{
+            $gambar_prob = $this->upload->display_errors('', '');
+
+            $json = [
+              'pict' => 'Something Wrong in Field Dokumentasi Rapat. '.$gambar_prob,
+            ];
+          }
+        }
+
+
+
+        $config2['upload_path']            = './assets/foto/notulensi/presensi';
+        // $config2['file_name']            = $this->input->post('dokumentasi_presensi');
+        $config2['allowed_types']          = 'jpg|jpeg|png';
+        $config2['max_size']               = 2000; // 2MB
+        $config2['overwrite']              = TRUE;
+        // $config2['max_width']            = 1024;
+        // $config2['max_height']           = 768;
+        $this->upload->initialize($config2, true);
+
+        if ($this->upload->do_upload('dokumentasi_presensi')){
+          $data_upload2     = $this->upload->data('file_name');
+
+        } else {
+          if ($this->upload->display_errors('', '') == 'You did not select a file to upload.') {
+
+          }else{
+            $gambar_prob = $this->upload->display_errors('', '');
+
+            $json = [
+              'pict2' => 'Something Wrong in Field Dokumentasi Rapat. '.$gambar_prob,
+            ];
+          }
+        }
+
+        if ($this->upload->do_upload('dokumentasi_rpt') && $this->upload->do_upload('dokumentasi_presensi')) {
           $data = [
-            'dokumentasi_rpt' => $data_upload,
-            'keterangan_dokumentasi' => $ket_dok_rpt
+            'dokumentasi_rpt'         => $data_upload,
+            'dokumentasi_presensi'    => $data_upload2,
+            'keterangan_dokumentasi'  => $ket_dok_rpt
           ];
+
           $query = $this->m_admin->edit_data('notulensi_rpt','no_notulen', $no_notulen, $data);
           if ($query) {
             $url = base_url('sekretaris/riwayat_notulensi');
@@ -1628,37 +1766,40 @@ class sekretaris extends CI_Controller {
           }else {
             $json['errors'] = "Data Dokumentasi Rapat Notulensi gagal diubah..";
           }
+        }elseif ($this->upload->do_upload('dokumentasi_rpt')) {
+          $data = [
+            'dokumentasi_rpt'         => $data_upload,
+            'keterangan_dokumentasi'  => $ket_dok_rpt
+          ];
 
-        } else {
-          if ($this->upload->display_errors('', '') == 'You did not select a file to upload.') {
-            $data = [
-              'keterangan_dokumentasi' => $ket_dok_rpt
-            ];
-            $query = $this->m_admin->edit_data('notulensi_rpt','no_notulen', $no_notulen, $data);
-            if ($query) {
-              $url = base_url('sekretaris/riwayat_notulensi');
-
-              $json = [
-                'message' => "Data Dokumentasi Rapat Notulensi berhasil diubah..",
-                'url' => $url
-              ];
-            }else {
-              $json['errors'] = "Data Dokumentasi Rapat Notulensi gagal diubah..";
-            }
-          }else{
-            $gambar_prob = $this->upload->display_errors('', '');
+          $query = $this->m_admin->edit_data('notulensi_rpt','no_notulen', $no_notulen, $data);
+          if ($query) {
+            $url = base_url('sekretaris/riwayat_notulensi');
 
             $json = [
-              'pict' => $gambar_prob,
+              'message' => "Data Dokumentasi Rapat Notulensi berhasil diubah..",
+              'url' => $url
             ];
+          }else {
+            $json['errors'] = "Data Dokumentasi Rapat Notulensi gagal diubah..";
           }
-          // if ($this->upload->display_errors('', '') != '') {
-          //   $gambar_prob = $this->upload->display_errors('', '');
-          //
-          //   $json = [
-          //     'pict' => $gambar_prob,
-          //   ];
-          // }
+        }elseif ($this->upload->do_upload('dokumentasi_presensi')) {
+          $data = [
+            'dokumentasi_presensi'    => $data_upload2,
+            'keterangan_dokumentasi'  => $ket_dok_rpt
+          ];
+
+          $query = $this->m_admin->edit_data('notulensi_rpt','no_notulen', $no_notulen, $data);
+          if ($query) {
+            $url = base_url('sekretaris/riwayat_notulensi');
+
+            $json = [
+              'message' => "Data Dokumentasi Rapat Notulensi berhasil diubah..",
+              'url' => $url
+            ];
+          }else {
+            $json['errors'] = "Data Dokumentasi Rapat Notulensi gagal diubah..";
+          }
         }
 
       }else {

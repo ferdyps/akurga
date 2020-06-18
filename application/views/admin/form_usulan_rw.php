@@ -45,9 +45,10 @@
                      <label for="input-tempat_udg">Tempat Rapat</label>
                      <input type="text" name="tempat_udg" id="input-tempat_udg" class="form-control">
                      <div class="invalid-feedback"></div>
+                     <p class="text-mute">* Inputkan detail alamat serta RT/RW Contoh : Rumah Pak RT 01/Jl.BBC no 2 RT 02 RW 01</p>
                  </div>
                  <div class="form-group form-input">
-                     <label for="input-tgl_rpt">Tanggal rapat</label>
+                     <label for="input-tgl_rpt">Tanggal Pelaksanaan Rapat</label>
                      <input type="text" name="tgl_rpt" id="input-tgl_rpt" class="form-control datepicker">
                      <div class="invalid-feedback"></div>
                  </div>

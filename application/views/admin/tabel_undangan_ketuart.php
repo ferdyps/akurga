@@ -16,7 +16,7 @@
                       <th>No Surat Undangan</th>
                       <th>Pihak Yang Diundang</th>
                       <th>Tempat Rapat</th>
-                      <th>Tanggal Surat</th>
+                      <th>Tanggal Pelaksaan Rapat</th>
                       <th width="5%">Jam Rapat</th>
                       <th>Action</th>
                     </tr>
@@ -37,13 +37,14 @@
                       <?php if ($set == 'RPT') { ?>
                         <a href="#" class="d-none d-sm-inline-block btn btn-primary shadow-sm" title="Detail Data Rapat"
                           id="detailData" data-url="<?= base_url('ketuaRT/detailRapat/'); ?>" data-noudg="<?= $row['no_udg']; ?>"
-                          data-toggle="modal" data-target="#detailDataModal"><i class="fas fa-folder-open"></i></a>
+                          data-toggle="modal" data-target="#detailDataModal">Detail Data</i></a>
                         <b>||</b>
                         <a href="<?= base_url("ketuaRT/previewRapat").'/'.$row['no_udg'];?>" target="_blank" class="d-none d-sm-inline-block btn btn-primary shadow-sm" title="Preview Surat Undangan">Preview<br>Surat</a>
                       <?php }elseif ($set == 'KGT') { ?>
                         <a href="#" class="d-none d-sm-inline-block btn btn-primary shadow-sm" title="Detail Data Kegiatan"
                           id="detailDataKgt" data-url="<?= base_url('ketuaRT/detailRapat/'); ?>" data-noudg="<?= $row['no_udg']; ?>"
-                          data-toggle="modal" data-target="#detailDataKgtModal"><i class="fas fa-folder-open"></i></a>
+                          data-toggle="modal" data-target="#detailDataKgtModal">Detail Data</a>
+                          <b>||</b>
                         <a href="<?= base_url("ketuaRT/previewRapat").'/'.$row['no_udg'];?>" target="_blank" class="d-none d-sm-inline-block btn btn-primary shadow-sm" title="Preview Surat Undangan">Preview<br>Surat</a>
                       <?php } ?>
                     </td>

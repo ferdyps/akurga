@@ -37,7 +37,7 @@
                   <td><?= $row['keterangan'] ?></td>
                   <td>
                     <a href="<?= base_url("ketuaRT/gambar_arsip").'/'.$row['kd_surat'];?>" target="_blank" class="d-none d-sm-inline-block btn btn-primary shadow-sm"
-                      title="Detail Gambar Arsip"><i class="fas fa-image"></i></a>
+                      title="Detail Gambar Arsip">View <br> Gambar</a>
                     </td>
                 </tr>
               <?php } ?>
