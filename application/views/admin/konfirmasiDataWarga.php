@@ -32,11 +32,11 @@
                 <th>Agama</th>
                 <th>Jenis Kelamin</th>
                 <th>Status</th>
-                <th>Jenis Warga</th>
                 <th>Nomor HP</th>
                 <th>Nama Jalan</th>
                 <th>Nomor Rumah</th>
                 <th>Gang</th>
+                <th>RT</th>
                 <th>Gambar</th>
                 <th>Action</th>
               </tr>
@@ -51,17 +51,17 @@
                   <td><?= $row['nik']?></td>
                   <td><?= $row['nama']?></td>
                   <td><?= $row['tempat_lahir']?></td>
-                  <td><?= $row['tanggal_lahir']?></td>
+                  <td><?= strftime("%d %B %Y",strtotime($row['tanggal_lahir']))?></td>
                   <td><?= $row['pendidikan']?></td>
                   <td><?= $row['pekerjaan']?></td>
                   <td><?= $row['agama']?></td>
                   <td><?= $row['jk']?></td>
                   <td><?= $row['status']?></td>
-                  <td><?= $row['jenis_warga']?></td>
                   <td><?= $row['nohp']?></td>
                   <td><?= $row['nama_jalan']?></td>
                   <td><?= $row['no_rumah']?></td>
                   <td><?= $row['gang']?></td>
+                  <td><?= $row['rt']?></td>
                   <td><img width="100%" src="<?= base_url('./assets/foto/warga/'.$row['gambar']) ?>"></td>
                   <td><button class="btn btn-primary" onclick="konfirmasi_data('<?= base_url('ketuaRW/klik_konfirmasi_data_warga/')?>', <?= $row['nik']; ?>)"><i class="fas fa-check"></i></button>
                   <button class="btn btn-danger" data-target="#input-message-warga" data-toggle="modal" onclick="approve_warga('<?= $row['nik']; ?>')"><i class="fas fa-times"></i></button></td>
@@ -87,13 +87,13 @@
                 <th>Agama</th>
                 <th>Jenis Kelamin</th>
                 <th>Status</th>
-                <th>Jenis Warga</th>
                 <th>Nomor HP</th>
                 <th>Nomor KK</th>
                 <th>Hubungan Dalam Keluarga</th>
                 <th>Nama Jalan</th>
                 <th>Nomor Rumah</th>
                 <th>Gang</th>
+                <th>RT</th>
                 <th>Gambar</th>
                 <th>Action</th>
               </tr>
@@ -108,19 +108,19 @@
                   <td><?= $row['nik']?></td>
                   <td><?= $row['nama']?></td>
                   <td><?= $row['tempat_lahir']?></td>
-                  <td><?= $row['tanggal_lahir']?></td>
+                  <td><?= strftime("%d %B %Y",strtotime($row['tanggal_lahir']))?></td>
                   <td><?= $row['pendidikan']?></td>
                   <td><?= $row['pekerjaan']?></td>
                   <td><?= $row['agama']?></td>
                   <td><?= $row['jk']?></td>
                   <td><?= $row['status']?></td>
-                  <td><?= $row['jenis_warga']?></td>
                   <td><?= $row['nohp']?></td>
                   <td><?= $row['nokk']?></td>
                   <td><?= $row['hub_dlm_kel']?></td>
                   <td><?= $row['nama_jalan']?></td>
                   <td><?= $row['no_rumah']?></td>
                   <td><?= $row['gang']?></td>
+                  <td><?= $row['rt']?></td>
                   <td><img width="100%" src="<?= base_url('./assets/foto/warga/'.$row['gambar']) ?>"></td>
                   <td><button class="btn btn-primary" onclick="konfirmasi_data('<?= base_url('ketuaRW/klik_konfirmasi_data_warga/')?>', <?= $row['nik']; ?>)"><i class="fas fa-check"></i></button>
                   <button class="btn btn-danger" id="buttonTolakWargaTetap" data-target="#input-message-warga" data-toggle="modal" onclick="approve_warga('<?= $row['nik']; ?>')"><i class="fas fa-times"></i></button>

@@ -6,7 +6,7 @@
           <hr class="divider my-4">
         </div>
         <div class="col-lg-8 align-self-baseline">
-            <table class="table table-striped table-bordered table-hover table-sm">
+            <table class="table table-striped table-bordered table-hover table-sm" id="dataTable">
                 <thead class="table-dark">
                     <tr>
                         <th width="5%">No</th>

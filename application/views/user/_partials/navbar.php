@@ -1,3 +1,6 @@
+<?php
+$notif_sp = $this->m_user->notifSuratPengantar($this->session->userdata('id_user'))->result_array();
+?>
 <body id="page-top">
 
   <!-- Navigation -->
@@ -15,7 +18,23 @@
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               <a class="dropdown-item" href="<?= base_url('user/formSuratPengantar')?>">Pengajuan Surat Pengantar</a>
-              <a class="dropdown-item" href="<?= base_url('user/riwayatSuratPengantar')?>">Riwayat Pengajuan</a>
+              <a class="dropdown-item" href="<?= base_url('user/riwayatSuratPengantar')?>">Riwayat Pengajuan
+              <?php
+                foreach($notif_sp as $row){
+
+                  if ($row['total'] < 1) {
+                    ?>
+                    <span class="badge badge-danger" hidden></span>
+                    <?php
+                  } else {
+                    ?>
+                    <span class="badge badge-danger badge-counter"><?=$row['total']?></span>
+                    <?php
+                  }
+
+                }
+              ?>
+              </a>
             </div>
           </li>
           <li class="nav-item dropdown">

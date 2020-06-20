@@ -37,11 +37,15 @@
             $dataPoints = array();
             $dataPoints2 = array();
             $dataPoints3 = array();
+            $dataAgama = array();
+            $dataStatus = array();
             $usulanPoints = $this->m_admin->CountData('surat_undangan', 'status', 0)->result_array();
-            $query = $this->m_admin->CountData('warga','valid',0)->result_array();
+            $query = $this->m_admin->CountData('warga',['valid'=>0])->result_array();
             $result = $this->m_admin->grafikPendidikan()->result();
             $result2 = $this->m_admin->grafikPekerjaan()->result();
             $result3 = $this->m_admin->grafikJumlahWargaPerRT()->result();
+            $agama = $this->m_admin->grafikAgama()->result();
+            $status = $this->m_admin->grafikStatus()->result();
             foreach ($result as $row) {
                 array_push($dataPoints, array('label' => $row->pendidikan, 'y' => $row->total));
             }
@@ -51,6 +55,12 @@
             foreach ($result3 as $row) {
                 array_push($dataPoints3, array('label' => $row->rt, 'y' => $row->total));
             }
+            foreach ($agama as $row) {
+                array_push($dataAgama, array('label' => $row->agama, 'y' => $row->total));
+            }
+            foreach ($status as $row) {
+                array_push($dataStatus, array('label' => $row->status, 'y' => $row->total));
+            }
             $data = [
                 'content'       => 'admin/dashboardRW',
                 'title'         => 'Dashboard',
@@ -58,6 +68,8 @@
                 'dataPoints'    => $dataPoints,
                 'dataPoints2'   => $dataPoints2,
                 'dataPoints3'   => $dataPoints3,
+                'dataAgama'     => $dataAgama,
+                'dataStatus'    => $dataStatus,
                 'usulan_points' => $usulanPoints,
                 'dataiurank'    => $this->m_admin->tampil_iuran_keluar($this->rt)->result_array()
             ];

@@ -1,3 +1,13 @@
+<?php 
+  $rt = 'RT '.$this->session->userdata('rt');  
+  $sekarang = date("Y-m-d");
+  $semuaWarga = $this->m_admin->CountData('warga',['valid'=>0])->result_array();
+  $notif_cetak_sp = $this->m_admin->CountData('status_surat',['status' => 'diterima', 'expired_date >' => $sekarang])->result_array();
+  $notif_komplain_rw = $this->m_admin->CountData('komplain',['status' => 'proses', 'lingkup' => 'RW'])->result_array();
+  $notif_decline_warga = $this->m_admin->CountData('warga',['valid'=>2, 'rt'=> $this->session->userdata('rt')])->result_array();
+  $notif_komplain_rt = $this->m_admin->CountData('komplain',['status'=>'proses','lingkup'=> 'RT'])->result_array();
+  $notif_sp = $this->m_admin->notif_sp($rt)->result_array();
+?>
 <div id="wrapper">
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
@@ -21,7 +31,8 @@
 
       <!-- Divider -->
       <hr class="sidebar-divider">
-      <?php if ( $this->session->userdata('role') == 'Ketua RW') { ?>
+      <?php 
+      if ( $this->session->userdata('role') == 'Ketua RW') { ?>
 
         <li class="nav-item active">
           <a class="nav-link" href="<?php echo base_url("ketuaRW/index");?>">
@@ -38,17 +49,68 @@
       <li class="nav-item">
         <a class="nav-link" href="<?= base_url('ketuaRW/konfirmasiDataWarga')?>">
           <i class="fas fa-fw fa-users"></i>
-          <span>Warga</span></a>
+            <span>Warga
+            <?php
+              foreach($semuaWarga as $row){
+
+                if ($row['total'] < 1) {
+                  ?>
+                  <span class="badge badge-danger" hidden></span>
+                  <?php
+                } else {
+                  ?>
+                  <span class="badge badge-danger"><?=$row['total']?></span>
+                  <?php
+                }
+
+              }
+            ?>
+            </span>
+        </a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="<?= base_url('ketuaRW/listCetakSuratPengantar')?>">
           <i class="fas fa-fw fa-envelope"></i>
-          <span>Surat Pengantar</span></a>
+          <span>Surat Pengantar
+            <?php
+              foreach($notif_cetak_sp as $row){
+
+                if ($row['total'] < 1) {
+                  ?>
+                  <span class="badge badge-danger" hidden></span>
+                  <?php
+                } else {
+                  ?>
+                  <span class="badge badge-danger"><?=$row['total']?></span>
+                  <?php
+                }
+
+              }
+            ?>
+          </span>  
+        </a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="<?= base_url('ketuaRW/daftarKomplainRW')?>">
           <i class="fas fa-fw fa-bullhorn"></i>
-          <span>Pengaduan</span></a>
+          <span>Pengaduan
+            <?php
+              foreach($notif_komplain_rw as $row){
+
+                if ($row['total'] < 1) {
+                  ?>
+                  <span class="badge badge-danger" hidden></span>
+                  <?php
+                } else {
+                  ?>
+                  <span class="badge badge-danger"><?=$row['total']?></span>
+                  <?php
+                }
+
+              }
+            ?>
+          </span>
+        </a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="<?= base_url('ketuaRW/list_akun')?>">
@@ -103,7 +165,23 @@
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseKetuaRT" aria-expanded="true" aria-controls="collapseKetuaRT">
           <i class="fas fa-fw fa-users"></i>
-          <span>Warga</span>
+          <span>Warga
+            <?php
+              foreach($notif_decline_warga as $row){
+
+                if ($row['total'] < 1) {
+                  ?>
+                  <span class="badge badge-danger" hidden></span>
+                  <?php
+                } else {
+                  ?>
+                  <span class="badge badge-danger"><?=$row['total']?></span>
+                  <?php
+                }
+
+              }
+            ?>
+          </span>
         </a>
         <div id="collapseKetuaRT" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
@@ -116,7 +194,23 @@
         <!-- <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseKetuaRTsurat" aria-expanded="true" aria-controls="collapseKetuaRTsurat"> -->
         <a class="nav-link collapsed" href="<?php echo base_url('ketuaRT/daftarSuratPengantar');?>" aria-expanded="true">
           <i class="fas fa-fw fa-envelope"></i>
-          <span>Surat Pengantar</span>
+          <span>Surat Pengantar
+            <?php
+              foreach($notif_sp as $row){
+
+                if ($row['total'] < 1) {
+                  ?>
+                  <span class="badge badge-danger" hidden></span>
+                  <?php
+                } else {
+                  ?>
+                  <span class="badge badge-danger"><?=$row['total']?></span>
+                  <?php
+                }
+
+              }
+            ?>
+          </span>
         </a>
         <!-- <div id="collapseKetuaRTsurat" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
@@ -128,7 +222,23 @@
         <!-- <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseKetuaRTkomplain" aria-expanded="true" aria-controls="collapseKetuaRTkomplain"> -->
         <a class="nav-link collapsed" href="<?= base_url('ketuaRT/daftarKomplain');?>" aria-expanded="true">
           <i class="fas fa-fw fa-bullhorn"></i>
-          <span>Pengaduan</span>
+          <span>Pengaduan
+            <?php
+              foreach($notif_komplain_rt as $row){
+
+                if ($row['total'] < 1) {
+                  ?>
+                  <span class="badge badge-danger" hidden></span>
+                  <?php
+                } else {
+                  ?>
+                  <span class="badge badge-danger"><?=$row['total']?></span>
+                  <?php
+                }
+
+              }
+            ?>
+          </span>
         </a>
         <!-- <div id="collapseKetuaRTkomplain" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">

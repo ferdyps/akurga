@@ -174,7 +174,7 @@
                 [
                     'field' => 'nik',
                     'label' => 'NIK',
-                    'rules' => 'trim|required'
+                    'rules' => 'trim|required|numeric'
                 ],
                 [
                     'field' => 'username',
@@ -184,7 +184,7 @@
                 [
                     'field' => 'email',
                     'label' => 'Email',
-                    'rules' => 'trim|valid_email|required|is_unique[user.email]'
+                    'rules' => 'trim|required|is_unique[user.email]|regex_match[/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/]'
                 ],
                 [
                     'field' => 'password',

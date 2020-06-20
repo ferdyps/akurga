@@ -171,9 +171,9 @@
            $this->db->delete($table);
        }
 
-        public function CountData($table, $where, $valueNumber){
+        public function CountData($table, $where){
             $this->db->select('COUNT(*) AS total');
-            $this->db->where($where, $valueNumber);
+            $this->db->where($where);
             return $this->db->get($table);
         }
 
@@ -238,9 +238,23 @@
             ORDER BY nomor_surat DESC");
         }
 
+        public function notif_sp($rt){
+          return $this->db->query("SELECT COUNT(sp.nomor_surat) AS total,sp.rt,
+          (
+              SELECT status
+              FROM status_surat ss
+              WHERE ss.nomor_surat = sp.nomor_surat
+              ORDER BY created_at DESC
+              LIMIT 1
+          ) as status
+          FROM surat_pengantar sp
+          WHERE sp.rt= '$rt'
+          HAVING status = 'pengajuan'");
+        }
+
         public function list_cetak_sp()
         {
-            return $this->db->query("SELECT w.nik, nama, sp.nomor_surat, keperluan, ss.STATUS
+            return $this->db->query("SELECT w.nik, nama, sp.nomor_surat, keperluan, ss.STATUS, ss.expired_date
             FROM surat_pengantar sp
             JOIN warga w ON w.nik=sp.nik
             JOIN status_surat ss ON sp.nomor_surat = ss.nomor_surat
@@ -296,6 +310,34 @@
             $this->db->group_by('jk');
             return $this->db->get('warga');
         }
+
+        public function grafikAgama(){
+          $this->db->select('COUNT(nik) as total, agama');
+          $this->db->group_by('agama');
+          return $this->db->get('warga');
+        }
+
+        public function grafikAgamaRT($rt){
+          $this->db->select('COUNT(nik) as total, agama');
+          $this->db->where('rt',$rt);
+          $this->db->group_by('agama');
+          return $this->db->get('warga');
+        }
+
+        public function grafikStatus(){
+          $this->db->select('COUNT(nik) as total, status');
+          $this->db->group_by('status');
+          return $this->db->get('warga');
+        }
+
+        public function grafikStatusRT($rt){
+          $this->db->select('COUNT(nik) as total, status');
+          $this->db->where('rt',$rt);
+          $this->db->group_by('status');
+          return $this->db->get('warga');
+        }
+
+
 
         public function userJoinWarga($id_user){
             return $this->db->query("SELECT * FROM user u JOIN warga w ON u.id_user=w.id_user WHERE u.id_user = '$id_user'");

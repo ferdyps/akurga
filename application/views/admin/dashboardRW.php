@@ -87,29 +87,29 @@
 <!-- Content Row -->
 
 <div class="row">
-
-  <!-- Area Chart -->
-  <div class="col-xl-4 col-lg-5">
-    <div id="warga"></div>
-  </div>
-
-  <!-- Pie Chart -->
-  <div class="col-xl-4 col-lg-5">
-    <div id="education"></div>
-  </div>
-
-  <!-- Pie Chart -->
-  <div class="col-xl-4 col-lg-5">
-    <div id="job"></div>
-  </div>
+    <div class="card-body">
+      <div class="chart-area" id="warga">
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="chart-area" id="education">
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="chart-area" id="job">
+      </div> 
+    </div>
 </div>
-<!-- Content Row -->
+<!-- <div class="row"></div> -->
 <div class="row">
-
-  <!-- Content Column -->
-
-
-
+  <div class="card-body">
+    <div class="chart-area" id="agama">
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="chart-area" id="status">
+    </div>
+  </div>
 </div>
 
 </div>
@@ -179,6 +179,46 @@ var chartJumlahWarga = new CanvasJS.Chart("warga", {
 	}]
 });
 chartJumlahWarga.render();
+
+var chartAgama = new CanvasJS.Chart("agama", {
+	theme: "light2", // "light1", "light2", "dark1", "dark2"
+	exportEnabled: true,
+	animationEnabled: true,
+	title: {
+		text: "Berdasarkan Agama"
+	},
+	data: [{
+		type: "pie",
+		startAngle: 25,
+		toolTipContent: "<b>{label}</b>: {y}",
+		showInLegend: "true",
+		legendText: "{label}",
+		indexLabelFontSize: 16,
+		indexLabel: "{label} ({y} Orang)",
+		dataPoints: <?php echo json_encode($dataAgama, JSON_NUMERIC_CHECK); ?>
+	}]
+});
+chartAgama.render();
+
+var chartStatus = new CanvasJS.Chart("status", {
+	theme: "light2", // "light1", "light2", "dark1", "dark2"
+	exportEnabled: true,
+	animationEnabled: true,
+	title: {
+		text: "Berdasarkan Status"
+	},
+	data: [{
+		type: "pie",
+		startAngle: 25,
+		toolTipContent: "<b>{label}</b>: {y}",
+		showInLegend: "true",
+		legendText: "{label}",
+		indexLabelFontSize: 16,
+		indexLabel: "{label} ({y} Orang)",
+		dataPoints: <?php echo json_encode($dataStatus, JSON_NUMERIC_CHECK); ?>
+	}]
+});
+chartStatus.render();
 
 }
 </script>

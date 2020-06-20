@@ -158,6 +158,20 @@ function get_all_data_rapatdisplay($set_rt)
             ON w.nik=k.nik
             WHERE u.id_user='$id_user'");
         }
+        public function notifSuratPengantar($id_user){
+          return $this->db->query("SELECT COUNT(u.id_user) as total,sp.nomor_surat,sp.keperluan, ss.status, ss.created_at, ss.pesan
+          FROM `user` u
+          JOIN warga w ON u.id_user=w.id_user
+          JOIN surat_pengantar sp ON w.nik=sp.nik
+          JOIN
+          (
+              SELECT max(id) AS max_id ,nomor_surat
+              FROM status_surat
+              GROUP by nomor_surat
+          ) sp_max ON (sp_max.nomor_surat = sp.nomor_surat)
+          JOIN status_surat ss ON (ss.id = sp_max.max_id)
+          WHERE u.id_user='$id_user' AND ss.status = 'ditolak'");
+      }
 // ====================================================================================================================
         public function update_data($table, $pk_field, $id, $data) {
             $this->db->where($pk_field, $id);

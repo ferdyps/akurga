@@ -18,6 +18,7 @@
                       <th>NIK</th>
                       <th>Nama Lengkap</th>
                       <th>Keperluan</th>
+                      <th>Masa Berlaku</th>
                       <th>Action</th>
                     </tr>
                   </thead>
@@ -33,8 +34,26 @@
                         <td><?= $row['nik']?></td>
                         <td><?= $row['nama']?></td>
                         <td><?= $row['keperluan']?></td>
+                        <td><?= strftime("%d %B %Y",strtotime($row['expired_date']))?></td>
                         <td>
-                          <a href="<?= base_url('ketuaRW/cetak_surat_pengantar/'.$row['nomor_surat'])?>" class="btn btn-success" target="_BLANK"><i class="fas fa-print"></i></a>
+                        <?php 
+                        
+                          $now = date("Y-m-d");
+                          $expired = $row['expired_date'];
+
+                          if ($now <= $expired) {
+                        
+                        ?>
+                        <a href="<?= base_url('ketuaRW/cetak_surat_pengantar/'.$row['nomor_surat'])?>" class="btn btn-success" target="_BLANK"><i class="fas fa-print"></i></a>
+                        <?php
+
+                          } else {
+
+                        ?>
+                          <a class="btn btn-success" disabled><i class="fas fa-print"></i></a>
+                        <?php
+                          }
+                        ?>
                         </td>
                       </tr>
                   <?php } ?>

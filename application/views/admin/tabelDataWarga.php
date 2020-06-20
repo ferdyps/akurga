@@ -47,7 +47,7 @@
                             <td><?= $row['nik']?></td>
                             <td><?= $row['nama']?></td>
                             <td><?= $row['tempat_lahir']?></td>
-                            <td><?= $row['tanggal_lahir']?></td>
+                            <td><?= strftime("%d %B %Y",strtotime($row['tanggal_lahir']))?></td>
                             <td><?= $row['agama']?></td>
                             <td><?= $row['jk']?></td>
                             <td><?= $row['status']?></td>
@@ -106,7 +106,7 @@
                             <td><?= $row['nik']?></td>
                             <td><?= $row['nama']?></td>
                             <td><?= $row['tempat_lahir']?></td>
-                            <td><?= $row['tanggal_lahir']?></td>
+                            <td><?= strftime("%d %B %Y",strtotime($row['tanggal_lahir']))?></td>
                             <td><?= $row['agama']?></td>
                             <td><?= $row['jk']?></td>
                             <td><?= $row['status']?></td>

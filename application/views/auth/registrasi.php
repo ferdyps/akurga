@@ -26,7 +26,7 @@
                   <div class="invalid-feedback"></div>
                 </div>
                 <div class="col-sm-6 form-input">
-                  <input type="email" class="form-control form-control-user" id="input-email" placeholder="Email" name='email'>
+                  <input type="text" class="form-control form-control-user" id="input-email" placeholder="Email" name='email'>
                   <div class="invalid-feedback"></div>
                 </div>
               </div>
