@@ -39,7 +39,7 @@
                     data-toggle="modal" data-target="#editDataArsipModal" title="Edit Data">Edit <br> Data</i></a>
                     <b>||</b>
                     <a href="<?= base_url("sekretaris/gambar_arsip").'/'.$row['kd_surat'];?>" target="_blank" class="d-none d-sm-inline-block btn btn-primary shadow-sm"
-                      title="Detail Gambar Arsip">Detail <br>Gambar</a>
+                      title="Detail Gambar Arsip">View <br> Gambar</a>
                   </td>
                 </tr>
               <?php } ?>

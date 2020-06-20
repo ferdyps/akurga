@@ -701,7 +701,7 @@
               [
                   'field' => 'tempat_udg',
                   'label' => 'tempat Undangan',
-                  'rules' => 'trim|required|regex_match[/^[\w]/]|max_length[70]'
+                  'rules' => 'trim|required|regex_match[/^[\w]/]|max_length[250]'
               ],
 
               [
@@ -739,29 +739,41 @@
 
 
             if ($this->form_validation->run() == TRUE) {
-              $data = [
-                'no_udg'        => $no_udg,
-                'tujuan_surat'  => $tujuan_srt,
-                'tempat_udg'    => $tempat_udg,
-                'usulan_rpt'    => $usul_surat,
-                'tgl_udg'       => $tgl_rpt,
-                'jam_udg'       => $jam_udg,
-                'rt'            => $set_rt,
-                'id_user'       => $this->id_user
-              ];
-
-              $query = $this->m_admin->input_data('surat_undangan', $data);
-
-              if ($query) {
-                $url = base_url('ketuaRT/tbl_usulan_ketua');
-
+              $nama_tabel = 'surat_undangan';
+              $array_check = array('tgl_udg' => $tgl_rpt,
+                                    'rt' => $set_rt
+                                  );
+              $db_check     = $this->m_admin->selectWithWhere($nama_tabel, $array_check);
+              if ($db_check->num_rows() > 0) {
                 $json = [
-                    'message' => "Data Usulan Pembuatan Surat Undangan berhasil diinput..",
-                    'url' => $url
+                  'tgl_rpt' => 'Terdapat input undangan dengan tanggal pelaksanaan rapat yang sama',
                 ];
-              } else {
-                $json['errors'] = "Data Usulan Pembuatan Surat Undangan gagal diinput..!";
+              }else {
+                $data = [
+                  'no_udg'        => $no_udg,
+                  'tujuan_surat'  => $tujuan_srt,
+                  'tempat_udg'    => $tempat_udg,
+                  'usulan_rpt'    => $usul_surat,
+                  'tgl_udg'       => $tgl_rpt,
+                  'jam_udg'       => $jam_udg,
+                  'rt'            => $set_rt,
+                  'id_user'       => $this->id_user
+                ];
+
+                $query = $this->m_admin->input_data('surat_undangan', $data);
+
+                if ($query) {
+                  $url = base_url('ketuaRT/tbl_usulan_ketua');
+
+                  $json = [
+                      'message' => "Data Usulan Pembuatan Surat Undangan berhasil diinput..",
+                      'url' => $url
+                  ];
+                } else {
+                  $json['errors'] = "Data Usulan Pembuatan Surat Undangan gagal diinput..!";
+                }
               }
+
             } else {
               $no = 0;
               foreach ($this->input->post() as $key => $value) {
@@ -859,6 +871,16 @@
           $data['fetch'] = $surat;
           $data['title'] = 'Detail Dokumentasi Rapat';
           $this->load->view('admin/v_dokumentasi_rapat', $data);
+        }
+
+        public function dokumentasi_presensi()
+        {
+          $id     = $this->uri->segment(3);
+          $no     = array('no_notulen' => $id );
+          $surat  = $this->m_admin->selectWithWhere('notulensi_rpt', $no)->result_array();
+          $data['fetch'] = $surat;
+          $data['title'] = 'View Presensi Warga';
+          $this->load->view('admin/v_dokumentasi_presensi', $data);
         }
 
         public function notulensi_rapat(){

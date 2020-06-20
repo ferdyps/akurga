@@ -14,7 +14,12 @@
                       <div class="container-fluid">
                         <h2 class="display-4 notulensi-text">Surat undangan rapat nomor <?= str_replace('-','/',$row['no_udg']) ?></h2>
                         <hr class="my-4 border-dark">
-                        <h6 class="lead notulensi-text">Lampiran : <?= $row['lampiran_udg'] ?></h6>
+                        <?php if ($row['lampiran_udg'] == '_') {
+                          $lamp = '-';
+                        }else {
+                          $lamp = $row['lampiran_udg'];
+                        }  ?>
+                        <h6 class="lead notulensi-text">Lampiran : <?= $lamp ?></h6>
                         <h6 class="lead notulensi-text">Sifat <span style="display:inline-block; width: 40px;"></span> : <?= $row['sifat_udg'] ?></h6>
                         <h6 class="lead notulensi-text">Hal <span style="display:inline-block; width: 52px;"></span> : <?= $row['perihal_udg'] ?></h6><br>
                         <h6 class="lead notulensi-text">Kepada</h6>
@@ -33,12 +38,22 @@
                         <hr class="my-3 border-dark">
 
                         <?php
+                        if ($row['tembusan'] == '_') {
+                          $temb = '-';
+                        }else {
+                          $temb = $row['tembusan'];
+                        }
                         $exp = explode("-", $row['no_udg']);
                         if ($exp[1] == 'KGT') {
+                          if ($row['catatan'] == '_') {
+                            $ctt = '-';
+                          }else {
+                            $ctt = $row['catatan'];
+                          }
                         ?>
-                          <h6 class="lead notulensi-text">Catatan : <?= $row['catatan'];?></h6>
+                          <h6 class="lead notulensi-text">Catatan : <?= $ctt;?></h6>
                         <?php } ?>
-                        <h6 class="lead notulensi-text">Tembusan : <?= $row['tembusan'];?></h6>
+                        <h6 class="lead notulensi-text">Tembusan : <?= $temb;?></h6>
                       </div>
                     </div>
                   </div>

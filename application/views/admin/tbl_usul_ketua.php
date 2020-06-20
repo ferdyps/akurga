@@ -17,7 +17,7 @@
                       <th>Jenis Surat</th>
                       <th>Usulan Rapat</th>
                       <th>Pihak Yang Diundang</th>
-                      <th>Tanggal Rapat</th>
+                      <th>Tanggal Pelaksaan Rapat</th>
                       <th>Tempat Rapat</th>
                       <th>Jam Rapat</th>
                       <th>action</th>
@@ -38,7 +38,7 @@
                         <?php } ?>
                         <td><?= $row['usulan_rpt'] ?></td>
                         <td><?= $row['tujuan_surat'] ?></td>
-                        <td><?= $row['tgl_udg'] ?></td>
+                        <td><?= strftime("%d %B %Y",strtotime($row['tgl_udg'])); ?></td>
                         <td><?= $row['tempat_udg'] ?></td>
                         <td><?= $row['jam_udg'] ?></td>
                         <td>

@@ -33,7 +33,14 @@
                         <h6 class="notulensi-text">HASIL PERTEMUAN :</h6>
                         <?= $row['uraian_notulen']; ?>
                         <hr class="my-4 border-dark">
-                        <h6>Tembusan : <?= $row['tembusan'];?> </h6>
+                        <?php
+                        if ($row['tembusan'] == '_') {
+                          $temb = '-';
+                        }else {
+                          $temb = $row['tembusan'];
+                        }
+                         ?>
+                        <h6>Tembusan : <?= $temb;?> </h6>
                       </div>
                     </div>
                   </div>

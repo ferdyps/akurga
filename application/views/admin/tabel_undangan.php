@@ -16,7 +16,7 @@
                       <th>No Surat Undangan</th>
                       <th>Pihak Yang Diundang</th>
                       <th>Tempat Rapat</th>
-                      <th>Tanggal Surat</th>
+                      <th>Tanggal Pelaksaan Rapat</th>
                       <th width="5%">Jam Rapat</th>
                       <th>Action</th>
                     </tr>
@@ -60,6 +60,8 @@
                           data-toggle="modal" data-target="#editDataKgtModal">Edit <br>Data</i></a>
                           <b>||</b>
                           <a href="<?= base_url("sekretaris/previewRapat").'/'.$row['no_udg'];?>" target="_blank" class="d-none d-sm-inline-block btn btn-primary shadow-sm" title="Preview Surat Undangan">Preview<br>Surat</a>
+                          <b>||</b>
+                          <a href="<?= base_url("sekretaris/inputnotulensi").'/'.$row['no_udg'];?>" class="d-none d-sm-inline-block btn btn-primary shadow-sm" title="Input Notulensi">Input<br>Notulensi</a>
                           <b>||</b>
 
                       <?php } ?>

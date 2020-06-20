@@ -21,7 +21,7 @@
                          <label for="input-no_surat">Nomor Surat</label>
                          <input type="text" name="no_surat" id="input-no_surat" class="form-control">
                          <div class="invalid-feedback"></div>
-                         <p class="text-mute">* Inputkan nomor surat yang terdapat pada surat.</p>
+                         <p class="text-mute">* Inputkan nomor surat yang terdapat pada surat fisik.</p>
                      </div>
 
                      <div class="form-group form-input">
@@ -58,6 +58,7 @@
                              <div class="invalid-feedback">
 
                            </div>
+                           <p class="text-mute">* Inputkan tanggal surat yang terdapat pada surat fisik.</p>
                          </div>
 
                          <div class="form-group form-input">

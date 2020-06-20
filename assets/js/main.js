@@ -79,7 +79,7 @@ $(document).ready(function () {
                 $('#btn-text').removeClass("d-none");
             },
             success:function(data){
-                if ($.isEmptyObject(data.errors) && $.isEmptyObject(data.form_errors) && $.isEmptyObject(data.pict)) {
+                if ($.isEmptyObject(data.errors) && $.isEmptyObject(data.form_errors) && $.isEmptyObject(data.pict) && $.isEmptyObject(data.pict2) && $.isEmptyObject(data.tgl_rpt) && $.isEmptyObject(data.no_srt)) {
                     Swal.fire({
                         title: "Berhasil",
                         text: data.message,
@@ -96,6 +96,24 @@ $(document).ready(function () {
                   Swal.fire({
                       title: "Peringatan",
                       text: data.pict,
+                      icon: "warning"
+                  });
+                } else if (data.pict2) {
+                  Swal.fire({
+                      title: "Peringatan",
+                      text: data.pict2,
+                      icon: "warning"
+                  });
+                } else if (data.tgl_rpt) {
+                  Swal.fire({
+                      title: "Peringatan",
+                      text: data.tgl_rpt,
+                      icon: "warning"
+                  });
+                }else if (data.no_srt) {
+                  Swal.fire({
+                      title: "Peringatan",
+                      text: data.no_srt,
                       icon: "warning"
                   });
                 } else {
@@ -146,7 +164,7 @@ $(document).ready(function () {
                 $('#btn-text').removeClass("d-none");
             },
             success:function(data){
-                if ($.isEmptyObject(data.errors) && $.isEmptyObject(data.form_errors) && $.isEmptyObject(data.pict)) {
+                if ($.isEmptyObject(data.errors) && $.isEmptyObject(data.form_errors) && $.isEmptyObject(data.pict) && $.isEmptyObject(data.pict2) && $.isEmptyObject(data.tgl_rpt) && $.isEmptyObject(data.no_srt)) {
                     Swal.fire({
                         title: "Berhasil",
                         text: data.message,
@@ -163,6 +181,24 @@ $(document).ready(function () {
                   Swal.fire({
                       title: "Peringatan",
                       text: data.pict,
+                      icon: "warning"
+                  });
+                } else if (data.pict2) {
+                  Swal.fire({
+                      title: "Peringatan",
+                      text: data.pict2,
+                      icon: "warning"
+                  });
+                }else if (data.tgl_rpt) {
+                  Swal.fire({
+                      title: "Peringatan",
+                      text: data.tgl_rpt,
+                      icon: "warning"
+                  });
+                }else if (data.no_srt) {
+                  Swal.fire({
+                      title: "Peringatan",
+                      text: data.no_srt,
                       icon: "warning"
                   });
                 } else {
@@ -213,7 +249,7 @@ $(document).ready(function () {
                 $('#btn-text').removeClass("d-none");
             },
             success:function(data){
-                if ($.isEmptyObject(data.errors) && $.isEmptyObject(data.form_errors) && $.isEmptyObject(data.pict)) {
+                if ($.isEmptyObject(data.errors) && $.isEmptyObject(data.form_errors) && $.isEmptyObject(data.pict) && $.isEmptyObject(data.pict2) && $.isEmptyObject(data.tgl_rpt)) {
                     Swal.fire({
                         title: "Berhasil",
                         text: data.message,
@@ -232,7 +268,19 @@ $(document).ready(function () {
                       text: data.pict,
                       icon: "warning"
                   });
-                } else {
+                } else if (data.pict2) {
+                  Swal.fire({
+                      title: "Peringatan",
+                      text: data.pict2,
+                      icon: "warning"
+                  });
+                }else if (data.tgl_rpt) {
+                  Swal.fire({
+                      title: "Peringatan",
+                      text: data.tgl_rpt,
+                      icon: "warning"
+                  });
+                }else {
                     Swal.fire({
                         title: "Gagal",
                         text: data.errors,

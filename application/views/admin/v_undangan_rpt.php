@@ -58,6 +58,7 @@
                 <label for="input-tempat_udg">Tempat Rapat</label>
                 <input type="text" name="tempat_udg" id="input-tempat_udg" class="form-control" value="<?= $row['tempat_udg'] ?>">
                 <div class="invalid-feedback"></div>
+                <p class="text-mute">* Inputkan detail alamat serta RT/RW Contoh : Rumah Pak RT 01/Jl.BBC no 2 RT 02 RW 01</p>
               </div>
 
               <div class="form-group form-input">
@@ -90,7 +91,7 @@
               </div>
 
               <div class="form-group form-input">
-                <label for="input-tgl_surat">Tanggal Surat</label>
+                <label for="input-tgl_surat">Tanggal Pelaksaan Rapat</label>
                 <input type="text" name="tgl_surat" id="input-tgl_surat" class="form-control datepicker" value="<?= $row['tgl_udg'] ?>">
                 <div class="invalid-feedback"></div>
               </div>

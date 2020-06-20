@@ -64,6 +64,7 @@
                   <input type="text" name="tempat_udg_kgt" id="input-tempat_udg_kgt" class="form-control" value="<?= $row['tempat_udg'] ?>">
                   <div class="invalid-feedback">
                 </div>
+                <p class="text-mute">* Inputkan detail alamat serta RT/RW Contoh : Rumah Pak RT 01/Jl.BBC no 2 RT 02 RW 01</p>
               </div>
               <div class="form-group form-input">
                   <label for="input-catatan_kgt">Catatan Penting</label>
@@ -88,7 +89,7 @@
                 </div>
               </div>
               <div class="form-group form-input">
-                  <label for="input-tgl_surat_kgt">Tanggal Surat</label>
+                  <label for="input-tgl_surat_kgt">Tanggal Pelaksaan Rapat</label>
                   <input type="text" name="tgl_surat_kgt" id="input-tgl_surat_kgt" class="form-control datepicker" value="<?= $row['tgl_udg'] ?>">
                   <div class="invalid-feedback">
                 </div>
