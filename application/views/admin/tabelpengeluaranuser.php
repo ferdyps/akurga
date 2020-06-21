@@ -36,14 +36,13 @@
             <td><?php echo $no++; ?></td>
             <!-- <td><?php echo $b['no_pengeluaran']; ?></td>    -->
             <td>Rp. <?php echo number_format ($b['nominal'],2); ?></td>
-            <td><?php echo $b['tanggal']; ?></td>
+            <td><?php echo date_format(date_create($b['tanggal']),'d-m-Y'); ?></td>
             <td><?php echo $b['diberikan_kepada']; ?></td> 
             <td><?php echo $b['digunakan_untuk'] ?></td>
             <!-- <td><?php echo $b['gambar'] ?></td> -->
             <td><img src="<?php echo base_url('/uploads/gambar/'.$b['gambar']);?>" height="50px" width="50px"></td>
             <?php $sum=$sum+$b['nominal']?>
              
-           
           </tr>
         <?php } ?>
         <tr>

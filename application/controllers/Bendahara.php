@@ -49,6 +49,8 @@
                 'dataPoints2'   => $dataPoints2,
                 'usulan_points' => $usulanPoints,
                 'dataiurank'    => $this->m_admin->tampil_iuran_keluar($rt)->result_array(),
+                'dataiuranmsk'  => $this->m_admin->tampil_iuran_masuk($rt)->result_array(),
+
             ];
             $this->load->view('admin/index', $data);
         }
