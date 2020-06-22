@@ -34,32 +34,46 @@ class sekretaris extends CI_Controller {
       $dataPoints = array();
       $dataPoints2 = array();
       $dataPoints3 = array();
-      $query = $this->m_admin->CountData('warga','valid',0)->result_array();
+      $dataAgama = array();
+      $dataStatus = array();
+      $usulanPoints = $this->m_admin->CountData('surat_undangan', 'status', 0)->result_array();
+      $query = $this->m_admin->CountData('warga',['valid'=>0])->result_array();
       $result = $this->m_admin->grafikPendidikanRT($rt)->result();
       $result2 = $this->m_admin->grafikPekerjaanRT($rt)->result();
       $result3 = $this->m_admin->grafikWarga($rt)->result();
+      $agama = $this->m_admin->grafikAgamaRT($rt)->result();
+      $status = $this->m_admin->grafikStatusRT($rt)->result();
 
       // $tampil_iuran = $this->m_admin->tampil_iuran_keluar($rt)->result_array();
       foreach ($result as $row) {
-        array_push($dataPoints, array('label' => $row->pendidikan, 'y' => $row->total));
+          array_push($dataPoints, array('label' => $row->pendidikan, 'y' => $row->total));
       }
       foreach ($result2 as $row) {
-        array_push($dataPoints2, array('label' => $row->pekerjaan, 'y' => $row->total));
+          array_push($dataPoints2, array('label' => $row->pekerjaan, 'y' => $row->total));
       }
       foreach ($result3 as $row) {
-        array_push($dataPoints3, array('label' => $row->jk, 'y' => $row->total));
+          array_push($dataPoints3, array('label' => $row->jk, 'y' => $row->total));
+      }
+      foreach ($agama as $row) {
+          array_push($dataAgama, array('label' => $row->agama, 'y' => $row->total));
+      }
+      foreach ($status as $row) {
+          array_push($dataStatus, array('label' => $row->status, 'y' => $row->total));
       }
       $tampil_iuran = $this->m_admin->tampil_iuran_keluar($rt)->result_array();
       $data = [
-        'content'       => 'admin/dashboardRT',
-        'title'         => 'Dashboard',
-        'semuaWarga'    => $query,
-        'dataPoints'    => $dataPoints,
-        'dataPoints2'   => $dataPoints2,
-        'dataPoints3'   => $dataPoints3,
-        'dataiurank'    => $tampil_iuran,
-        'rt' => $rt,
-        'nama' => $this->nama
+          'content'       => 'admin/dashboardRT',
+          'title'         => 'Dashboard',
+          'semuaWarga'    => $query,
+          'dataPoints'    => $dataPoints,
+          'dataPoints2'   => $dataPoints2,
+          'dataPoints3'   => $dataPoints3,
+          'dataAgama'     => $dataAgama,
+          'dataStatus'    => $dataStatus,
+          'usulan_points' => $usulanPoints,
+          'dataiurank'    => $tampil_iuran,
+          'rt' => $rt,
+          'nama' => $this->nama
       ];
       $this->load->view('admin/index', $data);
 
@@ -67,27 +81,41 @@ class sekretaris extends CI_Controller {
       $dataPoints = array();
       $dataPoints2 = array();
       $dataPoints3 = array();
-      $query = $this->m_admin->CountData('warga','valid',0)->result_array();
+      $dataAgama = array();
+      $dataStatus = array();
+      $usulanPoints = $this->m_admin->CountData('surat_undangan', 'status', 0)->result_array();
+      $query = $this->m_admin->CountData('warga',['valid'=>0])->result_array();
       $result = $this->m_admin->grafikPendidikan()->result();
       $result2 = $this->m_admin->grafikPekerjaan()->result();
       $result3 = $this->m_admin->grafikJumlahWargaPerRT()->result();
+      $agama = $this->m_admin->grafikAgama()->result();
+      $status = $this->m_admin->grafikStatus()->result();
       foreach ($result as $row) {
-        array_push($dataPoints, array('label' => $row->pendidikan, 'y' => $row->total));
+          array_push($dataPoints, array('label' => $row->pendidikan, 'y' => $row->total));
       }
       foreach ($result2 as $row) {
-        array_push($dataPoints2, array('label' => $row->pekerjaan, 'y' => $row->total));
+          array_push($dataPoints2, array('label' => $row->pekerjaan, 'y' => $row->total));
       }
       foreach ($result3 as $row) {
-        array_push($dataPoints3, array('label' => $row->rt, 'y' => $row->total));
+          array_push($dataPoints3, array('label' => $row->rt, 'y' => $row->total));
+      }
+      foreach ($agama as $row) {
+          array_push($dataAgama, array('label' => $row->agama, 'y' => $row->total));
+      }
+      foreach ($status as $row) {
+          array_push($dataStatus, array('label' => $row->status, 'y' => $row->total));
       }
       $data = [
-        'content'       => 'admin/dashboardRW',
-        'title'         => 'Dashboard',
-        'semuaWarga'    => $query,
-        'dataPoints'    => $dataPoints,
-        'dataPoints2'   => $dataPoints2,
-        'dataPoints3'   => $dataPoints3,
-        'dataiurank'    => $this->m_admin->tampil_iuran_keluar($this->rt)->result_array()
+          'content'       => 'admin/dashboardRW',
+          'title'         => 'Dashboard',
+          'semuaWarga'    => $query,
+          'dataPoints'    => $dataPoints,
+          'dataPoints2'   => $dataPoints2,
+          'dataPoints3'   => $dataPoints3,
+          'dataAgama'     => $dataAgama,
+          'dataStatus'    => $dataStatus,
+          'usulan_points' => $usulanPoints,
+          'dataiurank'    => $this->m_admin->tampil_iuran_keluar($this->rt)->result_array()
       ];
       $this->load->view('admin/index', $data);
     }
