@@ -61,6 +61,17 @@
             foreach ($status as $row) {
                 array_push($dataStatus, array('label' => $row->status, 'y' => $row->total));
             }
+
+            //notifikasi surat undangan
+            $val_notif_jam_udg = array(
+                                        'rt' => 'RW 01',
+                                        'notif_for' => 'Ketua', );
+
+            $notifikasi_jam_udg_num = $this->m_admin->notifikasi_jam_udg($val_notif_jam_udg)->num_rows();
+              $notifikasi_jam_udg = $this->m_admin->notifikasi_jam_udg($val_notif_jam_udg)->result_array();
+            $whos = 'Ketua RW';
+            //end of notifikasi surat undangan
+
             $data = [
                 'content'       => 'admin/dashboardRW',
                 'title'         => 'Dashboard',
@@ -71,6 +82,9 @@
                 'dataAgama'     => $dataAgama,
                 'dataStatus'    => $dataStatus,
                 'usulan_points' => $usulanPoints,
+                'whos' => $whos,
+                'notifikasi_jam_udg_num' => $notifikasi_jam_udg_num,
+                'notifikasi_jam_udg' => $notifikasi_jam_udg,
                 'dataiurank'    => $this->m_admin->tampil_iuran_keluar($this->rt)->result_array()
             ];
             $this->load->view('admin/index', $data);

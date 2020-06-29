@@ -1,11 +1,12 @@
-<?php 
-  $rt = 'RT '.$this->session->userdata('rt');  
+<?php
+  $rt = 'RT '.$this->session->userdata('rt');
   $sekarang = date("Y-m-d");
   $semuaWarga = $this->m_admin->CountData('warga',['valid'=>0])->result_array();
   $notif_cetak_sp = $this->m_admin->CountData('status_surat',['status' => 'diterima', 'expired_date >' => $sekarang])->result_array();
   $notif_komplain_rw = $this->m_admin->CountData('komplain',['status' => 'proses', 'lingkup' => 'RW'])->result_array();
   $notif_decline_warga = $this->m_admin->CountData('warga',['valid'=>2, 'rt'=> $this->session->userdata('rt')])->result_array();
   $notif_komplain_rt = $this->m_admin->CountData('komplain',['status'=>'proses','lingkup'=> 'RT'])->result_array();
+  $notif_suratundangan = $this->m_admin->CountData('surat_undangan',['status'=>'0','rt'=> $rt])->result_array();
   $notif_sp = $this->m_admin->notif_sp($rt)->result_array();
 ?>
 <div id="wrapper">
@@ -31,7 +32,7 @@
 
       <!-- Divider -->
       <hr class="sidebar-divider">
-      <?php 
+      <?php
       if ( $this->session->userdata('role') == 'Ketua RW') { ?>
 
         <li class="nav-item active">
@@ -87,7 +88,7 @@
 
               }
             ?>
-          </span>  
+          </span>
         </a>
       </li>
       <li class="nav-item">
@@ -388,7 +389,26 @@
         </a>
         <div id="collapseSekretarisUndangan" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="<?php echo base_url("sekretaris/pembuatan_undangan");?>">Pembuatan Surat <br>Undangan</a>
+
+
+            <a class="collapse-item" href="<?php echo base_url("sekretaris/pembuatan_undangan");?>">Pembuatan Surat <br>Undangan
+              <?php
+                foreach($notif_suratundangan as $rows){
+
+                  if ($rows['total'] < 1) {
+                    ?>
+                    <span class="badge badge-danger" hidden></span>
+                    <?php
+                  } else {
+                    ?>
+                    <span class="badge badge-danger"><?= $rows['total']?></span>
+                    <?php
+                  }
+
+                }
+              ?>
+            </a>
+
             <a class="collapse-item" href="<?php echo base_url("sekretaris/riwayat_Undangan");?>">Riwayat Surat Undangan</a>
           </div>
         </div>

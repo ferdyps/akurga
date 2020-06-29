@@ -36,7 +36,6 @@ class sekretaris extends CI_Controller {
       $dataPoints3 = array();
       $dataAgama = array();
       $dataStatus = array();
-      $usulanPoints = $this->m_admin->CountData('surat_undangan', 'status', 0)->result_array();
       $query = $this->m_admin->CountData('warga',['valid'=>0])->result_array();
       $result = $this->m_admin->grafikPendidikanRT($rt)->result();
       $result2 = $this->m_admin->grafikPekerjaanRT($rt)->result();
@@ -61,6 +60,9 @@ class sekretaris extends CI_Controller {
           array_push($dataStatus, array('label' => $row->status, 'y' => $row->total));
       }
       $tampil_iuran = $this->m_admin->tampil_iuran_keluar($rt)->result_array();
+      $whos = 'Sekretaris RT';
+
+
       $data = [
           'content'       => 'admin/dashboardRT',
           'title'         => 'Dashboard',
@@ -70,9 +72,9 @@ class sekretaris extends CI_Controller {
           'dataPoints3'   => $dataPoints3,
           'dataAgama'     => $dataAgama,
           'dataStatus'    => $dataStatus,
-          'usulan_points' => $usulanPoints,
           'dataiurank'    => $tampil_iuran,
           'rt' => $rt,
+          'whos' => $whos,
           'nama' => $this->nama
       ];
       $this->load->view('admin/index', $data);
@@ -105,6 +107,7 @@ class sekretaris extends CI_Controller {
       foreach ($status as $row) {
           array_push($dataStatus, array('label' => $row->status, 'y' => $row->total));
       }
+      $whos = 'Sekretaris RW';
       $data = [
           'content'       => 'admin/dashboardRW',
           'title'         => 'Dashboard',
@@ -114,7 +117,7 @@ class sekretaris extends CI_Controller {
           'dataPoints3'   => $dataPoints3,
           'dataAgama'     => $dataAgama,
           'dataStatus'    => $dataStatus,
-          'usulan_points' => $usulanPoints,
+          'whos' => $whos,
           'dataiurank'    => $this->m_admin->tampil_iuran_keluar($this->rt)->result_array()
       ];
       $this->load->view('admin/index', $data);

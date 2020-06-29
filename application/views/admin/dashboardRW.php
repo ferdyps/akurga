@@ -77,6 +77,41 @@
       </div>
     </div>
   </div>
+
+  <div class="col-xl-3 col-md-6 mb-4">
+
+
+
+    <div aria-live="polite" aria-atomic="true" style="position: relative; min-height: 200px;">
+  <!-- Position it -->
+  <div style="position: absolute; top: 0; right: 0;">
+
+    <!-- Then put toasts within -->
+    <?php if ($whos == 'Ketua RW' && $notifikasi_jam_udg_num > 0) { ?>
+      <?php foreach ($notifikasi_jam_udg as $notify) { ?>
+      <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false" data-animation="true">
+        <div class="toast-header">
+          <strong class="mr-auto">Notification</strong>
+          <small class="text-muted"><?= strftime("%d %B %Y %T",strtotime($notify['notif_datetime'])) ?></small>
+          <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="toast-body">
+          <?= $notify['notif_msg'] ?> <?= $notify['atr_pk'] ?> dari <?= strftime("%R",strtotime($notify['old_time_val'])) ?> menjadi <?= strftime("%R",strtotime($notify['new_time_val'])) ?>
+        </div>
+      </div>
+    <?php } ?>
+  <?php }else {
+
+  } ?>
+
+
+
+  </div>
+</div>
+
+  </div>
 </div>
 
 <div class="row">
@@ -97,7 +132,7 @@
     </div>
     <div class="card-body">
       <div class="chart-area" id="job">
-      </div> 
+      </div>
     </div>
 </div>
 <!-- <div class="row"></div> -->
@@ -221,4 +256,6 @@ var chartStatus = new CanvasJS.Chart("status", {
 chartStatus.render();
 
 }
+$('.toast').toast('show');
+
 </script>

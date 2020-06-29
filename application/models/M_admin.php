@@ -177,6 +177,14 @@
             return $this->db->get($table);
         }
 
+        public function notifikasi_jam_udg($where){
+            $this->db->select('*');
+            $this->db->where($where);
+            $this->db->order_by('notif_id', 'DESC');
+            $this->db->limit(2);
+            return $this->db->get('notifikasi');
+        }
+
         public function get_detail_notulensi($id)
         {
           $this->db->select('surat_undangan.acara_udg, surat_undangan.tujuan_surat, surat_undangan.tgl_udg, surat_undangan.jam_udg, surat_undangan.tempat_udg, notulensi_rpt.no_notulen, notulensi_rpt.no_udg, notulensi_rpt.dokumentasi_rpt, notulensi_rpt.keterangan_dokumentasi,  notulensi_rpt.uraian_notulen, notulensi_rpt.uraian_notulen_cetak, notulensi_rpt.penulis, notulensi_rpt.rt, notulensi_rpt.tembusan, notulensi_rpt.tgl_buat');
@@ -689,7 +697,7 @@
         ")->result();
 
         return $hasil;
-    
+
     }
 
     public function datart(){

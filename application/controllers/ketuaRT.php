@@ -67,6 +67,16 @@
                 array_push($dataStatus, array('label' => $row->status, 'y' => $row->total));
             }
             $tampil_iuran = $this->m_admin->tampil_iuran_keluar($rt)->result_array();
+
+            //notifikasi surat undangan
+            $val_notif_jam_udg = array(
+                                        'rt' => 'RT '.$this->rt,
+                                        'notif_for' => 'Ketua', );
+                                        $notifikasi_jam_udg_num = $this->m_admin->notifikasi_jam_udg($val_notif_jam_udg)->num_rows();
+            $notifikasi_jam_udg = $this->m_admin->notifikasi_jam_udg($val_notif_jam_udg)->result_array();
+            $whos = 'Ketua RT';
+            //end of notifikasi surat undangan
+
             $data = [
                 'content'       => 'admin/dashboardRT',
                 'title'         => 'Dashboard',
@@ -79,6 +89,9 @@
                 'usulan_points' => $usulanPoints,
                 'dataiurank'    => $tampil_iuran,
                 'rt' => $rt,
+                'whos' => $whos,
+                'notifikasi_jam_udg_num' => $notifikasi_jam_udg_num,
+                'notifikasi_jam_udg' => $notifikasi_jam_udg,
                 'nama' => $this->nama
             ];
             $this->load->view('admin/index', $data);
@@ -373,7 +386,7 @@
             $pengurus = $this->nama;
             $masa_berlaku = strtotime("+2 Days");
             $kadaluarsa = date('Y-m-d',$masa_berlaku);
-            
+
             $data = [
                 'nomor_surat' => $id,
                 'status' => 'diterima',
