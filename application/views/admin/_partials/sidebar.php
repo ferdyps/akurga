@@ -197,19 +197,15 @@
           <i class="fas fa-fw fa-envelope"></i>
           <span>Surat Pengantar
             <?php
-              foreach($notif_sp as $row){
-
-                if ($row['total'] < 1) {
+                if ($notif_sp < 1) {
                   ?>
                   <span class="badge badge-danger" hidden></span>
                   <?php
                 } else {
                   ?>
-                  <span class="badge badge-danger"><?=$row['total']?></span>
+                  <span class="badge badge-danger"><?=$notif_sp?></span>
                   <?php
                 }
-
-              }
             ?>
           </span>
         </a>

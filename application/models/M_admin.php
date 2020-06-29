@@ -246,8 +246,21 @@
             ORDER BY nomor_surat DESC");
         }
 
+        // public function notif_sp($rt){
+        //   return $this->db->query("SELECT COUNT(sp.nomor_surat) AS total,sp.rt,
+        //   (
+        //       SELECT status
+        //       FROM status_surat ss
+        //       WHERE ss.nomor_surat = sp.nomor_surat
+        //       ORDER BY created_at DESC
+        //       LIMIT 1
+        //   ) as status
+        //   FROM surat_pengantar sp
+        //   WHERE sp.rt= '$rt'
+        //   HAVING status = 'pengajuan'");
+        // }
         public function notif_sp($rt){
-          return $this->db->query("SELECT COUNT(sp.nomor_surat) AS total,sp.rt,
+          return $this->db->query("SELECT sp.nomor_surat,sp.rt,
           (
               SELECT status
               FROM status_surat ss
