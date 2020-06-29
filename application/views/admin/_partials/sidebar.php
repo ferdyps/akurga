@@ -6,7 +6,7 @@
   $notif_komplain_rw = $this->m_admin->CountData('komplain',['status' => 'proses', 'lingkup' => 'RW'])->result_array();
   $notif_decline_warga = $this->m_admin->CountData('warga',['valid'=>2, 'rt'=> $this->session->userdata('rt')])->result_array();
   $notif_komplain_rt = $this->m_admin->CountData('komplain',['status'=>'proses','lingkup'=> 'RT'])->result_array();
-  $notif_sp = $this->m_admin->notif_sp($rt)->result_array();
+  $notif_sp = $this->m_admin->notif_sp($rt)->num_rows();
 ?>
 <div id="wrapper">
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
@@ -196,19 +196,15 @@
           <i class="fas fa-fw fa-envelope"></i>
           <span>Surat Pengantar
             <?php
-              foreach($notif_sp as $row){
-
-                if ($row['total'] < 1) {
+                if ($notif_sp < 1) {
                   ?>
                   <span class="badge badge-danger" hidden></span>
                   <?php
                 } else {
                   ?>
-                  <span class="badge badge-danger"><?=$row['total']?></span>
+                  <span class="badge badge-danger"><?=$notif_sp?></span>
                   <?php
                 }
-
-              }
             ?>
           </span>
         </a>
