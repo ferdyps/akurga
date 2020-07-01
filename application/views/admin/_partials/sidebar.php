@@ -7,7 +7,7 @@
   $notif_decline_warga = $this->m_admin->CountData('warga',['valid'=>2, 'rt'=> $this->session->userdata('rt')])->result_array();
   $notif_komplain_rt = $this->m_admin->CountData('komplain',['status'=>'proses','lingkup'=> 'RT'])->result_array();
   $notif_suratundangan = $this->m_admin->CountData('surat_undangan',['status'=>'0','rt'=> $rt])->result_array();
-  $notif_sp = $this->m_admin->notif_sp($rt)->result_array();
+  $notif_sp = $this->m_admin->notif_sp($rt)->num_rows();
 ?>
 <div id="wrapper">
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
