@@ -56,7 +56,7 @@ $notif_sp = $this->m_user->notifSuratPengantar($this->session->userdata('id_user
             </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="<?= base_url('user/tampilbulan')?>">Lihat Pembayaran</a>
+            <a class="nav-link js-scroll-trigger" href="<?= base_url('user/tampilbulanuser')?>">Lihat Pembayaran</a>
           </li>
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="<?= base_url('user/tabeldataiurankeluaruser')?>">Lihat Pengeluaran</a>

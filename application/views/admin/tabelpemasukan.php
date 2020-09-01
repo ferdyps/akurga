@@ -7,38 +7,88 @@
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
   <div class="card-header py-3">
-    <h6 class="m-0 font-weight-bold text-primary">Tabel Pemasukan</h6>
+    <h6 class="m-0 font-weight-bold text-primary">Tabel Pemasukan Warga RT.<?= $this->session->userdata('rt'); ?></h6>
+    <center>
+    <div class="form-group form-input">
+            <form action="" method="GET">
+              <table>
+                <tr>
+                  <td>
+                    <select name="bulan" class="form-control" required>
+                      <option disabled='' selected=''> Bulan </option>
+                      <option value="01"> Januari </option>
+                      <option value="02"> Februari </option>
+                      <option value="03"> Maret </option>
+                      <option value="04"> April </option>
+                      <option value="05"> Mei </option>
+                      <option value="06"> Juni </option>
+                      <option value="07"> Juli </option>
+                      <option value="08"> Agustus </option>
+                      <option value="09"> September </option>
+                      <option value="10"> Oktober </option>
+                      <option value="11"> November </option>
+                      <option value="12"> Desember </option>
+                    </select>
+                  </td>
+                  <td>
+                    <select name="tahun" id="Tahun" class="form-control" required>
+                      <option disabled='' selected=''> Tahun </option>
+                      <?php
+                        $realtimeYear = date('Y');
+                        for ($i = $realtimeYear; $i >= 2018; $i--) {
+                        ?>
+                            <option value="<?php echo $i ?>"><?php echo $i ?></option>
+                        <?php
+                        }
+                      ?>
+                    </select>
+                  </td>
+                  <td>
+                    <input class='btn btn-primary' type="submit" value="Cari">
+                  </td>
+                  <td>
+                    <a class='btn btn-warning' href='<?php echo base_url(); ?>Bendahara/tabelpemasukan'> Tampilkan Semua </a>
+                  </td>
+                </tr>
+              </table>
+            </form>
+            <?php
+              if(isset($_GET['tahun'])){
+                if($_GET['bulan'] == "01"){
+                  $bulan = 'Januari';
+                }elseif($_GET['bulan'] == "02"){
+                  $bulan = 'Februari';
+                }elseif($_GET['bulan'] == "03"){
+                  $bulan = 'Maret';
+                }elseif($_GET['bulan'] == "04"){
+                  $bulan = 'April';
+                }elseif($_GET['bulan'] == "05"){
+                  $bulan = 'Mei';
+                }elseif($_GET['bulan'] == "06"){
+                  $bulan = 'Juni';
+                }elseif($_GET['bulan'] == "07"){
+                  $bulan = 'Juli';
+                }elseif($_GET['bulan'] == "08"){
+                  $bulan = 'Agustus';
+                }elseif($_GET['bulan'] == "09"){
+                  $bulan = 'September';
+                }elseif($_GET['bulan'] == "10"){
+                  $bulan = 'Oktober';
+                }elseif($_GET['bulan'] == "11"){
+                  $bulan = 'November';
+                }elseif($_GET['bulan'] == "12"){
+                  $bulan = 'Desember';
+                }
+                echo "<br><h3>".$bulan." - ".$_GET['tahun']. "</h3>";
+              }
+            ?>
+    </div>
+  </center>
   </div>
 
-
-  <div class="row px-3 my-3">
-              <div class="col">
-              <div class="form-group form-input">
-                  <label for="diberikan_kepada">Pilih Bulan</label>
-                  <select name="diberikan_kepada" id="filterPemasukanBulanan" class="form-control">
-                      <option selected disabled>-- Pilih Bulan --</option>
-                      <option value="Januari">Januari</option>
-                      <option value="Februari">Februari</option>
-                      <option value="Maret">Maret</option>
-                      <option value="April">April</option>
-                      <option value="Mei">Mei</option>
-                      <option value="Juni">Juni</option>
-                      <option value="Juli">Juli</option>
-                      <option value="Agustus">Agustus</option>
-                      <option value="September">September</option>
-                      <option value="Oktober">Oktober</option>
-                      <option value="November">November</option>
-                      <option value="Desember">Desember</option>
-                  </select>
-              </div>
-              <div class="float-right">
-                    <!-- <a href="<?= base_url(); ?>pengadaan/printpengadaan/ " target="_BLANK" class="container btn-primary btn-sm">Cetak Laporan</a> -->
-
-                    <a class="" href="#" data-toggle="modal"  data-target="#cetakLaporanPengadaan" target="_BLANK" class="container btn-primary btn-sm">
-
-                                    Cetak Laporan
-                                </a>
-                </div>
+  <a href="#" data-toggle="modal"  data-target="#cetakLaporanPengadaan" target="_BLANK" class="btn btn-primary"> Cetak Laporan</a>
+  <br>
+  <div id="JumlahPemasukan" style="height: 370px; width: 100%;"></div>
 
   <div class="card-body">
     <div class="table-responsive">
@@ -46,79 +96,68 @@
         <thead>
           <tr>
             <th>NO</th>
-            <th>NIK</th>
-            <th>Nama</th>
+            <th>No Rumah</th>
             <th>Pembayaran Bulan</th>
+            <th>Tahun</th>
             <th>Nominal</th>
             <th>Tanggal</th>
           </tr>
         </thead>
-        <tbody id="dataPemasukan">
+        <tbody>
+          <?php
+            $no = 1;
+            $sum=0;
+            foreach($dataiuranmsk as $b){
+          ?>
+            <tr>
+              <td><?php echo $no++; ?></td>
+              <td><?php echo $b['no_rumah']; ?></td>
+              <td><?php echo $b['pembayaran_bulan']; ?></td>
+              <td><?php echo $b['tahun']; ?></td>
+              <td>Rp. <?php echo number_format ($b['nominal'],2); ?></td>
+              <td><?php echo date('d-m-Y', strtotime($b['tanggal'])); ?></td>
+            </tr>
+          <?php
+            $nominal = (int) $b['nominal'];
+            $sum= $sum + $nominal;
+          }
+          ?>
         </tbody>
+        <p align="right"> <b>Total Pemasukkan </b> : </p> <h3 align="right"> Rp. <?php echo number_format($sum,2) ;?></h3>
       </table>
+</div>
+</div>
 </div>
 </div>
 
 <script>
-  $(document).ready(function () {
-    let url = `<?= base_url()?>Bendahara/filterPemasukan`;
+window.onload = function() {
 
-    dataUntukTabel(url)
-  });
+  var chart = new CanvasJS.Chart("JumlahPemasukan", {
+	title: {
+		text: "Pemasukkan RT-<?= $this->session->userdata('rt')?>"
+	},
+	axisY: {
+		title: "Jumlah (Rp.)"
+	},
+  <?php
+  if(!empty($_GET['bulan'])){?>
+    axisX: {
+      title: "Tanggal"
+    },
+  <?php
+  }else{?>
+    axisX: {
+      title: "Tahun"
+    },
+  <?php
+  }?>
+	data: [{
+		type: "spline",
+		dataPoints: <?php echo json_encode($jumlahPemasukan, JSON_NUMERIC_CHECK); ?>
+	}]
+});
+chart.render();
 
-  $('#filterPemasukanBulanan').change(function(){
-    let namaBulan = $('#filterPemasukanBulanan').val();
-    let url = `<?= base_url()?>Bendahara/filterPemasukan/?bulan=${namaBulan}`;
-    dataUntukTabel(url)
-  });
-
-  function formatHarga(harga) {
-    harga = parseInt(harga);
-    return (harga).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')
-  }
-
-  function dataUntukTabel(_url) {
-    $.ajax({
-      method: "GET",
-      url: _url,
-      success: function(res){
-        bikinTabel(JSON.parse(res));
-      }
-    });
-  }
-
-  function bikinTabel(res) {
-    let nomor = 1;
-    let total = 0;
-    $('#dataPemasukan').html('');
-    res.forEach(data => {
-      let html = `
-        <tr>
-          <td>${nomor}</td>
-          <td>${data.nik}</td>
-          <td>${data.nama}</td>
-          <td>${data.pembayaran_bulan}</td>
-          <td>Rp. ${formatHarga(data.nominal)}</td>
-          <td>${data.tanggal}</td>
-        </tr>
-      `;
-      nomor += 1;
-      total += parseInt(data.nominal);
-      $('#dataPemasukan').append(html);
-    });
-    let rowTotal = `
-      <tr>
-        <td colspan="2" rospan="4">Total</td>
-        <td></td>
-        <td></td>
-        <td>Rp. ${formatHarga(total)}</td>
-        <td></td>
-      </tr>
-    `;
-    $('#dataPemasukan').append(rowTotal);
-  }
+}
 </script>
-</div>
-</div>
-</div>
-</div>

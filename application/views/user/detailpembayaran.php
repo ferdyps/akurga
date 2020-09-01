@@ -5,7 +5,7 @@
 <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p>
 -->
 <!-- DataTales Example -->
-<div class="card shadow mb-4"> 
+<div class="card shadow mb-4">
   <div class="card-header py-3">
     <h6 class="m-0 font-weight-bold text-primary">Detail Pembayaran</h6>
   </div>
@@ -13,12 +13,12 @@
     <div class="table-responsive">
       <table border = "0" id="dataTable" cellspacing="0">
      <form>
-        <?php 
+        <?php
           $no = 1;
           $sum=0;
-          foreach($detailpembayaran as $b){ 
+          foreach($detailpembayaran as $b){
         ?>
-         
+
             <!-- <td><?php echo $no++; ?></td> -->
             <tr>
               <td> Nomor Pembayaran </td>
@@ -28,12 +28,7 @@
             <tr>
               <td> NIK </td>
               <td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
-              <td><?php echo $b->nik ?></td>
-            </tr>
-            <tr>
-              <td> Nama Warga </td>
-              <td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
-              <td><?php echo $b->nama_warga; ?></td>
+              <td><?php echo $b->no_rumah ?></td>
             </tr>
             <tr>
               <td> Jenis Warga </td>
@@ -43,62 +38,107 @@
             <tr>
               <td> Tanggal Pembayaran Bulan Januari </td>
               <td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
-              <td><?php echo  $b->tanggal_bulan_januari; ?></td>
+              <td><?php
+                if($b->tanggal_bulan_januari!=null){
+                  echo  date('d-m-Y', strtotime($b->tanggal_bulan_januari));
+                }
+                ?>
+              </td>
             </tr>
             <tr>
               <td> Tanggal Pembayaran Bulan Februari </td>
               <td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
-              <td><?php echo  $b->tanggal_bulan_februari; ?></td>
+              <td><?php
+                if($b->tanggal_bulan_februari!=null){
+                  echo date('d-m-Y', strtotime($b->tanggal_bulan_februari));
+                }
+                ?>
+              </td>
             </tr>
             <tr>
               <td> Tanggal Pembayaran Bulan Maret </td>
               <td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
-              <td><?php echo  $b->tanggal_bulan_maret; ?></td>
+              <td><?php
+                if($b->tanggal_bulan_maret!=null){
+                  echo  date('d-m-Y', strtotime($b->tanggal_bulan_maret));
+                }
+                ?>
+              </td>
             </tr>
             <tr>
               <td> Tanggal Pembayaran Bulan April </td>
               <td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
-              <td><?php echo  $b->tanggal_bulan_april; ?></td>
+              <td><?php
+                if($b->tanggal_bulan_april!=null){
+                  echo  date('d-m-Y', strtotime($b->tanggal_bulan_april));
+                }
+              ?></td>
             </tr>
             <tr>
               <td> Tanggal Pembayaran Bulan Mei </td>
               <td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
-              <td><?php echo  $b->tanggal_bulan_mei; ?></td>
+              <td><?php
+                if($b->tanggal_bulan_mei!=null){
+                  echo  date('d-m-Y', strtotime($b->tanggal_bulan_mei));
+                }?></td>
             </tr>
             <tr>
               <td> Tanggal Pembayaran Bulan Juni </td>
               <td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
-              <td><?php echo  $b->tanggal_bulan_juni; ?></td>
+              <td><?php
+                if($b->tanggal_bulan_juni!=null){
+                  echo  date('d-m-Y', strtotime($b->tanggal_bulan_juni));
+                }?>
+              </td>
             </tr>
             <tr>
               <td> Tanggal Pembayaran Bulan Juli </td>
               <td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
-              <td><?php echo  $b->tanggal_bulan_juli; ?></td>
+              <td><?php
+                if($b->tanggal_bulan_juli!=null){
+                  echo  date('d-m-Y', strtotime($b->tanggal_bulan_juli));
+                }?></td>
             </tr>
             <tr>
               <td> Tanggal Pembayaran Bulan Agustus </td>
               <td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
-              <td><?php echo  $b->tanggal_bulan_agustus; ?></td>
+              <td><?php
+                if($b->tanggal_bulan_agustus!=null){
+                  echo  date('d-m-Y', strtotime($b->tanggal_bulan_agustus));
+                }
+                ?></td>
             </tr>
             <tr>
               <td> Tanggal Pembayaran Bulan September </td>
               <td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
-              <td><?php echo  $b->tanggal_bulan_september; ?></td>
+              <td><?php
+                if($b->tanggal_bulan_september!=null){
+                  echo  date('d-m-Y', strtotime($b->tanggal_bulan_september));
+                }?></td>
             </tr>
             <tr>
               <td> Tanggal Pembayaran Bulan Oktober </td>
               <td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
-              <td><?php echo  $b->tanggal_bulan_oktober; ?></td>
+              <td><?php
+                if($b->tanggal_bulan_oktober!=null){
+                  echo  date('d-m-Y', strtotime($b->tanggal_bulan_oktober));
+                }?></td>
             </tr>
             <tr>
               <td> Tanggal Pembayaran Bulan November </td>
               <td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
-              <td><?php echo  $b->tanggal_bulan_november; ?></td>
+              <td><?php
+                if($b->tanggal_bulan_november!=null){
+                  echo  date('d-m-Y', strtotime($b->tanggal_bulan_november));
+                }?></td>
             </tr>
             <tr>
               <td> Tanggal Pembayaran Bulan Desember </td>
               <td>&nbsp;&nbsp;:&nbsp;&nbsp;</td>
-              <td><?php echo  $b->tanggal_bulan_desember; ?></td>
+              <td><?php
+                if($b->tanggal_bulan_desember!=null){
+                  echo  date('d-m-Y', strtotime($b->tanggal_bulan_desember));
+                }?></td>
           </tr>
         <?php } ?>
           </form>

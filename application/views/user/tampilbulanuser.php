@@ -6,75 +6,76 @@
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Tabel Rekap Iuran Warga RT.<?= $this->session->userdata('rt'); ?> </h6>
-            <center>
-                <div class="form-group form-input">
-                    <form action="" method="GET">
-                        <table>
-                            <tr>
-                                <td>
-                                    <select name="tahun" id="Tahun" class="form-control">
-                                        <option disabled='' selected=''> Tahun </option>
-                                        <?php
-                                        $realtimeYear = date('Y');
-                                        for ($i = $realtimeYear; $i >= 2018; $i--) {
-                                        ?>
-                                            <option value="<?php echo $i ?>"><?php echo $i ?></option>
-                                        <?php
-                                        }
-                                        ?>
-                                    </select>
-                                </td>
-                                <td>
-                                    <input class='btn btn-primary' type="submit" value="Cari">
-                                </td>
-                                <td>
-                                    <a class='btn btn-warning' href='<?php echo base_url(); ?>Bendahara/tampilbulan'> Tampilkan Semua </a>
-                                    <a class="btn btn-success" href="<?= base_url(); ?>Bendahara/formpemasukan"> + Tambah Iuran </a>
-                                </td>
-                            </tr>
-                        </table>
-                    </form>
-                    <?php
-                    if (isset($_GET['tahun'])) {
-                        echo "<br><h3>Tahun " . $_GET['tahun'] . "</h3>";
-                    }
-                    ?>
-                </div>
-            </center>
+            <h6 class="m-0 font-weight-bold text-primary">Rekapitulasi Iuran Bulanan  </h6>
+          
         </div>
         <div class="card-body">
+        <center>
+            <div class="form-group form-input">
+                    <form action="" method="GET">
+                      <table>
+                        <tr>
+                          <td>
+
+                            <select name="tahun" id="Tahun" class="form-control">
+                              <option disabled='' selected=''> Tahun </option>
+                              <?php
+                                $realtimeYear = date('Y');
+                                for ($i = $realtimeYear; $i >= 2018; $i--) {
+                                ?>
+                                    <option value="<?php echo $i ?>"><?php echo $i ?></option>
+                                <?php
+                                }
+                              ?>
+                            </select>
+                          </td>
+                          <td>
+                            <input class='btn btn-primary' type="submit" value="Find">
+                          </td>
+                          <td>
+                            <a class='btn btn-warning' href='<?php echo base_url(); ?>user/tampilbulanuser'> Show All </a>
+                          </td>
+                        </tr>
+                      </table>
+                    </form>
+                    <?php
+                      if(isset($_GET['tahun'])){
+                        echo "<br><h3>Tahun ".$_GET['tahun']. "</h3>";
+                      }
+                    ?>
+            </div>
+          </center> 
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 
-                    <?php
-                    ini_set("display_errors", 0);
-                    if (isset($_GET['tahun'])) {
-                    ?>
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <!-- <th>NIK</th> -->
-                                <th>No Rumah</th>
-                                <th>Januari</th>
-                                <th>Februari</th>
-                                <th>Maret</th>
-                                <th>April</th>
-                                <th>Mei</th>
-                                <th>Juni</th>
-                                <th>Juli</th>
-                                <th>Agustus</th>
-                                <th>September</th>
-                                <th>Oktober</th>
-                                <th>November</th>
-                                <th>Desember</th>
-                                <th>Tunggakan</th>
-                                <th>Aksi</th>
-                                <!-- <th>Aksi</th> -->
-                            </tr>
-                        </thead>
-                        
-                        <tbody>
+                  <?php
+                  ini_set( "display_errors", 0);
+                  if(isset($_GET['tahun'])){
+              ?>
+                    <thead>
+                        <tr>
+                            <th>NO</th>
+                            <!-- <th>NIK</th> -->
+                            <th>No Rumah</th>
+                            <th>Januari</th>
+                            <th>Februari</th>
+                            <th>Maret</th>
+                            <th>April</th>
+                            <th>Mei</th>
+                            <th>Juni</th>
+                            <th>Juli</th>
+                            <th>Agustus</th>
+                            <th>September</th>
+                            <th>Oktober</th>
+                            <th>November</th>
+                            <th>Desember</th>
+                            <th>Tunggakan</th>
+                            <!-- <th>Aksi</th> -->
+                            <!-- <th>Aksi</th> -->
+                        </tr>
+                    </thead>
+
+                    <tbody>
                             <?php
                             $no = 1;
                             foreach ($iuranTahun as $row) {
@@ -188,9 +189,9 @@
                                         }
                                         ?>
                                     </td>
-                                    <td>
-                                        <a href="<?php echo base_url(); ?>Bendahara/detail_iuran_masuk?norumah=<?php echo $row->no_rumah; ?>&tahun=<?php echo $row->tahun; ?>"> Detail
-                                    </td>
+                                    <!-- <td>
+                                        <a href="<?php echo base_url(); ?>user/detail_iuran_masuk?norumah=<?php echo $row->no_rumah; ?>&tahun=<?php echo $row->tahun; ?>"> Detail
+                                    </td> -->
                                 </tr>
                             <?php
                                 $no++;

@@ -423,302 +423,460 @@
             return $this->db->query("SELECT u.id_user,username,email,nik,nama,role FROM user u JOIN warga w ON w.id_user=u.id_user WHERE u.id_user NOT IN (1,2)");
         }
 // =========================================================================
-        public function multiple_select_data($table, $where) {
-            $this->db->where($where);
-            return $this->db->get($table);
-        }
-        public function isi_data_iuran_keluar($dataiurankeluar){
-            return $this->db->insert('pengeluaran',$dataiurankeluar);
-        }
-        public function tampil_iuran_keluar($rt){
-            // return $this->db->get('pengeluaran');
-            $this->db->from('pengeluaran');
-            $this->db->where('rt',$rt);
-            $this->db->order_by('no_pengeluaran', 'desc');
-            return $this->db->get();
-        }
-        public function view_data($where,$table){
-            return $this->db->get_where($table,$where);
-         }
-         public function delete_data_iuran_keluar($where,$table){
-            $this->db->where($where);
-            $this->db->delete($table);
-        }
-        public function edit_data_iuran_keluar($where,$table){
-            return $this->db->get_where($table,$where);
-        }
-        public function edit_data_tarif($where,$table){
-          return $this->db->get_where($table,$where);
-      }
-        function update_data($where,$data,$table){
-            $this->db->where($where);
-            $this->db->update($table,$data);
-        }
-        public function isi_data_iuran_masuk($dataiuranmasuk){
-            return $this->db->insert('pembayaran',$dataiuranmasuk);
-        }
-        public function tampil_iuran_masuk($rt,$where = null){
-            $this->db->select('warga.nik,warga.nama, pembayaran.no_pembayaran, pembayaran.pembayaran_bulan,pembayaran.nominal,pembayaran.tanggal');
-            $this->db->from('warga');
-            $this->db->join('pembayaran','warga.nik=pembayaran.nik');
-            $this->db->where('rt',$rt);
-            $this->db->order_by('no_pembayaran','desc');
-            if ($where) {
-                $this->db->where($where);
-            }
-            return $this->db->get();
-        }
-        public function view_detail_pembayaran($where,$table){
-            return $this->db->get_where($table,$where);
-        }
-        public function view_detail_pengeluaran($where,$table){
-            return $this->db->get_where($table,$where);
-        }
-        public function tampil_bulan_iuran($nik){
-            $this->db->where('nik', $nik);
-            return $this->db->get('pembayaran');
-        }
+public function multiple_select_data($table, $where) {
+  $this->db->where($where);
+  return $this->db->get($table);
+}
+public function isi_data_iuran_keluar($dataiurankeluar){
+  return $this->db->insert('pengeluaran',$dataiurankeluar);
+}
+public function tampil_iuran_keluar($rt,$bulan='',$tahun=''){
+$dataquery = "SELECT
+  pengeluaran.no_pengeluaran,
+  pengeluaran.diberikan_kepada,
+  pengeluaran.nominal,
+  pengeluaran.digunakan_untuk,
+  pengeluaran.tanggal,
+  pengeluaran.nominal,
+  pengeluaran.gambar,
+  pengeluaran.id_user from pengeluaran
+  join warga on pengeluaran.id_user=warga.id_user";
 
-        public function tampil_iuran_perbulan($rt){
-            return $this->db->query("SELECT
-              `no_pembayaran`,
-              w.nik as nik,
-              w.nama AS nama_warga,
-              `tanggal`,
-              jenis_warga,
-              SUM(nominal) AS jumlah_iuran
-              FROM `pembayaran` p
-              JOIN warga w ON w.nik = p.nik
-              Where rt = $rt
-              GROUP BY p.nik");
-          }
-          public function iuranmasuk($rt,$tahun=''){
-            $selectmasuk = "(SELECT
-              distinct(date_format(tanggal,'%m')) as 'bulan',
-              date_format(tanggal,'%Y') as 'tahun'
-              from pembayaran
-              join warga on warga.nik = pembayaran.nik";
-              if($tahun!=null){
-                $where = "where date_format(tanggal,'%Y') = $tahun and rt = $rt order by 1)";
+  if($tahun != null){
+    $where = "where warga.rt = $rt and
+    date_format(pengeluaran.tanggal,'%m') = '$bulan'
+    and
+    date_format(pengeluaran.tanggal,'%Y') = '$tahun'
+    order by no_pengeluaran desc";
 
-                $querymasuk = $selectmasuk." ".$where;
-              }else{
-                $where = "where rt = $rt order by 1)";
+    $query = $dataquery." ".$where;
+  }else{
+    $where = "where warga.rt = $rt order by no_pengeluaran desc";
 
-                $querymasuk = $selectmasuk." ".$where;
-              }
+    $query = $dataquery." ".$where;
+  }
 
-              $selectkeluar = "(SELECT
-              distinct(date_format(tanggal,'%m')) as 'bulan',
-              date_format(tanggal,'%Y') as 'tahun'
-              from pengeluaran";
-              if($tahun!=null){
-                $where = "where date_format(tanggal,'%Y') = $tahun and rt = $rt order by 1)";
+  return $this->db->query($query);
+}
+public function view_data($where,$table){
+  return $this->db->get_where($table,$where);
+}
+public function delete_data_iuran_keluar($where,$table){
+  $this->db->where($where);
+  $this->db->delete($table);
+}
+public function edit_data_iuran_keluar($where,$table){
+  return $this->db->get_where($table,$where);
+}
+public function edit_data_tarif($where,$table){
+return $this->db->get_where($table,$where);
+}
+function update_data($where,$data,$table){
+  $this->db->where($where);
+  $this->db->update($table,$data);
+}
+public function isi_data_iuran_masuk($dataiuranmasuk){
+  return $this->db->insert('pembayaran',$dataiuranmasuk);
+}
+public function tampil_iuran_masuk($rt,$bulan='',$tahun=''){
 
-                $querykeluar = $selectkeluar." ".$where;
-              }else{
-                $where = "where rt = $rt order by 1)";
-                $querykeluar = $selectkeluar." ".$where;
-              }
+  $dataquery = "SELECT
+    warga.no_rumah,
+    pembayaran.no_pembayaran,
+    pembayaran.nominal,
+    pembayaran.pembayaran_bulan,
+    pembayaran.tanggal,
+    pembayaran.tahun
+    from pembayaran
+    join warga on pembayaran.no_rumah=warga.no_rumah";
 
-              $query = $querymasuk." union ".$querykeluar;
+    if($tahun != null){
+      $where = "where warga.rt = $rt and
+      date_format(pembayaran.tanggal,'%m') = '$bulan'
+      and
+      date_format(pembayaran.tanggal,'%Y') = '$tahun'
+      order by no_pembayaran desc";
 
-              return $this->db->query($query);
-          }
+      $query = $dataquery." ".$where;
+    }else{
+      $where = "where warga.rt = $rt";
 
-          public function filteriuranmasuk($bulan,$tahun,$rt){
-            return $this->db->query("SELECT
-              date_format(tanggal,'%m') as 'bulan',
-              sum(nominal) as 'nominal'
-              from pembayaran
-              join warga on warga.nik = pembayaran.nik
-              where date_format(tanggal,'%Y') = $tahun and date_format(tanggal,'%m') = $bulan and rt = $rt
-              group by 1");
-          }
-
-          public function filteriurankeluar($bulan,$tahun,$rt){
-            return $this->db->query("SELECT
-              date_format(tanggal,'%m') as bulan,
-              sum(nominal) as nominal
-              from pengeluaran
-              where date_format(tanggal,'%Y') = $tahun and date_format(tanggal,'%m') = $bulan and rt = $rt
-              group by 1");
-          }
-
-
-        public function tampilDataWarga($where=''){
-          if($where!=null){
-            $query = "
-            select * from warga where nik = $where";
-          }else{
-            $query = "
-            select * from warga";
-          }
-            return $this->db->query($query);
-        }
-
-        public function tampilTarif($where){
-            $query = "
-            select * from tarif where jenis_iuran = '".$where."'";
-            return $this->db->query($query);
-        }
-
-        public function tampil_tarif(){
-          $query = "
-          select * from tarif";
-          return $this->db->query($query);
-        }
-
-        public function tampilTahunPembayaran(){
-            $query = "
-            select distinct(tahun) from pembayaran";
-            return $this->db->query($query);
-        }
-
-        public function tampil_iuran_perbulan_pertahun($rt,$tahun){
-            return $this->db->query("SELECT
-                `no_pembayaran`,
-                w.nik as nik,
-                w.nama AS nama_warga,
-                `tanggal`,
-                (SELECT nominal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'Januari' and tahun = $tahun) AS bulan_januari,
-                (SELECT nominal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'Februari' and tahun = $tahun) AS bulan_februari,
-                (SELECT nominal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'Maret' and tahun = $tahun) AS bulan_maret,
-                (SELECT nominal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'April' and tahun = $tahun) AS bulan_april,
-                (SELECT nominal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'Mei' and tahun = $tahun) AS bulan_mei,
-                (SELECT nominal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'Juni' and tahun = $tahun) AS bulan_juni,
-                (SELECT nominal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'Juli' and tahun = $tahun) AS bulan_juli,
-                (SELECT nominal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'Agustus' and tahun = $tahun) AS bulan_agustus,
-                (SELECT nominal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'September' and tahun = $tahun) AS bulan_september,
-                (SELECT nominal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'Oktober' and tahun = $tahun) AS bulan_oktober,
-                (SELECT nominal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'November' and tahun = $tahun) AS bulan_november,
-                (SELECT nominal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'Desember' and tahun = $tahun) AS bulan_desember,
-                jenis_warga,
-                SUM(nominal) AS jumlah_iuran,
-                tahun
-            FROM `pembayaran` p
-            LEFT OUTER JOIN warga w ON w.nik = p.nik
-            WHERE rt = $rt and tahun = $tahun
-            GROUP BY p.nik");
-        }
-        public function detailBulan($nik,$tahun){
-          $query = "
-          SELECT
-              p.nik,
-              (SELECT nominal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'Januari' and tahun = $tahun) AS bulan_januari,
-              (SELECT nominal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'Februari' and tahun = $tahun) AS bulan_februari,
-              (SELECT nominal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'Maret' and tahun = $tahun) AS bulan_maret,
-              (SELECT nominal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'April' and tahun = $tahun) AS bulan_april,
-              (SELECT nominal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'Mei' and tahun = $tahun) AS bulan_mei,
-              (SELECT nominal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'Juni' and tahun = $tahun) AS bulan_juni,
-              (SELECT nominal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'Juli' and tahun = $tahun) AS bulan_juli,
-              (SELECT nominal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'Agustus' and tahun = $tahun) AS bulan_agustus,
-              (SELECT nominal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'September' and tahun = $tahun) AS bulan_september,
-              (SELECT nominal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'Oktober' and tahun = $tahun) AS bulan_oktober,
-              (SELECT nominal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'November' and tahun = $tahun) AS bulan_november,
-              (SELECT nominal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'Desember' and tahun = $tahun) AS bulan_desember
-          FROM `pembayaran` p
-          WHERE p.nik = $nik
-          GROUP BY nik";
-          // $this->db->where("p.nik",$where);
-          return $this->db->query($query);
-      }
-
-        public function detail($nik,$tahun){
-            $query = "
-            SELECT
-                `no_pembayaran`,
-                w.nik as nik,
-                w.nama AS nama_warga,
-
-                (SELECT nominal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'Januari' and tahun = $tahun) AS bulan_januari,
-                (SELECT nominal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'Februari' and tahun = $tahun) AS bulan_februari,
-                (SELECT nominal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'Maret' and tahun = $tahun) AS bulan_maret,
-                (SELECT nominal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'April' and tahun = $tahun) AS bulan_april,
-                (SELECT nominal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'Mei' and tahun = $tahun) AS bulan_mei,
-                (SELECT nominal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'Juni' and tahun = $tahun) AS bulan_juni,
-                (SELECT nominal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'Juli' and tahun = $tahun) AS bulan_juli,
-                (SELECT nominal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'Agustus' and tahun = $tahun) AS bulan_agustus,
-                (SELECT nominal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'September' and tahun = $tahun) AS bulan_september,
-                (SELECT nominal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'Oktober' and tahun = $tahun) AS bulan_oktober,
-                (SELECT nominal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'November' and tahun = $tahun) AS bulan_november,
-                (SELECT nominal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'Desember' and tahun = $tahun) AS bulan_desember,
-
-                (SELECT tanggal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'Januari' and tahun = $tahun) AS tanggal_bulan_januari,
-                (SELECT tanggal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'Februari' and tahun = $tahun) AS tanggal_bulan_februari,
-                (SELECT tanggal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'Maret' and tahun = $tahun) AS tanggal_bulan_maret,
-                (SELECT tanggal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'April' and tahun = $tahun) AS tanggal_bulan_april,
-                (SELECT tanggal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'Mei' and tahun = $tahun) AS tanggal_bulan_mei,
-                (SELECT tanggal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'Juni' and tahun = $tahun) AS tanggal_bulan_juni,
-                (SELECT tanggal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'Juli' and tahun = $tahun) AS tanggal_bulan_juli,
-                (SELECT tanggal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'Agustus' and tahun = $tahun) AS tanggal_bulan_agustus,
-                (SELECT tanggal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'September' and tahun = $tahun) AS tanggal_bulan_september,
-                (SELECT tanggal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'Oktober' and tahun = $tahun) AS tanggal_bulan_oktober,
-                (SELECT tanggal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'November' and tahun = $tahun) AS tanggal_bulan_november,
-                (SELECT tanggal FROM pembayaran pb WHERE pb.nik = p.nik AND pembayaran_bulan = 'Desember' and tahun = $tahun) AS tanggal_bulan_desember,
-
-
-                jenis_warga,
-                SUM(nominal) AS jumlah_iuran
-            FROM `pembayaran` p
-            JOIN warga w ON w.nik = p.nik
-            WHERE p.nik = $nik
-            GROUP BY p.nik
-            ";
-            // $this->db->where("p.nik",$where);
-            return $this->db->query($query);
-        }
-
-        public function get_jumlah_iuran(){
-            $query = "
-            SELECT
-                nama,
-                SUM(nominal) AS jumlah_iuran,
-                jenis_warga
-            FROM `pembayaran`
-            JOIN warga ON warga.nik = pembayaran.nik
-            GROUP BY pembayaran.nik
-            ";
-            return $this->db->query($query);
-        }
-        public function getJumlahPembayaran()
-    {
-                        // $this->db->from('data_barang d');
-                        // $this->db->join('aktivitas_barang b', 'd.kodebarang=b.kodebarang');
-                        // $this->db->join('data_supplier t', 'b.kodesupplier=t.kodesupplier');
-
-        // $query = $this->db->get();
-        // return $query = $this->db->get('aktivitas_barang',$number,$offset)->result();
-                        //  $query = $this->db->get();
-                        //     return $query->result();
-        // print_r($pengadaan);die();
-        $from=$this->input->post('from');
-        $end=$this->input->post('end');
-
-        $hasil=$this->db->query("SELECT
-        warga.nik,
-        warga.nama,
-        pembayaran.no_pembayaran,
-        pembayaran.pembayaran_bulan,
-        pembayaran.nominal,
-        pembayaran.tanggal
-        FROM
-        warga JOIN pembayaran ON
-        warga.nik=pembayaran.nik
-        WHERE(pembayaran.tanggal BETWEEN '$from' AND '$end')
-        ORDER BY no_pembayaran
-        ")->result();
-
-        return $hasil;
-
+      $query = $dataquery." ".$where;
     }
 
-    public function datart(){
-      return $this->db->query("SELECT distinct(rt) as rt from warga");
+    return $this->db->query($query);
+}
+public function view_detail_pembayaran($where,$table){
+  return $this->db->get_where($table,$where);
+}
+public function view_detail_pengeluaran($where,$table){
+  return $this->db->get_where($table,$where);
+}
+public function tampil_bulan_iuran($norumah){
+  $this->db->where('no_rumah', $norumah);
+  return $this->db->get('pembayaran');
+}
+
+public function tampil_iuran_perbulan($rt){
+  return $this->db->query("SELECT
+    `no_pembayaran`,
+    p.no_rumah,
+    `tanggal`,
+    jenis_warga,
+    SUM(nominal) AS jumlah_iuran
+    FROM `pembayaran` p
+    JOIN warga w ON w.no_rumah = p.no_rumah
+    Where w.rt = $rt
+    GROUP BY p.no_rumah");
+}
+public function iuranmasuk($rt,$tahun=''){
+  $selectmasuk = "(SELECT
+    distinct(date_format(tanggal,'%m')) as 'bulan',
+    date_format(tanggal,'%Y') as 'tahun'
+    from pembayaran
+    join warga on warga.no_rumah = pembayaran.no_rumah";
+    if($tahun!=null){
+      $where = "where date_format(tanggal,'%Y') = $tahun and warga.rt = $rt order by 1)";
+
+      $querymasuk = $selectmasuk." ".$where;
+    }else{
+      $where = "where warga.rt = $rt order by 1)";
+
+      $querymasuk = $selectmasuk." ".$where;
     }
 
+    $selectkeluar = "(SELECT
+    distinct(date_format(tanggal,'%m')) as 'bulan',
+    date_format(tanggal,'%Y') as 'tahun'
+    from pengeluaran
+    join user on user.id_user=pengeluaran.id_user
+    join warga on user.id_user=warga.id_user";
+    if($tahun!=null){
+      $where = "where date_format(tanggal,'%Y') = $tahun and warga.rt = $rt order by 1)";
 
+      $querykeluar = $selectkeluar." ".$where;
+    }else{
+      $where = "where warga.rt = $rt order by 1)";
+      $querykeluar = $selectkeluar." ".$where;
     }
+
+    $query = $querymasuk." union ".$querykeluar;
+
+    return $this->db->query($query);
+}
+
+public function filteriuranmasuk($bulan,$tahun,$rt){
+  return $this->db->query("SELECT
+    date_format(tanggal,'%m') as 'bulan',
+    sum(nominal) as 'nominal'
+    from pembayaran
+    join warga on warga.no_rumah = pembayaran.no_rumah
+    where date_format(tanggal,'%Y') = $tahun and date_format(tanggal,'%m') = $bulan and warga.rt = $rt
+    group by 1");
+}
+
+public function filteriurankeluar($bulan,$tahun,$rt){
+  return $this->db->query("SELECT
+    date_format(tanggal,'%m') as bulan,
+    sum(nominal) as nominal
+    from pengeluaran
+    join user on user.id_user=pengeluaran.id_user
+    join warga on user.id_user=warga.id_user
+    where date_format(tanggal,'%Y') = $tahun and date_format(tanggal,'%m') = $bulan and warga.rt = $rt
+    group by 1");
+}
+
+
+public function tampilDataWarga($norumah='',$rt=''){
+if($norumah!=null){
+  $query = "select distinct(no_rumah), jenis_warga from warga where no_rumah = $norumah and rt = $rt";
+}else{
+  $query = "
+  select * from warga";
+}
+  return $this->db->query($query);
+}
+
+public function tampilTarif($where){
+  $query = "
+  select * from tarif where jenis_iuran = '".$where."' and status = 'Aktif' order by 1 desc LIMIT 1";
+  return $this->db->query($query);
+}
+
+public function tampil_tarif(){
+$query = "
+select * from tarif order by 1 desc";
+return $this->db->query($query);
+}
+
+public function tarifDetail($jenis, $tanggal)
+{
+$query = '
+  SELECT *
+  FROM `tarif`
+  WHERE tanggal < "'.$tanggal.'"
+  AND status = "Aktif"
+  AND jenis_iuran = "'.$jenis.'"
+  ORDER BY tanggal DESC
+  LIMIT 1
+';
+return $this->db->query($query);
+}
+
+public function tampilTahunPembayaran(){
+  $query = "
+  select distinct(tahun) from pembayaran";
+  return $this->db->query($query);
+}
+
+public function tampil_iuran_perbulan_pertahun($rt,$tahun){
+  return $this->db->query("SELECT
+      `no_pembayaran`,
+      p.no_rumah,
+      `tanggal`,
+      (SELECT nominal FROM pembayaran pb WHERE pb.no_rumah = p.no_rumah AND pembayaran_bulan = 'Januari' and tahun = $tahun) AS bulan_januari,
+      (SELECT nominal FROM pembayaran pb WHERE pb.no_rumah = p.no_rumah AND pembayaran_bulan = 'Februari' and tahun = $tahun) AS bulan_februari,
+      (SELECT nominal FROM pembayaran pb WHERE pb.no_rumah = p.no_rumah AND pembayaran_bulan = 'Maret' and tahun = $tahun) AS bulan_maret,
+      (SELECT nominal FROM pembayaran pb WHERE pb.no_rumah = p.no_rumah AND pembayaran_bulan = 'April' and tahun = $tahun) AS bulan_april,
+      (SELECT nominal FROM pembayaran pb WHERE pb.no_rumah = p.no_rumah AND pembayaran_bulan = 'Mei' and tahun = $tahun) AS bulan_mei,
+      (SELECT nominal FROM pembayaran pb WHERE pb.no_rumah = p.no_rumah AND pembayaran_bulan = 'Juni' and tahun = $tahun) AS bulan_juni,
+      (SELECT nominal FROM pembayaran pb WHERE pb.no_rumah = p.no_rumah AND pembayaran_bulan = 'Juli' and tahun = $tahun) AS bulan_juli,
+      (SELECT nominal FROM pembayaran pb WHERE pb.no_rumah = p.no_rumah AND pembayaran_bulan = 'Agustus' and tahun = $tahun) AS bulan_agustus,
+      (SELECT nominal FROM pembayaran pb WHERE pb.no_rumah = p.no_rumah AND pembayaran_bulan = 'September' and tahun = $tahun) AS bulan_september,
+      (SELECT nominal FROM pembayaran pb WHERE pb.no_rumah = p.no_rumah AND pembayaran_bulan = 'Oktober' and tahun = $tahun) AS bulan_oktober,
+      (SELECT nominal FROM pembayaran pb WHERE pb.no_rumah = p.no_rumah AND pembayaran_bulan = 'November' and tahun = $tahun) AS bulan_november,
+      (SELECT nominal FROM pembayaran pb WHERE pb.no_rumah = p.no_rumah AND pembayaran_bulan = 'Desember' and tahun = $tahun) AS bulan_desember,
+      jenis_warga,
+      SUM(nominal) AS jumlah_iuran,
+      tahun
+  FROM `pembayaran` p
+  LEFT OUTER JOIN warga w ON w.no_rumah = p.no_rumah
+  WHERE w.rt = $rt and tahun = $tahun
+  GROUP BY p.no_rumah");
+}
+public function detailBulan($norumah,$tahun){
+$query = "
+SELECT
+    p.no_rumah,
+    (SELECT nominal FROM pembayaran pb WHERE pb.no_rumah = p.no_rumah AND pembayaran_bulan = 'Januari' and tahun = $tahun) AS bulan_januari,
+    (SELECT nominal FROM pembayaran pb WHERE pb.no_rumah = p.no_rumah AND pembayaran_bulan = 'Februari' and tahun = $tahun) AS bulan_februari,
+    (SELECT nominal FROM pembayaran pb WHERE pb.no_rumah = p.no_rumah AND pembayaran_bulan = 'Maret' and tahun = $tahun) AS bulan_maret,
+    (SELECT nominal FROM pembayaran pb WHERE pb.no_rumah = p.no_rumah AND pembayaran_bulan = 'April' and tahun = $tahun) AS bulan_april,
+    (SELECT nominal FROM pembayaran pb WHERE pb.no_rumah = p.no_rumah AND pembayaran_bulan = 'Mei' and tahun = $tahun) AS bulan_mei,
+    (SELECT nominal FROM pembayaran pb WHERE pb.no_rumah = p.no_rumah AND pembayaran_bulan = 'Juni' and tahun = $tahun) AS bulan_juni,
+    (SELECT nominal FROM pembayaran pb WHERE pb.no_rumah = p.no_rumah AND pembayaran_bulan = 'Juli' and tahun = $tahun) AS bulan_juli,
+    (SELECT nominal FROM pembayaran pb WHERE pb.no_rumah = p.no_rumah AND pembayaran_bulan = 'Agustus' and tahun = $tahun) AS bulan_agustus,
+    (SELECT nominal FROM pembayaran pb WHERE pb.no_rumah = p.no_rumah AND pembayaran_bulan = 'September' and tahun = $tahun) AS bulan_september,
+    (SELECT nominal FROM pembayaran pb WHERE pb.no_rumah = p.no_rumah AND pembayaran_bulan = 'Oktober' and tahun = $tahun) AS bulan_oktober,
+    (SELECT nominal FROM pembayaran pb WHERE pb.no_rumah = p.no_rumah AND pembayaran_bulan = 'November' and tahun = $tahun) AS bulan_november,
+    (SELECT nominal FROM pembayaran pb WHERE pb.no_rumah = p.no_rumah AND pembayaran_bulan = 'Desember' and tahun = $tahun) AS bulan_desember
+FROM `pembayaran` p
+WHERE p.no_rumah = $norumah
+GROUP BY p.no_rumah";
+// $this->db->where("p.nik",$where);
+return $this->db->query($query);
+}
+
+public function getTunggakanPerPeriode($bulan, $tahun, $jenis){
+$tanggal = $tahun.'-'.$bulan.'-01';
+$query ='
+  SELECT *
+  FROM `tarif`
+  WHERE tanggal < "'.$tanggal.'"
+  AND status = "Aktif"
+  AND jenis_iuran = "'.$jenis.'"
+  ORDER BY tanggal DESC
+  LIMIT 1
+';
+return $this->db->query($query);
+}
+
+public function detail($norumah,$tahun){
+  $query = "
+  SELECT
+      `no_pembayaran`,
+      p.no_rumah,
+      (SELECT nominal FROM pembayaran pb WHERE pb.no_rumah = p.no_rumah AND pembayaran_bulan = 'Januari' and tahun = $tahun) AS bulan_januari,
+      (SELECT nominal FROM pembayaran pb WHERE pb.no_rumah = p.no_rumah AND pembayaran_bulan = 'Februari' and tahun = $tahun) AS bulan_februari,
+      (SELECT nominal FROM pembayaran pb WHERE pb.no_rumah = p.no_rumah AND pembayaran_bulan = 'Maret' and tahun = $tahun) AS bulan_maret,
+      (SELECT nominal FROM pembayaran pb WHERE pb.no_rumah = p.no_rumah AND pembayaran_bulan = 'April' and tahun = $tahun) AS bulan_april,
+      (SELECT nominal FROM pembayaran pb WHERE pb.no_rumah = p.no_rumah AND pembayaran_bulan = 'Mei' and tahun = $tahun) AS bulan_mei,
+      (SELECT nominal FROM pembayaran pb WHERE pb.no_rumah = p.no_rumah AND pembayaran_bulan = 'Juni' and tahun = $tahun) AS bulan_juni,
+      (SELECT nominal FROM pembayaran pb WHERE pb.no_rumah = p.no_rumah AND pembayaran_bulan = 'Juli' and tahun = $tahun) AS bulan_juli,
+      (SELECT nominal FROM pembayaran pb WHERE pb.no_rumah = p.no_rumah AND pembayaran_bulan = 'Agustus' and tahun = $tahun) AS bulan_agustus,
+      (SELECT nominal FROM pembayaran pb WHERE pb.no_rumah = p.no_rumah AND pembayaran_bulan = 'September' and tahun = $tahun) AS bulan_september,
+      (SELECT nominal FROM pembayaran pb WHERE pb.no_rumah = p.no_rumah AND pembayaran_bulan = 'Oktober' and tahun = $tahun) AS bulan_oktober,
+      (SELECT nominal FROM pembayaran pb WHERE pb.no_rumah = p.no_rumah AND pembayaran_bulan = 'November' and tahun = $tahun) AS bulan_november,
+      (SELECT nominal FROM pembayaran pb WHERE pb.no_rumah = p.no_rumah AND pembayaran_bulan = 'Desember' and tahun = $tahun) AS bulan_desember,
+
+      (SELECT tanggal FROM pembayaran pb WHERE pb.no_rumah = p.no_rumah AND pembayaran_bulan = 'Januari' and tahun = $tahun) AS tanggal_bulan_januari,
+      (SELECT tanggal FROM pembayaran pb WHERE pb.no_rumah = p.no_rumah AND pembayaran_bulan = 'Februari' and tahun = $tahun) AS tanggal_bulan_februari,
+      (SELECT tanggal FROM pembayaran pb WHERE pb.no_rumah = p.no_rumah AND pembayaran_bulan = 'Maret' and tahun = $tahun) AS tanggal_bulan_maret,
+      (SELECT tanggal FROM pembayaran pb WHERE pb.no_rumah = p.no_rumah AND pembayaran_bulan = 'April' and tahun = $tahun) AS tanggal_bulan_april,
+      (SELECT tanggal FROM pembayaran pb WHERE pb.no_rumah = p.no_rumah AND pembayaran_bulan = 'Mei' and tahun = $tahun) AS tanggal_bulan_mei,
+      (SELECT tanggal FROM pembayaran pb WHERE pb.no_rumah = p.no_rumah AND pembayaran_bulan = 'Juni' and tahun = $tahun) AS tanggal_bulan_juni,
+      (SELECT tanggal FROM pembayaran pb WHERE pb.no_rumah = p.no_rumah AND pembayaran_bulan = 'Juli' and tahun = $tahun) AS tanggal_bulan_juli,
+      (SELECT tanggal FROM pembayaran pb WHERE pb.no_rumah = p.no_rumah AND pembayaran_bulan = 'Agustus' and tahun = $tahun) AS tanggal_bulan_agustus,
+      (SELECT tanggal FROM pembayaran pb WHERE pb.no_rumah = p.no_rumah AND pembayaran_bulan = 'September' and tahun = $tahun) AS tanggal_bulan_september,
+      (SELECT tanggal FROM pembayaran pb WHERE pb.no_rumah = p.no_rumah AND pembayaran_bulan = 'Oktober' and tahun = $tahun) AS tanggal_bulan_oktober,
+      (SELECT tanggal FROM pembayaran pb WHERE pb.no_rumah = p.no_rumah AND pembayaran_bulan = 'November' and tahun = $tahun) AS tanggal_bulan_november,
+      (SELECT tanggal FROM pembayaran pb WHERE pb.no_rumah = p.no_rumah AND pembayaran_bulan = 'Desember' and tahun = $tahun) AS tanggal_bulan_desember,
+      jenis_warga,
+      SUM(nominal) AS jumlah_iuran
+  FROM `pembayaran` p
+  JOIN warga w ON w.no_rumah = p.no_rumah
+  WHERE p.no_rumah = $norumah
+  GROUP BY p.no_rumah
+  ";
+  // $this->db->where("p.nik",$where);
+  return $this->db->query($query);
+}
+
+public function get_jumlah_iuran(){
+  $query = "
+  SELECT
+      nama,
+      SUM(nominal) AS jumlah_iuran,
+      jenis_warga
+  FROM `pembayaran`
+  JOIN warga ON warga.no_rumah = pembayaran.no_rumah
+  GROUP BY pembayaran.no_rumah
+  ";
+  return $this->db->query($query);
+}
+
+public function getJumlahPembayaran(){
+// print_r($pengadaan);die();
+$from=$this->input->post('from');
+$end=$this->input->post('end');
+$rt = $this->session->userdata('rt');
+$hasil=$this->db->query("SELECT
+warga.nik,
+warga.nama,
+pembayaran.no_pembayaran,
+pembayaran.no_rumah,
+pembayaran.pembayaran_bulan,
+pembayaran.nominal,
+pembayaran.tanggal
+FROM
+warga JOIN pembayaran ON
+warga.no_rumah=pembayaran.no_rumah
+WHERE(pembayaran.tanggal BETWEEN '$from' AND '$end') and rt ='$rt'
+ORDER BY no_pembayaran
+")->result();
+
+return $hasil;
+}
+
+public function getPakRT($rt){
+$query = "
+SELECT *
+FROM user
+JOIN warga ON warga.id_user = user.id_user
+where user.role = 'Ketua RT' and warga.rt = $rt";
+return $this->db->query($query);
+}
+
+public function getJumlahPengeluaran(){
+// print_r($pengadaan);die();
+$from=$this->input->post('from');
+$end=$this->input->post('end');
+$rt = $this->session->userdata('rt');
+$hasil=$this->db->query("SELECT
+pengeluaran.no_pengeluaran,
+pengeluaran.diberikan_kepada,
+pengeluaran.nominal,
+pengeluaran.digunakan_untuk,
+pengeluaran.tanggal,
+pengeluaran.nominal,
+pengeluaran.gambar,
+pengeluaran.id_user
+FROM
+pengeluaran
+JOIN warga ON pengeluaran.id_user=warga.id_user
+WHERE(pengeluaran.tanggal BETWEEN '$from' AND '$end') and rt='$rt'
+ORDER BY no_pengeluaran
+")->result();
+
+return $hasil;
+
+}
+
+public function datart(){
+return $this->db->query("SELECT distinct(rt) as rt from warga");
+}
+
+public function grafikPengeluaran($rt){
+$query = "SELECT
+date_format(pengeluaran.tanggal,'%Y') as tahun,
+sum(pengeluaran.nominal) as total from pengeluaran
+join warga on pengeluaran.id_user=warga.id_user
+where warga.rt = $rt group by 1";
+
+return $this->db->query($query);
+}
+
+public function grafikPemasukan($rt){
+$query = "SELECT
+date_format(pembayaran.tanggal,'%Y') as tahun,
+sum(pembayaran.nominal) as total from pembayaran
+join warga on pembayaran.no_rumah=warga.no_rumah
+where warga.rt = $rt group by 1";
+
+return $this->db->query($query);
+}
+
+public function grafikPengeluaranPerbulanPertahun($rt,$bulan='',$tahun=''){
+$dataquery = "SELECT
+DATE_FORMAT(pengeluaran.tanggal, '%d-%m-%Y') as tanggal,
+sum(pengeluaran.nominal) as total from pengeluaran
+join warga on pengeluaran.id_user=warga.id_user";
+
+if($tahun != null){
+$where = "where warga.rt = $rt and
+date_format(pengeluaran.tanggal,'%m') = '$bulan'
+
+and
+date_format(pengeluaran.tanggal,'%Y') = '$tahun'
+group by 1
+order by 1 desc";
+
+$query = $dataquery." ".$where;
+}else{
+$where = "where warga.rt = $rt group by 1 order by 1 desc";
+
+$query = $dataquery." ".$where;
+}
+
+return $this->db->query($query);
+}
+
+public function grafikPemasukanPerbulanPertahun($rt,$bulan='',$tahun=''){
+$dataquery = "SELECT
+DATE_FORMAT(pembayaran.tanggal, '%d-%m-%Y') as tanggal,
+sum(pembayaran.nominal) as total from pembayaran
+join warga on pembayaran.no_rumah=warga.no_rumah";
+
+if($tahun != null){
+$where = "where warga.rt = $rt and
+date_format(pembayaran.tanggal,'%m') = '$bulan'
+and
+date_format(pembayaran.tanggal,'%Y') = '$tahun'
+group by 1
+order by 1 desc";
+
+$query = $dataquery." ".$where;
+}else{
+$where = "where warga.rt = $rt group by 1 order by 1 desc";
+
+$query = $dataquery." ".$where;
+}
+
+return $this->db->query($query);
+}
+
+
+}
 
     /* End of file M_admin.php */
 
