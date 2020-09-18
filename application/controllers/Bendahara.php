@@ -180,6 +180,33 @@
 
             $this->load->view('admin/index',$data);
         }
+        public function tampilbulanBendahara(){
+            $data['content'] = "admin/tampilbulanBendahara";
+            $data['title'] = 'Tabel Data Bulan';
+            $rt = $this->session->userdata('rt');
+            $data['iuran'] = $this->m_admin->tampil_iuran_perbulan($rt)->result();
+
+            $filtertahun = addslashes($this->input->get('tahun'));
+
+            $data['tahun'] = $this->m_admin->tampilTahunPembayaran()->result();
+            $data['selectedTahun'] = $filtertahun;
+            if(!empty($filtertahun)){
+                $data['iuranTahun'] = $this->m_admin->tampil_iuran_perbulan_pertahun($rt,$filtertahun)->result();
+            }
+
+            /*
+            print_r($data['iuran']);
+            Array ( [0] => stdClass Object ( [no_pembayaran] => 139 [no_rumah] => 15 [tanggal] => 2020-07-22 [jenis_warga] => Sementara [jumlah_iuran] => 58000 ) [1] => stdClass Object ( [no_pembayaran] => 49 [no_rumah] => 20 [tanggal] => 2020-07-12 [jenis_warga] => Sementara [jumlah_iuran] => 310000 ) )
+
+            print_r($data['tahun']);
+            Array ( [0] => stdClass Object ( [tahun] => 2018 ) [1] => stdClass Object ( [tahun] => 2019 ) [2] => stdClass Object ( [tahun] => 2020 ) )
+
+            print_r($data['iuranTahun']);
+            Array ( [0] => stdClass Object ( [no_pembayaran] => 141 [no_rumah] => 15 [tanggal] => 2020-07-22 [bulan_januari] => Rp. 10.000 [bulan_februari] => Rp. 15.000 [bulan_maret] => 10000 [bulan_april] => 20000 [bulan_mei] => [bulan_juni] => [bulan_juli] => 8000 [bulan_agustus] => [bulan_september] => [bulan_oktober] => [bulan_november] => [bulan_desember] => [jenis_warga] => Sementara [jumlah_iuran] => 38000 [tahun] => 2018 ) [1] => stdClass Object ( [no_pembayaran] => 49 [no_rumah] => 20 [tanggal] => 2020-07-12 [bulan_januari] => 10000 [bulan_februari] => 10000 [bulan_maret] => 10000 [bulan_april] => 10000 [bulan_mei] => 10000 [bulan_juni] => 10000 [bulan_juli] => 10000 [bulan_agustus] => 10000 [bulan_september] => 10000 [bulan_oktober] => 10000 [bulan_november] => 10000 [bulan_desember] => 10000 [jenis_warga] => Sementara [jumlah_iuran] => 120000 [tahun] => 2018 ) )
+            */
+
+            $this->load->view('admin/index',$data);
+        }
 
         public function filterPemasukan()
         {
