@@ -67,7 +67,8 @@
                             <option selected disabled>-- Pilih Role --</option>
                             <option value="Ketua RW">Ketua RW</option>
                             <option value="Ketua RT">Ketua RT</option>
-                            <option value="Bendahara">Bendahara</option>
+                            <option value="Bendahara">Bendahara RT</option>
+                            <option value="Bendahara RW">Bendahara RW</option>
                             <option value="Sekretaris RW">Sekretaris RW</option>
                             <option value="Sekretaris RT">Sekretaris RT</option>
                             <option value="Warga">Warga</option>

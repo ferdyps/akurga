@@ -12,7 +12,7 @@
       <i class="fa fa-bars"></i>
     </button>
     <h3> <?php
-    if($this->session->userdata('role')=='Ketua RW'){
+    if($this->session->userdata('role')=='Ketua RW' || $this->session->userdata('role')=='Bendahara RW'){
       echo $this->session->userdata('role');?> <?= $this->session->userdata('rt'); ?></h3>
     <?php
     }else{

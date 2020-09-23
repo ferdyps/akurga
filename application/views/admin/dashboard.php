@@ -3,7 +3,6 @@
 
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-  <h1 class="h3 mb-0 text-gray-800">RW 01</h1>
   <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
 </div>
 
@@ -200,7 +199,7 @@ var chart = new CanvasJS.Chart("chartPengeluaranPemasukan", {
 	animationEnabled: true,
 	title:{
     text: "Laporan Pemasukkan & Pengeluaran RT - <?= $this->session->userdata('rt')?>"
-	},	
+	},
 	axisY: {
 		title: "Jumlah (Rp.)",
 		titleFontColor: "#4F81BC",
@@ -214,7 +213,7 @@ var chart = new CanvasJS.Chart("chartPengeluaranPemasukan", {
 	// 	lineColor: "#C0504E",
 	// 	labelFontColor: "#C0504E",
 	// 	tickColor: "#C0504E"
-	// },	
+	// },
 	toolTip: {
 		shared: true
 	},
@@ -232,14 +231,14 @@ var chart = new CanvasJS.Chart("chartPengeluaranPemasukan", {
 		dataPoints: <?php echo json_encode($jumlahPemasukan, JSON_NUMERIC_CHECK); ?>
 	},
 	{
-		type: "column",	
+		type: "column",
     name: "Pengeluaran",
     markerSize: 5,
     showInLegend: true,
 		visible: true,
 		yValueFormatString: "Rp#,##0.##",
 		dataPoints: <?php echo json_encode($jumlahPengeluaran, JSON_NUMERIC_CHECK); ?>
-		
+
 	}]
 });
 chart.render();
