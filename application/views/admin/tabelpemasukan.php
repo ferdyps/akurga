@@ -49,6 +49,7 @@
             <th>NIK</th>
             <th>Nama</th>
             <th>Pembayaran Bulan</th>
+            <!-- <th>Tahun</th> -->
             <th>Nominal</th>
             <th>Tanggal</th>
           </tr>

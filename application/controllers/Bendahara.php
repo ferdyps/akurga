@@ -1,9 +1,9 @@
 <?php
-    
+
     defined('BASEPATH') OR exit('No direct script access allowed');
-    
+
     class Bendahara extends CI_Controller {
-    
+
         public $id_user;
         public function __construct(){
             parent::__construct();
@@ -94,9 +94,19 @@
         }
 
         public function tampilbulan(){
+
+            $tahun = addslashes($this->input->get('tahun'));
+
             $data['content'] = "admin/tampilbulan";
             $data['title'] = 'Tabel Data Bulan';
             $data['iuran'] = $this->m_admin->tampil_iuran_perbulan()->result();
+
+            $data['tahun'] = $this->m_admin->tampilTahunPembayaran()->result();
+            if(!empty($tahun)){
+                $data['iuranTahun'] = $this->m_admin->tampil_iuran_perbulan_pertahun($tahun)->result();
+            }
+
+
             $this->load->view('admin/index',$data);
         }
 
@@ -214,7 +224,7 @@
                 $nominal = $this->input->post('nominal');
                 $digunakan_untuk = $this->input->post('digunakan_untuk');
                 $gambar = $this->input->post('gambar');
-    
+
                 $dataiurankeluar = array(
                     'no_pengeluaran' => $no_pengeluaran,
                     'diberikan_kepada' => $diberikan_kepada,
@@ -222,13 +232,13 @@
                     'nominal' => $nominal,
                     'digunakan_untuk' => $digunakan_untuk,
                     'gambar' => $gambar
-    
+
                 );
-    
+
                 $where = array(
                     'no_pengeluaran' => $no_pengeluaran
                 );
-    
+
                 $this->m_admin->update_data($where,$dataiurankeluar,'pengeluaran');
                 redirect(base_url('Bendahara/tabeldataiurankeluar'),'refresh');
             } else {
@@ -454,5 +464,5 @@
             }
         }
     }
-    
+
     ?>

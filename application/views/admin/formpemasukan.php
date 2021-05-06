@@ -21,9 +21,9 @@
                    <div class="form-group">
                        <label for="PembayaranBulan">Pembayaran Bulan</label>
                        <select id="PembayaranBulan" name="pembayaran_bulan" class="form-control">
-                       <?php 
+                       <?php
                         $no = 1;
-                            foreach ($bulan as $bulan) {?> 
+                            foreach ($bulan as $bulan) {?>
                                    <option value ="<?= $bulan ?>"> <?= $bulan ?></option>
                             <?php }?>
                </select>
@@ -36,24 +36,21 @@
                     <span class="text"><?= $this->session->flashdata('pembayaran');?></span>
                     </a>
                     <?php
-                }?>                  
+                }?>
                    </div>
                    <?php echo form_error('pembayaran_bulan'); ?>
 
                     <div class="form-group form-input">
                         <label for="tahun">Tahun</label>
                         <select name="tahun" id="Tahun" class="form-control">
-                            <option selected disabled>-- Pilih Tahun--</option>
-                            <option value="2019">2019</option>
-                            <option value="2020">2020</option>
-                            <!-- <option value="Kesehatan">Kesehatan</option>
-                            <option value="Duka Cita">Duka Cita</option>
-                            <option value="Kebersihan">Kebersihan</option> -->
-                            <!-- <option value="DIPLOMA II">DIPLOMA II</option>
-                            <option value="AKADEMI/DIPLOMA III/S. MUDA">AKADEMI/DIPLOMA III/S. MUDA</option>
-                            <option value="DIPLOMA IV/STRATA I">DIPLOMA IV/STRATA I</option>
-                            <option value="STRATA II">STRATA II</option>
-                            <option value="STRATA III">STRATA III</option> -->
+                          <?php
+                            $realtimeYear = date('Y');
+                            for ($i = $realtimeYear; $i >= 2018; $i--) {
+                            ?>
+                                <option value="<?php echo $i ?>"><?php echo $i ?></option>
+                            <?php
+                            }
+                          ?>
                         </select>
                     </div>
 
@@ -69,7 +66,7 @@
                             <label class="form-check-label">
                                 <input class="form-check-input" id="bukanpedagang" type="radio" name='nominal' value="10000"> Sementara
                             </label>
-                        </div>   
+                        </div>
                     </div>
 
                 </div>
